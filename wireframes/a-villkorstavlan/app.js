@@ -18,8 +18,9 @@ export const LOCAL_COPY = Object.freeze({
   'ui.lead.standalone': 'Svara på raderna. Beskedet räknas om medan du svarar.',           // 05 §6: "inget mejl" står i sidans ingress
   'ui.lead.embed': 'Svara på raderna. Beskedet räknas om medan du svarar. Inget mejl, ingen inloggning.', // 05 §3.1, en gång
   'ui.visa_villkoren': 'Visa villkoren',                                       // UX §6.2
-  'ui.svara': 'Svara',                                                         // kompakt rad i artikeln på mobil: öppnar radens chips
+  'ui.svara': 'Svara',                                                         // kompakt rad i artikeln på mobil: öppnar radens chips (även aria-label "Svara: {villkor}")
   'ui.andra_pris': 'Ändra pris',                                               // samma, för beloppsraden
+  'ui.demo.bred': 'Bred tavla',                                                // demo-remsan: variant för ägarfrågan A-m1 (fullbredd)
   'ui.till_beskedet': 'Till beskedet',                                         // UX §8.2 remsans knapp
   'ui.lank_kopierad': 'Länk kopierad',                                         // UX §7.3
   'ui.galler_inte': 'Gäller inte i det här läget',                             // UX §9 beloppsraden vid hårt nej
@@ -94,14 +95,19 @@ const MARKS_ALL = STATUSES.map((s) => use(s)).join('');
 const VERDICT_MARKS_ALL = KLASSER.map((k) => use(`v-${k}`)).join('');
 const ICON_MINUS = '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const ICON_PLUS = '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 10h10M10 5v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_CHEVRON = '<svg class="ak-row__chev" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M7 4.5l5.5 5.5L7 15.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 // ---------------------------------------------------------------------------------------------------
 // Vyn: bank + resultat + villkorsraderna fördelade på tavlans rader
 // ---------------------------------------------------------------------------------------------------
-export function computeView(mode, state, touched) {
+/**
+ * `embed`: i artikeln bär beloppsraden själva beloppet (rows.belopp.amount) och blocket under tavlan ritas inte;
+ * fristående är blocket under tavlan det enda beloppet (A-M1, ett belopp per yta).
+ */
+export function computeView(mode, state, touched, { embed = false } = {}) {
   const bank = resolveBank(mode, state);
   const eff = effectiveState(mode, state);
-  const result = resolveTexts(evaluate(mode, state, touched));
+  const result = resolveTexts(evaluate(mode, state, touched, { src: embed ? 'artikel' : undefined }));
   for (const q of bank) if (q.id === 'arbete' && (q.effectiveValue === null || q.effectiveValue === undefined)) q.effectiveValue = eff.arbete_andel;   // antagen andel visas i reglaget
   const qById = Object.fromEntries(bank.map((q) => [q.id, q]));
   const byHost = new Map();
@@ -118,17 +124,22 @@ export function computeView(mode, state, touched) {
   let dim = false;
   for (const q of bank) {
     if (!q.shown || q.folded || q.id === 'lage') continue;
-    if (isSub(mode, q.id)) { rows[q.id] = { sub: true, status: 'neutral', lines: [], tag: false, focus: q.id, dim }; continue; }
+    if (isSub(mode, q.id)) { rows[q.id] = { sub: true, status: 'neutral', lines: [], amount: null, label: q.label, tag: false, focus: q.id, dim }; continue; }
     const vs = byHost.get(q.id) || [];
     const status = vs.reduce((a, v) => (RANK[v.status] > RANK[a] ? v.status : a), 'neutral');
     const lines = vs.map((v) => v.text);
-    if (q.id === 'belopp') lines.unshift(result.belopp.state === 'dold' ? lc('ui.galler_inte') : result.belopp.rubrik);
-    rows[q.id] = { status, lines, tag: vs.some((v) => v.status === 'antaget'), focus: vs[0] && vs[0].fraga ? vs[0].fraga : q.id, dim };
+    let amount = null;
+    if (q.id === 'belopp') {
+      if (result.belopp.state === 'dold') lines.unshift(lc('ui.galler_inte'));
+      else if (embed) amount = result.belopp.rubrik;            // artikeln: beloppet bor i raden (blocket under tavlan ritas inte)
+    }
+    rows[q.id] = { status, lines, amount, label: q.label, tag: vs.some((v) => v.status === 'antaget'), focus: vs[0] && vs[0].fraga ? vs[0].fraga : q.id, dim };
     if (status === 'stopp') dim = true;
   }
   for (const v of compact) { v.dim = dim; if (v.status === 'stopp') dim = true; }
-  return { bank, eff, result, rows, compact, qById };
+  return { bank, eff, result, rows, compact, qById, embed };
 }
+const noCond = (rv) => Boolean(rv && !rv.sub && !rv.lines.length && !rv.amount);
 
 // ---------------------------------------------------------------------------------------------------
 // Render (strängar). Används av _build.mjs för index.html och av init() för embed-ytan.
@@ -182,16 +193,28 @@ function renderLines(lines) {
   return lines.map((l) => `<span class="ak-stmt__line">${esc(l)}</span>`).join('');
 }
 
-function renderQRow(mode, q, rv) {
+/**
+ * Villkorsknappens innehåll: [belopp i artikeln] + villkorsrader (+ frågans etikett som reserv när raden saknar
+ * villkor, syns bara i kompakt läge) + "Svara"/"Ändra pris" med chevron (syns bara i kompakt läge).
+ * `amountText` = '' ger en tom beloppsplats som update() fyller via setAmountText (count-up utan att rita om raden).
+ */
+function renderStmtInner(q, rv, amountText) {
+  const lines = rv ? rv.lines : [];
+  const amt = rv && rv.amount != null ? `<span class="ak-stmt__line ak-stmt__amt">${esc(amountText === undefined ? rv.amount : amountText)}</span>` : '';
+  const fallback = !amt && !lines.length && rv && !rv.sub ? `<span class="ak-stmt__line ak-stmt__q">${esc(rv.label)}</span>` : '';
+  const openLabel = q.id === 'belopp' ? lc('ui.andra_pris') : lc('ui.svara');
+  return `<span class="ak-row__lines">${amt}${renderLines(lines)}${fallback}</span><span class="ak-row__open" aria-hidden="true"><span>${esc(openLabel)}</span>${ICON_CHEVRON}</span>`;
+}
+
+function renderQRow(mode, q, rv, embed = false) {
   const sub = isSub(mode, q.id);
   const status = rv ? rv.status : 'neutral';
   const cls = ['ak-row', 'ak-row--q', `ak-row--${status}`, sub ? 'ak-row--sub' : '', q.folded ? 'ak-row--f' : '', q.id === 'belopp' ? 'ak-row--belopp' : '',
-    rv && !sub && !rv.lines.length ? 'ak-row--nocond' : '', rv && rv.dim ? 'is-dim' : ''].filter(Boolean).join(' ');
-  const cap = q.id === 'belopp' ? `<span class="ak-row__cap">${esc(lc('ui.avdrag_label'))}</span>` : '';
-  const openLabel = q.id === 'belopp' ? lc('ui.andra_pris') : lc('ui.svara');
+    noCond(rv) ? 'ak-row--nocond' : '', rv && rv.dim ? 'is-dim' : ''].filter(Boolean).join(' ');
+  const cap = embed && q.id === 'belopp' ? `<span class="ak-row__cap">${esc(lc('ui.avdrag_label'))}</span>` : '';   // etiketten finns en gång per yta (A-m4)
   return `<li class="${cls}" id="ak-${mode}-row-${q.id}" data-q="${q.id}"${q.shown ? '' : ' hidden'}>
 <div class="ak-row__mark" aria-hidden="true">${MARKS_ALL}</div>
-<div class="ak-row__cond">${cap}<button type="button" class="ak-row__stmt" data-focus="${rv ? rv.focus : q.id}" aria-controls="ak-${mode}-ans-${q.id}">${renderLines(rv ? rv.lines : [])}<span class="ak-row__open" aria-hidden="true">${esc(openLabel)}</span></button><span class="ak-row__tag"${rv && rv.tag ? '' : ' hidden'}>${esc(t('ui.antaget'))}</span></div>
+<div class="ak-row__cond">${cap}<button type="button" class="ak-row__stmt" data-focus="${rv ? rv.focus : q.id}" aria-controls="ak-${mode}-ans-${q.id}">${renderStmtInner(q, rv)}</button><span class="ak-row__tag"${rv && rv.tag ? '' : ' hidden'}>${esc(t('ui.antaget'))}</span></div>
 <div class="ak-row__ans" id="ak-${mode}-ans-${q.id}">${renderControl(mode, q)}</div>
 </li>`;
 }
@@ -205,9 +228,18 @@ function renderVerdict(mode, r, H2) {
   return `<div class="ak-verdict ak-verdict--${r.klass}" id="ak-${mode}-verdict"><div class="ak-verdict__mark" aria-hidden="true">${VERDICT_MARKS_ALL}</div><div class="ak-verdict__body"><span class="ak-eyebrow" id="ak-${mode}-eyebrow">${esc(r.eyebrow)}</span><${H2} class="ak-verdict__h" id="ak-${mode}-headline">${esc(r.headline.text)}</${H2}><p class="ak-verdict__ram" id="ak-${mode}-ram">${esc(r.ram.text)}</p></div></div>`;
 }
 
+const renderKalla = (mode) => `<p class="ak-sum__kalla"><a href="#ak-${mode}-metod" data-open-metod>${esc(lc('ui.kalla'))}</a></p>`;
+
+/** Fristående: det enda beloppet, blocket under tavlan (A-M1). */
 function renderSum(mode, r) {
   const b = r.belopp;
-  return `<div class="ak-sum${b.state === 'dold' ? ' is-empty' : ''}" id="ak-${mode}-sum"><p class="ak-h ak-sum__h">${esc(lc('ui.avdrag_label'))}</p><p class="ak-sum__rubrik" id="ak-${mode}-rubrik">${esc(b.rubrik)}</p><p class="ak-sum__bas" id="ak-${mode}-bas">${esc(b.bas_text)}</p><p class="ak-sum__betala" id="ak-${mode}-betala">${esc(b.att_betala_text || '')}</p><p class="ak-sum__kalla"><a href="#ak-${mode}-metod" data-open-metod>${esc(lc('ui.kalla'))}</a></p></div>`;
+  return `<div class="ak-sum${b.state === 'dold' ? ' is-empty' : ''}" id="ak-${mode}-sum"><p class="ak-h ak-sum__h">${esc(lc('ui.avdrag_label'))}</p><p class="ak-sum__rubrik" id="ak-${mode}-rubrik">${esc(b.rubrik)}</p><p class="ak-sum__bas" id="ak-${mode}-bas">${esc(b.bas_text)}</p><p class="ak-sum__betala" id="ak-${mode}-betala">${esc(b.att_betala_text || '')}</p>${renderKalla(mode)}</div>`;
+}
+
+/** Artikeln: beloppet står i tavlans beloppsrad; att betala, basraden och källraden ligger överst i "Visa villkoren" (A-M1). */
+function renderMoreSum(mode, r) {
+  const b = r.belopp;
+  return `<div class="ak-more__sum${b.state === 'dold' ? ' is-empty' : ''}" id="ak-${mode}-moresum"><p class="ak-sum__betala" id="ak-${mode}-betala">${esc(b.att_betala_text || '')}</p><p class="ak-sum__bas" id="ak-${mode}-bas">${esc(b.bas_text || '')}</p>${renderKalla(mode)}</div>`;
 }
 
 const stegItems = (r) => r.nasta_steg.map((s) => `<li>${esc(s.text)}</li>`).join('');
@@ -224,7 +256,8 @@ function ctaInner(r) {
     if (p.kind === 'lage_byte') prim = `<button type="button" class="${cls}" data-cta="lage_byte">${esc(p.label)}</button>`;
     else prim = `<a class="${cls}" href="${esc(p.href)}" data-cta="${p.kind}"${p.kind === 'skatteverket' ? ' target="_blank" rel="noopener"' : ''}>${esc(p.label)}</a>`;
   }
-  const sec = s && s.labelKey ? `<a class="ak-tel" href="${esc(s.href)}" data-cta="${s.kind}"${s.kind === 'skatteverket' ? ' target="_blank" rel="noopener"' : ''}>${esc(s.label)}</a>` : '';
+  // Sekundären är alltid en textlänk, oavsett slag (tel, Skatteverket, offert när primären är tel vid "räcker delvis").
+  const sec = s && s.labelKey ? `<a class="ak-sec${s.kind === 'tel' ? ' ak-tel' : ''}" href="${esc(s.href)}" data-cta="${s.kind}"${s.kind === 'skatteverket' ? ' target="_blank" rel="noopener"' : ''}>${esc(s.label)}</a>` : '';
   return prim + sec;
 }
 const renderCta = (mode, r) => `<div class="ak-cta" id="ak-${mode}-cta">${ctaInner(r)}</div>`;
@@ -253,20 +286,21 @@ function renderSticky(mode) {
 }
 
 export function renderTool({ mode, state, touched = new Set(), surface = 'standalone', hidden = false }) {
-  const view = computeView(mode, state, touched);
-  const { bank, result, rows, compact } = view;
   const embed = surface === 'embed';
+  const view = computeView(mode, state, touched, { embed });
+  const { bank, result, rows, compact } = view;
   const H1 = embed ? 'h2' : 'h1'; const H2 = embed ? 'h3' : 'h2';
   const id = `ak-${mode}`;
   const lageQ = bank.find((q) => q.id === 'lage');
   const lage = lageQ ? `<fieldset class="ak-lage" id="${id}-lage"><legend class="ak-q__legend">${esc(lageQ.label)}</legend><div class="ak-seg" data-chips="lage">${lageQ.options.map((o) => `<label class="ak-seg__opt"><input type="radio" name="${mode}-lage" value="${o.id}" data-q="lage"${String(lageQ.effectiveValue) === o.id ? ' checked' : ''}><span>${esc(o.label)}</span></label>`).join('')}</div></fieldset>` : '';
-  const main = bank.filter((q) => q.id !== 'lage' && !q.folded).map((q) => renderQRow(mode, q, rows[q.id])).join('');
-  const fold = bank.filter((q) => q.id !== 'lage' && q.folded).map((q) => renderQRow(mode, q, null)).join('');
+  const main = bank.filter((q) => q.id !== 'lage' && !q.folded).map((q) => renderQRow(mode, q, rows[q.id], embed)).join('');
+  const fold = bank.filter((q) => q.id !== 'lage' && q.folded).map((q) => renderQRow(mode, q, null, embed)).join('');
   const crows = `<ol class="ak-rows ak-rows--c" id="${id}-crows">${compact.map(renderCRow).join('')}</ol>`;
   const details = `<details class="ak-details" id="${id}-details"><summary>${esc(t('ui.fler_detaljer'))}</summary><ol class="ak-rows ak-rows--f" id="${id}-frows">${fold}</ol></details>`;
-  const core = `<div class="ak-besked__core" id="${id}-core">${renderSum(mode, result)}${embed ? '' : renderSteg(mode, result, H2)}${renderCta(mode, result)}</div>`;
+  // Ett belopp per yta (A-M1): fristående = blocket under tavlan; artikeln = beloppsraden i tavlan, blocket ritas inte
+  const core = `<div class="ak-besked__core" id="${id}-core">${embed ? '' : renderSum(mode, result)}${embed ? '' : renderSteg(mode, result, H2)}${renderCta(mode, result)}</div>`;
   const besked = embed
-    ? `<div class="ak-besked" id="${id}-besked">${core}<details class="ak-more" id="${id}-more"><summary>${esc(lc('ui.visa_villkoren'))}</summary>${crows}${details}${renderSteg(mode, result, H2)}${renderDela(mode, surface)}${renderMetod(mode, result)}</details></div>`
+    ? `<div class="ak-besked" id="${id}-besked">${core}<details class="ak-more" id="${id}-more"><summary>${esc(lc('ui.visa_villkoren'))}</summary>${renderMoreSum(mode, result)}${crows}${details}${renderSteg(mode, result, H2)}${renderDela(mode, surface)}${renderMetod(mode, result)}</details></div>`
     : `<div class="ak-besked" id="${id}-besked">${core}${renderDela(mode, surface)}${renderMetod(mode, result)}</div>`;
   return `<section class="ak-tool" id="${id}" data-mode="${mode}" data-surface="${surface}" aria-labelledby="${id}-title"${hidden ? ' hidden' : ''}>
 <div class="ak-card">
@@ -307,6 +341,7 @@ ${SPRITE}
 <span class="demo__name">${esc(lc('ui.demo.namn'))}</span>
 <span class="demo__group"><a href="?m=rot" data-demo="m" data-val="rot">${esc(lc('ui.demo.rot'))}</a><a href="?m=gt" data-demo="m" data-val="gt">${esc(lc('ui.demo.gt'))}</a></span>
 <span class="demo__group"><a href="?m=rot" data-demo="surface" data-val="standalone">${esc(lc('ui.demo.standalone'))}</a><a href="?m=rot&amp;surface=embed" data-demo="surface" data-val="embed">${esc(lc('ui.demo.embed'))}</a></span>
+<span class="demo__group"><a href="?m=rot&amp;w=bred" data-demo="w" data-val="bred">${esc(lc('ui.demo.bred'))}</a></span>
 <a class="demo__back" href="../index.html">${esc(lc('ui.demo.alla'))}</a>
 </nav>
 <main class="page" id="page">
@@ -335,7 +370,7 @@ ${gt}
 // ---------------------------------------------------------------------------------------------------
 // Webbläsaren: hydrering, live-omräkning, dela, remsa, URL, dataLayer-stub
 // ---------------------------------------------------------------------------------------------------
-const app = { mode: 'rot', surface: 'standalone', tools: {}, keepParams: [] };
+const app = { mode: 'rot', surface: 'standalone', wide: false, tools: {}, keepParams: [] };
 
 function track(event, props) {
   if (typeof window === 'undefined') return;
@@ -351,7 +386,7 @@ function grab(tool) {
   const m = tool.mode; const $ = (s) => document.getElementById(`ak-${m}-${s}`);
   tool.section = document.getElementById(`ak-${m}`);
   tool.el = { rows: $('rows'), crows: $('crows'), frows: $('frows'), details: $('details'), verdict: $('verdict'), eyebrow: $('eyebrow'), headline: $('headline'), ram: $('ram'),
-    sum: $('sum'), rubrik: $('rubrik'), bas: $('bas'), betala: $('betala'), steg: $('steg'), steglist: $('steglist'), cta: $('cta'), status: $('status'), metod: $('metod'), metodlist: $('metodlist'),
+    sum: $('sum'), moresum: $('moresum'), rubrik: $('rubrik'), bas: $('bas'), betala: $('betala'), steg: $('steg'), steglist: $('steglist'), cta: $('cta'), status: $('status'), metod: $('metod'), metodlist: $('metodlist'),
     live: $('live'), besked: $('besked'), core: $('core'), sticky: $('sticky'), stickyH: $('sticky-h'), stickyB: $('sticky-b'), stickyBtn: $('sticky-btn'), lage: $('lage'), more: $('more') };
   tool.rowEl = {};
   tool.section.querySelectorAll('.ak-row--q').forEach((li) => { tool.rowEl[li.dataset.q] = li; });
@@ -371,6 +406,8 @@ function setFade(el, text) {
 
 const NUM_RE = /\d[\d  ]*\d|\d/g;
 function setAmountText(el, text, animate) {
+  if (!el) return;
+  text = text == null ? '' : String(text);
   cancelAnimationFrame(el._raf || 0);
   const old = el.textContent;
   if (!animate || reduced() || old === text) { el.textContent = text; return; }
@@ -436,7 +473,7 @@ function syncControl(tool, q, container) {
 }
 
 function update(tool, { animate = false, first = false } = {}) {
-  const view = computeView(tool.mode, tool.state, tool.touched);
+  const view = computeView(tool.mode, tool.state, tool.touched, { embed: app.surface === 'embed' });
   const { bank, result, rows, compact } = view;
   const prev = tool.view; tool.view = view;
   const E = tool.el;
@@ -460,13 +497,17 @@ function update(tool, { animate = false, first = false } = {}) {
     if (!q.shown || q.folded) { row.classList.remove('is-dim'); continue; }
     const rv = rows[q.id];
     setStatus(row, rv.status);
-    row.classList.toggle('ak-row--nocond', !rv.sub && !rv.lines.length);
+    row.classList.toggle('ak-row--nocond', noCond(rv));
     row.classList.toggle('is-dim', rv.dim);
     const stmt = row.querySelector('.ak-row__stmt');
-    const html = `${renderLines(rv.lines)}<span class="ak-row__open" aria-hidden="true">${esc(q.id === 'belopp' ? lc('ui.andra_pris') : lc('ui.svara'))}</span>`;
-    if (stmt.innerHTML !== html) stmt.innerHTML = html;
+    // Strukturen ritas om bara när villkorsraderna ändras; beloppsplatsen (artikeln) fylls separat så count-up kan löpa
+    const sig = renderStmtInner(q, rv, '');
+    if (stmt.dataset.sig !== sig) { stmt.innerHTML = sig; stmt.dataset.sig = sig; }
+    const amt = stmt.querySelector('.ak-stmt__amt');
+    if (amt) setAmountText(amt, rv.amount, animate);
     stmt.dataset.focus = rv.focus;
     row.querySelector('.ak-row__tag').hidden = !rv.tag;
+    syncStmtA11y(tool, row, stmt);
   }
   // 3. De kompakta villkorsraderna (inga reglage, kan ritas om)
   const chtml = compact.map(renderCRow).join('');
@@ -478,11 +519,12 @@ function update(tool, { animate = false, first = false } = {}) {
   if (first) E.headline.textContent = result.headline.text; else setFade(E.headline, result.headline.text);
   E.ram.textContent = result.ram.text;
 
-  // 5. Beloppsraden under tavlan (fast höjd i CSS, count-up bara vid beloppsändring)
+  // 5. Beloppet: fristående i blocket under tavlan (fast höjd i CSS); i artikeln står det i beloppsraden (steg 2) och
+  //    att betala + basrad ligger i "Visa villkoren". Count-up bara vid beloppsändring.
   const b = result.belopp;
-  E.sum.classList.toggle('is-empty', b.state === 'dold');
-  setAmountText(E.rubrik, b.rubrik, animate);
-  E.bas.textContent = b.bas_text;
+  if (E.sum) { E.sum.classList.toggle('is-empty', b.state === 'dold'); setAmountText(E.rubrik, b.rubrik, animate); }
+  if (E.moresum) E.moresum.classList.toggle('is-empty', b.state === 'dold');
+  E.bas.textContent = b.bas_text || '';
   setAmountText(E.betala, b.att_betala_text || '', animate);
 
   // 6. Vad händer nu, CTA, Så har vi räknat
@@ -510,7 +552,7 @@ function syncSticky(tool) {
   E.stickyB.textContent = r.belopp.state === 'dold' ? '' : r.belopp.rubrik;
   const p = r.cta.primary;
   const mirror = tool.corePassed && p && p.solid && (p.kind === 'offert' || p.kind === 'lage_byte');
-  if (mirror) { E.stickyBtn.textContent = p.label; E.stickyBtn.href = p.kind === 'lage_byte' ? '#rot' : p.href; E.stickyBtn.dataset.cta = p.kind; }
+  if (mirror) { E.stickyBtn.textContent = p.label; E.stickyBtn.href = p.kind === 'lage_byte' ? `#${p.byte.mode}` : p.href; E.stickyBtn.dataset.cta = p.kind; }
   else { E.stickyBtn.textContent = lc('ui.till_beskedet'); E.stickyBtn.href = `#ak-${tool.mode}-besked`; delete E.stickyBtn.dataset.cta; }
   const show = app.surface === 'standalone' && isMobile() && tool.interacted && !tool.coreVisible && !tool.section.hidden;
   if (E.sticky.hidden === show) { E.sticky.hidden = !show; }
@@ -547,6 +589,23 @@ function trackAnswer(tool, id, value) {
 const trackAnswerSlow = debounce(trackAnswer, 400);
 
 const isCompact = () => app.surface === 'embed' && isMobile();
+const isWide = () => window.matchMedia('(min-width: 768px)').matches;
+/**
+ * Villkorsknappens tillgänglighet (A-M3, A-m2):
+ * - kompakt läge: aria-expanded + aria-label "Svara: {villkor}" så skärmläsaren hör att raden är en fråga
+ * - >= 768 px (frågan står redan bredvid): tabindex="-1", sex tabbstopp färre; musklick fungerar fortfarande
+ */
+function syncStmtA11y(tool, row, stmt) {
+  const compact = tool.section.classList.contains('is-compact');
+  const main = !row.classList.contains('ak-row--f');
+  if (compact && main) {
+    stmt.setAttribute('aria-expanded', row.classList.contains('is-open') ? 'true' : 'false');
+    const lines = stmt.querySelector('.ak-row__lines');
+    const verb = row.dataset.q === 'belopp' ? lc('ui.andra_pris') : lc('ui.svara');
+    stmt.setAttribute('aria-label', `${verb}: ${(lines ? lines.textContent : '').replace(/\s+/g, ' ').trim()}`);
+  } else { stmt.removeAttribute('aria-expanded'); stmt.removeAttribute('aria-label'); }
+  if (!compact && isWide()) stmt.setAttribute('tabindex', '-1'); else stmt.removeAttribute('tabindex');
+}
 /** Kompakt rad (artikel, mobil): öppnar radens svarskolumn, och värdradens underfrågor. Stannar öppen. */
 function openRow(tool, id) {
   const host = HOST[tool.mode][id] || id;
@@ -554,16 +613,20 @@ function openRow(tool, id) {
   for (const k of ids) {
     const row = tool.rowEl[k]; if (!row) continue;
     row.classList.add('is-open');
-    const stmt = row.querySelector('.ak-row__stmt'); if (stmt) stmt.setAttribute('aria-expanded', 'true');
+    const stmt = row.querySelector('.ak-row__stmt'); if (stmt) syncStmtA11y(tool, row, stmt);
   }
 }
 function syncCompact(tool) {
   const compact = isCompact();
   tool.section.classList.toggle('is-compact', compact);
+  // Första huvudraden står öppen från start i kompakt läge, så kunden ser att raderna innehåller chips (A-M3)
+  if (compact && !Object.values(tool.rowEl).some((r) => r.classList.contains('is-open'))) {
+    const first = tool.el.rows.querySelector('.ak-row--q:not([hidden]):not(.ak-row--sub)');
+    if (first) openRow(tool, first.dataset.q);
+  }
   for (const row of Object.values(tool.rowEl)) {
     const stmt = row.querySelector('.ak-row__stmt'); if (!stmt) continue;
-    if (compact && !row.classList.contains('ak-row--f')) stmt.setAttribute('aria-expanded', row.classList.contains('is-open') ? 'true' : 'false');
-    else stmt.removeAttribute('aria-expanded');
+    syncStmtA11y(tool, row, stmt);
   }
 }
 
@@ -599,11 +662,13 @@ async function share(tool) {
 function lageByte(tool) {
   const p = tool.view.result.cta.primary; if (!p || !p.byte) return;
   const to = app.tools[p.byte.mode]; if (!to) return;
+  const from = tool.mode === 'rot' ? 'rot' : `gt_${tool.view.result.lage}`;                       // läses före update: sol -> batteri byter i samma verktyg
+  const target = p.byte.mode === 'rot' ? 'rot' : `gt_${p.byte.state.lage || to.state.lage}`;   // batteri utan sol -> rot; sol -> gt_batteri
   Object.assign(to.state, p.byte.state);
   for (const k of ['boende', 'skatt', 'agare']) if (tool.touched.has(k)) to.touched.add(k);
   to.interacted = true;
   update(to);
-  track('ampy_ak_mode_select', { ...base(tool), from: `gt_${tool.view.result.lage}`, to: 'rot' });
+  track('ampy_ak_mode_select', { ...base(tool), from, to: target });
   showMode(p.byte.mode);
   to.el.verdict.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' });
 }
@@ -648,7 +713,16 @@ function bind(tool) {
       trackAnswerSlow(tool, id, v);
     }
   });
-  S.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' && ev.target.classList && ev.target.classList.contains('ak-amount__input')) ev.target.blur(); });
+  S.addEventListener('keydown', (ev) => {
+    const el = ev.target;
+    if (ev.key === 'Enter' && el.classList && el.classList.contains('ak-amount__input')) { el.blur(); return; }
+    // Tangentbordsbekräftelse (A-M2): Space/Enter på en redan vald radio ger varken click eller change i webbläsaren,
+    // men trycket är kundens bekräftelse (antaget -> bekräftat). Samma väg som musklicket, idempotent.
+    if ((ev.key === ' ' || ev.key === 'Enter') && el instanceof HTMLInputElement && el.type === 'radio' && el.dataset.q && el.checked) {
+      ev.preventDefault();
+      radioAnswer(el);
+    }
+  });
   S.addEventListener('click', (ev) => {
     const el = ev.target.closest('[data-step],[data-preset],[data-focus],[data-fix],[data-share],[data-print],[data-open-metod],[data-cta]');
     if (!el || !S.contains(el)) return;
@@ -719,11 +793,13 @@ function showMode(mode) {
     const tool = app.tools[mode];
     const key = a.dataset.demo; const val = a.dataset.val;
     const m = key === 'm' ? val : mode; const s = key === 'surface' ? val : app.surface;
+    const w = key === 'w' ? !app.wide : app.wide;                     // "Bred tavla" är en växel (A-m1, ägarfråga)
     const q = new URLSearchParams({ m });
     if (m === 'gt') q.set('l', (key === 'm' ? app.tools.gt : tool).state.lage || 'laddbox');
     if (s === 'embed') q.set('surface', 'embed');
+    if (w) q.set('w', 'bred');
     a.href = `?${q.toString()}`;
-    const current = (key === 'm' && val === mode) || (key === 'surface' && val === app.surface);
+    const current = (key === 'm' && val === mode) || (key === 'surface' && val === app.surface) || (key === 'w' && app.wide);
     if (current) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
   if (app.tools[mode].syncUrl) app.tools[mode].syncUrl();
@@ -736,9 +812,11 @@ function init() {
   const surface = params.get('surface') === 'embed' ? 'embed' : 'standalone';
   const mode = link.mode || 'rot';
   app.surface = surface;
-  app.keepParams = [...params.entries()].filter(([k]) => /^utm_/.test(k) || k === 'gclid' || k === 'fbclid' || k === 'surface');
+  app.wide = params.get('w') === 'bred';                             // demo-variant för A-m1 (fullbredd), ingår inte i verktyget
+  app.keepParams = [...params.entries()].filter(([k]) => /^utm_/.test(k) || k === 'gclid' || k === 'fbclid' || k === 'surface' || k === 'w');
   document.body.classList.remove('surface-standalone', 'surface-embed');
   document.body.classList.add(`surface-${surface}`);
+  document.body.classList.toggle('is-wide', app.wide);
 
   const root = document.getElementById('ak-root');
   if (surface === 'embed') {

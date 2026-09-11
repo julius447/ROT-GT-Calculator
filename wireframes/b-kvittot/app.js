@@ -1,12 +1,14 @@
 /**
  * Riktning B "Kvittot": renderare + hydrering. ES-modul.
- * Pure string-renderers (renderPage/renderBank/renderReceipt) används både av _build.mjs (statisk index.html,
+ * Pure string-renderers (renderPage/renderBank/receiptSections) används både av _build.mjs (statisk index.html,
  * "server-renderat" förvalsläge) och av webbläsaren. Runtime-delen (init) körs bara när `document` finns.
  * Rör aldrig logik/: allt räknas av ../../logik/ui-model.js. Ingen nätverkskod. Bara dataLayer-stubbar.
+ * Fixrunda 2026-09-11 (PUNCHLISTA.md): bekräfta-tryck, stämpel, frågeräkning, chips i embed, spann-rader,
+ * källrad, CTA-observatör, sektionsvis omrendering med bevarat fokus, motorns nya CTA-former.
  */
 import {
   resolveBank, evaluate, resolveTexts, defaultState, effectiveState, encodeState, decodeState,
-  formatKr, round100, t, LINKS, PARAMS,
+  formatKr, round100, t, LINKS, PARAMS, GAP_DEFAULTS,
 } from '../../logik/ui-model.js';
 
 // ---------------------------------------------------------------------------------------------------
@@ -16,11 +18,12 @@ import {
 export const LOCAL_COPY = Object.freeze({
   'h1.rot': 'Vad betalar du efter ROT-avdraget?',
   'h1.gt': 'Vad betalar du efter grön teknik-avdraget?',
-  'lead': 'Fyra frågor, sedan står det på kvittot: fullt pris, avdrag, att betala. Uppdateras medan du svarar. Inget mejl, ingen inloggning.',
+  'lead': '{n} frågor, sedan står det på kvittot: fullt pris, avdrag, att betala. Uppdateras medan du svarar.',
   'lead.embed': 'Kvittot uppdateras medan du svarar. Inget mejl, ingen inloggning.',
   'kv.caps': 'Så räknas ditt pris',
   'kv.arbetskostnad': 'Arbetskostnad',
-  'kv.arbetskostnad.antaget': 'antaget, ca {andel} % av {belopp}',
+  'kv.arbetskostnad.spann': 'antaget {lo} till {hi} % av {belopp}',
+  'kv.arbetskostnad.antaget': 'antaget, {andel} % av {belopp}',
   'kv.arbetskostnad.andel': '{andel} % av {belopp}',
   'kv.arbetskostnad.offert': 'från offerten',
   'kv.material': 'Material',
@@ -57,6 +60,7 @@ export const LOCAL_COPY = Object.freeze({
   'stamp.gt': 'Grön teknik 2026',
   'stamp.ja': 'Berättigad',
   'stamp.ja.sub': 'preliminärt',
+  'stamp.preliminart': 'Preliminärt',
   'stamp.ja_villkor.sub': 'om villkoren stämmer',
   'stamp.ja_men.sub': 'med begränsning',
   'stamp.nej': 'Gäller inte',
@@ -78,12 +82,6 @@ export const LOCAL_COPY = Object.freeze({
   'ui.tabell.arbete': 'Arbetskostnad',
   'ui.tabell.avdrag': 'ROT-avdrag',
   'ui.tabell.tak': '(taket)',
-  'strip.ja': 'Ja',
-  'strip.ja_om': 'Ja, om …',
-  'strip.ja_men': 'Ja, men …',
-  'strip.troligen': 'Troligen inte',
-  'strip.nej': 'Nej',
-  'strip.osaker': 'Osäkert',
   'strip.avdrag': 'avdrag {belopp}',
   'demo.label': 'Demo, ingår inte i verktyget:',
   'demo.rot': 'ROT',
@@ -92,15 +90,16 @@ export const LOCAL_COPY = Object.freeze({
   'demo.sol': 'solceller',
   'demo.standalone': 'Fristående sida',
   'demo.embed': 'I artikeln',
+  // artikelattrappen: platshållare utan fakta (samma mått som A/C), aldrig påståenden om avdraget
   'art.tag': 'Artikelattrapp (demo, inte verktyget)',
   'art.img': 'Bild, 230 px',
-  'art.h1': 'ROT-avdrag på elarbeten 2026: så fungerar det',
-  'art.p1': 'ROT ger 30 % på arbetskostnaden när en elektriker jobbar hemma hos dig, upp till 50 000 kr per person och år. Materialet ger inget avdrag, och det är den detaljen som avgör hur mycket du faktiskt sparar på ett elcentralsbyte.',
-  'art.p2': 'Här går vi igenom vem som kan använda avdraget, vad som händer när skatten inte räcker och hur avdraget hamnar på fakturan. Räkna på ditt eget jobb direkt här nedanför.',
+  'art.h1': 'Artikelns rubrik på två rader, platshållare för artikeln om avdraget',
+  'art.p1': 'Här ligger artikelns ingress. Två stycken som ställer läsarens fråga och lovar ett svar innan verktyget tar vid. Platshållartext utan fakta, satt i samma mått som mallen.',
+  'art.p2': 'Andra ingresstycket. Det bär inga siffror och inga påståenden, det finns bara här för att verktyget ska hamna på rätt höjd, ungefär 640 px ner på en mobil.',
   'art.snabb.h': 'Snabbfakta',
-  'art.snabb.1': '30 % på arbetskostnaden, aldrig på material.',
-  'art.snabb.2': 'Max 50 000 kr per person och år. ROT och RUT tillsammans max 75 000 kr.',
-  'art.snabb.3': 'Avdraget räknas av mot din inkomstskatt. Räcker den inte betalar du mellanskillnaden.',
+  'art.snabb.1': 'Här börjar artikelns brödtext. Platshållare utan fakta, första stycket.',
+  'art.snabb.2': 'Andra stycket, i samma längd som ett riktigt stycke i artikeln.',
+  'art.snabb.3': 'Tredje stycket, så att höjden efter verktyget går att mäta.',
 });
 export const L = (key, params) => {
   const s = LOCAL_COPY[key];
@@ -112,12 +111,25 @@ export const L = (key, params) => {
 // ---------------------------------------------------------------------------------------------------
 // Hjälpare
 // ---------------------------------------------------------------------------------------------------
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// esc: HTML-escape + typografi: siffra och procenttecken hålls ihop ("60 %" bryts aldrig över rad).
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])).replace(/(\d) %/g, '$1\u00a0%');
 const NBSP = formatKr(1000).charAt(1); // samma tecken som motorn använder i "1 000 kr"
 const num = (n) => String(Math.round(Math.abs(Number(n) || 0))).replace(/\B(?=(\d{3})+(?!\d))/g, NBSP); // "30 000"
 const kr100 = (n) => formatKr(round100(n));
-const nz = (n) => (n === null || n === undefined ? null : Number(n));
 const SKATT_DJUP_IDS = new Set(['inkomsttyp', 'manadsinkomst', 'lon_manad', 'pension_manad', 'fyllt66', 'ranteutgifter_ar', 'kommunalskatt', 'gt_planerad_kr', 'inkomsttyp_2', 'manadsinkomst_2', 'fyllt66_2']);
+// Embed (i artikeln): värdeår + skatt (och värdeårets följdfråga arbetstyp) ligger bakom Fler detaljer så att
+// verktyget håller höjdbudgeten; deras antaget-rader i kvittot är klickbara och öppnar fällraden (GRANSKNING B-M3).
+// Samma princip för GT:s ägarfråga (batteri/sol): taknoten "slår i" i avdragsraden pekar dit när det spelar roll.
+const EMBED_FOLD = new Set(['vardear', 'arbetstyp', 'skatt', 'agare']);
+const isFolded = (q, compact) => !!q.folded || (compact && EMBED_FOLD.has(q.id));
+const N_ORD = { 1: 'En', 2: 'Två', 3: 'Tre', 4: 'Fyra', 5: 'Fem', 6: 'Sex', 7: 'Sju', 8: 'Åtta', 9: 'Nio' };
+/** Ingressen räknar de synliga huvudfrågorna (B-M2): "{n} frågor, sedan står det på kvittot ...". Embed: utan siffra. */
+export function leadFromBank(bank, surface) {
+  if (surface === 'embed') return L('lead.embed');
+  const n = bank.filter((q) => q.shown && !isFolded(q, false)).length;
+  return L('lead', { n: N_ORD[n] || String(n) });
+}
+const evalOpts = (surface) => (surface === 'embed' ? { src: 'artikel' } : {}); // offert-länken bär src=artikel i embed (05 §6)
 
 // De sex radtillstånden + reglageikoner, ritade inline (1,5 till 2 px stroke). Inga ikonbibliotek.
 const ICON = {
@@ -134,7 +146,7 @@ const ICON = {
 };
 
 // ---------------------------------------------------------------------------------------------------
-// Frågepanelen (pure)
+// Frågepanelen (pure). Chips är riktiga radios i båda ytorna (ingen select, B-M3).
 // ---------------------------------------------------------------------------------------------------
 function isWide(label) { return label.length > 34; }
 
@@ -146,11 +158,6 @@ function chipsHtml(q, value, opts = {}) {
     const on = String(o.id) === cur;
     return `<label class="chip${isWide(o.label) ? ' chip--wide' : ''}${on ? ' is-on' : ''}"><input type="radio" name="${esc(q.id)}" value="${esc(o.id)}"${on ? ' checked' : ''}${opts.describedBy ? ` aria-describedby="${opts.describedBy}"` : ''}><span>${esc(o.label)}${o.help ? `<span class="chip__help">${esc(o.help)}</span>` : ''}</span></label>`;
   }).join('')}</div>`;
-}
-
-function selectHtml(q, value, opts = {}) {
-  const cur = value === null || value === undefined ? '' : String(value);
-  return `<div class="sel"><select class="sel__input" id="in-${esc(q.id)}" name="${esc(q.id)}" aria-labelledby="lg-${esc(q.id)}"${opts.describedBy ? ` aria-describedby="${opts.describedBy}"` : ''}>${(q.options || []).map((o) => `<option value="${esc(o.id)}"${String(o.id) === cur ? ' selected' : ''}>${esc(o.label)}</option>`).join('')}</select></div>`;
 }
 
 function amountHtml(q, value, opts = {}) {
@@ -186,9 +193,8 @@ export function renderQuestion(q, ropts = {}) {
   const help = q.help ? `<p class="q__help" id="${helpId}">${esc(q.help)}</p>` : '';
   let body;
   const opts = { describedBy: helpId };
-  const compactSelect = ropts.compact && q.widget === 'chips' && q.id !== 'lage';
   switch (q.widget) {
-    case 'chips': case 'toggle': body = (compactSelect ? selectHtml : chipsHtml)(q, q.value === null && q.id !== 'belopp' ? q.effectiveValue : q.value, opts); break;
+    case 'chips': case 'toggle': body = chipsHtml(q, q.value === null && q.id !== 'belopp' ? q.effectiveValue : q.value, opts); break;
     case 'amount': body = amountHtml(q, q.id === 'belopp' ? q.effectiveValue : q.value, opts); break;
     case 'slider': body = sliderHtml(q, q.value, ropts.eff); break;
     case 'stepper': body = stepperHtml(q, q.value); break;
@@ -198,30 +204,36 @@ export function renderQuestion(q, ropts = {}) {
   const sub = SKATT_DJUP_IDS.has(q.id) ? ' q--sub' : '';
   const legend = q.widget === 'checkbox' ? `<legend class="q__legend sr" id="lg-${esc(q.id)}">${esc(q.label)}</legend>` : `<legend class="q__legend" id="lg-${esc(q.id)}"><span>${esc(q.label)}</span></legend>`;
   const inner = q.widget === 'checkbox' ? `${legend}${body}${help}` : `${legend}${help}${body}`;
-  return `<li class="q${sub}" data-q="${esc(q.id)}" data-widget="${esc(compactSelect ? 'select' : q.widget)}"${q.shown ? '' : ' hidden'}><fieldset class="q__set">${inner}</fieldset></li>`;
+  return `<li class="q${sub}" data-q="${esc(q.id)}" data-widget="${esc(q.widget)}"${q.shown ? '' : ' hidden'}><fieldset class="q__set">${inner}</fieldset></li>`;
 }
 
 export function renderBank(mode, state, ropts = {}) {
   const bank = resolveBank(mode, state);
+  const compact = !!ropts.compact;
   ropts = { ...ropts, eff: effectiveState(mode, state) };
-  const main = bank.filter((q) => !q.folded).map((q) => renderQuestion(q, ropts)).join('');
-  const more = bank.filter((q) => q.folded).map((q) => renderQuestion(q, ropts)).join('');
+  const main = bank.filter((q) => !isFolded(q, compact)).map((q) => renderQuestion(q, ropts)).join('');
+  const more = bank.filter((q) => isFolded(q, compact)).map((q) => renderQuestion(q, ropts)).join('');
   return `<form class="bank" id="bank" novalidate autocomplete="off"><ol class="bank__list" id="bank-main">${main}</ol><details class="more" id="more"><summary>${esc(t('ui.fler_detaljer'))}</summary><ol class="bank__list" id="bank-more">${more}</ol></details></form>`;
 }
 
 // ---------------------------------------------------------------------------------------------------
 // Kvittot (pure)
 // ---------------------------------------------------------------------------------------------------
+/** Stämpeln: "Berättigad" bara vid ett bekräftat ja; villkorat = "Preliminärt" (B-M1). */
 function stampModel(mode, r) {
   const top = mode === 'rot' ? L('stamp.rot') : L('stamp.gt');
   let main = L('stamp.nej'); let sub = '';
   if (r.klass === 'ja') { main = L('stamp.ja'); sub = L('stamp.ja.sub'); }
-  else if (r.klass === 'ja_villkor') { main = L('stamp.ja'); sub = r.headline.key === 'h.ja_men' ? L('stamp.ja_men.sub') : L('stamp.ja_villkor.sub'); }
+  else if (r.klass === 'ja_villkor') { main = L('stamp.preliminart'); sub = r.headline.key === 'h.ja_men' ? L('stamp.ja_men.sub') : L('stamp.ja_villkor.sub'); }
   else if (r.klass === 'troligen_inte') { main = L('stamp.nej'); sub = L('stamp.troligen.sub'); }
   else if (r.klass === 'nej') { main = r.subtyp === 'inte_i_ar' ? L('stamp.inte_i_ar') : r.subtyp === 'inte_an' ? L('stamp.inte_an') : L('stamp.nej'); }
   else { main = L('stamp.osaker'); sub = L('stamp.osaker.sub'); }
   return { top, main, sub, cls: r.klass };
 }
+
+const stripKr = (s) => s.replace(`${NBSP}kr`, '');
+/** "ca 13 500 till 22 500 kr" (hundratal, som motorns spann). "ca" bara i beloppskolumnen (B-m6). */
+const spanText = (lo, hi, neg = false) => `${neg ? '' : `${L('kv.ca')} `}${stripKr(formatKr(neg ? -round100(lo) : round100(lo)))} ${L('kv.till')} ${formatKr(neg ? -round100(hi) : round100(hi))}`;
 
 /** Kvittots rader ur result.belopp. Returnerar { caps, lines[], total, quiet }. Siffror bara ur result/eff. */
 export function receiptModel(mode, r, eff) {
@@ -242,14 +254,25 @@ export function receiptModel(mode, r, eff) {
     }
     const arb = b.arbetskostnad_kr ?? eff.arbetskostnad_kr; const tot = b.belopp_kr ?? eff.belopp; const mat = Math.max(0, tot - arb);
     const ca = b.state === 'intervall';
-    const arbNote = ca ? L('kv.arbetskostnad.antaget', { andel: b.params.andel, belopp: formatKr(tot) })
-      : (eff.arbete_kr !== null ? L('kv.arbetskostnad.offert') : L('kv.arbetskostnad.andel', { andel: eff.arbete_andel, belopp: formatKr(tot) }));
-    lines.push({ key: 'arbete', label: L('kv.arbetskostnad'), num: arb, ca, note: arbNote });
-    lines.push({ key: 'material', label: L('kv.material'), num: mat, ca, note: L('kv.material.not') });
+    if (ca) {
+      // Intervall (B-M7): arbetskostnad och material som samma spann som avdraget (andel ± INTERVALL_PP), så att
+      // 30 % av arbetsspannet är avdragsraden. Samma räkning som motorn (toEngineInput med arbeteAndel).
+      const pp = GAP_DEFAULTS.INTERVALL_PP; const andel = Number(b.params.andel);
+      const loPct = Math.max(0, andel - pp); const hiPct = Math.min(100, andel + pp);
+      const arbLo = Math.round(tot * loPct / 100); const arbHi = Math.round(tot * hiPct / 100);
+      lines.push({ key: 'arbete', label: L('kv.arbetskostnad'), text: spanText(arbLo, arbHi), note: L('kv.arbetskostnad.spann', { lo: loPct, hi: hiPct, belopp: formatKr(tot) }) });
+      lines.push({ key: 'material', label: L('kv.material'), text: spanText(tot - arbHi, tot - arbLo), note: L('kv.material.not') });
+    } else {
+      // andelen är antagen (inte vald, ingen arbetskostnad angiven) när motorn räknat spannet men beloppsläget är noll/begränsat
+      const assumed = eff.arbete_kr === null && !!(r.raw && r.raw.rot_min);
+      const arbNote = eff.arbete_kr !== null ? L('kv.arbetskostnad.offert') : L(assumed ? 'kv.arbetskostnad.antaget' : 'kv.arbetskostnad.andel', { andel: eff.arbete_andel, belopp: formatKr(tot) });
+      lines.push({ key: 'arbete', label: L('kv.arbetskostnad'), num: arb, note: arbNote });
+      lines.push({ key: 'material', label: L('kv.material'), num: mat, note: L('kv.material.not') });
+    }
     if (b.state === 'noll') lines.push({ key: 'avdrag', cls: 'muted', label: ded, text: b.rubrik, note: b.bas_text });
-    else if (ca) lines.push({ key: 'avdrag', cls: 'deduct', label: ded, text: `${formatKr(-round100(b.avdrag_min_kr)).replace(`${NBSP}kr`, '')} ${L('kv.till')} ${formatKr(-round100(b.avdrag_max_kr))}`, note: b.bas_text });
+    else if (ca) lines.push({ key: 'avdrag', cls: 'deduct', label: ded, text: spanText(b.avdrag_min_kr, b.avdrag_max_kr, true), note: b.bas_text });
     else lines.push({ key: 'avdrag', cls: 'deduct', label: ded, num: -round100(b.avdrag_kr), note: begr ? b.bas_text : takNote });
-    total = ca ? { label: attBetala, text: `${L('kv.ca')} ${b.params.att_betala_min.replace(`${NBSP}kr`, '')} ${L('kv.till')} ${b.params.att_betala_max}`, ca: true }
+    total = ca ? { label: attBetala, text: `${L('kv.ca')} ${stripKr(b.params.att_betala_min)} ${L('kv.till')} ${b.params.att_betala_max}`, ca: true }
       : { label: attBetala, num: round100(b.att_betala_kr) };
     return { caps: L('kv.caps'), lines, total, quiet };
   }
@@ -302,7 +325,7 @@ function lineHtml(ln) {
   const cls = ln.cls ? ` line--${ln.cls}` : '';
   let amt;
   if (ln.link) amt = `<span class="line__amt"><button type="button" class="line__link" data-fraga="${esc(ln.link.fraga)}">${esc(ln.link.label)}</button></span>`;
-  else if (typeof ln.num === 'number') amt = `<span class="line__amt" data-key="${esc(ln.key)}" data-num="${ln.num}">${ln.ca ? `${L('kv.ca')} ` : ''}${esc(formatKr(ln.num))}</span>`;
+  else if (typeof ln.num === 'number') amt = `<span class="line__amt" data-key="${esc(ln.key)}" data-num="${ln.num}">${esc(formatKr(ln.num))}</span>`;
   else amt = `<span class="line__amt${ln.cls === 'muted' ? ' line__amt--muted' : ''}">${esc(ln.text || '')}</span>`;
   return `<div class="line${cls}" data-line="${esc(ln.key)}"><span class="line__label">${esc(ln.label)}</span><span class="line__lead" aria-hidden="true"></span>${amt}${ln.note ? `<span class="line__note">${esc(ln.note)}</span>` : ''}</div>`;
 }
@@ -322,12 +345,17 @@ function villkorHtml(v) {
   return `<li class="srow srow--${esc(v.status)} srow--${esc(v.typ)}">${btn}</li>`;
 }
 
-function ctaHtml(r, surface) {
+/**
+ * CTA per klass (UX §5.2): solid knapp bara där primary.solid är true. Motorns former:
+ * lage_byte solid (batteri utan sol → ROT) eller som textlänk (sol → batteri, solid: false); sekundär tel med numret
+ * i fetstil; sekundär offert/Skatteverket som textlänk under knappen (skatten räcker delvis, osäkert).
+ */
+function ctaHtml(r) {
   const p = r.cta.primary; const s = r.cta.secondary;
   const parts = [];
   const trackAttr = (kind) => ` data-cta="${esc(kind)}"`;
   if (p && p.kind !== 'none') {
-    if (p.kind === 'lage_byte') parts.push(`<button type="button" class="btn btn--primary" data-byte="1"${trackAttr(p.kind)}>${esc(p.label)}</button>`);
+    if (p.kind === 'lage_byte') parts.push(`<button type="button" class="${p.solid ? 'btn btn--primary' : 'cta__link'}" data-byte="1"${trackAttr(p.kind)}>${esc(p.label)}</button>`);
     else if (p.solid) parts.push(`<a class="btn btn--primary" href="${esc(p.href)}"${trackAttr(p.kind)}>${esc(p.label)}</a>`);
     else parts.push(`<a class="cta__link" href="${esc(p.href)}"${trackAttr(p.kind)}>${esc(p.label)}</a>`);
   }
@@ -335,11 +363,11 @@ function ctaHtml(r, surface) {
     if (s.kind === 'tel') {
       const tel = s.params && s.params.tel ? s.params.tel : LINKS.tel_text;
       const label = esc(s.label).replace(esc(tel), `<strong>${esc(tel)}</strong>`);
-      parts.push(`<a class="cta__sec" href="${esc(s.href)}"${trackAttr('tel')}>${label}</a>`);
+      parts.push(`<a class="cta__sec" href="${esc(s.href)}"${trackAttr('tel')}><span>${label}</span></a>`); // en span: inline-flex får inte äta mellanslaget före numret
     } else if (!p || p.kind === 'none') parts.push(`<a class="cta__link" href="${esc(s.href)}"${trackAttr(s.kind)}>${esc(s.label)}</a>`);
-    else parts.push(`<a class="cta__sec" href="${esc(s.href)}"${trackAttr(s.kind)}>${esc(s.label)}</a>`);
+    else parts.push(`<a class="cta__sec cta__sec--link" href="${esc(s.href)}"${trackAttr(s.kind)}>${esc(s.label)}</a>`);
   }
-  return parts.length ? `<div class="cta" id="kv-cta">${parts.join('')}</div>` : '';
+  return `<div class="cta" id="kv-cta"${parts.length ? '' : ' hidden'}>${parts.join('')}</div>`;
 }
 
 function shareHtml(surface) {
@@ -349,7 +377,7 @@ function shareHtml(surface) {
 
 function metodHtml(mode, r, open) {
   const link = mode === 'rot' ? `<a href="${esc(LINKS.skatteverket_rot_rut)}" rel="noopener">${esc(L('kv.skv.rot'))}</a>` : `<a href="${esc(LINKS.skatteverket_mina_avdrag)}" rel="noopener">${esc(L('kv.skv.gt'))}</a>`;
-  return `<details class="metod" id="kv-metod"${open ? ' open' : ''}><summary>${esc(t('ui.sa_har_vi_raknat'))}</summary><ol>${r.metod_text.map((m) => `<li>${esc(m)}</li>`).join('')}<li>${link}</li></ol><p class="kv__source">${esc(L('kv.kalla'))}</p></details>`;
+  return `<details class="metod" id="kv-metod"${open ? ' open' : ''}><summary>${esc(t('ui.sa_har_vi_raknat'))}</summary><ol>${r.metod_text.map((m) => `<li>${esc(m)}</li>`).join('')}<li>${link}</li></ol></details>`;
 }
 
 function noscriptHtml() {
@@ -359,44 +387,58 @@ function noscriptHtml() {
     const a = r.belopp.avdrag_kr;
     return `<tr><td>${esc(formatKr(x))}</td><td>${esc(formatKr(a))}${a >= PARAMS.ROT_TAK ? ` ${esc(L('ui.tabell.tak'))}` : ''}</td></tr>`;
   }).join('');
-  return `<noscript><div class="nojs"><p>${esc(L('ui.noscript'))}</p><p class="kv__caps">${esc(L('ui.tabell.caps'))}</p><table><thead><tr><th>${esc(L('ui.tabell.arbete'))}</th><th>${esc(L('ui.tabell.avdrag'))}</th></tr></thead><tbody>${rows}</tbody></table></div></noscript>`;
+  return `<noscript id="kv-noscript"><div class="nojs"><p>${esc(L('ui.noscript'))}</p><p class="kv__caps">${esc(L('ui.tabell.caps'))}</p><table><thead><tr><th>${esc(L('ui.tabell.arbete'))}</th><th>${esc(L('ui.tabell.avdrag'))}</th></tr></thead><tbody>${rows}</tbody></table></div></noscript>`;
 }
 
-/** Hela kvittots innehåll (inuti <section class="kv">). opts: { surface, openMetod, openFold, titleTag } */
-export function renderReceipt(mode, r, eff, opts = {}) {
+/**
+ * Kvittots innehåll som sektioner [{ id, html }] (inuti <section class="kv">). Varje sektion har ett stabilt id och
+ * finns alltid (tom = hidden), så att webbläsaren kan byta bara de sektioner vars HTML ändrats (B-m3).
+ * opts: { surface, openMetod, openFold, titleTag }
+ */
+export function receiptSections(mode, r, eff, opts = {}) {
   const surface = opts.surface || 'standalone';
+  const compact = surface === 'embed';
   const st = stampModel(mode, r);
   const m = receiptModel(mode, r, eff);
   const H = opts.titleTag || 'h2';
-  const head = `<div class="kv__head"><p class="kv__eyebrow">${esc(r.eyebrow)}</p><div class="stamp stamp--${esc(st.cls)}" aria-hidden="true"><span class="stamp__top">${esc(st.top)}</span><span class="stamp__main">${esc(st.main)}</span>${st.sub ? `<span class="stamp__sub">${esc(st.sub)}</span>` : ''}</div><${H} class="kv__title" id="kv-h">${esc(r.headline.text)}</${H}><p class="kv__ram">${esc(r.ram.text)}</p></div>`;
-  const compact = surface === 'embed';
-  const visibleLines = compact ? m.lines.filter((ln) => ln.cls === 'deduct' || ln.cls === 'muted') : m.lines;
-  const foldedLines = compact ? m.lines.filter((ln) => !(ln.cls === 'deduct' || ln.cls === 'muted')) : [];
+  const C = H === 'h2' ? 'h3' : 'h4'; // kortets mellanrubriker en nivå under kortets rubrik (B-m5)
+  const caps = (txt) => `<${C} class="kv__caps">${esc(txt)}</${C}>`;
+  const head = `<div class="kv__head" id="kv-head"><p class="kv__eyebrow">${esc(r.eyebrow)}</p><div class="stamp stamp--${esc(st.cls)}" aria-hidden="true"><span class="stamp__top">${esc(st.top)}</span><span class="stamp__main">${esc(st.main)}</span>${st.sub ? `<span class="stamp__sub">${esc(st.sub)}</span>` : ''}</div><${H} class="kv__title" id="kv-h">${esc(r.headline.text)}</${H}><p class="kv__ram">${esc(r.ram.text)}</p></div>`;
+  const isCore = (ln) => ln.cls === 'deduct' || ln.cls === 'muted';
+  const visibleLines = compact ? m.lines.filter(isCore) : m.lines;
+  const foldedLines = compact ? m.lines.filter((ln) => !isCore(ln)) : [];
+  const source = `<p class="kv__source" id="kv-source">${esc(L('kv.kalla'))}</p>`; // källa + datum synlig under beloppet (05 §3.1, B-M8)
   const lines = m.dold
-    ? `<div class="kv__lines kv__lines--dold" id="kv-lines"></div>`
-    : `<div class="kv__lines" id="kv-lines"><p class="kv__caps">${esc(m.caps)}</p><div class="lines">${visibleLines.map(lineHtml).join('')}</div>${m.total ? totalHtml(m.total) : ''}</div>`;
-  const baseLines = foldedLines.length ? `<div class="kv__base"><p class="kv__caps">${esc(L('kv.hela'))}</p><div class="lines">${foldedLines.map(lineHtml).join('')}</div></div>` : '';
+    ? `<div class="kv__lines kv__lines--dold" id="kv-lines">${source}</div>`
+    : `<div class="kv__lines" id="kv-lines">${caps(m.caps)}<div class="lines">${visibleLines.map(lineHtml).join('')}</div>${m.total ? totalHtml(m.total) : ''}${source}</div>`;
+  const baseLines = foldedLines.length ? `<div class="kv__base">${caps(L('kv.hela'))}<div class="lines">${foldedLines.map(lineHtml).join('')}</div></div>` : '';
   const stamps = `<ul class="stamps" id="kv-stamps">${r.villkor.map(villkorHtml).join('')}</ul>`;
-  const next = r.nasta_steg.length ? `<div class="next" id="kv-next"><p class="kv__caps">${esc(t('ui.vad_hander_nu'))}</p><ol>${r.nasta_steg.map((s) => `<li>${esc(s.text)}</li>`).join('')}</ol></div>` : '';
-  const cta = ctaHtml(r, surface);
+  const next = `<div class="next" id="kv-next"${r.nasta_steg.length ? '' : ' hidden'}>${r.nasta_steg.length ? `${caps(t('ui.vad_hander_nu'))}<ol>${r.nasta_steg.map((s) => `<li>${esc(s.text)}</li>`).join('')}</ol>` : ''}</div>`;
+  const cta = ctaHtml(r);
   const share = shareHtml(surface);
   const metod = metodHtml(mode, r, opts.openMetod);
-  if (surface === 'embed') {
-    return `${head}${lines}${cta}<details class="kv__fold" id="kv-fold"${opts.openFold ? ' open' : ''}><summary>${esc(L('ui.visa_hela'))}</summary>${baseLines}${stamps}${next}${share}${metod}</details>${noscriptHtml()}`;
+  const secs = [{ id: 'kv-head', html: head }, { id: 'kv-lines', html: lines }];
+  if (compact) {
+    secs.push({ id: 'kv-cta', html: cta });
+    secs.push({ id: 'kv-fold', html: `<details class="kv__fold" id="kv-fold"${opts.openFold ? ' open' : ''}><summary>${esc(L('ui.visa_hela'))}</summary>${baseLines}${stamps}${next}${share}${metod}</details>` });
+  } else {
+    secs.push({ id: 'kv-stamps', html: stamps }, { id: 'kv-next', html: next }, { id: 'kv-cta', html: cta }, { id: 'kv-share', html: share }, { id: 'kv-metod', html: metod });
   }
-  return `${head}${lines}${stamps}${next}${cta}${share}${metod}${noscriptHtml()}`;
+  secs.push({ id: 'kv-noscript', html: noscriptHtml() });
+  return secs;
 }
+export function renderReceipt(mode, r, eff, opts = {}) { return receiptSections(mode, r, eff, opts).map((s) => s.html).join(''); }
 
 // ---------------------------------------------------------------------------------------------------
 // Hela sidan (pure), används av _build.mjs. Ger ROT + fristående som statisk fallback.
 // ---------------------------------------------------------------------------------------------------
 export function renderPage({ mode = 'rot', surface = 'standalone', state = null, touched = [] } = {}) {
   const st = state || defaultState(mode);
-  const r = resolveTexts(evaluate(mode, st, touched));
+  const r = resolveTexts(evaluate(mode, st, touched, evalOpts(surface)));
   const eff = effectiveState(mode, st);
   const H = surface === 'embed' ? 'h2' : 'h1';
   const K = surface === 'embed' ? 'h3' : 'h2';
-  const lead = surface === 'embed' ? L('lead.embed') : L('lead');
+  const lead = leadFromBank(resolveBank(mode, st), surface);
   const demo = `<nav class="demo" aria-label="Demo"><strong>${esc(L('demo.label'))}</strong><a href="?m=rot">${esc(L('demo.rot'))}</a><a href="?m=gt&amp;l=laddbox">${esc(L('demo.laddbox'))}</a><a href="?m=gt&amp;l=batteri">${esc(L('demo.batteri'))}</a><a href="?m=gt&amp;l=sol">${esc(L('demo.sol'))}</a><span aria-hidden="true">|</span><a href="?m=rot&amp;surface=standalone">${esc(L('demo.standalone'))}</a><a href="?m=rot&amp;surface=embed">${esc(L('demo.embed'))}</a></nav>`;
   const art = `<div class="art" id="art" hidden><p class="kv__caps" style="color:var(--ink-faint)">${esc(L('art.tag'))}</p><div class="art__img" aria-hidden="true">${esc(L('art.img'))}</div><h1>${esc(L('art.h1'))}</h1><p>${esc(L('art.p1'))}</p><p>${esc(L('art.p2'))}</p></div>`;
   const artAfter = `<div class="art art--after" id="art-after" hidden><h2>${esc(L('art.snabb.h'))}</h2><div class="snabb"><p>${esc(L('art.snabb.1'))}</p><p>${esc(L('art.snabb.2'))}</p><p>${esc(L('art.snabb.3'))}</p></div></div>`;
@@ -437,9 +479,22 @@ function track(event, props) {
 }
 const bucket = (kr) => (kr < 10000 ? '<10k' : kr < 25000 ? '10k_25k' : kr < 50000 ? '25k_50k' : kr < 100000 ? '50k_100k' : '100k_plus');
 
+/** Nyckel för att hitta samma reglage igen efter att en sektion i kvittot bytts ut (fokus bevaras, B-m3). */
+function focusKey(el) {
+  const b = el.closest('[data-fraga],[data-cta],[data-share],[data-byte],summary');
+  if (!b) return null;
+  if (b.dataset.fraga) return `[data-fraga="${b.dataset.fraga}"]`;
+  if (b.dataset.byte) return '[data-byte]';
+  if (b.dataset.cta) return `[data-cta="${b.dataset.cta}"]`;
+  if (b.dataset.share) return `[data-share="${b.dataset.share}"]`;
+  if (b.tagName === 'SUMMARY' && b.parentElement && b.parentElement.id) return `#${b.parentElement.id} > summary`;
+  return null;
+}
+
 function init() {
   const qs = new URLSearchParams(location.search);
   const surface = qs.get('surface') === 'embed' ? 'embed' : 'standalone';
+  const compact = surface === 'embed';
   const link = decodeState(location.search);
   let mode = link.mode || 'rot';
   let state = { ...defaultState(mode), ...link.state };
@@ -450,7 +505,8 @@ function init() {
   const $ = (sel, root = document) => root.querySelector(sel);
   const inputs = $('#inputs'); const kv = $('#kv'); const live = $('#live'); const strip = $('#strip');
   const prevNums = new Map();
-  let lastKlass = null; let interacted = false; let kvVisible = true; let kvPassed = false;
+  const lastHtml = new Map();
+  let lastKlass = null; let interacted = false; let kvVisible = true; let ctaVisible = true; let kvPassed = false;
   let result = null;
 
   document.body.dataset.mode = mode; document.body.dataset.surface = surface;
@@ -467,14 +523,20 @@ function init() {
 
   // ---- render ----
   function compute() {
-    result = resolveTexts(evaluate(mode, state, touched));
+    result = resolveTexts(evaluate(mode, state, touched, evalOpts(surface)));
     return result;
   }
-  function paintBank() { inputs.innerHTML = renderBank(mode, state, { compact: surface === 'embed' }); }
+  function paintBank() { inputs.innerHTML = renderBank(mode, state, { compact }); }
+  function paintLead(bank) {
+    const lead = $('.ak__lead'); if (!lead) return;
+    const txt = leadFromBank(bank || resolveBank(mode, state), surface);
+    if (lead.textContent !== txt) lead.textContent = txt;
+  }
   function paintHead() {
     const H = surface === 'embed' ? 'h2' : 'h1';
     const head = $('.ak__head');
-    head.innerHTML = `<${H} class="ak__title" id="ak-h">${esc(L(`h1.${mode}`))}</${H}><p class="ak__lead">${esc(surface === 'embed' ? L('lead.embed') : L('lead'))}</p>`;
+    head.innerHTML = `<${H} class="ak__title" id="ak-h">${esc(L(`h1.${mode}`))}</${H}><p class="ak__lead"></p>`;
+    paintLead();
   }
   function paintReceipt(animate) {
     const r = compute();
@@ -484,17 +546,30 @@ function init() {
     const K = surface === 'embed' ? 'h3' : 'h2';
     const title = $('.kv__title');
     const titleChanged = title && title.textContent !== r.headline.text;
-    kv.innerHTML = renderReceipt(mode, r, eff, { surface, openMetod, openFold, titleTag: K });
+    // sektionsvis byte: bara sektioner vars HTML ändrats (fokus, dela-status och count-up överlever), B-m3
+    const active = document.activeElement;
+    const key = active && kv.contains(active) ? focusKey(active) : null;
+    let ctaChanged = false;
+    for (const s of receiptSections(mode, r, eff, { surface, openMetod, openFold, titleTag: K })) {
+      if (lastHtml.get(s.id) === s.html) continue;
+      const tpl = document.createElement('template'); tpl.innerHTML = s.html;
+      const node = tpl.content.firstElementChild; const old = document.getElementById(s.id);
+      if (old) old.replaceWith(node); else kv.appendChild(node);
+      lastHtml.set(s.id, s.html);
+      if (s.id === 'kv-cta') ctaChanged = true;
+    }
+    if (key && document.activeElement !== active) { const again = kv.querySelector(key); if (again) again.focus({ preventScroll: true }); }
     $('.ak__disclaimer').textContent = r.disclaimer;
     if (animate && titleChanged && !reduced) { const tt = $('.kv__title'); tt.classList.add('is-swap'); requestAnimationFrame(() => requestAnimationFrame(() => tt.classList.remove('is-swap'))); }
     // count-up på belopp, bara vid ändring (aldrig på load)
     for (const el of kv.querySelectorAll('[data-num]')) {
-      const key = el.dataset.key; const n = Number(el.dataset.num);
-      const prev = prevNums.get(key);
+      const key2 = el.dataset.key; const n = Number(el.dataset.num);
+      const prev = prevNums.get(key2);
       if (animate && !reduced && prev !== undefined && prev !== n) tween(el, prev, n);
-      prevNums.set(key, n);
+      prevNums.set(key2, n);
     }
     announce(r);
+    if (ctaChanged) watchCta();
     paintStrip(r);
     if (r.klass !== lastKlass) {
       track('verdict', { mode, lage: r.lage, surface, class: r.klass, subtype: r.subtyp, amount_bucket: r.belopp.avdrag_kr ? bucket(r.belopp.avdrag_kr) : null, unknowns_n: r.counts.okanda, assumed_n: r.counts.antagna });
@@ -503,11 +578,11 @@ function init() {
     return r;
   }
   function tween(el, from, to) {
-    const t0 = performance.now(); const dur = 280; const ca = el.textContent.startsWith(L('kv.ca'));
+    const t0 = performance.now(); const dur = 280;
     const step = (now) => {
       const p = Math.min(1, (now - t0) / dur); const e = 1 - Math.pow(1 - p, 3);
       const v = Math.round(from + (to - from) * e);
-      el.textContent = `${ca ? `${L('kv.ca')} ` : ''}${formatKr(p === 1 ? to : v)}`;
+      el.textContent = formatKr(p === 1 ? to : v);
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -526,7 +601,7 @@ function init() {
     for (const q of bank) {
       const el = inputs.querySelector(`.q[data-q="${q.id}"]`); if (!el) continue;
       el.hidden = !q.shown;
-      want[q.folded ? 'more' : 'main'].push(el);
+      want[isFolded(q, compact) ? 'more' : 'main'].push(el);
       if (q.id === 'arbete' && q.help) { const h = el.querySelector('.q__help'); if (h) h.textContent = q.help; }
       if (mode === 'gt' && q.id === 'belopp') {
         const lg = el.querySelector('.q__legend span'); if (lg && lg.textContent !== q.label) {
@@ -543,6 +618,7 @@ function init() {
     // förvalens markering
     const bel = inputs.querySelector('.q[data-q="belopp"]');
     if (bel) { const v = effectiveState(mode, state).belopp; for (const p of bel.querySelectorAll('.preset')) p.classList.toggle('is-on', Number(p.dataset.v) === v); }
+    paintLead(bank);
   }
 
   // ---- svar ----
@@ -567,20 +643,32 @@ function init() {
     if (!digits) return id === 'belopp' ? 0 : null;
     return Math.min(1_000_000, Number(digits));
   }
-
+  /**
+   * Bekräfta-trycket (B-B1): ett tryck på en chip når hit både via click (även när chipen redan är vald, då kommer
+   * inget change) och via change (byte). Idempotent: samma svar som redan är bekräftat ger varken omräkning eller
+   * dubbel tracking. Tab/pil/Space-vägen går via keydown nedan.
+   */
+  function onRadio(el) {
+    const chips = el.closest('.chips');
+    if (chips) for (const c of chips.querySelectorAll('.chip')) c.classList.toggle('is-on', c.contains(el));
+    const id = el.name; const val = coerce(id, el.value);
+    if (touched.has(id) && state[id] === val) return;
+    if (id === 'lage') track('mode_select', { mode, from: state.lage, to: val, surface });
+    answer(id, val, { bucket: String(el.value) });
+  }
+  inputs.addEventListener('submit', (e) => e.preventDefault());
+  inputs.addEventListener('click', (e) => {
+    const el = e.target;
+    if (el instanceof HTMLInputElement && el.type === 'radio' && el.checked) onRadio(el);
+  });
+  inputs.addEventListener('keydown', (e) => {
+    const el = e.target;
+    if ((e.key === ' ' || e.key === 'Enter') && el instanceof HTMLInputElement && el.type === 'radio' && el.checked) { e.preventDefault(); el.click(); }
+  });
   inputs.addEventListener('change', (e) => {
     const el = e.target;
-    if (el.matches('input[type="radio"]')) {
-      const chips = el.closest('.chips');
-      if (chips) for (const c of chips.querySelectorAll('.chip')) c.classList.toggle('is-on', c.contains(el));
-      const id = el.name; const val = coerce(id, el.value);
-      if (id === 'lage') track('mode_select', { mode, from: state.lage, to: val, surface });
-      answer(id, val, { bucket: String(el.value) });
-    } else if (el.matches('input[type="checkbox"]')) answer(el.name, el.checked, { bucket: String(el.checked) });
-    else if (el.matches('select.sel__input')) {
-      const id = el.name; const val = coerce(id, el.value);
-      answer(id, val, { bucket: String(el.value) });
-    }
+    if (el.matches('input[type="radio"]')) onRadio(el);
+    else if (el.matches('input[type="checkbox"]')) answer(el.name, el.checked, { bucket: String(el.checked) });
   });
   inputs.addEventListener('input', (e) => {
     const el = e.target;
@@ -623,7 +711,7 @@ function init() {
   function focusQuestion(id) {
     const el = inputs.querySelector(`.q[data-q="${id}"]`); if (!el || el.hidden) return;
     const m = more(); if (m && m.contains(el) && !m.open) m.open = true;
-    const target = el.querySelector('input:checked') || el.querySelector('select, input, button');
+    const target = el.querySelector('input:checked') || el.querySelector('input, button');
     el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: isMobile() ? 'center' : 'nearest' });
     if (target) target.focus({ preventScroll: true });
   }
@@ -631,7 +719,9 @@ function init() {
     const f = e.target.closest('[data-fraga]'); if (f) { focusQuestion(f.dataset.fraga); return; }
     const byte = e.target.closest('[data-byte]');
     if (byte) {
-      const b = result.cta.primary.byte; track('mode_select', { mode, from: `gt_${state.lage}`, to: 'rot', surface }); track('cta_click', { target: 'mode_switch', class: result.klass, mode, surface });
+      const b = result.cta.primary.byte;
+      const from = mode === 'rot' ? 'rot' : `gt_${state.lage}`; const to = b.mode === 'rot' ? 'rot' : `gt_${b.state.lage}`;
+      track('mode_select', { mode, from, to, surface }); track('cta_click', { target: 'mode_switch', class: result.klass, mode, surface });
       const keep = new Set([...touched].filter((k) => k in b.state));
       mode = b.mode; state = { ...defaultState(mode), ...b.state }; touched = keep; prevNums.clear();
       document.body.dataset.mode = mode; paintHead(); paintBank(); paintReceipt(false); syncUrl(); kv.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
@@ -653,15 +743,17 @@ function init() {
     const base = `${location.origin}${location.pathname}`;
     return `${base}?${encodeState(mode, state, { src: link.src || undefined })}`;
   }
+  let shareTimer = null;
   async function share() {
     const url = shareUrl(); const status = $('#share-status');
     try {
       if (navigator.share && isMobile()) { await navigator.share({ url }); track('share', { method: 'native', mode, surface }); return; }
       await navigator.clipboard.writeText(url);
-      status.textContent = L('ui.lank_kopierad'); setTimeout(() => { status.textContent = ''; }, 2400);
+      if (status) status.textContent = L('ui.lank_kopierad');
+      clearTimeout(shareTimer); shareTimer = setTimeout(() => { const s = $('#share-status'); if (s) s.textContent = ''; }, 2400);
       track('share', { method: 'clipboard', mode, surface });
     } catch {
-      status.textContent = url;
+      if (status) status.textContent = url;
     }
   }
 
@@ -680,18 +772,11 @@ function init() {
   }
 
   // ---- sticky-remsan (fristående, mobil) ----
-  function stripVerdict(r) {
-    if (r.klass === 'ja') return L('strip.ja');
-    if (r.klass === 'ja_villkor') return r.headline.key === 'h.ja_men' ? L('strip.ja_men') : L('strip.ja_om');
-    if (r.klass === 'troligen_inte') return L('strip.troligen');
-    if (r.klass === 'nej') return L('strip.nej');
-    return L('strip.osaker');
-  }
   function paintStrip(r) {
     if (surface !== 'standalone') return;
-    $('#strip-verdict').textContent = stripVerdict(r);
+    $('#strip-verdict').textContent = r.headline.text.replace(/:\s*$/, ''); // hela rubriken (utan avslutande kolon), CSS klipper (B-m1)
     const b = r.belopp; let amt = '';
-    if (b.state === 'intervall') amt = L('strip.avdrag', { belopp: `${L('kv.ca')} ${b.params.min.replace(`${NBSP}kr`, '')} ${L('kv.till')} ${b.params.max}` });
+    if (b.state === 'intervall') amt = L('strip.avdrag', { belopp: `${L('kv.ca')} ${stripKr(b.params.min)} ${L('kv.till')} ${b.params.max}` });
     else if (b.state === 'punkt' || b.state === 'begransad_skatt' || b.state === 'begransad_pott') amt = L('strip.avdrag', { belopp: kr100(b.avdrag_kr) });
     else if (b.state === 'tak' || b.state === 'noll' || b.state === 'alt_rot') amt = b.rubrik;
     $('#strip-amt').textContent = amt;
@@ -703,10 +788,18 @@ function init() {
   let stripTimer = null;
   function updateStrip() {
     if (surface !== 'standalone') return;
-    const show = interacted && !kvVisible && isMobile();
+    // Remsan står aldrig bredvid den synliga CTA:n (B-M5): dold när kortet är >= 50 % synligt ELLER CTA:n syns.
+    const show = interacted && !kvVisible && !ctaVisible && isMobile();
     clearTimeout(stripTimer);
     if (show) { strip.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => strip.classList.remove('is-off'))); }
     else { strip.classList.add('is-off'); stripTimer = setTimeout(() => { strip.hidden = true; }, 220); }
+  }
+  let ctaIo = null;
+  function watchCta() {
+    if (!ctaIo) return;
+    ctaIo.disconnect();
+    const c = $('#kv-cta');
+    if (c && !c.hidden) ctaIo.observe(c); else { ctaVisible = false; updateStrip(); }
   }
   if (surface === 'standalone') {
     const io = new IntersectionObserver((entries) => {
@@ -714,6 +807,10 @@ function init() {
       if (result) paintStrip(result);
     }, { threshold: [0, 0.5, 1] });
     io.observe(kv);
+    ctaIo = new IntersectionObserver((entries) => {
+      for (const en of entries) ctaVisible = en.isIntersecting && en.intersectionRatio >= 0.5;
+      updateStrip();
+    }, { threshold: [0, 0.5, 1] });
     const firstQ = inputs.querySelector('.q');
     window.addEventListener('scroll', () => { if (!interacted && firstQ && firstQ.getBoundingClientRect().bottom < 0) { interacted = true; updateStrip(); } }, { passive: true });
     window.addEventListener('resize', updateStrip);
@@ -726,12 +823,13 @@ function init() {
 
   // ---- start: hydrera (rot, fristående, inga länksvar) eller rendera om ----
   const hydrateOnly = mode === 'rot' && surface === 'standalone' && prefilled.size === 0;
-  if (!hydrateOnly) { paintHead(); paintBank(); }
+  if (!hydrateOnly) { paintHead(); paintBank(); kv.innerHTML = ''; } // den statiska filen är ROT + fristående; sektionerna byggs om i rätt ordning
   syncBank();
   const r0 = paintReceipt(false);
+  watchCta();
   track('view', { mode, lage: r0.lage, surface, prefilled: prefilled.size > 0, params_n: prefilled.size });
   if (prefilled.size > 0 && isMobile()) kv.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-  window.__ak = { get state() { return state; }, get result() { return result; }, get mode() { return mode; }, touched, shareUrl };
+  window.__ak = { get state() { return state; }, get result() { return result; }, get mode() { return mode; }, get touched() { return touched; }, shareUrl };
 }
 
 if (typeof document !== 'undefined' && document.getElementById('kv')) init();

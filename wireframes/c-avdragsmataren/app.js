@@ -12,7 +12,7 @@
  */
 import {
   BANKS, LINKS, GAP_DEFAULTS, resolveBank, effectiveState, evaluate, resolveTexts, defaultState,
-  encodeState, decodeState, toEngineInput, t, formatKr, round100, PARAMS as P,
+  encodeState, decodeState, t, formatKr, round100, PARAMS as P,
 } from '../../logik/ui-model.js';
 
 // ---------------------------------------------------------------------------------------------------
@@ -22,12 +22,14 @@ export const LOCAL_COPY = Object.freeze({
   // verktygets rubrik och lead (COPY har ingen verktygsrubrik; UX §1.5 och 05 §3.1 ger utkasten)
   'c.title.rot': 'Ryms ROT-avdraget i år, och räcker din skatt?',
   'c.title.gt': 'Ryms grön teknik-avdraget i år, och räcker din skatt?',
-  'c.lead': 'Beskedet uppdateras medan du svarar. Inget mejl, ingen inloggning.',
+  'c.lead.standalone': 'Beskedet uppdateras medan du svarar.',
+  'c.lead.embed': 'Inget mejl, ingen inloggning.',   // 05 §6:s förtroenderad, bara i embed (C-m6); en rad (höjdbudgeten)
   // mätaren
   'c.meter.eyebrow.rot': 'ROT-potten 2026',
   'c.meter.eyebrow.gt': 'Grön teknik-potten 2026',
   'c.meter.cap.1': '{tak} per person och år',
   'c.meter.cap.2': '{tak} för två ägare',
+  'c.meter.kvar': '{kr} kvar i år',              // i spårets tomma del: motorns pott_kvar_kr (C-M8, "tom på små jobb")
   'c.meter.tax_hit': 'Din skatt räcker hit (ca {kr})',
   'c.meter.tax_hela': 'Din skatt räcker till hela potten (ca {kr})',
   'c.meter.tax_ingen': 'Din skatt räcker inte till avdraget',
@@ -43,8 +45,9 @@ export const LOCAL_COPY = Object.freeze({
   'c.legend.till': '{min} till {max}',
   'c.tick.noll': '0',
   // skattefördjupningen (synlig i riktning C)
-  'c.djup.prompt': 'Dra i reglaget så ritar vi in var din skatt räcker.',
   'c.djup.valuetext': 'cirka {kr} kronor i månaden',
+  'c.djup.dra': 'Dra för att ange',            // reglagets output i orört läge (C-M3): inget tal förrän kunden rört det
+  'c.djup.ej_angiven': 'inte angivet',         // aria-valuetext i orört läge
   'c.djup.fold': 'Räcker skatten?',
   'c.djup.agare2': 'Ägare 2',
   // hopfällning i embed (UX §6.2), dela, status, sticky
@@ -94,6 +97,8 @@ function L(key, params) {
 }
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+/** Bindestreckade ord ("e-tjänst") hålls ihop vid radbrytning; texten ändras inte, bara omslaget. */
+const nb = (s) => esc(s).replace(/(\S+-\S+)/g, '<span class="nb">$1</span>');
 const kr100 = (n) => formatKr(round100(n));
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
 const pct = (x) => `${(clamp01(x) * 100).toFixed(3)}%`;
@@ -154,26 +159,29 @@ export function meterModel(mode, state, r) {
   // gaps mellan segment
   if (used > 0 && jobEnd > used) m.gaps.push(used);
   for (let i = 1; i < m.jobs.length; i++) if (m.jobs[i].to > m.jobs[i].from) m.gaps.push(m.jobs[i].from);
-  // skattetaket (andra taket) när fördjupningen är ifylld
+  // skattetaket (andra taket) när fördjupningen är ifylld.
+  // C-B3: talet i etiketten är ALLTID motorns tal, aldrig en egen summa:
+  //   ryms_delvis -> behov - risk (= motorns "ryms", samma tal som villkorsraden "räcker till X av Y")
+  //   ryms        -> utrymme (motorns "utrymme"; bandet 29..35 % som spannlinje runt markören)
+  //   ryms_inte   -> ingen etikett med tal ("Din skatt räcker inte till avdraget")
+  // Markörens läge: ROT räknar behov/utrymme från 0 (redan använt ROT/RUT ingår i motorns behov), GT:s utrymme
+  // är "efter ROT/RUT" och GT-använt ingår inte, så där börjar skalan vid det använda segmentet.
   const s = r.skatt || {};
   if (eff.skatt_djup && ['ryms', 'ryms_delvis', 'ryms_inte'].includes(s.status) && Number.isFinite(s.utrymme_kr)) {
-    let room;
-    if (mode === 'rot') {
-      const usedTax = (Number(eff.anvant_rot) || 0) + (Number(eff.anvant_rut) || 0);
-      const sum = (raw.skatt || []).filter((x) => x && x.status !== 'ej_bedomd').reduce((a, x) => a + (Number(x.utrymme_kr) || 0), 0);
-      room = Math.max(0, sum - usedTax);
-    } else {
-      const inp = toEngineInput('gt', state);
-      room = inp.skatt_tillganglig_kr.reduce((a, v, i) => a + (v === null ? 0 : Math.max(0, v - (inp.rot_rut_anvant_kr[i] || 0))), 0);
-    }
     const risk = Math.max(0, Number(b.aterbetalningsrisk_kr ?? s.aterbetalningsrisk_kr) || 0);
-    let x = risk > 0 ? used + Math.max(0, central - risk) : Math.max(used + central, used + room);
+    const base = mode === 'rot' ? 0 : used;
+    let kr = 0;
+    if (s.status === 'ryms_delvis') kr = Math.max(0, (Number(s.behov_kr) || 0) - (Number(s.aterbetalningsrisk_kr) || 0));
+    else if (s.status === 'ryms') kr = Math.max(0, Number(s.utrymme_kr) || 0);
+    let x = base + kr;
     const lo = Math.max(0, (Number(s.utrymme_kr) || 0) - (Number(s.utrymme_min_kr) || 0));
     const hi = Math.max(0, (Number(s.utrymme_max_kr) || 0) - (Number(s.utrymme_kr) || 0));
-    const pinned = x >= scale;
+    const pinned = s.status === 'ryms' && x >= scale;
     x = Math.min(scale, x);
-    m.tax = { x, lo: Math.max(0, x - lo), hi: Math.min(scale, x + hi), pinned, risk, room, kr: used + room, status: s.status };
-    if (risk > 0) m.gaps.push(x);
+    // det streckade "kan bli kvarskatt"-segmentet: risk kr från markören (aldrig förbi jobbets slut)
+    const overTo = risk > 0 ? Math.min(jobEnd, x + risk) : x;
+    m.tax = { x, lo: Math.max(0, x - lo), hi: Math.min(scale, x + hi), pinned, risk, kr, status: s.status, overTo };
+    if (risk > 0 && x > used && x < jobEnd) m.gaps.push(x);
   }
   return m;
 }
@@ -224,15 +232,40 @@ function displayValue(q, c) {
 
 function fmtField(n) { return n === '' ? '' : String(Math.round(Number(n))).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
 
+/**
+ * Reglagets vy (C-M3). Orört: inget tal, "Dra för att ange". Rört: talet. Ägare 2:s reglage när fördjupningen
+ * redan är på (ägare 1 har angett sin inkomst) men ägare 2:s är orört: motorn räknar då på förvalet, så talet
+ * visas med ordet "antaget" (aldrig ett tal som inte används, aldrig ett använt tal som döljs).
+ */
+function sliderView(q, c) {
+  const cur = displayValue(q, c);
+  const val = Number(cur || q.default || q.min);
+  const p = (val - q.min) / (q.max - q.min);
+  const isKr = q.max > 1000;
+  const unset = !c.touched.has(q.id);
+  const assumed = unset && c.eff.skatt_djup;
+  const shown = isKr ? formatKr(val) : `${val} ${L('c.ui.procent')}`;
+  const text = unset && !assumed ? L('c.djup.dra') : shown;
+  const vt = unset && !assumed ? L('c.djup.ej_angiven') : (isKr ? L('c.djup.valuetext', { kr: fmtField(val) }) : `${val} procent`);
+  return { val, p, text, vt, unset: unset && !assumed, assumed };
+}
+
 function renderQuestion(q, c) {
   const id = q.id;
-  const helpId = q.help ? `help-${id}` : '';
+  const helpId = q.help && q.widget !== 'slider' ? `help-${id}` : '';   // reglagets hjälprad renderas inte (C-M3: en hjälprad i bandet)
   const describe = helpId ? ` aria-describedby="${helpId}"` : '';
   const disabled = c.hard && KEEP_ON_NEJ.has(id) && !q.shown;
   const dis = disabled ? ' disabled' : '';
   const isGate = Boolean(q.gate);
   let body = '';
   const w = q.widget;
+  if (id === 'inkomsttyp') {
+    // C-M2: EN inkomstfråga. Inkomsttypen härleds ur chippen "Betalar du inkomstskatt på lön eller pension?"
+    // (effInkomsttyp i motorn); här bara en kryssruta för det chippen inte kan säga: både lön och pension.
+    const on = c.eff.inkomsttyp === 'bada';
+    body = `<label class="check"><input type="checkbox" name="${id}" value="bada"${on ? ' checked' : ''}${dis}><span class="check__box" aria-hidden="true"></span><span>${esc(t('q.inkomsttyp.bada'))}</span></label>`;
+    return `<fieldset class="q q--checkbox" id="q-${id}" data-q="${id}"${dis}><legend class="sr-only">${esc(q.label)}</legend>${body}</fieldset>`;
+  }
   if (w === 'chips' || (w === 'toggle' && q.options && q.options.length)) {
     const cur = displayValue(q, c);
     const opts = q.options.map((o) => {
@@ -252,15 +285,11 @@ function renderQuestion(q, c) {
     const cur = displayValue(q, c) === 'true';
     body = `<label class="check"><input type="checkbox" name="${id}"${cur ? ' checked' : ''}${dis}${describe}><span class="check__box" aria-hidden="true"></span><span>${esc(q.label)}</span></label>`;
   } else if (w === 'slider') {
-    const cur = displayValue(q, c);
-    const val = Number(cur || q.default || q.min);
-    const p = (val - q.min) / (q.max - q.min);
-    const isKr = q.max > 1000;
-    const shown = isKr ? formatKr(val) : `${val} ${L('c.ui.procent')}`;
-    const vt = isKr ? L('c.djup.valuetext', { kr: fmtField(val) }) : `${val} procent`;
-    body = `<div class="slider">
-      <input type="range" id="in-${id}" name="${id}" min="${q.min}" max="${q.max}" step="${q.step}" value="${val}" style="--p:${pct(p)}" aria-valuetext="${esc(vt)}" aria-labelledby="lg-${id}"${dis}${describe}>
-      <output class="slider__out" for="in-${id}">${esc(shown)}</output>
+    const sv = sliderView(q, c);
+    const tag = sv.assumed ? `<span class="slider__tag">${esc(t('ui.antaget'))}</span>` : '';
+    body = `<div class="slider${sv.unset ? ' is-unset' : ''}">
+      <input type="range" id="in-${id}" name="${id}" min="${q.min}" max="${q.max}" step="${q.step}" value="${sv.val}" style="--p:${pct(sv.p)}" aria-valuetext="${esc(sv.vt)}" aria-labelledby="lg-${id}"${dis}${describe}>
+      <output class="slider__out" for="in-${id}">${esc(sv.text)}${tag}</output>
     </div>`;
   } else if (w === 'stepper' || w === 'amount') {
     const cur = displayValue(q, c);
@@ -274,41 +303,58 @@ function renderQuestion(q, c) {
       <button type="button" class="amount__btn" data-step="1" aria-label="${esc(L('c.ui.oka', { steg: stepTxt }))}"${dis}>+</button>
     </div>${presets}`;
   }
-  const legend = w === 'checkbox' ? '' : `<legend class="q__label" id="lg-${id}">${esc(q.label)}</legend>`;
-  const help = q.help ? `<p class="q__help" id="${helpId}">${esc(q.help)}</p>` : '';
+  const legend = w === 'checkbox' ? `<legend class="sr-only">${esc(q.label)}</legend>` : `<legend class="q__label" id="lg-${id}">${esc(q.label)}</legend>`;   // C-m5: fieldset alltid med legend
+  const help = helpId ? `<p class="q__help" id="${helpId}">${esc(q.help)}</p>` : '';
   const note = disabled ? `<p class="q__note">${esc(L('c.meter.galler_inte'))}</p>` : '';
   return `<fieldset class="q q--${w}${isGate ? ' q--gate' : ''}" id="q-${id}" data-q="${id}"${dis}>${legend}${body}${note}${help}</fieldset>`;
 }
 
-// Embed (UX §6.2): bara pengafrågorna står framme, boende + belopp + skatt (+ sol för batteri, grinden som avgör läget)
-const EMBED_VISIBLE = new Set(['boende', 'belopp', 'skatt', 'sol']);
+// Embed (UX §6.2, C-M4 "två synliga frågor"): boende + belopp står framme (+ sol för batteri, grinden som avgör
+// läget). Skatten ligger bakom "Räcker skatten?" tillsammans med fördjupningen; dess antaget-rad i villkorslistan
+// öppnar fällraden vid klick. Allt annat under Fler detaljer.
+const EMBED_VISIBLE = new Set(['boende', 'belopp', 'sol']);
 
-/** Var hör frågan hemma just nu: 'lage' | 'controls' | 'djup' | 'folded' | 'hidden' */
+/** Var hör frågan hemma just nu: 'lage' | 'controls' | 'djup' | 'djupfold' | 'folded' | 'hidden' */
 export function placeOf(q, c) {
   if (q.id === 'lage') return 'lage';
   if (DJUP_BAND.has(q.id)) return djupShown(q, c.eff) ? 'djup' : 'hidden';
   if (q.id === 'skatt_djup') return 'hidden';
-  if (!q.shown) return c.hard && KEEP_ON_NEJ.has(q.id) ? 'controls' : 'hidden';
+  const keep = c.hard && KEEP_ON_NEJ.has(q.id);
+  if (c.embed && q.id === 'skatt') return q.shown || keep ? 'djupfold' : 'hidden';
+  if (!q.shown) return keep ? 'controls' : 'hidden';
   if (DJUP_ALL.has(q.id)) return c.eff.skatt_djup ? 'folded' : 'hidden';
   if (c.embed && !EMBED_VISIBLE.has(q.id)) return 'folded';
   return q.folded ? 'folded' : 'controls';
+}
+
+/**
+ * "{kvar} kvar i år" inne i spårets tomma del (C-M8): potten ritas som "kvar" och jobbet framför. Talet är
+ * motorns pott_kvar_kr / tak_kvar_kr (samma som villkorsraden v.pott.kvar), inget nytt tal. Visas bara när den
+ * tomma delen är bred nog för texten och skattemarkören inte står i den.
+ */
+function kvarLabel(m) {
+  if (m.inactive || m.state === 'noll' || !(m.pottKvar > 0)) return { text: '', on: false, free: 0 };
+  const jobEnd = m.band ? m.band.to : (m.outline ? m.used : (m.jobs.length ? m.jobs[m.jobs.length - 1].to : m.used));
+  const free = Math.max(0, (m.scale - jobEnd) / m.scale);
+  const taxIn = m.tax && !m.tax.pinned && m.tax.status !== 'ryms_inte' && m.tax.x / m.scale > 0.5;
+  const on = free >= 0.45 && !taxIn;
+  return { text: L('c.meter.kvar', { kr: formatKr(m.pottKvar) }), on, free };
 }
 
 function renderMeter(c) {
   const { meter: m, result: r, mode } = c;
   const b = r.belopp;
   const eyebrow = L(`c.meter.eyebrow.${mode}`);
-  // taket per person; när något redan är använt visas i stället hur mycket som är kvar (COPY-raden v.pott.kvar)
-  const cap = m.used > 0 && b.state !== 'noll'
-    ? t(mode === 'rot' ? 'v.pott.kvar' : 'v.gt.pott.kvar', { kvar: formatKr(m.pottKvar) })
-    : L(m.agare === 2 ? 'c.meter.cap.2' : 'c.meter.cap.1', { tak: formatKr(m.scale) });
+  // takraden är alltid taket; "kvar" står i spåret (kvarLabel) och i villkorsraden v.pott.kvar
+  const cap = L(m.agare === 2 ? 'c.meter.cap.2' : 'c.meter.cap.1', { tak: formatKr(m.scale) });
+  const kvar = kvarLabel(m);
   const seg = (cls, from, to, extra = '') => `<div class="meter__seg ${cls}" style="--x:${(from / m.scale).toFixed(5)};--w:${((to - from) / m.scale).toFixed(5)}"${extra}></div>`;
   const clip = (cls, from, to, on) => `<div class="meter__seg ${cls}${on ? ' is-on' : ''}" style="--x:${(from / m.scale).toFixed(5)};--w:${((to - from) / m.scale).toFixed(5)}"></div>`;
   const jobs = m.jobs;
   const j1 = jobs[0] || { from: m.used, to: m.used, typ: 'jobb' };
   const j2 = jobs[1] || { from: j1.to, to: j1.to, typ: 'batteri' };
   const band = m.band || { from: j1.to, to: j1.to };
-  const over = m.tax && m.tax.risk > 0 ? { from: m.tax.x, to: band.to > j1.to ? band.to : (jobs.length > 1 ? j2.to : j1.to) } : { from: 0, to: 0 };
+  const over = m.tax && m.tax.risk > 0 ? { from: m.tax.x, to: m.tax.overTo } : { from: 0, to: 0 };
   const outline = m.outline || { from: 0, to: 0 };
   const taxOn = Boolean(m.tax);
   const tax = m.tax || { x: 0, lo: 0, hi: 0 };
@@ -317,7 +363,8 @@ function renderMeter(c) {
   const ticks = [0, P.ROT_TAK, P.ROT_TAK * 2].filter((v) => v <= m.scale).map((v) => `<span class="meter__tick" style="--x:${(v / m.scale).toFixed(5)}">${v === 0 ? L('c.tick.noll') : esc(formatKr(v))}</span>`).join('');
   const legend = renderLegend(c);
   const readoutTxt = m.inactive && b.state === 'dold' ? '' : b.rubrik;
-  const aria = L('c.meter.aria', { text: [readoutTxt, label.text].filter(Boolean).join('. ') });
+  const aria = L('c.meter.aria', { text: [readoutTxt, label.text, kvar.on ? kvar.text : ''].filter(Boolean).join('. ') });
+  const lit = (legend.match(/meter__key meter__key--[a-z]+"/g) || []).length;
   return `<div class="meter${m.inactive ? ' is-inactive' : ''}" data-state="${esc(b.state)}" data-label="${label.text ? 'on' : 'off'}" style="--ticks:${Math.round(m.scale / 10_000)}">
     <div class="meter__head">
       <div class="meter__title"><span class="eyebrow">${esc(eyebrow)}</span><span class="meter__cap">${esc(cap)}</span></div>
@@ -325,6 +372,7 @@ function renderMeter(c) {
         <strong class="meter__rubrik" data-amounts="${esc(amountsIn(readoutTxt).join(','))}">${esc(readoutTxt)}</strong>
         <span class="meter__bas">${esc(m.inactive && b.state === 'dold' ? '' : b.bas_text)}</span>
         <span class="meter__betala">${esc(b.att_betala_text || '')}</span>
+        <span class="meter__kalla">${esc(L('c.kalla'))}</span>
       </div>
     </div>
     <div class="meter__labelrow"><span class="meter__taxlabel${label.cls}" style="--x:${(tax.x / m.scale).toFixed(5)}"><span class="meter__taxtxt">${esc(label.text)}</span></span><span class="meter__taxband${taxOn ? ' is-on' : ''}" style="--x:${(tax.lo / m.scale).toFixed(5)};--w:${((tax.hi - tax.lo) / m.scale).toFixed(5)}"></span></div>
@@ -338,11 +386,12 @@ function renderMeter(c) {
         ${clip('meter__seg--outline', outline.from, outline.to, outline.to > outline.from)}
         ${gaps}
         <div class="meter__marker${taxOn ? ' is-on' : ''}${m.tax && m.tax.pinned ? ' is-pinned' : ''}" style="--x:${(tax.x / m.scale).toFixed(5)}"></div>
+        <span class="meter__kvar${kvar.on ? ' is-on' : ''}" aria-hidden="true">${esc(kvar.text)}</span>
       </div>
       <div class="meter__tail${m.over > 0 ? ' is-on' : ''}" aria-hidden="true"></div>
     </div>
     <div class="meter__ticks">${ticks}</div>
-    <ul class="meter__legend${legendSolo(legend) ? ' is-solo' : ''}">${legend}</ul>
+    <ul class="meter__legend${lit <= 1 ? ' is-solo' : ''}${lit > 2 ? ' has-many' : ''}">${legend}</ul>
   </div>`;
 }
 
@@ -357,8 +406,8 @@ function meterLabel(c) {
   if (m.inactive) return { text: L('c.meter.galler_inte'), cls: ' is-note' };
   if (r.belopp.state === 'noll') return { text: '', cls: '' };
   if (!m.tax) return { text: '', cls: '' };
-  if (m.tax.status === 'ryms_inte' && m.tax.room <= 0) return { text: L('c.meter.tax_ingen'), cls: ' is-on is-left' };
-  const kr = kr100(m.tax.kr);
+  if (m.tax.status === 'ryms_inte') return { text: L('c.meter.tax_ingen'), cls: ' is-on is-left' };
+  const kr = kr100(m.tax.kr);   // = motorns kr100(ryms | utrymme), samma avrundning som villkorsraden
   if (m.tax.pinned) return { text: L('c.meter.tax_hela', { kr }), cls: ' is-on is-pinned' };
   return { text: L('c.meter.tax_hit', { kr }), cls: ` is-on${m.tax.x / m.scale > 0.5 ? ' is-right' : ''}` };
 }
@@ -387,22 +436,28 @@ function renderLegend(c) {
   return items.join('');
 }
 
-function legendSolo(html) { const lit = (html.match(/meter__key meter__key--[a-z]+"/g) || []).length; return lit <= 1; }
-
-function renderDjup(c) {
-  const { bank, result: r, embed } = c;
+/**
+ * Fördjupningen (synlig i riktning C, bakom "Räcker skatten?" i embed). Ordning (C-M2/M3): rubrik, EN statisk
+ * hjälprad ("vi sparar inget", COPY q.skatt_djup.help), reglaget, kryssrutan "Både lön och pension" (lön/pension-
+ * fälten när den är på), fyllt 66, ränteutgifter, ägare 2, och SIST motorns skatterad + hedge (dold tills inkomsten
+ * är angiven). Resultatet ligger under reglagen med flit: när det byter längd får inget reglage flytta sig under
+ * tummen (UX §4.6), bara Fler detaljer under skjuts. `skattQ` (bara embed): skatt-chippen från reglagen (C-M4).
+ */
+function renderDjup(c, skattQ) {
+  const { bank, embed } = c;
   const qs = bank.filter((q) => DJUP_BAND.has(q.id));
   const cell = (q) => `<div class="djup__cell djup__cell--${q.id}"${djupShown(q, c.eff) ? '' : ' hidden'}>${renderQuestion(q, c)}</div>`;
-  const first = qs.filter((q) => ['inkomsttyp', 'fyllt66'].includes(q.id)).map(cell).join('');
-  const income = qs.filter((q) => ['manadsinkomst', 'lon_manad', 'pension_manad'].includes(q.id)).map(cell).join('');
-  const rest = qs.filter((q) => ['ranteutgifter_ar'].includes(q.id)).map(cell).join('');
+  const pick = (ids) => qs.filter((q) => ids.includes(q.id)).map(cell).join('');
   const own2 = qs.filter((q) => q.id.endsWith('_2')).map(cell).join('');
   const status = renderDjupStatus(c);
-  const inner = `<div class="djup__grid djup__grid--1">${first}${income}<div class="djup__status" id="djup-status">${status}</div>${rest}</div>
-    <div class="djup__grid djup__grid--2"${c.eff.agare === 2 ? '' : ' hidden'} data-agare2><span class="djup__owner">${esc(L('c.djup.agare2'))}</span>${own2}</div>`;
-  const h = embed ? 'h4' : 'h3';
+  const inner = `<p class="djup__help">${nb(t('q.skatt_djup.help'))}</p>
+    <div class="djup__grid djup__grid--1">${pick(['manadsinkomst'])}${pick(['inkomsttyp'])}${pick(['lon_manad', 'pension_manad'])}${pick(['fyllt66', 'ranteutgifter_ar'])}</div>
+    <div class="djup__grid djup__grid--2"${c.eff.agare === 2 ? '' : ' hidden'} data-agare2><span class="djup__owner">${esc(L('c.djup.agare2'))}</span>${own2}</div>
+    <div class="djup__status" id="djup-status"${status ? '' : ' hidden'}>${status}</div>`;
+  const h = embed ? 'h3' : 'h2';   // C-m1: rubrikordning h1 -> h2 (fristående), h2 -> h3 (embed)
   if (embed) {
     return `<section class="djup djup--embed" aria-labelledby="djup-h"><details class="fold fold--djup" id="fold-djup"><summary class="fold__sum"><span>${esc(L('c.djup.fold'))}</span></summary>
+      <div class="djup__chip" id="djup-chip">${skattQ || ''}</div>
       <${h} class="djup__h" id="djup-h">${esc(t('q.skatt_djup.label'))}</${h}>${inner}</details></section>`;
   }
   return `<section class="djup" aria-labelledby="djup-h"><${h} class="djup__h" id="djup-h">${esc(t('q.skatt_djup.label'))}</${h}>${inner}</section>`;
@@ -415,7 +470,7 @@ function renderDjupStatus(c) {
   if (eff.skatt_djup && s.text && ['ryms', 'ryms_delvis', 'ryms_inte'].includes(s.status)) {
     return `<p class="djup__line is-result">${esc(s.text)}</p><p class="djup__line is-muted">${esc(s.hedge)}</p>`;
   }
-  return `<p class="djup__line">${esc(L('c.djup.prompt'))}</p><p class="djup__line is-muted">${esc(t('q.skatt_djup.help'))}</p>`;
+  return '';
 }
 
 function renderVillkor(c) {
@@ -488,8 +543,10 @@ function renderVerdict(c) {
       <span class="share__status" role="status" aria-live="polite"></span>
     </div>`;
   const skv = mode === 'rot' ? `<a class="textlink" href="${esc(LINKS.skatteverket_rot_rut)}" rel="noopener" target="_blank">${esc(L('c.skv.rot'))}</a>` : `<a class="textlink" href="${esc(LINKS.skatteverket_mina_avdrag)}" rel="noopener" target="_blank">${esc(L('c.skv.gt'))}</a>`;
+  // C-M6: den statiska beloppstabellen bara utan JS (<noscript>, som B). C-M7: källa + datum står vid avläsningen
+  // (.meter__kalla, utanför details); här bara Skatteverkslänken.
   const metod = `<details class="metod" id="metod"><summary class="fold__sum"><span>${esc(t('ui.sa_har_vi_raknat'))}</span></summary>
-      <div class="metod__body"><div id="metod-list">${renderMetod(c)}</div>${renderStaticTable(mode, c.eff.lage)}<p class="metod__kalla">${esc(L('c.kalla'))} ${skv}</p></div></details>`;
+      <div class="metod__body"><div id="metod-list">${renderMetod(c)}</div><noscript>${renderStaticTable(mode, c.eff.lage)}</noscript><p class="metod__kalla">${skv}</p></div></details>`;
   const cta = `<div class="cta" id="cta">${renderCta(c)}</div>`;
   const folded = embed
     ? `<details class="fold fold--villkor" id="fold-villkor"><summary class="fold__sum"><span>${esc(L('c.fold.villkor'))}</span></summary><div id="verdict-detail">${detail}</div>${share}${metod}</details>`
@@ -514,20 +571,21 @@ export function renderTool(mode, state, touched, surface) {
   });
   const foldedDjup = bank.filter((q) => DJUP_ALL.has(q.id) && !DJUP_BAND.has(q.id) && q.id !== 'skatt_djup').map((q) => ({ q, place: placeOf(q, c), html: renderQuestion(q, c) }));
   const inControls = controls.filter((x) => x.place === 'controls').map((x) => x.html).join('');
+  const inDjupFold = controls.filter((x) => x.place === 'djupfold').map((x) => x.html).join('');
   const inFolded = [...controls.filter((x) => x.place === 'folded'), ...foldedDjup.filter((x) => x.place === 'folded')].map((x) => x.html).join('');
   const hiddenOnes = [...controls.filter((x) => x.place === 'hidden'), ...foldedDjup.filter((x) => x.place === 'hidden')].map((x) => x.html.replace('<fieldset ', '<fieldset hidden ')).join('');
   const ht = embed ? 'h2' : 'h1';
   return `<section class="tool" id="verktyg" data-mode="${mode}" data-surface="${surface}" aria-labelledby="tool-title">
   <header class="tool__head">
     <${ht} class="tool__title" id="tool-title">${esc(L(`c.title.${mode}`))}</${ht}>
-    <p class="tool__lead">${esc(L('c.lead'))}</p>
+    <p class="tool__lead">${esc(L(embed ? 'c.lead.embed' : 'c.lead.standalone'))}</p>
   </header>
   <div class="tool__grid">
     <div class="tool__main">
       ${lage ? `<div class="lage">${renderQuestion(lage, c)}</div>` : ''}
       ${renderMeter(c)}
       <div class="controls" id="controls">${inControls}</div>
-      ${renderDjup(c)}
+      ${renderDjup(c, inDjupFold)}
       <details class="fold fold--fler" id="fler"><summary class="fold__sum"><span>${esc(t('ui.fler_detaljer'))}</span></summary><div class="fler__body" id="folded">${inFolded}</div></details>
       <div class="q-hidden" id="q-hidden" hidden>${hiddenOnes}</div>
     </div>
@@ -651,6 +709,8 @@ function bind() {
   tool.addEventListener('change', onChange);
   tool.addEventListener('input', onInput);
   tool.addEventListener('click', onClick);
+  tool.addEventListener('click', onRadioClick);
+  tool.addEventListener('keydown', onRadioKey);
   tool.addEventListener('focusout', onBlur);
   tool.addEventListener('toggle', (e) => {
     const d = e.target; if (!(d instanceof HTMLDetailsElement) || !d.open) return;
@@ -679,11 +739,26 @@ function parseAmount(id, raw) {
   return id === 'kommunalskatt' ? Math.round(n * 100) / 100 : Math.round(n);
 }
 
+/**
+ * Fördjupningen är på exakt när kunden har ANGETT en inkomst (C-M3): reglaget rört, eller lön/pension ifyllt när
+ * "Både lön och pension" är på. Fyllt 66 / ränteutgifter / kryssrutan ensamma tänder den inte, då skulle mätaren
+ * rita ett skattetak på förvalet 35 000 kr som kunden aldrig sett.
+ */
+function incomeGiven() {
+  const eff = effectiveState(App.mode, App.state);
+  return eff.inkomsttyp === 'bada' ? (App.touched.has('lon_manad') || App.touched.has('pension_manad')) : App.touched.has('manadsinkomst');
+}
+function syncDjup() {
+  const on = incomeGiven();
+  App.state.skatt_djup = on;
+  if (on) App.touched.add('skatt_djup'); else App.touched.delete('skatt_djup');
+}
+
 function setAnswer(id, value, opts = {}) {
   App.state[id] = value;
   App.touched.add(id);
   App.interacted = true;
-  if (DJUP_BAND.has(id) && !App.state.skatt_djup) { App.state.skatt_djup = true; App.touched.add('skatt_djup'); }
+  if (DJUP_BAND.has(id)) syncDjup();
   const q = bankQ(id);
   let vb;
   if (q && (q.widget === 'amount' || q.widget === 'stepper')) vb = value === null ? 'antaget' : bucket(Number(value));
@@ -694,14 +769,41 @@ function setAnswer(id, value, opts = {}) {
   paint();
 }
 
+function radioValue(id, el) {
+  return el.value === 'true' ? true : el.value === 'false' ? false : (/^\d+$/.test(el.value) && id === 'agare' ? Number(el.value) : el.value);
+}
+
 function onChange(e) {
   const el = e.target;
   const id = qFrom(el); if (!id) return;
   if (el.type === 'radio') {
-    const v = el.value === 'true' ? true : el.value === 'false' ? false : (/^\d+$/.test(el.value) && id === 'agare' ? Number(el.value) : el.value);
+    const v = radioValue(id, el);
+    // click-lyssnaren (C-B2) hinner före change: samma svar redan satt och bekräftat -> inget dubbelt anrop
+    if (App.touched.has(id) && App.state[id] === v) return;
     setAnswer(id, v);
-  } else if (el.type === 'checkbox') setAnswer(id, el.checked);
+  } else if (el.type === 'checkbox') {
+    if (id === 'inkomsttyp') setAnswer(id, el.checked ? 'bada' : null);   // "Både lön och pension" (C-M2)
+    else setAnswer(id, el.checked);
+  }
   else if (el.type === 'range') setAnswer(id, Number(el.value));
+}
+
+/** C-B2: ett tryck på en redan vald chip (förvalet) är en bekräftelse: antaget -> bekräftat. Bara `change` räcker inte. */
+function onRadioClick(e) {
+  const el = e.target;
+  if (!(el instanceof HTMLInputElement) || el.type !== 'radio' || !el.checked || el.disabled) return;
+  const id = qFrom(el); if (!id) return;
+  const v = radioValue(id, el);
+  if (App.touched.has(id) && App.state[id] === v) return;
+  setAnswer(id, v);
+}
+
+/** Tangentbord: Space/Enter på en redan vald radio ger inget event natively, så vi gör klicket själva (S-7). */
+function onRadioKey(e) {
+  const el = e.target;
+  if ((e.key === ' ' || e.key === 'Enter') && el instanceof HTMLInputElement && el.type === 'radio' && el.checked && !el.disabled) {
+    e.preventDefault(); el.click();
+  }
 }
 
 function onInput(e) {
@@ -710,6 +812,7 @@ function onInput(e) {
     const id = qFrom(el); if (!id) return;
     const v = Number(el.value); const q = bankQ(id);
     el.style.setProperty('--p', pct((v - q.min) / (q.max - q.min)));
+    el.parentElement.classList.remove('is-unset');
     const out = el.parentElement.querySelector('output'); if (out) out.textContent = q.max > 1000 ? formatKr(v) : `${v} ${L('c.ui.procent')}`;
     el.setAttribute('aria-valuetext', q.max > 1000 ? L('c.djup.valuetext', { kr: fmtField(v) }) : `${v} procent`);
     setAnswer(id, v, { silent: true });
@@ -768,8 +871,11 @@ function switchMode(mode, prefState) {
   App.state = { ...defaultState(mode) };
   App.prefilled = new Set();
   for (const [k, v] of Object.entries(prefState || {})) { if (k in App.state && v !== undefined) { App.state[k] = v; App.prefilled.add(k); } }
-  if (prefState && prefState.skatt_djup) for (const k of DJUP_BAND) if (k in App.state && old[k] !== undefined) App.state[k] = old[k];
+  const oldTouched = App.touched;
   App.touched = new Set();
+  // inkomsten följer med vid läge-byte (aldrig i länken): värden + "angiven"-status, så reglaget visar sitt tal
+  if (prefState && prefState.skatt_djup) for (const k of DJUP_BAND) if (k in App.state && old[k] !== undefined) { App.state[k] = old[k]; if (oldTouched.has(k)) App.touched.add(k); }
+  syncDjup();
   rerenderTool();
   paint({ initial: true });
   const h = $('#verdict-h'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
@@ -815,6 +921,7 @@ async function share(what) {
 // ---- målning ----
 function paint(opts = {}) {
   const c = currentCtx();
+  App.ctx = c;   // C-m3: scroll-lyssnaren läser den senaste kontexten i stället för att köra evaluate() per event
   paintFields(c);
   paintMeter(c, opts);
   paintVerdict(c);
@@ -830,7 +937,7 @@ function paint(opts = {}) {
 }
 
 function containerFor(place) {
-  return { controls: $('#controls'), folded: $('#folded'), hidden: $('#q-hidden'), djup: null, lage: $('.lage') }[place];
+  return { controls: $('#controls'), folded: $('#folded'), hidden: $('#q-hidden'), djupfold: $('#djup-chip'), djup: null, lage: $('.lage') }[place];
 }
 
 function paintFields(c = currentCtx()) {
@@ -854,13 +961,22 @@ function paintFields(c = currentCtx()) {
     if (!disabled && note) note.remove();
     // värden
     const cur = displayValue(q, c);
-    if (q.widget === 'chips' || q.widget === 'toggle') {
+    if (q.id === 'inkomsttyp') {
+      const cb = fs.querySelector('input[type="checkbox"]'); if (cb) cb.checked = c.eff.inkomsttyp === 'bada';
+    } else if (q.widget === 'chips' || q.widget === 'toggle') {
       fs.querySelectorAll('input[type="radio"]').forEach((r) => { r.checked = r.value === cur; });
     } else if (q.widget === 'checkbox') {
       const cb = fs.querySelector('input[type="checkbox"]'); if (cb) cb.checked = cur === 'true';
     } else if (q.widget === 'slider') {
       const r = fs.querySelector('input[type="range"]');
-      if (r && document.activeElement !== r) { r.value = cur || q.default || q.min; r.style.setProperty('--p', pct((Number(r.value) - q.min) / (q.max - q.min))); const out = fs.querySelector('output'); if (out) out.textContent = q.max > 1000 ? formatKr(Number(r.value)) : `${r.value} ${L('c.ui.procent')}`; }
+      if (r) {
+        const sv = sliderView(q, c);
+        if (document.activeElement !== r) { r.value = sv.val; r.style.setProperty('--p', pct(sv.p)); }
+        r.setAttribute('aria-valuetext', sv.vt);
+        r.parentElement.classList.toggle('is-unset', sv.unset);
+        const out = fs.querySelector('output');
+        if (out) { const want = `${esc(sv.text)}${sv.assumed ? `<span class="slider__tag">${esc(t('ui.antaget'))}</span>` : ''}`; if (out.innerHTML !== want) out.innerHTML = want; }
+      }
     } else if (q.widget === 'amount' || q.widget === 'stepper') {
       const inp = fs.querySelector('input[type="text"]');
       if (inp && document.activeElement !== inp) inp.value = fmtField(cur);
@@ -894,6 +1010,9 @@ function moveInOrder(fs, target, id) {
 
 function paintMeter(c, opts = {}) {
   const el = $('.meter'); if (!el) return;
+  // C-B1: en pågående count-up avbryts FÖRE alla returer, annars skriver dess sista bildruta tillbaka det
+  // gamla beloppet bredvid ett "Troligen inte" (race batteri -> nej solceller inom 280 ms)
+  if (App.tween) { cancelAnimationFrame(App.tween); App.tween = null; }
   const fresh = renderMeter(c);
   // struktur och etiketter: byt bara textinnehåll och variabler, aldrig segmentnoderna (animeras via CSS)
   const tmp = document.createElement('div'); tmp.innerHTML = fresh;
@@ -906,6 +1025,8 @@ function paintMeter(c, opts = {}) {
   $('.meter__legend', el).innerHTML = $('.meter__legend', nm).innerHTML; $('.meter__legend', el).className = $('.meter__legend', nm).className;
   const lbl = $('.meter__taxlabel', el); const nl = $('.meter__taxlabel', nm);
   lbl.className = nl.className; lbl.style.cssText = nl.style.cssText; $('.meter__taxtxt', lbl).textContent = $('.meter__taxtxt', nl).textContent;
+  const kv = $('.meter__kvar', el); const nkv = $('.meter__kvar', nm);
+  if (kv && nkv) { kv.className = nkv.className; if (kv.textContent !== nkv.textContent) kv.textContent = nkv.textContent; }
   // segment: kopiera style-variabler + is-on
   const segs = el.querySelectorAll('.meter__seg, .meter__gap, .meter__taxband, .meter__marker, .meter__tail');
   const nsegs = nm.querySelectorAll('.meter__seg, .meter__gap, .meter__taxband, .meter__marker, .meter__tail');
@@ -914,6 +1035,7 @@ function paintMeter(c, opts = {}) {
   const ro = $('.meter__rubrik', el); const nro = $('.meter__rubrik', nm);
   const newText = nro.textContent; const newAmts = amountsIn(newText); const oldAmts = (ro.dataset.amounts || '').split(',').filter(Boolean).map(Number);
   ro.dataset.amounts = newAmts.join(',');
+  ro.dataset.target = newText;   // m\u00e5ltexten: en tween vars m\u00e5l inte l\u00e4ngre \u00e4r denna text f\u00e5r inte skriva
   if (opts.initial || reduced() || newAmts.length === 0 || newAmts.length !== oldAmts.length || ro.textContent === newText) { ro.textContent = newText; return; }
   tweenAmounts(ro, newText, oldAmts, newAmts);
 }
@@ -922,6 +1044,7 @@ function tweenAmounts(el, template, from, to) {
   if (App.tween) cancelAnimationFrame(App.tween);
   const start = performance.now(); const dur = 280;
   const step = (now) => {
+    if (el.dataset.target !== template) { App.tween = null; return; }   // avl\u00e4sningen har bytt m\u00e5l: avbryt tyst
     const k = Math.min(1, (now - start) / dur); const e = 1 - Math.pow(1 - k, 3);
     let i = 0;
     el.textContent = template.replace(/(\d{1,3}(?:[\u00a0 ]\d{3})*)[\u00a0 ]kr/g, () => { const v = from[i] + (to[i] - from[i]) * e; i++; return formatKr(round100(v)); });
@@ -939,18 +1062,17 @@ function paintVerdict(c) {
   const head = $('#verdict-body', v); const nh = $('#verdict-body', nv);
   if (head.innerHTML !== nh.innerHTML) { head.classList.add('is-fading'); head.innerHTML = nh.innerHTML; requestAnimationFrame(() => head.classList.remove('is-fading')); }
   swap('#verdict-detail'); swap('#cta'); swap('#metod-list');
-  const tbl = $('.tabell', v); const ntbl = $('.tabell', nv); if (tbl && ntbl && tbl.outerHTML !== ntbl.outerHTML) tbl.outerHTML = ntbl.outerHTML;
 }
 
 function paintDjup(c) {
-  const s = $('#djup-status'); if (s) { const h = renderDjupStatus(c); if (s.innerHTML !== h) s.innerHTML = h; }
+  const s = $('#djup-status'); if (s) { const h = renderDjupStatus(c); if (s.innerHTML !== h) s.innerHTML = h; s.hidden = !h; }
 }
 
 function syncSticky(c) {
   const st = $('#sticky'); if (!st) return;
   const show = App.surface === 'standalone' && App.interacted && window.matchMedia('(max-width: 767px)').matches && !App.verdictVisible;
   if (!show) { st.hidden = true; return; }
-  const cc = c && c.result ? c : currentCtx();
+  const cc = c && c.result ? c : (App.ctx || currentCtx());
   const r = cc.result;
   $('.sticky__h', st).textContent = r.headline.text;
   $('.sticky__amt', st).textContent = r.belopp.state === 'dold' ? '' : r.belopp.rubrik;
@@ -967,7 +1089,8 @@ function scheduleLive(c) {
   clearTimeout(App.liveTimer);
   App.liveTimer = setTimeout(() => {
     const live = $('#live'); if (!live) return;
-    const txt = `${c.result.headline.text}. ${c.result.belopp.state === 'dold' ? '' : c.result.belopp.rubrik}`.trim();
+    // C-m2: rubrikens avslutande ":" eller "." bort före vår punkt (annars "stämmer:. Ungefär")
+    const txt = `${c.result.headline.text.replace(/[:.]$/, '')}. ${c.result.belopp.state === 'dold' ? '' : c.result.belopp.rubrik}`.trim();
     if (live.textContent !== txt) live.textContent = txt;
   }, 600);
 }

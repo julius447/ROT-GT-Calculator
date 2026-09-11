@@ -140,3 +140,105 @@ kontrast brödtext 17,9:1 och hjälptext 6,3:1.
 - Desktop-embed (1 386 px) har inget budgetmål och är inte kompaktad.
 - Det kompakta läget (`is-compact`) byter bara på resize via klasser; en rad som öppnats stänger aldrig (medvetet),
   men det finns ingen "stäng"-knapp.
+
+---
+
+## Fixrunda 2026-09-11 (efter `PUNCHLISTA.md` / `GRANSKNING.md` 4A, §3, §6)
+
+Allt nedan är kört, inte berättat: `node tools/shot.mjs` (rot, gt, embed, plus `?w=bred`) ger `errors: []` och
+`overflowX: false` på båda viewports; `_probe.mjs` 81/81; reviewerns `_review/isolate.mjs` visar `ak-row--ok` på
+första raden efter Space; `_review/truth.mjs` desktop + mobil = motorn i alla sex scenarier, 0 JS-fel.
+Skärmdumparna i `skarmdumpar/` är omtagna (2x), plus `rot-desktop-bred.png` för punkt 6.
+
+### Punkt för punkt
+
+| # | Punkt | Utfall | Vad som gjordes / varför |
+|---|---|---|---|
+| 1 | Ett belopp, inte två (A-M1) | **Klar** | `computeView(mode, state, touched, { embed })`: fristående lägger raden inget belopp längre (`lines.unshift` borta; `ui.galler_inte` kvar vid `dold`), beloppsraden visar etiketten + reglaget med neutral prick och blocket under tavlan är det enda beloppet. I artikeln bär raden beloppet (`rows.belopp.amount` → `.ak-stmt__amt`, count-up via `setAmountText` utan att raden ritas om), `renderSum` ritas inte i `core`, och att betala + basraden + källraden ligger överst i "Visa villkoren" (`renderMoreSum`, `#ak-{mode}-moresum`). Versaletiketten "Ditt avdrag, preliminärt" ritas bara i artikeln (`cap` i `renderQRow`), så den finns exakt en gång per yta (A-m4, probe-test). `.surface-embed .ak-sum` struken. Bonus: artikeln skickar nu `src: 'artikel'` till `evaluate()` (S-4 låg i motorn, nu stödd), offert-CTA:n i embed bär `src=artikel`. |
+| 2 | Tangentbordsbekräftelse (A-M2) | **Klar** | `keydown` i `bind`: Space/Enter på en redan vald `input[type=radio][data-q]` → `preventDefault()` + `radioAnswer(el)` (idempotent). Probe: Space på förvald värdeår → `ok`, Enter på förvald skatt → `ok`, värdet byts inte, pil byter värde och räknar om; mus: klick på förvald chip → `ok`. `isolate.mjs`: `a_confirm_keyboard_space` = `["ak-row--ok", ...]`. |
+| 3 | Kompakta radernas affordans (A-M3) | **Klar** | `.ak-row__stmt` är nu `display: grid`, hela villkorskolumnen är knappen, ≥ 44 px via `padding: 0.6rem 0; margin: -0.6rem 0` (texten flyttar sig inte). Innehållet ligger i `.ak-row__lines` + `.ak-row__open` = "Svara"/"Ändra pris" i `--ink`, `--w-semi`, utan understrykning, med inline-SVG-chevron (1,75 px) längst till höger, vertikalt centrerad. Första huvudraden (`boende`) öppnas från start i kompakt läge (`syncCompact`). `aria-expanded` + `aria-label="Svara: {villkor}"` (`"Ändra pris: {belopp}"` på beloppsraden) bara i kompakt läge (`syncStmtA11y`, synkas vid varje `update`). Rader utan villkorsrad (t.ex. `agare` i batteri) visade förut bara en prick i kompakt läge (latent bugg); nu visas frågans etikett som reserv (`.ak-stmt__q`). |
+| 4 | Embed-höjd (A-M4) | **Delvis** | Punkt 1 gav 924 px med alla rader stängda (reviewern mätte 912; +12 är att skatt-raden går på två rader när "Svara ›" får en egen kolumn). Men punkt 3 (första raden öppen) kostar 172 px: **som byggt 1 096 px (ROT), 1 107 (laddbox), 1 264 (batteri)**. Verifieringsraden "≤ 920" och punkt 3 går inte ihop; jag följde punkt 3 (affordansen är en konverteringsfråga, höjden är en budgetfråga) och redovisar båda talen nedan. Att stänga första raden är en rad i `syncCompact`. |
+| 5 | Kontrast (A-M5) | **Klar** | Eyebrow i ja-lägen i `--ink-muted` (6,3:1), teal-regeln struken (klassen bärs av kanten + märket). Dessutom all teal TEXT på vit borta lokalt: "Länk kopierad" i bläck (17,9:1), hover på `.ak-link`, `.ak-row__fix`, källraden och sekundärlänken i bläck med teal bara som understrykning. Probe sveper `#ak-rot *` och hittar ingen teal text utanför CTA-knappen. CTA-knappen kvar på produktions-token (2,96:1, ägargrind S-1). |
+| 6 | Tavlans bredd (A-m1) | **Klar (variant)** | `body.is-wide { --ak-measure: 104rem; --ak-cond-col: minmax(0, 30rem) }`, slås på med `?w=bred` via demo-remsans "Bred tavla" (bara desktop). `skarmdumpar/rot-desktop-bred.png` (1 040 px tavla) mot `rot-desktop.png` (860 px). Ägarfråga, inget valt. |
+| 7 | Tabbstopp och tryckytor (A-m2) | **Klar** | `.ak-row__stmt` ≥ 44 px överallt (se 3), `.ak-row__fix` ≥ 44 px via `padding: 1rem 0; margin: -1rem 0`. På ≥ 768 px och ej kompakt: `tabindex="-1"` på villkorsknapparna (sex tabbstopp färre, musklick fungerar). Probe-test. |
+| 8 | Hyresrätt (A-m3) | **Noterat** | Bankens beteende kvar (`showWhen` döljer belopp/skatt). Riktning C har gråningen "Gäller inte i det här läget" om ägaren vill se den. Ägarfråga 3 i §6 står. |
+| 9 | Reduced motion (A-m5) | **Klar** | Den lokala regeln struken; `tokens.css` stänger allt globalt och `reduced()` i app.js stänger count-up, tona och smooth scroll. |
+| 10 | Källrad och tel i embed (A-m6) | **Noterat** | Kvar utanför fällraden (05 §6). Nästa spakar mätta i DOM, se tabellen nedan. |
+| 11 | NOTES §4 | **Klar** | Se "Interaktionstestet efter fixrundan" nedan (ersätter "55/55"). |
+
+Motorns två ändringar sedan bygget hanteras: sekundär `kind: 'offert'` ritas som textlänk (`.ak-sec`, tidigare
+`.ak-tel` som nu bara är ett tillägg på tel-länken) och `lage_byte` med `solid: false` (sol) ritas som textlänk-knapp
+`button.ak-link`; `lageByte()` hårdkodar inte längre `rot` (sol → batteri byter i samma verktyg, `from`/`to` i
+`ampy_ak_mode_select` läses före bytet). Probe: "räcker delvis" = solid tel "Prata med oss innan du beställer" +
+offert-textlänk; sol = "Räkna på batteri till solcellerna" som textlänk, ingen solid knapp, tel sekundär, bytet
+bevarar boende.
+
+En bugg jag själv införde och hittade med reviewerns scenario 2 (värdeår 2021–2025 + belopp skrivet tecken för
+tecken): underfrågans radmodell saknade `amount`, så en tom beloppsplats ritades och `setAmountText` fick
+`undefined` (sex `TypeError` under count-up). Rättat (`amount: null` på underrader, `!= null`-vakt, `setAmountText`
+tål `null`/saknat element); sekvensen ligger nu i `_probe.mjs` (7b) för båda ytorna.
+
+### Uppmätta höjder efter fixrundan (Playwright, CSS-px, `_probe.mjs` §1)
+
+| Läge / yta | Desktop 1440 | Mobil 390 | Budget |
+|---|---|---|---|
+| ROT fristående, verktyget (kort + disclaimer) | 2 053 (kort 1 985) | 2 761 (kort 2 654) | ingen |
+| GT laddbox fristående | 1 977 (kort 1 910) | 2 536 (kort 2 429) | ingen |
+| ROT i artikeln, kompakt kort, **första raden öppen (som byggt)** | 1 183 (kort 1 116) | **1 096 (kort 989)** | 900 |
+| GT laddbox i artikeln | 1 086 (kort 1 019) | **1 107 (kort 1 001)** | 900 |
+| GT batteri i artikeln | 1 396 (kort 1 328) | **1 264 (kort 1 157)** | 900 |
+
+Varianter i artikeln på 390 px (mätta i DOM på samma sida, verktyget inkl. disclaimer):
+
+| Variant | ROT | GT laddbox | GT batteri |
+|---|---|---|---|
+| Som byggt: första raden öppen | 1 096 | 1 107 | 1 264 |
+| Alla rader stängda (reviewerns punkt 1-mått) | 924 | 935 | 1 092 |
+| Första raden öppen, utan tel-länken | 1 040 | 1 051 | 1 208 |
+| Första raden öppen, utan tel och lead | 992 | 1 004 | 1 160 |
+| Alla stängda, utan tel | 868 | 879 | 1 036 |
+| Alla stängda, utan tel och lead | 820 | 832 | 988 |
+
+Verktyget börjar 712 px ner (exkl. demo-remsan; mallen räknar 640). "Snabbfakta" börjar vid 1 840 (ROT) /
+1 851 (laddbox) / 2 008 (batteri) exkl. demo-remsan; UX §6.2 vill ≤ ca 1 540. Med alla rader stängda: ca 1 668.
+Var pixlarna sitter (ROT, som byggt): rubrik + lead 74, beskedsremsa 101, boende öppen 272 (varav chips 172),
+värdeår 100, belopp 95, skatt 100 (var 76: "Svara ›" tar en egen kolumn), CTA + tel 108, "Visa villkoren" 52,
+disclaimer 91, kortets padding ca 50.
+
+### Interaktionstestet efter fixrundan (`node wireframes/a-villkorstavlan/_probe.mjs`)
+
+**81/81 gröna, 0 JS-fel** i alla höjdmätningar och testblock. Nytt sedan bygget: bekräfta genom att trycka på
+förvalet med mus (klick på vald chip → `ok`) och tangentbord (Space och Enter på vald radio → `ok`, värdet byts
+inte; pil byter värde), scenario 2 tecken för tecken på båda ytorna (underfråga synlig + count-up, inga fel), ett
+belopp per yta (fristående: blocket, `ak-row--nocond` på beloppsraden; artikeln: `.ak-stmt__amt` = motorns rubrik,
+inget `#ak-rot-sum`, att betala + basrad + källrad i stängd "Visa villkoren", `src=artikel` i offert-hrefen),
+kompakt läge (första raden öppen, övriga stängda, `aria-expanded`, `aria-label "Svara: …"`, ≥ 44 px tryckyta,
+chevron, ink utan understrykning, tryck öppnar + fokuserar), `tabindex=-1` på ≥ 768, "Stämmer inte?" ≥ 44 px,
+kontrast (eyebrow 6,3:1, "Länk kopierad" 17,9:1, sekundärlänk 6,3:1, ingen teal text utanför CTA-knappen),
+"räcker delvis"-CTA och sol-CTA. Kvar oförändrat: allt ur §4 ovan.
+Reviewerns egna prober: `isolate.mjs` → `a_confirm_keyboard_space: ["ak-row--ok", "ak-row--antaget", ...]`;
+`truth.mjs desktop` och `mobile` → A = motorn i sex av sex (rubrik, belopp, att betala, eyebrow, ram, CTA,
+sekundär), `errors: []` i alla tolv körningar.
+
+### Ändringar i LOCAL_COPY
+
+- `ui.demo.bred` "Bred tavla" (demo-remsan, ingår inte i verktyget).
+- `ui.svara` används nu också i `aria-label` ("Svara: {villkor}"), `ui.andra_pris` likaså.
+
+### Öppna frågor som fixrundan lägger till eller ändrar (för ägaren)
+
+- **Fråga 1 (embed-budgeten) uppdaterad:** som byggt 1 096 px; med första raden stängd 924; spakarna (tel, lead)
+  ger 868/820 med stängda rader. Under 900 kräver antingen stängd första rad + tel bort, eller stängd rad + kortare lead.
+- **Fråga 6 (dubbleringen) är stängd:** ett belopp per yta.
+- **Fråga 7 (etiketterna):** "Svara"/"Ändra pris" står kvar som mina utkast, nu som knappetikett med chevron.
+- **Ny, A-m1:** 860 px eller 1 040 px bred tavla på desktop (`rot-desktop.png` mot `rot-desktop-bred.png`).
+- **Ny, till copy-agenten (logik/, inte min mapp):** i sol-läget säger steg 1 "Stämmer det att du äger bostaden? Då får
+  du ett pris efter avdrag" bredvid en CTA som medvetet inte säljer sol (GT GRIND 8). `s.ja.*` behöver en solvariant.
+
+### Det jag inte håller med om i punchlistan
+
+- Punkt 4:s "löses av punkt 1 (912 px)" och punkt 3:s "öppna första raden från start" adderar inte ihop; öppen rad
+  kostar 172 px. Jag valde affordansen och redovisar båda måtten. Vill ägaren ha 924 är det `syncCompact` (en rad).
+- Punkt 1 lade basraden ("Beror på hur stor del … som är arbete") utanför förslaget; jag tog med den i "Visa
+  villkoren" tillsammans med att betala och källraden, för utan den står intervallet i raden utan förklaring och
+  det kostar inget synligt.
