@@ -386,6 +386,7 @@ export const COPY = Object.freeze({
   's.ja.villkor': 'Först reder vi ut om {villkor}. Sedan bestämmer du',
   's.ja.antaget': 'Stämmer det att {villkor}? Då får du ett pris efter avdrag',
   's.ja.skatt_vet': 'Kolla ditt utrymme i Skatteverkets Räkna ut rot- och rutavdrag, eller räkna på det under Fler detaljer',
+  's.ja.sol.1': 'Ring oss så går vi igenom vad som gäller för dina solceller innan du bestämmer något',
   's.ja.2': 'När jobbet är klart och betalt skickar vi ansökan till Skatteverket',
   's.ja.3': 'Beloppet står förtryckt i din deklaration. Där stämmer Skatteverket av det mot din skatt',
   's.tro.femarsregeln': 'Skatteverket bedömer varje jobb för sig. Ring så kollar vi vad som räknas som reparation i ditt fall',
@@ -950,8 +951,12 @@ function ctaFor(mode, eff, cls, rows) {
   return { primary: { labelKey: 'cta.tel_osaker', kind: 'tel', href: LINKS.tel, solid: true }, secondary: SKV_SEC() };
 }
 
-function stegFor(cls, rows) {
+function stegFor(cls, rows, mode, eff) {
   const { klass, subtyp } = cls;
+  // Solceller: no Ampy sell (GRIND 20), so step 1 is a call, not "ett pris efter avdrag".
+  if (mode === 'gt' && eff && eff.lage === 'sol' && (klass === 'ja' || klass === 'ja_villkor')) {
+    return [{ key: 's.ja.sol.1' }, { key: 's.ja.2' }, { key: 's.ja.3' }];
+  }
   if (klass === 'ja') return [{ key: 's.ja.1' }, { key: 's.ja.2' }, { key: 's.ja.3' }];
   if (klass === 'ja_villkor') {
     const first = (cls.open && cls.open[0]) || (cls.begr && cls.begr[0]);
@@ -1254,7 +1259,7 @@ function finish(mode, eff, cls, rows, belopp, skattBlock, raw, extra) {
     eyebrowKey: mode === 'rot' ? 'eyebrow.rot' : 'eyebrow.gt',
     ram: ramFor(cls, rows),
     villkor, counts, belopp, skatt,
-    nasta_steg: stegFor(cls, rows),
+    nasta_steg: stegFor(cls, rows, mode, eff),
     cta: ctaFor(mode, eff, cls, rows),
     metod: metodFor(mode, eff, cls),
     disclaimerKey: 'disclaimer',
