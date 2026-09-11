@@ -376,9 +376,9 @@ export const COPY = Object.freeze({
   'sk.ryms_band': 'Din skatt räcker preliminärt till hela avdraget: ungefär {min} till {max} att räkna av mot, avdraget är {behov}',
   'sk.ryms_delvis': 'Din skatt räcker preliminärt till {ryms} av {behov}. Resten, {risk}, kan bli kvarskatt nästa år',
   'sk.ryms_inte': 'Din skatt räcker preliminärt inte till avdraget. Hela beloppet, {behov}, kan bli kvarskatt',
-  'sk.ej_bedomd': 'Fyll i din inkomst under Fler detaljer så räknar vi på om skatten räcker',
-  'sk.ej_bedomd.lag': 'Du angav låg eller ingen inkomst. Räkna på din skatt under Fler detaljer, eller kolla hos Skatteverket',
-  'sk.ej_bedomd.vet': 'Vet du inte hur mycket skatt du betalar: räkna på det under Fler detaljer, eller kolla hos Skatteverket',
+  'sk.ej_bedomd': 'Fyll i din ungefärliga inkomst så räknar vi på om skatten räcker. Vi lagrar inget',
+  'sk.ej_bedomd.lag': 'Du angav låg eller ingen inkomst. Fyll i din inkomst så räknar vi på skatten, eller kolla hos Skatteverket',
+  'sk.ej_bedomd.vet': 'Vet du inte hur mycket skatt du betalar: fyll i din ungefärliga inkomst så räknar vi, eller kolla hos Skatteverket',
   'sk.hedge': 'Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden',
 
   // --- next steps (UX §4.5) ---
