@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROT / Grön Teknik-kalkylatorn: tre riktningar</title>
+<link rel="stylesheet" href="_shared/fonts.css">
+<link rel="stylesheet" href="_shared/tokens.css">
+<style>
+  html { font-size: 62.5%; }
+  body { margin: 0; background: var(--bg-page); color: var(--ink); font-family: var(--font); font-size: var(--fs-body); font-weight: var(--w-light); line-height: var(--lh-body); }
+  .wrap { max-width: 112rem; margin: 0 auto; padding: var(--s-8) var(--s-5) var(--s-9); }
+  .eyebrow { font-size: var(--fs-eyebrow); letter-spacing: var(--tr-eyebrow); text-transform: uppercase; font-weight: var(--w-med); color: var(--ap-teal); }
+  h1 { font-size: var(--fs-h2); line-height: var(--lh-snug); font-weight: var(--w-semi); letter-spacing: var(--tr-tight); margin: var(--s-2) 0 var(--s-3); }
+  .lead { max-width: 64rem; color: var(--ink-muted); margin: 0 0 var(--s-7); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr)); gap: var(--s-5); }
+  .card { background: var(--bg-surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-3); box-shadow: 0 1px 2px rgba(15,18,60,.04), 0 8px 24px rgba(15,18,60,.06); }
+  .card h2 { margin: 0; font-size: var(--fs-h3); font-weight: var(--w-semi); line-height: var(--lh-snug); }
+  .card .tag { font-size: var(--fs-sm); color: var(--ink-muted); font-weight: var(--w-reg); }
+  .card p { margin: 0; color: var(--ink-muted); }
+  .links { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: auto; padding-top: var(--s-2); }
+  .btn { display: inline-flex; align-items: center; min-height: 4.4rem; padding: 0 var(--s-4); border-radius: var(--r-pill); font-weight: var(--w-med); font-size: var(--fs-sm); text-decoration: none; border: 1px solid var(--line-strong); color: var(--ink); background: var(--bg-surface); }
+  .btn--primary { background: var(--ap-teal); border-color: var(--ap-teal); color: #fff; }
+  .meta { margin-top: var(--s-8); font-size: var(--fs-sm); color: var(--ink-muted); }
+  .meta a { color: var(--ap-teal); }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <span class="eyebrow">Ampy, ROT- och Grön Teknik-kalkylatorn</span>
+  <h1>Tre riktningar, samma motor</h1>
+  <p class="lead">Alla tre svarar på gäller det mig, hur mycket blir det och räcker min skatt. De skiljer sig i vilken fråga som är hero, i signaturenhet och i yta. Motor, frågebank, copy och CTA-regler är delade, så valet är form och prioritering.</p>
+
+  <div class="grid" id="riktningar">
+    <article class="card">
+      <span class="tag">Riktning A</span>
+      <h2>Villkorstavlan</h2>
+      <p>Frågan och villkoret är samma rad. Tavlan tänds rad för rad, beskedet är summan. Svarar först på gäller det mig. Ljus yta, en kolumn.</p>
+      <div class="links">
+        <a class="btn btn--primary" href="a-villkorstavlan/index.html?m=rot">ROT</a>
+        <a class="btn" href="a-villkorstavlan/index.html?m=gt">Grön teknik</a>
+        <a class="btn" href="a-villkorstavlan/index.html?m=rot&surface=embed">I artikeln</a>
+      </div>
+    </article>
+    <article class="card">
+      <span class="tag">Riktning B</span>
+      <h2>Kvittot</h2>
+      <p>Verktyget ser ut som fakturan kunden får: fullt pris, avdrag, att betala, villkoren som stämplar. Svarar först på vad betalar jag. Tvåpanel.</p>
+      <div class="links">
+        <a class="btn btn--primary" href="b-kvittot/index.html?m=rot">ROT</a>
+        <a class="btn" href="b-kvittot/index.html?m=gt">Grön teknik</a>
+        <a class="btn" href="b-kvittot/index.html?m=rot&surface=embed">I artikeln</a>
+      </div>
+    </article>
+    <article class="card">
+      <span class="tag">Riktning C</span>
+      <h2>Avdragsmätaren</h2>
+      <p>Ett instrument med två tak: potten och skatteutrymmet. Inkomstbandet är synligt. Svarar först på ryms det i år och räcker skatten.</p>
+      <div class="links">
+        <a class="btn btn--primary" href="c-avdragsmataren/index.html?m=rot">ROT</a>
+        <a class="btn" href="c-avdragsmataren/index.html?m=gt">Grön teknik</a>
+        <a class="btn" href="c-avdragsmataren/index.html?m=rot&surface=embed">I artikeln</a>
+      </div>
+    </article>
+  </div>
+
+  <p class="meta">Research och regelverk: <a href="../research/06-riktningar.md">06-riktningar.md</a> (riktningarna), <a href="../research/04-ux-flode.md">04-ux-flode.md</a> (flödet), <a href="../research/01-rot-regelverk.md">01-rot-regelverk.md</a>, <a href="../research/02-gron-teknik-regelverk.md">02-gron-teknik-regelverk.md</a>. Ägarfrågor: <a href="../GRINDLISTA.md">GRINDLISTA.md</a>.</p>
+</main>
+</body>
+</html>
