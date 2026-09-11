@@ -1,0 +1,143 @@
+{
+ "a": {
+  "?m=rot&surface=embed": {
+   "demo_h": 89,
+   "tool_top": 801,
+   "tool_h": 1154,
+   "tool_bottom": 1956,
+   "snabbfakta_top": 1988,
+   "first_p_top": 2026,
+   "visible_chips": 11,
+   "visible_selects": 0,
+   "visible_text_inputs": 3,
+   "page_h": 2149,
+   "tool_top_excl_demo": 712,
+   "first_p_top_excl_demo": 1937,
+   "snabbfakta_top_excl_demo": 1899
+  },
+  "?m=gt&surface=embed": {
+   "demo_h": 89,
+   "tool_top": 801,
+   "tool_h": 1094,
+   "tool_bottom": 1895,
+   "snabbfakta_top": 1927,
+   "first_p_top": 1965,
+   "visible_chips": 15,
+   "visible_selects": 0,
+   "visible_text_inputs": 3,
+   "page_h": 2088,
+   "tool_top_excl_demo": 712,
+   "first_p_top_excl_demo": 1876,
+   "snabbfakta_top_excl_demo": 1838
+  },
+  "?m=gt&l=batteri&surface=embed": {
+   "demo_h": 89,
+   "tool_top": 801,
+   "tool_h": 1249,
+   "tool_bottom": 2050,
+   "snabbfakta_top": 2082,
+   "first_p_top": 2121,
+   "visible_chips": 13,
+   "visible_selects": 0,
+   "visible_text_inputs": 2,
+   "page_h": 2243,
+   "tool_top_excl_demo": 712,
+   "first_p_top_excl_demo": 2032,
+   "snabbfakta_top_excl_demo": 1993
+  }
+ },
+ "b": {
+  "?m=rot&surface=embed": {
+   "demo_h": 129,
+   "tool_top": 833,
+   "tool_h": 1245,
+   "tool_bottom": 2079,
+   "snabbfakta_top": 2127,
+   "first_p_top": 2201,
+   "visible_chips": 4,
+   "visible_selects": 5,
+   "visible_text_inputs": 2,
+   "page_h": 2500,
+   "tool_top_excl_demo": 704,
+   "first_p_top_excl_demo": 2072,
+   "snabbfakta_top_excl_demo": 1998
+  },
+  "?m=gt&surface=embed": {
+   "demo_h": 129,
+   "tool_top": 833,
+   "tool_h": 1234,
+   "tool_bottom": 2068,
+   "snabbfakta_top": 2116,
+   "first_p_top": 2190,
+   "visible_chips": 9,
+   "visible_selects": 4,
+   "visible_text_inputs": 2,
+   "page_h": 2489,
+   "tool_top_excl_demo": 704,
+   "first_p_top_excl_demo": 2061,
+   "snabbfakta_top_excl_demo": 1987
+  },
+  "?m=gt&l=batteri&surface=embed": {
+   "demo_h": 129,
+   "tool_top": 833,
+   "tool_h": 1414,
+   "tool_bottom": 2247,
+   "snabbfakta_top": 2295,
+   "first_p_top": 2370,
+   "visible_chips": 9,
+   "visible_selects": 5,
+   "visible_text_inputs": 1,
+   "page_h": 2668,
+   "tool_top_excl_demo": 704,
+   "first_p_top_excl_demo": 2241,
+   "snabbfakta_top_excl_demo": 2166
+  }
+ },
+ "c": {
+  "?m=rot&surface=embed": {
+   "demo_h": 121,
+   "tool_top": 797,
+   "tool_h": 1398,
+   "tool_bottom": 2194,
+   "snabbfakta_top": 2242,
+   "first_p_top": 2281,
+   "visible_chips": 28,
+   "visible_selects": 0,
+   "visible_text_inputs": 5,
+   "page_h": 2420,
+   "tool_top_excl_demo": 676,
+   "first_p_top_excl_demo": 2160,
+   "snabbfakta_top_excl_demo": 2121
+  },
+  "?m=gt&surface=embed": {
+   "demo_h": 121,
+   "tool_top": 797,
+   "tool_h": 1538,
+   "tool_bottom": 2335,
+   "snabbfakta_top": 2383,
+   "first_p_top": 2421,
+   "visible_chips": 27,
+   "visible_selects": 0,
+   "visible_text_inputs": 5,
+   "page_h": 2560,
+   "tool_top_excl_demo": 676,
+   "first_p_top_excl_demo": 2300,
+   "snabbfakta_top_excl_demo": 2262
+  },
+  "?m=gt&l=batteri&surface=embed": {
+   "demo_h": 121,
+   "tool_top": 797,
+   "tool_h": 1689,
+   "tool_bottom": 2486,
+   "snabbfakta_top": 2534,
+   "first_p_top": 2572,
+   "visible_chips": 31,
+   "visible_selects": 0,
+   "visible_text_inputs": 4,
+   "page_h": 2711,
+   "tool_top_excl_demo": 676,
+   "first_p_top_excl_demo": 2451,
+   "snabbfakta_top_excl_demo": 2413
+  }
+ }
+}

@@ -1,0 +1,1060 @@
+{
+ "a": {
+  "?m=rot&b=villa&y=vet_inte&s=vet": {
+   "headline": "Osäkert. Några saker avgör, se listan",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "",
+   "solid": [
+    "Ring så reder vi ut det"
+   ],
+   "labels": [
+    "Ring så reder vi ut det",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "osaker",
+    "subtyp": "flera_okanda",
+    "headline": "Osäkert. Några saker avgör, se listan",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Ring så reder vi ut det",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&s=lag": {
+   "headline": "Troligen inte, avdraget kräver skatt att räkna av mot",
+   "rubrik": "",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Kolla ditt utrymme hos Skatteverket",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "troligen_inte",
+    "subtyp": "skatt_lag",
+    "headline": "Troligen inte, avdraget kräver skatt att räkna av mot",
+    "rubrik": "",
+    "cta": "Kolla ditt utrymme hos Skatteverket",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&y=2026_ej_fardig": {
+   "headline": "Nej, inte än. ROT gäller först när huset är taxerat som färdigbyggt",
+   "rubrik": "",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Få ett pris utan avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "inte_an",
+    "headline": "Nej, inte än. ROT gäller först när huset är taxerat som färdigbyggt",
+    "rubrik": "",
+    "cta": "Få ett pris utan avdrag",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&u=50000": {
+   "headline": "Nej, inte i år. Årets pott är använd",
+   "rubrik": "0 kr i år",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Vad gäller nästa år?",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "spara"
+   ],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "inte_i_ar",
+    "headline": "Nej, inte i år. Årets pott är använd",
+    "rubrik": "0 kr i år",
+    "cta": "Vad gäller nästa år?",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&y=2021_2025": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=sol": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Uppskattat avdrag: 22 500 kr",
+   "betala": "Att betala efter avdrag: 127 500 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 22 500 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=sol&a2=80000": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Uppskattat avdrag: 50 000 kr",
+   "betala": "Att betala efter avdrag: 180 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 50 000 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=laddbox&b=brf": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Uppskattat avdrag: 10 000 kr",
+   "betala": "Att betala efter avdrag: 10 000 kr",
+   "solid": [
+    "Ring så reder vi ut vad som gäller i din förening"
+   ],
+   "labels": [
+    "Ring så reder vi ut vad som gäller i din förening",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 10 000 kr",
+    "cta": "Ring så reder vi ut vad som gäller i din förening",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=batteri&b=brf": {
+   "headline": "Osäkert. Batteri i bostadsrätt kräver egna solceller kopplade till lägenheten",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "",
+   "solid": [
+    "Prata med oss"
+   ],
+   "labels": [
+    "Prata med oss",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "osaker",
+    "subtyp": "brf_batteri",
+    "headline": "Osäkert. Batteri i bostadsrätt kräver egna solceller kopplade till lägenheten",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Prata med oss",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=laddbox&b=hyra": {
+   "headline": "Nej, avdraget gäller den som äger bostaden",
+   "rubrik": "",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Hör med din hyresvärd"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "hyra",
+    "headline": "Nej, avdraget gäller den som äger bostaden",
+    "rubrik": "",
+    "cta": "",
+    "solid": false,
+    "sec": "Hör med din hyresvärd"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&b=foralder": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&b=brf": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&a=0": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  }
+ },
+ "b": {
+  "?m=rot&b=villa&y=vet_inte&s=vet": {
+   "headline": "Osäkert. Några saker avgör, se listan",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "Att betala efter avdrag Ange vad jobbet kostar",
+   "solid": [
+    "Ring så reder vi ut det"
+   ],
+   "labels": [
+    "Ring så reder vi ut det",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "osaker",
+    "subtyp": "flera_okanda",
+    "headline": "Osäkert. Några saker avgör, se listan",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Ring så reder vi ut det",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&s=lag": {
+   "headline": "Troligen inte, avdraget kräver skatt att räkna av mot",
+   "rubrik": null,
+   "betala": null,
+   "solid": [],
+   "labels": [
+    "Kolla ditt utrymme hos Skatteverket",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "troligen_inte",
+    "subtyp": "skatt_lag",
+    "headline": "Troligen inte, avdraget kräver skatt att räkna av mot",
+    "rubrik": "",
+    "cta": "Kolla ditt utrymme hos Skatteverket",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&y=2026_ej_fardig": {
+   "headline": "Nej, inte än. ROT gäller först när huset är taxerat som färdigbyggt",
+   "rubrik": null,
+   "betala": null,
+   "solid": [],
+   "labels": [
+    "Få ett pris utan avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "inte_an",
+    "headline": "Nej, inte än. ROT gäller först när huset är taxerat som färdigbyggt",
+    "rubrik": "",
+    "cta": "Få ett pris utan avdrag",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&u=50000": {
+   "headline": "Nej, inte i år. Årets pott är använd",
+   "rubrik": "0 kr i år",
+   "betala": "Att betala efter avdrag 30 000 kr",
+   "solid": [],
+   "labels": [
+    "Vad gäller nästa år?",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "spara"
+   ],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "inte_i_ar",
+    "headline": "Nej, inte i år. Årets pott är använd",
+    "rubrik": "0 kr i år",
+    "cta": "Vad gäller nästa år?",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&y=2021_2025": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "-4 100 till -6 800 kr",
+   "betala": "Att betala efter avdrag ca 23 300 till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=sol": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "-22 500 kr",
+   "betala": "Att betala efter avdrag 127 500 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 22 500 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=sol&a2=80000": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "-27 500 kr",
+   "betala": "Att betala efter avdrag 180 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 50 000 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=laddbox&b=brf": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "-10 000 kr",
+   "betala": "Att betala efter avdrag 10 000 kr",
+   "solid": [
+    "Ring så reder vi ut vad som gäller i din förening"
+   ],
+   "labels": [
+    "Ring så reder vi ut vad som gäller i din förening",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 10 000 kr",
+    "cta": "Ring så reder vi ut vad som gäller i din förening",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=batteri&b=brf": {
+   "headline": "Osäkert. Batteri i bostadsrätt kräver egna solceller kopplade till lägenheten",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "Att betala efter avdrag Ange vad jobbet kostar",
+   "solid": [
+    "Prata med oss"
+   ],
+   "labels": [
+    "Prata med oss",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "osaker",
+    "subtyp": "brf_batteri",
+    "headline": "Osäkert. Batteri i bostadsrätt kräver egna solceller kopplade till lägenheten",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Prata med oss",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=laddbox&b=hyra": {
+   "headline": "Nej, avdraget gäller den som äger bostaden",
+   "rubrik": null,
+   "betala": null,
+   "solid": [],
+   "labels": [
+    "Hör med din hyresvärd"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "hyra",
+    "headline": "Nej, avdraget gäller den som äger bostaden",
+    "rubrik": "",
+    "cta": "",
+    "solid": false,
+    "sec": "Hör med din hyresvärd"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&b=foralder": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "-4 100 till -6 800 kr",
+   "betala": "Att betala efter avdrag ca 23 300 till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&b=brf": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "-4 100 till -6 800 kr",
+   "betala": "Att betala efter avdrag ca 23 300 till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&a=0": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "Att betala efter avdrag Ange vad jobbet kostar",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  }
+ },
+ "c": {
+  "?m=rot&b=villa&y=vet_inte&s=vet": {
+   "headline": "Osäkert. Några saker avgör, se listan",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "",
+   "solid": [
+    "Ring så reder vi ut det"
+   ],
+   "labels": [
+    "Ring så reder vi ut det",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "osaker",
+    "subtyp": "flera_okanda",
+    "headline": "Osäkert. Några saker avgör, se listan",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Ring så reder vi ut det",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&s=lag": {
+   "headline": "Troligen inte, avdraget kräver skatt att räkna av mot",
+   "rubrik": "",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Kolla ditt utrymme hos Skatteverket",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "troligen_inte",
+    "subtyp": "skatt_lag",
+    "headline": "Troligen inte, avdraget kräver skatt att räkna av mot",
+    "rubrik": "",
+    "cta": "Kolla ditt utrymme hos Skatteverket",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&y=2026_ej_fardig": {
+   "headline": "Nej, inte än. ROT gäller först när huset är taxerat som färdigbyggt",
+   "rubrik": "",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Få ett pris utan avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "inte_an",
+    "headline": "Nej, inte än. ROT gäller först när huset är taxerat som färdigbyggt",
+    "rubrik": "",
+    "cta": "Få ett pris utan avdrag",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&u=50000": {
+   "headline": "Nej, inte i år. Årets pott är använd",
+   "rubrik": "0 kr i år",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Vad gäller nästa år?",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "spara"
+   ],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "inte_i_ar",
+    "headline": "Nej, inte i år. Årets pott är använd",
+    "rubrik": "0 kr i år",
+    "cta": "Vad gäller nästa år?",
+    "solid": false,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&y=2021_2025": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=sol": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Uppskattat avdrag: 22 500 kr",
+   "betala": "Att betala efter avdrag: 127 500 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 22 500 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=sol&a2=80000": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Uppskattat avdrag: 50 000 kr",
+   "betala": "Att betala efter avdrag: 180 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 50 000 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=laddbox&b=brf": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Uppskattat avdrag: 10 000 kr",
+   "betala": "Att betala efter avdrag: 10 000 kr",
+   "solid": [
+    "Ring så reder vi ut vad som gäller i din förening"
+   ],
+   "labels": [
+    "Ring så reder vi ut vad som gäller i din förening",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Uppskattat avdrag: 10 000 kr",
+    "cta": "Ring så reder vi ut vad som gäller i din förening",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=batteri&b=brf": {
+   "headline": "Osäkert. Batteri i bostadsrätt kräver egna solceller kopplade till lägenheten",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "",
+   "solid": [
+    "Prata med oss"
+   ],
+   "labels": [
+    "Prata med oss",
+    "Kolla ditt utrymme hos Skatteverket"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "osaker",
+    "subtyp": "brf_batteri",
+    "headline": "Osäkert. Batteri i bostadsrätt kräver egna solceller kopplade till lägenheten",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Prata med oss",
+    "solid": true,
+    "sec": "Kolla ditt utrymme hos Skatteverket"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=gt&l=laddbox&b=hyra": {
+   "headline": "Nej, avdraget gäller den som äger bostaden",
+   "rubrik": "",
+   "betala": "",
+   "solid": [],
+   "labels": [
+    "Hör med din hyresvärd"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [],
+   "engine": {
+    "klass": "nej",
+    "subtyp": "hyra",
+    "headline": "Nej, avdraget gäller den som äger bostaden",
+    "rubrik": "",
+    "cta": "",
+    "solid": false,
+    "sec": "Hör med din hyresvärd"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&b=foralder": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&b=brf": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  },
+  "?m=rot&a=0": {
+   "headline": "Ja, om det här stämmer:",
+   "rubrik": "Upp till 50 000 kr i år",
+   "betala": "",
+   "solid": [
+    "Få ett pris efter avdrag"
+   ],
+   "labels": [
+    "Få ett pris efter avdrag",
+    "Hellre prata? 010-265 79 79"
+   ],
+   "bangs": 0,
+   "dashes": 0,
+   "banned": [
+    "sparar"
+   ],
+   "engine": {
+    "klass": "ja_villkor",
+    "subtyp": "flera_villkor",
+    "headline": "Ja, om det här stämmer:",
+    "rubrik": "Upp till 50 000 kr i år",
+    "cta": "Få ett pris efter avdrag",
+    "solid": true,
+    "sec": "Hellre prata? 010-265 79 79"
+   },
+   "headline_ok": true,
+   "solid_ok": true,
+   "errors": []
+  }
+ }
+}

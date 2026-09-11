@@ -1,0 +1,993 @@
+{
+ "view": "mobile",
+ "engine": {
+  "1": {
+   "klass": "ja_villkor",
+   "subtyp": "flera_villkor",
+   "headline": "Ja, om det här stämmer:",
+   "eyebrow": "Ditt besked, ROT-avdraget 2026",
+   "ram": "3 saker att kolla, se nedan",
+   "belopp_state": "intervall",
+   "belopp_rubrik": "Ungefär 4 100 kr till 6 800 kr",
+   "bas_text": "Beror på hur stor del av 30 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+   "att_betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+   "skatt_status": "ej_bedomd",
+   "skatt_text": "Fyll i din ungefärliga inkomst så räknar vi på om skatten räcker. Vi lagrar inget",
+   "skatt_hedge": "Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden",
+   "cta_label": "Få ett pris efter avdrag",
+   "cta_kind": "offert",
+   "cta_solid": true,
+   "cta_href": "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=30000",
+   "sec_label": "Hellre prata? 010-265 79 79",
+   "sec_href": "tel:+46102657979",
+   "villkor": [
+    "antaget|Du äger villan eller radhuset, helt eller delvis",
+    "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare)",
+    "antaget|Du betalar inkomstskatt på lön",
+    "ok|Du har fyllt 18 år vid årets slut",
+    "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+   ],
+   "steg": [
+    "Stämmer det att du äger bostaden? Då får du ett pris efter avdrag",
+    "När jobbet är klart och betalt skickar vi ansökan till Skatteverket",
+    "Beloppet står förtryckt i din deklaration. Där stämmer Skatteverket av det mot din skatt"
+   ],
+   "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+   "raw_avdrag": 5400,
+   "raw_min": 4050,
+   "raw_max": 6750,
+   "raw_att_betala": 24600
+  },
+  "2": {
+   "klass": "ja_villkor",
+   "subtyp": "vardear",
+   "headline": "Ja, om jobbet är en reparation",
+   "eyebrow": "Ditt besked, ROT-avdraget 2026",
+   "ram": "Ett villkor kvar att kolla, se nedan",
+   "belopp_state": "intervall",
+   "belopp_rubrik": "Ungefär 8 100 kr till 13 500 kr",
+   "bas_text": "Beror på hur stor del av 60 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+   "att_betala": "Att betala efter avdrag: ungefär 46 500 kr till 51 900 kr",
+   "skatt_status": "ej_bedomd",
+   "skatt_text": "Fyll i din ungefärliga inkomst så räknar vi på om skatten räcker. Vi lagrar inget",
+   "skatt_hedge": "Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden",
+   "cta_label": "Få ett pris efter avdrag",
+   "cta_kind": "offert",
+   "cta_solid": true,
+   "cta_href": "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=60000",
+   "sec_label": "Hellre prata? 010-265 79 79",
+   "sec_href": "tel:+46102657979",
+   "villkor": [
+    "ok|Du äger villan eller radhuset, helt eller delvis",
+    "okand|Huset är yngre än fem år. Om jobbet är en reparation kan du få ROT, om det är nytt eller bättre troligen inte. Vi reder ut vilket",
+    "ok|Du betalar inkomstskatt på lön",
+    "ok|Du har fyllt 18 år vid årets slut",
+    "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+   ],
+   "steg": [
+    "Först reder vi ut om jobbet är en reparation. Sedan bestämmer du",
+    "När jobbet är klart och betalt skickar vi ansökan till Skatteverket",
+    "Beloppet står förtryckt i din deklaration. Där stämmer Skatteverket av det mot din skatt"
+   ],
+   "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+   "raw_avdrag": 10800,
+   "raw_min": 8100,
+   "raw_max": 13500,
+   "raw_att_betala": 49200
+  },
+  "3": {
+   "klass": "nej",
+   "subtyp": "hyra",
+   "headline": "Nej, avdraget gäller den som äger bostaden",
+   "eyebrow": "Ditt besked, ROT-avdraget 2026",
+   "ram": "Inget avdrag med de här svaren. Vad som gäller i stället står nedan",
+   "belopp_state": "dold",
+   "belopp_rubrik": "",
+   "bas_text": "",
+   "att_betala": "",
+   "skatt_status": "ej_relevant",
+   "skatt_text": "",
+   "skatt_hedge": "Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden",
+   "cta_label": "",
+   "cta_kind": "none",
+   "cta_solid": false,
+   "cta_href": null,
+   "sec_label": "Hör med din hyresvärd",
+   "sec_href": "#hyresratt",
+   "villkor": [
+    "stopp|Hyresrätt: hyresvärden äger bostaden och ansvarar för elen. Hör med din hyresvärd",
+    "ok|Du har fyllt 18 år vid årets slut",
+    "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+   ],
+   "steg": [
+    "Hör med din hyresvärd. Det är fastighetsägaren som äger och ansvarar för elen",
+    "Läs vad som gäller för hyresrätt i artikeln"
+   ],
+   "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+   "raw_avdrag": 0,
+   "raw_att_betala": 30000
+  },
+  "4": {
+   "klass": "ja_villkor",
+   "subtyp": "flera_villkor",
+   "headline": "Ja, om det här stämmer:",
+   "eyebrow": "Ditt besked, grön teknik 2026",
+   "ram": "2 saker att kolla, se nedan",
+   "belopp_state": "punkt",
+   "belopp_rubrik": "Uppskattat avdrag: 10 000 kr",
+   "bas_text": "50 % av arbete och material, 20 000 kr",
+   "att_betala": "Att betala efter avdrag: 10 000 kr",
+   "skatt_status": "ej_bedomd",
+   "skatt_text": "Fyll i din ungefärliga inkomst så räknar vi på om skatten räcker. Vi lagrar inget",
+   "skatt_hedge": "Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden",
+   "cta_label": "Ring så reder vi ut vad som gäller i din förening",
+   "cta_kind": "tel",
+   "cta_solid": true,
+   "cta_href": "tel:+46102657979",
+   "sec_label": "Kolla ditt utrymme hos Skatteverket",
+   "sec_href": "https://www7.skatteverket.se/portal/rot-rut",
+   "villkor": [
+    "ok|Du äger bostadsrätten",
+    "okand|Var laddboxen ska sitta: vet inte. Det avgörs av om p-platsen följer bostadsrätten när du säljer. Fråga föreningen, eller ring oss",
+    "antaget|Du betalar inkomstskatt på lön",
+    "skoter_vi|Material och installation från samma företag: det är så vi säljer",
+    "ok|Du har fyllt 18 år vid årets slut",
+    "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+   ],
+   "steg": [
+    "Först reder vi ut om p-platsen följer bostadsrätten när du säljer. Sedan bestämmer du",
+    "När jobbet är klart och betalt skickar vi ansökan till Skatteverket",
+    "Beloppet står förtryckt i din deklaration. Där stämmer Skatteverket av det mot din skatt"
+   ],
+   "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+   "raw_avdrag": 10000,
+   "raw_att_betala": 10000
+  },
+  "5": {
+   "klass": "troligen_inte",
+   "subtyp": "batteri_utan_sol",
+   "headline": "Troligen inte grön teknik utan egna solceller. ROT kan gälla elarbetet i stället",
+   "eyebrow": "Ditt besked, grön teknik 2026",
+   "ram": "Skatteverket avgör i deklarationen. Vill du, går vi igenom det med dig innan du bestämmer något",
+   "belopp_state": "alt_rot",
+   "belopp_rubrik": "ROT 30 % på arbetskostnaden kan gälla i stället",
+   "bas_text": "Ange arbetskostnaden från offerten så räknar vi. Hur stor arbetsdelen är avgör beloppet",
+   "att_betala": "",
+   "skatt_status": "ej_bedomd",
+   "skatt_text": "Fyll i din ungefärliga inkomst så räknar vi på om skatten räcker. Vi lagrar inget",
+   "skatt_hedge": "Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden",
+   "cta_label": "Räkna med ROT i stället",
+   "cta_kind": "lage_byte",
+   "cta_solid": true,
+   "cta_href": "#rot",
+   "sec_label": "Hellre prata? 010-265 79 79",
+   "sec_href": "tel:+46102657979",
+   "villkor": [
+    "antaget|Du äger villan eller radhuset, helt eller delvis",
+    "varning|Utan egna solceller gäller inte grön teknik för batteriet. ROT kan i stället ge 30 % på arbetskostnaden för elarbetet",
+    "antaget|Du betalar inkomstskatt på lön",
+    "skoter_vi|Material och installation från samma företag: det är så vi säljer",
+    "ok|Du har fyllt 18 år vid årets slut",
+    "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+   ],
+   "steg": [
+    "ROT kan i stället ge 30 % på arbetskostnaden för elarbetet, inte på batteriet. Räkna med ROT så ser du beloppet",
+    "Vill du, lämnar vi ett pris utan avdrag. Inga överraskningar på fakturan"
+   ],
+   "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+   "raw_avdrag": 0,
+   "raw_att_betala": null
+  },
+  "6": {
+   "klass": "ja_villkor",
+   "subtyp": "flera_villkor",
+   "headline": "Ja, om det här stämmer:",
+   "eyebrow": "Ditt besked, ROT-avdraget 2026",
+   "ram": "4 saker att kolla, se nedan",
+   "belopp_state": "punkt",
+   "belopp_rubrik": "Uppskattat avdrag: 18 000 kr",
+   "bas_text": "30 % av arbetskostnaden 60 000 kr. Materialet ger inget avdrag",
+   "att_betala": "Att betala efter avdrag: 82 000 kr",
+   "skatt_status": "ej_bedomd",
+   "skatt_text": "Fyll i din ungefärliga inkomst så räknar vi på om skatten räcker. Vi lagrar inget",
+   "skatt_hedge": "Preliminärt. Skatteverket avgör i slutskattebeskedet. Räcker inte skatten betalar du mellanskillnaden",
+   "cta_label": "Få ett pris efter avdrag",
+   "cta_kind": "offert",
+   "cta_solid": true,
+   "cta_href": "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=100000&ak=60000",
+   "sec_label": "Hellre prata? 010-265 79 79",
+   "sec_href": "tel:+46102657979",
+   "villkor": [
+    "antaget|Du äger villan eller radhuset, helt eller delvis",
+    "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare)",
+    "antaget|Du betalar inkomstskatt på lön",
+    "antaget|Ni båda har skatt att räkna av mot, och båda står på fakturan",
+    "ok|60 000 kr kvar av årets pott",
+    "ok|Du har fyllt 18 år vid årets slut",
+    "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+   ],
+   "steg": [
+    "Stämmer det att du äger bostaden? Då får du ett pris efter avdrag",
+    "När jobbet är klart och betalt skickar vi ansökan till Skatteverket",
+    "Beloppet står förtryckt i din deklaration. Där stämmer Skatteverket av det mot din skatt"
+   ],
+   "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+   "raw_avdrag": 18000,
+   "raw_att_betala": 82000
+  }
+ },
+ "dirs": {
+  "a": {
+   "1": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "3 saker att kolla, se nedan",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "bas": "Beror på hur stor del av 30 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+    "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "Regler: Skatteverket, kontrollerade 2026-09-11. Gäller betalningar 2026.",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis ANTAGET Hur bor du där jobbet ska göras? Villa eller radhus Bostadsrätt Fritidshus Hyresrätt Föräldrarnas bostad Vi antar att du äger bostaden, helt eller delvis.",
+     "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare) ANTAGET När blev huset färdigbyggt (värdeår)? 2011 eller tidigare 2012 till 2020 2021 till 2025 2026, eller inte färdigt än Vet inte Står i ditt senaste fastighetstaxeringsbeslut eller på Mina sidor hos Skatteverket. Reparation ger ROT oavsett husets ålder. Nytt eller bättre kräver värdeår 2020 eller tidigare.",
+     "neutral|DITT AVDRAG, PRELIMINÄRT Ungefär 4 100 kr till 6 800 kr Vad kostar jobbet ungefär? kr 15 000 30 000 60 000 Annat belopp Totalpris inkl. moms, från offerten eller på en höft. Lämna tomt om du inte vet.",
+     "antaget|Du betalar inkomstskatt på lön ANTAGET Betalar du inkomstskatt på lön eller pension? Ja, på lön Ja, på pension Låg eller ingen inkomst Vet inte Avdraget räknas av mot din inkomstskatt. Räcker den inte betalar du mellanskillnaden.",
+     "ok|Du har fyllt 18 år vid årets slut Stämmer inte?",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=30000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": []
+    }
+   },
+   "2": {
+    "headline": "Ja, om jobbet är en reparation",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "Ett villkor kvar att kolla, se nedan",
+    "rubrik": "Ungefär 8 100 kr till 13 500 kr",
+    "bas": "Beror på hur stor del av 60 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+    "betala": "Att betala efter avdrag: ungefär 46 500 kr till 51 900 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "Regler: Skatteverket, kontrollerade 2026-09-11. Gäller betalningar 2026.",
+    "metod": "",
+    "villkor": [
+     "ok|Du äger villan eller radhuset, helt eller delvis Hur bor du där jobbet ska göras? Villa eller radhus Bostadsrätt Fritidshus Hyresrätt Föräldrarnas bostad Vi antar att du äger bostaden, helt eller delvis.",
+     "okand|Huset är yngre än fem år. Om jobbet är en reparation kan du få ROT, om det är nytt eller bättre troligen inte. Vi reder ut vilket När blev huset färdigbyggt (värdeår)? 2011 eller tidigare 2012 till 2020 2021 till 2025 2026, eller inte färdigt än Vet inte Står i ditt senaste fastighetstaxeringsbeslut eller på Mina sidor hos Skatteverket. Reparation ger ROT oavsett husets ålder. Nytt eller bättre kräver värdeår 2020 eller tidigare.",
+     "neutral|Vad ska göras? Laga eller byta ut något som finns, till likvärdigt Nytt, mer eller bättre än idag Vet inte Nytt, mer eller bättre än idag: Till exempel större elcentral, nya grupper eller förberedelse för laddbox. Är huset yngre än fem år avgör jobbets typ. Reparation ger ROT oavsett husets ålder.",
+     "neutral|DITT AVDRAG, PRELIMINÄRT Ungefär 8 100 kr till 13 500 kr Vad kostar jobbet ungefär? kr 15 000 30 000 60 000 Annat belopp Totalpris inkl. moms, från offerten eller på en höft. Lämna tomt om du inte vet.",
+     "ok|Du betalar inkomstskatt på lön Betalar du inkomstskatt på lön eller pension? Ja, på lön Ja, på pension Låg eller ingen inkomst Vet inte Avdraget räknas av mot din inkomstskatt. Räcker den inte betalar du mellanskillnaden.",
+     "ok|Du har fyllt 18 år vid årets slut Stämmer inte?",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=60000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "vardear",
+     "touched": [
+      "boende",
+      "vardear",
+      "belopp",
+      "skatt"
+     ]
+    }
+   },
+   "3": {
+    "headline": "Nej, avdraget gäller den som äger bostaden",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "Inget avdrag med de här svaren. Vad som gäller i stället står nedan",
+    "rubrik": "",
+    "bas": "",
+    "betala": "",
+    "cta": "Hör med din hyresvärd",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "Regler: Skatteverket, kontrollerade 2026-09-11. Gäller betalningar 2026.",
+    "metod": "",
+    "villkor": [
+     "stopp|Hyresrätt: hyresvärden äger bostaden och ansvarar för elen. Hör med din hyresvärd Hur bor du där jobbet ska göras? Villa eller radhus Bostadsrätt Fritidshus Hyresrätt Föräldrarnas bostad Vi antar att du äger bostaden, helt eller delvis.",
+     "ok|Du har fyllt 18 år vid årets slut Stämmer inte?",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 1,
+     "labels": [
+      "Hör med din hyresvärd"
+     ],
+     "hrefs": [
+      "#hyresratt"
+     ],
+     "solid": [],
+     "solid_bg": []
+    },
+    "errors": [],
+    "app": {
+     "klass": "nej",
+     "subtyp": "hyra",
+     "touched": [
+      "boende"
+     ]
+    }
+   },
+   "4": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, GRÖN TEKNIK 2026",
+    "ram": "2 saker att kolla, se nedan",
+    "rubrik": "Uppskattat avdrag: 10 000 kr",
+    "bas": "50 % av arbete och material, 20 000 kr",
+    "betala": "Att betala efter avdrag: 10 000 kr",
+    "cta": "Ring så reder vi ut vad som gäller i din förening Kolla ditt utrymme hos Skatteverket",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "Regler: Skatteverket, kontrollerade 2026-09-11. Gäller betalningar 2026.",
+    "metod": "",
+    "villkor": [
+     "ok|Du äger bostadsrätten Hur bor du där det ska installeras? Villa eller radhus Bostadsrätt Fritidshus Hyresrätt Föräldrarnas bostad Vi antar att du äger bostaden, helt eller delvis.",
+     "okand|Var laddboxen ska sitta: vet inte. Det avgörs av om p-platsen följer bostadsrätten när du säljer. Fråga föreningen, eller ring oss Var ska laddboxen sitta? På en p-plats som hör till min bostadsrätt och följer med när jag säljer På en p-plats jag hyr av föreningen I föreningens gemensamma garage eller laddplatser Vet inte Platsen ska höra till bostadsrätten och följa med när du säljer.",
+     "neutral|DITT AVDRAG, PRELIMINÄRT Uppskattat avdrag: 10 000 kr Pris för laddbox med installation, inkl. moms kr 15 000 20 000 30 000 Annat belopp Arbete och material inkl. moms. Ett runt tal räcker. Lämna tomt om du inte vet.",
+     "antaget|Du betalar inkomstskatt på lön ANTAGET Betalar du inkomstskatt på lön eller pension? Ja, på lön Ja, på pension Låg eller ingen inkomst Vet inte Avdraget räknas av mot din inkomstskatt. Räcker den inte betalar du mellanskillnaden.",
+     "skoter_vi|Material och installation från samma företag: det är så vi säljer Stämmer inte?",
+     "ok|Du har fyllt 18 år vid årets slut Stämmer inte?",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Ring så reder vi ut vad som gäller i din förening",
+      "Kolla ditt utrymme hos Skatteverket"
+     ],
+     "hrefs": [
+      "tel:+46102657979",
+      "https://www7.skatteverket.se/portal/rot-rut"
+     ],
+     "solid": [
+      "Ring så reder vi ut vad som gäller i din förening"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": [
+      "lage",
+      "boende"
+     ]
+    }
+   },
+   "5": {
+    "headline": "Troligen inte grön teknik utan egna solceller. ROT kan gälla elarbetet i stället",
+    "eyebrow": "DITT BESKED, GRÖN TEKNIK 2026",
+    "ram": "Skatteverket avgör i deklarationen. Vill du, går vi igenom det med dig innan du bestämmer något",
+    "rubrik": "ROT 30 % på arbetskostnaden kan gälla i stället",
+    "bas": "Ange arbetskostnaden från offerten så räknar vi. Hur stor arbetsdelen är avgör beloppet",
+    "betala": "",
+    "cta": "Räkna med ROT i stället Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "Regler: Skatteverket, kontrollerade 2026-09-11. Gäller betalningar 2026.",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis ANTAGET Hur bor du där det ska installeras? Villa eller radhus Bostadsrätt Fritidshus Hyresrätt Föräldrarnas bostad Vi antar att du äger bostaden, helt eller delvis.",
+     "varning|Utan egna solceller gäller inte grön teknik för batteriet. ROT kan i stället ge 30 % på arbetskostnaden för elarbetet Har du solceller på bostaden? Ja, redan installerade Nej, men de installeras samtidigt som batteriet Nej Vet inte Solcellerna ska vara dina egna och sitta på samma fastighet. Grannens eller föreningens räknas inte.",
+     "neutral|DITT AVDRAG, PRELIMINÄRT ROT 30 % på arbetskostnaden kan gälla i stället Pris för batteri med installation, inkl. moms kr 50 000 70 000 120 000 Annat belopp Arbete och material inkl. moms. Ett runt tal räcker. Lämna tomt om du inte vet.",
+     "antaget|Du betalar inkomstskatt på lön ANTAGET Betalar du inkomstskatt på lön eller pension? Ja, på lön Ja, på pension Låg eller ingen inkomst Vet inte Avdraget räknas av mot din inkomstskatt. Räcker den inte betalar du mellanskillnaden.",
+     "neutral|Hur många äger bostaden? En Två eller fler Taket är per person. Två ägare som bor där kan dela på avdraget.",
+     "skoter_vi|Material och installation från samma företag: det är så vi säljer Stämmer inte?",
+     "ok|Du har fyllt 18 år vid årets slut Stämmer inte?",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Räkna med ROT i stället",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      null,
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Räkna med ROT i stället"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "troligen_inte",
+     "subtyp": "batteri_utan_sol",
+     "touched": [
+      "lage",
+      "sol"
+     ]
+    }
+   },
+   "6": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "4 saker att kolla, se nedan",
+    "rubrik": "Uppskattat avdrag: 18 000 kr",
+    "bas": "30 % av arbetskostnaden 60 000 kr. Materialet ger inget avdrag",
+    "betala": "Att betala efter avdrag: 82 000 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "Regler: Skatteverket, kontrollerade 2026-09-11. Gäller betalningar 2026.",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis ANTAGET Hur bor du där jobbet ska göras? Villa eller radhus Bostadsrätt Fritidshus Hyresrätt Föräldrarnas bostad Vi antar att du äger bostaden, helt eller delvis.",
+     "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare) ANTAGET När blev huset färdigbyggt (värdeår)? 2011 eller tidigare 2012 till 2020 2021 till 2025 2026, eller inte färdigt än Vet inte Står i ditt senaste fastighetstaxeringsbeslut eller på Mina sidor hos Skatteverket. Reparation ger ROT oavsett husets ålder. Nytt eller bättre kräver värdeår 2020 eller tidigare.",
+     "neutral|DITT AVDRAG, PRELIMINÄRT Uppskattat avdrag: 18 000 kr Vad kostar jobbet ungefär? kr 15 000 30 000 60 000 Annat belopp Totalpris inkl. moms, från offerten eller på en höft. Lämna tomt om du inte vet.",
+     "antaget|Du betalar inkomstskatt på lön ANTAGET Betalar du inkomstskatt på lön eller pension? Ja, på lön Ja, på pension Låg eller ingen inkomst Vet inte Avdraget räknas av mot din inkomstskatt. Räcker den inte betalar du mellanskillnaden.",
+     "antaget|Ni båda har skatt att räkna av mot, och båda står på fakturan ANTAGET Stämmer inte?",
+     "ok|60 000 kr kvar av årets pott Stämmer inte?",
+     "ok|Du har fyllt 18 år vid årets slut Stämmer inte?",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=100000&ak=60000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": [
+      "agare",
+      "anvant_rot",
+      "belopp",
+      "arbete_kr"
+     ]
+    }
+   }
+  },
+  "b": {
+   "1": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "3 saker att kolla, se nedan",
+    "stamp": "ROT 2026 BERÄTTIGAD om villkoren stämmer",
+    "rubrik": "-4 100 till -6 800 kr",
+    "bas": "Beror på hur stor del av 30 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+    "betala": "ATT BETALA EFTER AVDRAG ca 23 300 till 26 000 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis (antaget)",
+     "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare) (antaget)",
+     "antaget|Du betalar inkomstskatt på lön (antaget)",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=30000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": []
+    }
+   },
+   "2": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "3 saker att kolla, se nedan",
+    "stamp": "ROT 2026 BERÄTTIGAD om villkoren stämmer",
+    "rubrik": "-8 100 till -13 500 kr",
+    "bas": "Beror på hur stor del av 60 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+    "betala": "ATT BETALA EFTER AVDRAG ca 46 500 till 51 900 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis (antaget)",
+     "okand|Huset är yngre än fem år. Om jobbet är en reparation kan du få ROT, om det är nytt eller bättre troligen inte. Vi reder ut vilket",
+     "antaget|Du betalar inkomstskatt på lön (antaget)",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=60000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": [
+      "vardear",
+      "belopp"
+     ]
+    }
+   },
+   "3": {
+    "headline": "Nej, avdraget gäller den som äger bostaden",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "Inget avdrag med de här svaren. Vad som gäller i stället står nedan",
+    "stamp": "ROT 2026 GÄLLER INTE",
+    "rubrik": null,
+    "bas": null,
+    "betala": null,
+    "cta": "Hör med din hyresvärd",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "stopp|Hyresrätt: hyresvärden äger bostaden och ansvarar för elen. Hör med din hyresvärd",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 1,
+     "labels": [
+      "Hör med din hyresvärd"
+     ],
+     "hrefs": [
+      "#hyresratt"
+     ],
+     "solid": [],
+     "solid_bg": []
+    },
+    "errors": [],
+    "app": {
+     "klass": "nej",
+     "subtyp": "hyra",
+     "touched": [
+      "boende"
+     ]
+    }
+   },
+   "4": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, GRÖN TEKNIK 2026",
+    "ram": "2 saker att kolla, se nedan",
+    "stamp": "GRÖN TEKNIK 2026 BERÄTTIGAD om villkoren stämmer",
+    "rubrik": "-10 000 kr",
+    "bas": null,
+    "betala": "ATT BETALA EFTER AVDRAG 10 000 kr",
+    "cta": "Ring så reder vi ut vad som gäller i din förening Kolla ditt utrymme hos Skatteverket",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "ok|Du äger bostadsrätten",
+     "okand|Var laddboxen ska sitta: vet inte. Det avgörs av om p-platsen följer bostadsrätten när du säljer. Fråga föreningen, eller ring oss",
+     "antaget|Du betalar inkomstskatt på lön (antaget)",
+     "skoter_vi|Material och installation från samma företag: det är så vi säljer",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Ring så reder vi ut vad som gäller i din förening",
+      "Kolla ditt utrymme hos Skatteverket"
+     ],
+     "hrefs": [
+      "tel:+46102657979",
+      "https://www7.skatteverket.se/portal/rot-rut"
+     ],
+     "solid": [
+      "Ring så reder vi ut vad som gäller i din förening"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": [
+      "boende"
+     ]
+    }
+   },
+   "5": {
+    "headline": "Troligen inte grön teknik utan egna solceller. ROT kan gälla elarbetet i stället",
+    "eyebrow": "DITT BESKED, GRÖN TEKNIK 2026",
+    "ram": "Skatteverket avgör i deklarationen. Vill du, går vi igenom det med dig innan du bestämmer något",
+    "stamp": "GRÖN TEKNIK 2026 GÄLLER INTE troligen",
+    "rubrik": "Ange arbetskostnaden",
+    "bas": "Ange arbetskostnaden från offerten så räknar vi. Hur stor arbetsdelen är avgör beloppet",
+    "betala": "ATT BETALA EFTER AVDRAG beror på arbetsdelen",
+    "cta": "Räkna med ROT i stället Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis (antaget)",
+     "varning|Utan egna solceller gäller inte grön teknik för batteriet. ROT kan i stället ge 30 % på arbetskostnaden för elarbetet",
+     "antaget|Du betalar inkomstskatt på lön (antaget)",
+     "skoter_vi|Material och installation från samma företag: det är så vi säljer",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Räkna med ROT i stället",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      null,
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Räkna med ROT i stället"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "troligen_inte",
+     "subtyp": "batteri_utan_sol",
+     "touched": [
+      "lage",
+      "sol"
+     ]
+    }
+   },
+   "6": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "4 saker att kolla, se nedan",
+    "stamp": "ROT 2026 BERÄTTIGAD om villkoren stämmer",
+    "rubrik": "-18 000 kr",
+    "bas": null,
+    "betala": "ATT BETALA EFTER AVDRAG 82 000 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis (antaget)",
+     "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare) (antaget)",
+     "antaget|Du betalar inkomstskatt på lön (antaget)",
+     "antaget|Ni båda har skatt att räkna av mot, och båda står på fakturan (antaget)",
+     "ok|60 000 kr kvar av årets pott",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=100000&ak=60000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": {
+     "klass": "ja_villkor",
+     "subtyp": "flera_villkor",
+     "touched": [
+      "agare",
+      "anvant_rot",
+      "belopp",
+      "arbete_kr"
+     ]
+    }
+   }
+  },
+  "c": {
+   "1": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "3 saker att kolla, se nedan",
+    "rubrik": "Ungefär 4 100 kr till 6 800 kr",
+    "bas": "Beror på hur stor del av 30 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+    "betala": "Att betala efter avdrag: ungefär 23 300 kr till 26 000 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis antaget",
+     "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare) antaget",
+     "antaget|Du betalar inkomstskatt på lön antaget",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=30000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": null
+   },
+   "2": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "3 saker att kolla, se nedan",
+    "rubrik": "Ungefär 8 100 kr till 13 500 kr",
+    "bas": "Beror på hur stor del av 60 000 kr som är arbete. Vi antar ungefär 60 %, exakt andel står på offerten",
+    "betala": "Att betala efter avdrag: ungefär 46 500 kr till 51 900 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis antaget",
+     "okand|Huset är yngre än fem år. Om jobbet är en reparation kan du få ROT, om det är nytt eller bättre troligen inte. Vi reder ut vilket",
+     "antaget|Du betalar inkomstskatt på lön antaget",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=60000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": null
+   },
+   "3": {
+    "headline": "Nej, avdraget gäller den som äger bostaden",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "Inget avdrag med de här svaren. Vad som gäller i stället står nedan",
+    "rubrik": "",
+    "bas": "",
+    "betala": "",
+    "cta": "Hör med din hyresvärd",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "stopp|Hyresrätt: hyresvärden äger bostaden och ansvarar för elen. Hör med din hyresvärd",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 1,
+     "labels": [
+      "Hör med din hyresvärd"
+     ],
+     "hrefs": [
+      "#hyresratt"
+     ],
+     "solid": [],
+     "solid_bg": []
+    },
+    "errors": [],
+    "app": null
+   },
+   "4": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, GRÖN TEKNIK 2026",
+    "ram": "2 saker att kolla, se nedan",
+    "rubrik": "Uppskattat avdrag: 10 000 kr",
+    "bas": "50 % av arbete och material, 20 000 kr",
+    "betala": "Att betala efter avdrag: 10 000 kr",
+    "cta": "Ring så reder vi ut vad som gäller i din förening Kolla ditt utrymme hos Skatteverket",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "ok|Du äger bostadsrätten",
+     "okand|Var laddboxen ska sitta: vet inte. Det avgörs av om p-platsen följer bostadsrätten när du säljer. Fråga föreningen, eller ring oss",
+     "antaget|Du betalar inkomstskatt på lön antaget",
+     "skoter_vi|Material och installation från samma företag: det är så vi säljer",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Ring så reder vi ut vad som gäller i din förening",
+      "Kolla ditt utrymme hos Skatteverket"
+     ],
+     "hrefs": [
+      "tel:+46102657979",
+      "https://www7.skatteverket.se/portal/rot-rut"
+     ],
+     "solid": [
+      "Ring så reder vi ut vad som gäller i din förening"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": null
+   },
+   "5": {
+    "headline": "Troligen inte grön teknik utan egna solceller. ROT kan gälla elarbetet i stället",
+    "eyebrow": "DITT BESKED, GRÖN TEKNIK 2026",
+    "ram": "Skatteverket avgör i deklarationen. Vill du, går vi igenom det med dig innan du bestämmer något",
+    "rubrik": "Uppskattat avdrag: 35 000 kr",
+    "bas": "Ange arbetskostnaden från offerten så räknar vi. Hur stor arbetsdelen är avgör beloppet",
+    "betala": "",
+    "cta": "Räkna med ROT i stället Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis antaget",
+     "varning|Utan egna solceller gäller inte grön teknik för batteriet. ROT kan i stället ge 30 % på arbetskostnaden för elarbetet",
+     "antaget|Du betalar inkomstskatt på lön antaget",
+     "skoter_vi|Material och installation från samma företag: det är så vi säljer",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Räkna med ROT i stället",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      null,
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Räkna med ROT i stället"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": null
+   },
+   "6": {
+    "headline": "Ja, om det här stämmer:",
+    "eyebrow": "DITT BESKED, ROT-AVDRAGET 2026",
+    "ram": "4 saker att kolla, se nedan",
+    "rubrik": "Uppskattat avdrag: 18 000 kr",
+    "bas": "30 % av arbetskostnaden 60 000 kr. Materialet ger inget avdrag",
+    "betala": "Att betala efter avdrag: 82 000 kr",
+    "cta": "Få ett pris efter avdrag Hellre prata? 010-265 79 79",
+    "disclaimer": "Vägledande besked utifrån dina svar, inte ett beslut från Skatteverket och inte ett erbjudande. Skatteverket avgör i deklarationen. Exakt belopp står på offerten.",
+    "kalla": "",
+    "metod": "",
+    "villkor": [
+     "antaget|Du äger villan eller radhuset, helt eller delvis antaget",
+     "antaget|Huset är äldre än fem år (värdeår 2020 eller tidigare) antaget",
+     "antaget|Du betalar inkomstskatt på lön antaget",
+     "antaget|Ni båda har skatt att räkna av mot, och båda står på fakturan antaget",
+     "ok|60 000 kr kvar av årets pott",
+     "ok|Du har fyllt 18 år vid årets slut",
+     "skoter_vi|F-skatt: det har vi. Elektronisk betalning: du betalar med bank, Swish eller kort, inte kontant"
+    ],
+    "cta_anatomy": {
+     "count": 2,
+     "labels": [
+      "Få ett pris efter avdrag",
+      "Hellre prata? 010-265 79 79"
+     ],
+     "hrefs": [
+      "/kontakt/?src=avdragskollen&m=rot&b=villa&v=ja_villkor&a=100000&ak=60000",
+      "tel:+46102657979"
+     ],
+     "solid": [
+      "Få ett pris efter avdrag"
+     ],
+     "solid_bg": [
+      "rgb(0, 169, 145)"
+     ]
+    },
+    "errors": [],
+    "app": null
+   }
+  }
+ }
+}

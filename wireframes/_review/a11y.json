@@ -1,0 +1,1075 @@
+{
+ "a": {
+  "structure": {
+   "radios": 40,
+   "radios_outside_fieldset": 0,
+   "fieldsets": 13,
+   "fieldsets_without_legend": 0,
+   "unlabelled": [],
+   "typeNumber": 0,
+   "live": [
+    "p#ak-rot-live.ak-sr live=polite role=null",
+    "span#ak-rot-status.ak-dela__status live=null role=status",
+    "p#ak-gt-live.ak-sr live=polite role=null",
+    "span#ak-gt-status.ak-dela__status live=null role=status"
+   ],
+   "numericInputs": [
+    "belopp:numeric",
+    "lon_manad:numeric",
+    "pension_manad:numeric",
+    "ranteutgifter_ar:numeric",
+    "kommunalskatt:decimal",
+    "gt_planerad_kr:numeric",
+    "arbete_kr:numeric",
+    "anvant_rot:numeric",
+    "anvant_rut:numeric"
+   ],
+   "headings": [
+    "H1:Gäller ROT-avdraget dig?",
+    "H2:Ja, om det här stämmer:",
+    "H2:VAD HÄNDER NU"
+   ],
+   "errors": []
+  },
+  "keyboard": {
+   "focus_path": [
+    {
+     "tag": "input",
+     "name": "rot-boende",
+     "text": "villa",
+     "y": 452,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Huset är äldre än fem år (värdeå",
+     "y": 612,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "rot-vardear",
+     "text": "t2011",
+     "y": 645,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Ungefär 4 100 kr till 6 800 kr",
+     "y": 876,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "belopp",
+     "text": "30 000",
+     "y": 885,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "belopp",
+     "text": "",
+     "y": 885,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "belopp",
+     "text": "",
+     "y": 885,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "belopp",
+     "text": "15 000",
+     "y": 941,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "belopp",
+     "text": "30 000",
+     "y": 941,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "belopp",
+     "text": "60 000",
+     "y": 941,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "belopp",
+     "text": "Annat belopp",
+     "y": 941,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du betalar inkomstskatt på lön",
+     "y": 1073,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "rot-skatt",
+     "text": "lon",
+     "y": 1106,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Stämmer inte?",
+     "y": 1292,
+     "visible": true
+    },
+    {
+     "tag": "summary",
+     "name": "",
+     "text": "Fler detaljer",
+     "y": 1411,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Regler: Skatteverket, kontroller",
+     "y": 1655,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Få ett pris efter avdrag",
+     "y": 1891,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Hellre prata? 010-265 79 79",
+     "y": 1896,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Kopiera länk",
+     "y": 1961,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Skriv ut",
+     "y": 1961,
+     "visible": true
+    },
+    {
+     "tag": "summary",
+     "name": "",
+     "text": "Så har vi räknat",
+     "y": 2022,
+     "visible": true
+    },
+    {
+     "tag": "body",
+     "name": "",
+     "text": "Riktning A: Villkorstavlan ROT G",
+     "y": 0,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "ROT",
+     "y": 8,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Grön teknik",
+     "y": 8,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Fristående sida",
+     "y": 8,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "I artikeln",
+     "y": 8,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Alla riktningar",
+     "y": 8,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du äger villan eller radhuset, h",
+     "y": 418,
+     "visible": true
+    }
+   ],
+   "focusable_visible": 60,
+   "arrow_right_selects": {
+    "value": "brf",
+    "checked": true,
+    "name": "rot-boende"
+   },
+   "headline_after_arrow": "Ja, om det här stämmer:",
+   "details_enter_opens": true
+  },
+  "aria_live": [
+   {
+    "t": 2088,
+    "text": "Ja, om det här stämmer. Ungefär 8 100 kr till 13 500 kr"
+   }
+  ],
+  "reduced_motion": {
+   "rubrik_before": "Ungefär 4 100 kr till 6 800 kr",
+   "rubrik_after": "Ungefär 4 700 kr till 7 900 kr",
+   "text_mutations": 1,
+   "elements_with_transition_or_animation": 0
+  },
+  "motion_countup_frames": 17,
+  "sticky_standalone": {
+   "on_load": false,
+   "after_interaction_top": true,
+   "strip_text": "Ja, om det här stämmer: Ungefär 4 100 kr till 6 800 kr Till beskedet",
+   "strip_links": [
+    "Till beskedet -> #ak-rot-besked"
+   ],
+   "card_visible_strip": false,
+   "card_ratio": 1,
+   "past_card_strip": false,
+   "past_card_links": [
+    "Till beskedet -> #ak-rot-besked"
+   ],
+   "aria_hidden": null
+  },
+  "sticky_embed": {
+   "on_load": "absent",
+   "chips_hidden_until_svara": true,
+   "after_interaction_top": "absent",
+   "strip_text": null,
+   "strip_links": [],
+   "card_visible_strip": "absent",
+   "card_ratio": 1,
+   "past_card_strip": "absent",
+   "past_card_links": [],
+   "aria_hidden": null
+  },
+  "copy_link": {
+   "clipboard": "http://localhost:64993/wireframes/a-villkorstavlan/index.html?m=rot&b=fritid&a=42000&o=2",
+   "status": [
+    "Länk kopierad"
+   ],
+   "decoded": {
+    "mode": "rot",
+    "state": {
+     "boende": "fritid",
+     "agare": 2,
+     "belopp": 42000
+    },
+    "prefilled": [
+     "boende",
+     "agare",
+     "belopp"
+    ],
+    "src": null
+   },
+   "forbidden_in_link": false,
+   "address_bar": "http://localhost:64993/wireframes/a-villkorstavlan/index.html?m=rot&b=fritid&a=42000&o=2",
+   "forbidden_in_address": false,
+   "income_words_in_link": false
+  },
+  "print": {
+   "radios_visible": false,
+   "text_inputs_visible": false,
+   "cta_visible": false,
+   "headline_visible": true,
+   "villkor_visible": true,
+   "metod_visible": true,
+   "disclaimer_visible": true,
+   "demo_visible": false
+  },
+  "nojs": {
+   "radios": 25,
+   "headline": [
+    "Ja, om det här stämmer:"
+   ],
+   "table_rows": 6,
+   "noscript_text": [
+    "Slå på JavaScript för att räkna på ditt fall.",
+    "Slå på JavaScript för att räkna på ditt fall."
+   ],
+   "amount_visible": [
+    "Ungefär 4 100 kr till 6 800 kr"
+   ]
+  },
+  "chips_mobile": {
+   "n": 25,
+   "min_h": 48,
+   "max_h": 48,
+   "clipped": [],
+   "targets_under_44": [
+    {
+     "t": "Ungefär 4 100 kr till 6 ",
+     "h": 24
+    },
+    {
+     "t": "Du betalar inkomstskatt ",
+     "h": 24
+    },
+    {
+     "t": "Stämmer inte?",
+     "h": 24
+    },
+    {
+     "t": "Regler: Skatteverket, ko",
+     "h": 41
+    }
+   ]
+  }
+ },
+ "b": {
+  "structure": {
+   "radios": 40,
+   "radios_outside_fieldset": 0,
+   "fieldsets": 26,
+   "fieldsets_without_legend": 0,
+   "unlabelled": [],
+   "typeNumber": 0,
+   "live": [
+    "span#share-status.share__status live=polite role=status",
+    "div#live.sr live=polite role=status"
+   ],
+   "numericInputs": [
+    "belopp:numeric",
+    "lon_manad:numeric",
+    "pension_manad:numeric",
+    "ranteutgifter_ar:numeric",
+    "kommunalskatt:decimal",
+    "gt_planerad_kr:numeric",
+    "arbete_kr:numeric"
+   ],
+   "headings": [
+    "H1:Vad betalar du efter ROT-avdraget?",
+    "H2:Ja, om det här stämmer:"
+   ],
+   "errors": []
+  },
+  "keyboard": {
+   "focus_path": [
+    {
+     "tag": "input",
+     "name": "boende",
+     "text": "villa",
+     "y": 356,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "vardear",
+     "text": "t2011",
+     "y": 602,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "belopp",
+     "text": "30 000",
+     "y": 808,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "",
+     "y": 800,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "",
+     "y": 800,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "15 000 kr",
+     "y": 860,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "30 000 kr",
+     "y": 860,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "60 000 kr",
+     "y": 860,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Annat belopp",
+     "y": 860,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "skatt",
+     "text": "lon",
+     "y": 1024,
+     "visible": true
+    },
+    {
+     "tag": "summary",
+     "name": "",
+     "text": "Fler detaljer",
+     "y": 1100,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du äger villan eller radhuset, h",
+     "y": 803,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Huset är äldre än fem år (värdeå",
+     "y": 842,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du betalar inkomstskatt på lön (",
+     "y": 881,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du har fyllt 18 år vid årets slu",
+     "y": 919,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Få ett pris efter avdrag",
+     "y": 1227,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Hellre prata? 010-265 79 79",
+     "y": 1293,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Kopiera länk",
+     "y": 1343,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Skriv ut",
+     "y": 1343,
+     "visible": true
+    },
+    {
+     "tag": "summary",
+     "name": "",
+     "text": "Så har vi räknat",
+     "y": 1400,
+     "visible": true
+    },
+    {
+     "tag": "body",
+     "name": "",
+     "text": "Demo, ingår inte i verktyget: RO",
+     "y": 0,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "ROT",
+     "y": 12,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Grön teknik: laddbox",
+     "y": 12,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "batteri",
+     "y": 12,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "solceller",
+     "y": 12,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Fristående sida",
+     "y": 12,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "I artikeln",
+     "y": 12,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "boende",
+     "text": "villa",
+     "y": 356,
+     "visible": true
+    }
+   ],
+   "focusable_visible": 56,
+   "arrow_right_selects": {
+    "value": "brf",
+    "checked": true,
+    "name": "boende"
+   },
+   "headline_after_arrow": "Ja, om det här stämmer:",
+   "details_enter_opens": true
+  },
+  "aria_live": [
+   {
+    "t": 2061,
+    "text": "Ja, om det här stämmer: Ungefär 8 100 kr till 13 500 kr"
+   }
+  ],
+  "reduced_motion": {
+   "rubrik_before": "-4 100 till -6 800 kr",
+   "rubrik_after": "-4 700 till -7 900 kr",
+   "text_mutations": 0,
+   "elements_with_transition_or_animation": 0
+  },
+  "motion_countup_frames": 0,
+  "sticky_standalone": {
+   "on_load": false,
+   "after_interaction_top": true,
+   "strip_text": "Ja, om … avdrag ca 4 100 till 6 800 kr Till kvittot",
+   "strip_links": [
+    "Till kvittot -> #kv"
+   ],
+   "card_visible_strip": false,
+   "card_ratio": 0.66,
+   "past_card_strip": true,
+   "past_card_links": [
+    "Till kvittot -> #kv"
+   ],
+   "aria_hidden": null
+  },
+  "sticky_embed": {
+   "on_load": false,
+   "native_select_in_embed": true,
+   "after_interaction_top": false,
+   "strip_text": "Till kvittot",
+   "strip_links": [
+    "Till kvittot -> #kv"
+   ],
+   "card_visible_strip": false,
+   "card_ratio": 1,
+   "past_card_strip": false,
+   "past_card_links": [
+    "Till kvittot -> #kv"
+   ],
+   "aria_hidden": null
+  },
+  "copy_link": {
+   "clipboard": "http://localhost:64993/wireframes/b-kvittot/index.html?m=rot&b=fritid&a=42000&o=2",
+   "status": [
+    "Länk kopierad",
+    "Ja, om det här stämmer: Ungefär 5 700 kr till 9 500 kr"
+   ],
+   "decoded": {
+    "mode": "rot",
+    "state": {
+     "boende": "fritid",
+     "agare": 2,
+     "belopp": 42000
+    },
+    "prefilled": [
+     "boende",
+     "agare",
+     "belopp"
+    ],
+    "src": null
+   },
+   "forbidden_in_link": false,
+   "address_bar": "http://localhost:64993/wireframes/b-kvittot/index.html?m=rot&b=fritid&a=42000&o=2",
+   "forbidden_in_address": false,
+   "income_words_in_link": false
+  },
+  "print": {
+   "radios_visible": false,
+   "text_inputs_visible": false,
+   "cta_visible": false,
+   "headline_visible": true,
+   "villkor_visible": true,
+   "metod_visible": true,
+   "disclaimer_visible": true,
+   "demo_visible": false
+  },
+  "nojs": {
+   "radios": 25,
+   "headline": [
+    "Ja, om det här stämmer:"
+   ],
+   "table_rows": 6,
+   "noscript_text": [
+    "Slå på JavaScript för att räkna på ditt fall.Så mycket ger R"
+   ],
+   "amount_visible": [
+    "ca 18 000 kr",
+    "ca 12 000 kr",
+    "-4 100 till -6 800 kr"
+   ]
+  },
+  "chips_mobile": {
+   "n": 25,
+   "min_h": 48,
+   "max_h": 53,
+   "clipped": [],
+   "targets_under_44": [
+    {
+     "t": "15 000 kr",
+     "h": 36
+    },
+    {
+     "t": "30 000 kr",
+     "h": 36
+    },
+    {
+     "t": "60 000 kr",
+     "h": 36
+    },
+    {
+     "t": "Annat belopp",
+     "h": 36
+    },
+    {
+     "t": "Du betalar inkomstskatt ",
+     "h": 37
+    },
+    {
+     "t": "Du har fyllt 18 år vid å",
+     "h": 37
+    },
+    {
+     "t": "Hellre prata? 010-265 79",
+     "h": 31
+    },
+    {
+     "t": "",
+     "h": 15
+    }
+   ]
+  }
+ },
+ "c": {
+  "structure": {
+   "radios": 38,
+   "radios_outside_fieldset": 0,
+   "fieldsets": 25,
+   "fieldsets_without_legend": 1,
+   "unlabelled": [],
+   "typeNumber": 0,
+   "live": [
+    "span#.share__status live=polite role=status",
+    "p#live.sr-only live=polite role=null"
+   ],
+   "numericInputs": [
+    "belopp:numeric",
+    "lon_manad:numeric",
+    "pension_manad:numeric",
+    "ranteutgifter_ar:numeric",
+    "arbete_kr:numeric",
+    "anvant_rot:numeric",
+    "anvant_rut:numeric",
+    "kommunalskatt:decimal",
+    "gt_planerad_kr:numeric"
+   ],
+   "headings": [
+    "H1:Ryms ROT-avdraget i år, och räcker din s",
+    "H3:Räkna på om skatten räcker",
+    "H2:Ja, om det här stämmer:",
+    "H3:VAD HÄNDER NU"
+   ],
+   "errors": []
+  },
+  "keyboard": {
+   "focus_path": [
+    {
+     "tag": "input",
+     "name": "boende",
+     "text": "villa",
+     "y": 629,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "vardear",
+     "text": "t2011",
+     "y": 629,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "−",
+     "y": 909,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "belopp",
+     "text": "30 000",
+     "y": 909,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "+",
+     "y": 909,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "15 000",
+     "y": 963,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "30 000",
+     "y": 963,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "60 000",
+     "y": 963,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Annat belopp",
+     "y": 963,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "skatt",
+     "text": "lon",
+     "y": 934,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "inkomsttyp",
+     "text": "lon",
+     "y": 1196,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "fyllt66",
+     "text": "false",
+     "y": 1196,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "manadsinkomst",
+     "text": "35000",
+     "y": 1332,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "−",
+     "y": 1503,
+     "visible": true
+    },
+    {
+     "tag": "input",
+     "name": "ranteutgifter_ar",
+     "text": "0",
+     "y": 1503,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "+",
+     "y": 1503,
+     "visible": true
+    },
+    {
+     "tag": "summary",
+     "name": "",
+     "text": "Fler detaljer",
+     "y": 1619,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du äger villan eller radhuset, h",
+     "y": 878,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Huset är äldre än fem år (värdeå",
+     "y": 942,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du betalar inkomstskatt på lön a",
+     "y": 1006,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Du har fyllt 18 år vid årets slu",
+     "y": 1047,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Få ett pris efter avdrag",
+     "y": 1344,
+     "visible": true
+    },
+    {
+     "tag": "a",
+     "name": "",
+     "text": "Hellre prata? 010-265 79 79",
+     "y": 1406,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Kopiera länk",
+     "y": 1466,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Skriv ut",
+     "y": 1466,
+     "visible": true
+    },
+    {
+     "tag": "button",
+     "name": "",
+     "text": "Börja om",
+     "y": 1466,
+     "visible": true
+    },
+    {
+     "tag": "summary",
+     "name": "",
+     "text": "Så har vi räknat",
+     "y": 1526,
+     "visible": true
+    },
+    {
+     "tag": "body",
+     "name": "",
+     "text": "RIKTNING C, AVDRAGSMÄTAREN ROT L",
+     "y": 0,
+     "visible": true
+    }
+   ],
+   "focusable_visible": 68,
+   "arrow_right_selects": {
+    "value": "brf",
+    "checked": true,
+    "name": "boende"
+   },
+   "headline_after_arrow": "Ja, om det här stämmer:",
+   "details_enter_opens": true
+  },
+  "aria_live": [
+   {
+    "t": 2078,
+    "text": "Ja, om det här stämmer:. Ungefär 8 100 kr till 13 500 kr"
+   }
+  ],
+  "reduced_motion": {
+   "rubrik_before": "Ungefär 4 100 kr till 6 800 kr",
+   "rubrik_after": "Ungefär 4 700 kr till 7 900 kr",
+   "text_mutations": 1,
+   "elements_with_transition_or_animation": 0
+  },
+  "motion_countup_frames": 17,
+  "sticky_standalone": {
+   "on_load": false,
+   "after_interaction_top": true,
+   "strip_text": "Ja, om det här stämmer: Ungefär 4 100 kr till 6 800 kr Till beskedet",
+   "strip_links": [
+    "Till beskedet -> #besked"
+   ],
+   "card_visible_strip": false,
+   "card_ratio": 1,
+   "past_card_strip": false,
+   "past_card_links": [
+    "Till beskedet -> #besked"
+   ],
+   "aria_hidden": null
+  },
+  "sticky_embed": {
+   "on_load": false,
+   "after_interaction_top": false,
+   "strip_text": "Till beskedet",
+   "strip_links": [
+    "Till beskedet -> #besked"
+   ],
+   "card_visible_strip": false,
+   "card_ratio": 1,
+   "past_card_strip": false,
+   "past_card_links": [
+    "Till beskedet -> #besked"
+   ],
+   "aria_hidden": null
+  },
+  "copy_link": {
+   "clipboard": "http://localhost:64993/wireframes/c-avdragsmataren/index.html?m=rot&b=fritid&a=42000&o=2",
+   "status": [
+    "Länk kopierad"
+   ],
+   "decoded": {
+    "mode": "rot",
+    "state": {
+     "boende": "fritid",
+     "agare": 2,
+     "belopp": 42000
+    },
+    "prefilled": [
+     "boende",
+     "agare",
+     "belopp"
+    ],
+    "src": null
+   },
+   "forbidden_in_link": false,
+   "address_bar": "http://localhost:64993/wireframes/c-avdragsmataren/index.html?m=rot&b=fritid&a=42000&o=2",
+   "forbidden_in_address": false,
+   "income_words_in_link": false
+  },
+  "print": {
+   "radios_visible": false,
+   "text_inputs_visible": false,
+   "cta_visible": false,
+   "headline_visible": true,
+   "villkor_visible": true,
+   "metod_visible": true,
+   "disclaimer_visible": true,
+   "demo_visible": false
+  },
+  "nojs": {
+   "radios": 28,
+   "headline": [
+    "Ja, om det här stämmer:"
+   ],
+   "table_rows": 6,
+   "noscript_text": [
+    "Slå på JavaScript för att räkna på ditt fall."
+   ],
+   "amount_visible": [
+    "Ungefär 4 100 kr till 6 800 kr"
+   ]
+  },
+  "chips_mobile": {
+   "n": 56,
+   "min_h": 48,
+   "max_h": 48,
+   "clipped": [],
+   "targets_under_44": [
+    {
+     "t": "Du betalar inkomstskatt ",
+     "h": 41
+    },
+    {
+     "t": "Du har fyllt 18 år vid å",
+     "h": 41
+    },
+    {
+     "t": "",
+     "h": 43
+    }
+   ]
+  }
+ }
+}

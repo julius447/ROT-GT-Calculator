@@ -99,6 +99,19 @@ Svara i en tur, numren räcker. Inget av detta blockerar riktningsvalet.
 30. **Adress.** Artikeln säger Västbergavägen 25, Hägersten; datalagret säger Ankdammsgatan 33, Solna;
     Elsäkerhetsverkets register visar Hägersten. Vilken gäller? (Känd sedan tidigare, rör inte verktyget.)
 
+## E. Från granskningen av wireframes (2026-09-11)
+
+31. **Teal-kontrasten.** Vit text på produktionens teal (#00a991) mäter 2,96:1 (WCAG kräver 4,5:1, 3:1 för
+    stor text). Det gäller sajtens knappar i dag, inte bara verktyget. Acceptera som produktionen, eller
+    införa en mörkare text-teal (#007d6b ≈ 5,1:1) för text på teal i designsystemet? Wireframes behåller
+    produktionens token på knappen och undviker teal text lokalt.
+32. **Embed-höjden.** Ingen riktning når UX-budgeten 900 px på 390 px i artikeln med fyra synliga frågor
+    (A ca 910–1 150, B ca 1 100, C ca 1 200 efter fix). Vad ska fällas i artikeln: två synliga frågor
+    (boende + belopp) med resten bakom "Fler frågor", eller acceptera ~1 100 px?
+33. **Två ägare med olika skatt.** Motorn lägger avdraget på ägaren med störst pott (rot-spec §4), inte på
+    den vars skatt räcker bäst; fakturan får fördela fritt. Ska verktyget föreslå fördelningen efter
+    skatteutrymme när båda ägarnas inkomst är ifylld? (Rör grind 15.)
+
 Källor per rad: `research/01-rot-regelverk.md` (GRINDLISTA 1–14), `research/02-gron-teknik-regelverk.md`
 (GRINDLISTA 1–11), `research/04-ux-flode.md` §12, `research/03-marknad-och-konkurrens.md` (öppna frågor),
 `research/05-leadmagnet-och-konvertering.md` §9.
