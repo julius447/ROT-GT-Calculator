@@ -1,0 +1,1825 @@
+{
+  "_meta": {
+    "genererad": "2026-09-11",
+    "av": "rot_logik_ref.py (referensimplementation) + skatteutrymme_2026.py",
+    "regelkalla": "research/01-rot-regelverk.md (A-H) och logik/rot-spec.md",
+    "parametrar_2026": {
+      "rot_sats": 0.3,
+      "rot_tak_kr": 50000,
+      "rot_rut_tak_kr": 75000,
+      "gt_tak_kr": 50000,
+      "prisbasbelopp": 59200,
+      "snitt_kommunalskatt": 0.3238,
+      "skiktgrans": 643000,
+      "fastighetsavgift_max": 10425,
+      "pensionsavgift_max": 47100
+    },
+    "hedge": "Alla belopp är preliminära. Skatteverket avgör i slutskattebeskedet. Verktyget säger 'kan', aldrig 'får'.",
+    "verdict_precedens": [
+      "nej",
+      "troligen_ej",
+      "osaker",
+      "ja_med_villkor",
+      "ja"
+    ],
+    "skatt_racker_varden": [
+      "ryms",
+      "ryms_delvis",
+      "ryms_inte",
+      "ej_bedomd",
+      "ej_relevant"
+    ]
+  },
+  "testfall": [
+    {
+      "id": "V01-villa-standard",
+      "beskrivning": "Villa, äger och bor, värdeår 2011 eller tidigare, byte av elcentral 40 000 kr arbete + 15 000 kr material, lön 45 000",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 40000,
+        "material_inkl_moms": 15000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 12000,
+        "att_betala_kr": 43000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "bara_arbetskostnad_ger_avdrag"
+        ],
+        "avdrag_brutto_kr": 12000,
+        "fordelning_kr": [
+          12000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 87953,
+            "behov_rot_rut_kr": 12000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "V02-tva-agare-over-taket",
+      "beskrivning": "Två ägare, stor elrenovering 400 000 kr arbete: 30 % = 120 000 men taket 2 x 50 000",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 400000,
+        "material_inkl_moms": 60000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          },
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 100000,
+        "att_betala_kr": 360000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "bara_arbetskostnad_ger_avdrag",
+          "taket_begransar",
+          "flera_agare_delar"
+        ],
+        "avdrag_brutto_kr": 120000,
+        "fordelning_kr": [
+          50000,
+          50000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 87953,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          },
+          {
+            "utrymme_kr": 72725,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B03-brf-inne-elcentral",
+      "beskrivning": "Bostadsrätt, elcentral inne i lägenheten, 20 000 kr arbete, lön 35 000",
+      "input": {
+        "bostadstyp": "bostadsratt",
+        "ager": "ja",
+        "bor": "jag",
+        "plats": "inne",
+        "arbetskostnad_inkl_moms": 20000,
+        "material_inkl_moms": 6000,
+        "agare": [
+          {
+            "manadsinkomst": 35000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja_med_villkor",
+        "avdrag_kr": 6000,
+        "att_betala_kr": 20000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "brf_stadgar_inre_underhall",
+          "bara_arbetskostnad_ger_avdrag"
+        ],
+        "avdrag_brutto_kr": 6000,
+        "fordelning_kr": [
+          6000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 51796,
+            "behov_rot_rut_kr": 6000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B04-brf-laddbox-foreningens-pplats",
+      "beskrivning": "Bostadsrätt, laddbox på föreningens p-plats (utanför lägenheten)",
+      "input": {
+        "bostadstyp": "bostadsratt",
+        "ager": "ja",
+        "bor": "jag",
+        "plats": "utanfor",
+        "arbetskostnad_inkl_moms": 8000,
+        "material_inkl_moms": 15000,
+        "agare": [
+          {
+            "manadsinkomst": 35000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 23000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "utanfor_lagenheten",
+          "bara_arbetskostnad_ger_avdrag"
+        ],
+        "avdrag_brutto_kr": 2400,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 51796,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "H05-hyresratt",
+      "beskrivning": "Hyresrätt: aldrig ROT, hänvisa till hyresvärden",
+      "input": {
+        "bostadstyp": "hyresratt",
+        "ager": "nej",
+        "bor": "jag",
+        "arbetskostnad_inkl_moms": 10000,
+        "agare": [
+          {
+            "manadsinkomst": 30000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 10000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "hyresratt",
+          "ager_inte"
+        ],
+        "avdrag_brutto_kr": 3000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 41445,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "N06-nybyggt-vardear-2022-ombyggnad",
+      "beskrivning": "Villa värdeår 2022 (4 år), utöka elcentralen/ny installation = ombyggnad -> femårsregeln",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "2021_2025",
+        "arbetstyp": "ombyggnad",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "troligen_ej",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "femarsregeln_ombyggnad"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "N07-nybyggt-vardear-2022-reparation",
+      "beskrivning": "Villa värdeår 2022, byte av trasig komponent till likvärdig = reparation -> ok med villkor",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "2021_2025",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja_med_villkor",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "femarsregeln_endast_reparation"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "N08-nybyggt-vardear-2021-ombyggnad",
+      "beskrivning": "Villa värdeår 2021 (5 år): fortfarande spärrat 2026, öppnar 2027",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "2021_2025",
+        "arbetstyp": "ombyggnad",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "troligen_ej",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "femarsregeln_ombyggnad"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "N09-vardear-2020-ombyggnad",
+      "beskrivning": "Villa värdeår 2020 (6 år): ombyggnad ok 2026, men ingen fastighetsavgift ännu (befriad 15 år) -> lägre utrymme",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "2012_2020",
+        "arbetstyp": "ombyggnad",
+        "arbetskostnad_inkl_moms": 120000,
+        "agare": [
+          {
+            "manadsinkomst": 30000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 0
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 36000,
+        "att_betala_kr": 84000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "fastighetsavgift_befriad"
+        ],
+        "avdrag_brutto_kr": 36000,
+        "fordelning_kr": [
+          36000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 41445,
+            "behov_rot_rut_kr": 36000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "F10-fritidshus",
+      "beskrivning": "Fritidshus som ägaren själv använder, äldre hus",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "fritid",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 25000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 1500000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 7500,
+        "att_betala_kr": 17500,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "fritidshus_ingen_annan_permanent"
+        ],
+        "avdrag_brutto_kr": 7500,
+        "fordelning_kr": [
+          7500
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 72725,
+            "behov_rot_rut_kr": 7500,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "P11-pensionar-lag-pension-brf",
+      "beskrivning": "Pensionär 66+, 15 000 kr/mån pension, bostadsrätt, arbete 100 000 kr -> 30 000 ryms inte helt",
+      "input": {
+        "bostadstyp": "bostadsratt",
+        "ager": "ja",
+        "bor": "jag",
+        "plats": "inne",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 15000,
+            "inkomsttyp": "pension",
+            "fyllt_66_vid_arets_ingang": true
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja_med_villkor",
+        "avdrag_kr": 30000,
+        "att_betala_kr": 70000,
+        "skatt_racker": "ryms_delvis",
+        "flaggor": [
+          "brf_stadgar_inre_underhall"
+        ],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          30000
+        ],
+        "aterbetalningsrisk_kr": 5724,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 24276,
+            "behov_rot_rut_kr": 30000,
+            "status": "ryms_delvis",
+            "aterbetalningsrisk_kr": 5724,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "P12-pensionar-villa-20k",
+      "beskrivning": "Pensionär 66+, 20 000 kr/mån, villa med fastighetsavgift, arbete 100 000 kr",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 20000,
+            "inkomsttyp": "pension",
+            "fyllt_66_vid_arets_ingang": true,
+            "taxeringsvarde": 2000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 30000,
+        "att_betala_kr": 70000,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          30000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 48301,
+            "behov_rot_rut_kr": 30000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "L13-lon-20k-brf",
+      "beskrivning": "Löntagare 20 000 kr/mån, bostadsrätt, arbete 100 000 kr -> avdrag 30 000, utrymme ca 21 000",
+      "input": {
+        "bostadstyp": "bostadsratt",
+        "ager": "ja",
+        "bor": "jag",
+        "plats": "inne",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 20000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja_med_villkor",
+        "avdrag_kr": 30000,
+        "att_betala_kr": 70000,
+        "skatt_racker": "ryms_delvis",
+        "flaggor": [
+          "brf_stadgar_inre_underhall"
+        ],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          30000
+        ],
+        "aterbetalningsrisk_kr": 8958,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 21042,
+            "behov_rot_rut_kr": 30000,
+            "status": "ryms_delvis",
+            "aterbetalningsrisk_kr": 8958,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "L14-lon-45k-villa",
+      "beskrivning": "Löntagare 45 000 kr/mån, villa, arbete 170 000 kr -> avdrag 50 000 (tak), ryms",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 170000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 50000,
+        "att_betala_kr": 120000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "taket_begransar"
+        ],
+        "avdrag_brutto_kr": 51000,
+        "fordelning_kr": [
+          50000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 87953,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "K15-redan-anvant-40k-rot",
+      "beskrivning": "Redan använt 40 000 kr ROT i år, nytt jobb 100 000 kr arbete -> bara 10 000 kvar",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000,
+            "rot_anvant_i_ar": 40000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 10000,
+        "att_betala_kr": 90000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "pott_delvis_forbrukad",
+          "taket_begransar"
+        ],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          10000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 87953,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "K16-rut-30k-plus-rot-50k-potten-slut",
+      "beskrivning": "RUT 30 000 + ROT 50 000 redan använt = 75 000 -> 0 kr kvar",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 60000,
+        "agare": [
+          {
+            "manadsinkomst": 50000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000,
+            "rot_anvant_i_ar": 50000,
+            "rut_anvant_i_ar": 30000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 0,
+        "att_betala_kr": 60000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "pott_delvis_forbrukad",
+          "pott_slut_i_ar",
+          "betala_efter_arsskiftet_ny_pott",
+          "taket_begransar"
+        ],
+        "avdrag_brutto_kr": 18000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 103181,
+            "behov_rot_rut_kr": 80000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "K17-rut-30k-anvant-rot-vill-50k",
+      "beskrivning": "RUT 30 000 använt, ROT 0: arbete 200 000 kr ger 60 000 brutto men max 45 000 (75 000-taket)",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 200000,
+        "agare": [
+          {
+            "manadsinkomst": 50000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000,
+            "rut_anvant_i_ar": 30000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 45000,
+        "att_betala_kr": 155000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "pott_delvis_forbrukad",
+          "taket_begransar"
+        ],
+        "avdrag_brutto_kr": 60000,
+        "fordelning_kr": [
+          45000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 103181,
+            "behov_rot_rut_kr": 75000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "A18-under-18",
+      "beskrivning": "Köparen fyller inte 18 under året",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "myndig_vid_arsskiftet": false,
+        "arbetskostnad_inkl_moms": 20000,
+        "agare": [
+          {}
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 20000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "under_18"
+        ],
+        "avdrag_brutto_kr": 6000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "status": "ej_bedomd"
+          }
+        ]
+      }
+    },
+    {
+      "id": "M19-materialtungt-jobb",
+      "beskrivning": "Arbete 8 000 kr, material 32 000 kr: bara arbetet ger avdrag",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 8000,
+        "material_inkl_moms": 32000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 2400,
+        "att_betala_kr": 37600,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "bara_arbetskostnad_ger_avdrag"
+        ],
+        "avdrag_brutto_kr": 2400,
+        "fordelning_kr": [
+          2400
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 72725,
+            "behov_rot_rut_kr": 2400,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "G20-rot-och-gron-teknik-samma-ar",
+      "beskrivning": "ROT 50 000 + planerad grön teknik 50 000 samma år, lön 40 000, villa: ROT räknas av först, GT förlorar",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 170000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000,
+            "gron_teknik_planerad_i_ar": 50000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 50000,
+        "att_betala_kr": 120000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "taket_begransar",
+          "gt_efter_rot_racker_inte"
+        ],
+        "avdrag_brutto_kr": 51000,
+        "fordelning_kr": [
+          50000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 72725,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 50000,
+            "gt_ryms_kr": 22725,
+            "gt_aterbetalningsrisk_kr": 27275
+          }
+        ]
+      }
+    },
+    {
+      "id": "U21-vet-inte-agande",
+      "beskrivning": "Svarar vet inte på ägande",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "vet_inte",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "osaker",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "agande_okant"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "U22-vet-inte-vardear-ombyggnad",
+      "beskrivning": "Villa, värdeår okänt, ny installation",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "vet_inte",
+        "arbetstyp": "ombyggnad",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "osaker",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "vardear_okant"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "U23-vet-inte-vardear-reparation",
+      "beskrivning": "Villa, värdeår okänt men ren reparation -> reparation ger ROT oavsett ålder",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "vet_inte",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 72725,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "O24-foraldrars-bostad",
+      "beskrivning": "Köparen äger del av föräldrarnas villa och betalar jobbet",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "foraldrar",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja_med_villkor",
+        "avdrag_kr": 9000,
+        "att_betala_kr": 21000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "foraldrars_bostad_delagande_och_utgift"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          9000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 77528,
+            "behov_rot_rut_kr": 9000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "O25-uthyrd-bostad",
+      "beskrivning": "Villa som ägaren hyr ut",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "uthyrd",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 30000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "uthyrd_bostad"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 77528,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "O26-forsakringsersattning",
+      "beskrivning": "Jobbet betalas av försäkringen",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "bidrag_forsakring_gt": "ja",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {
+            "manadsinkomst": 45000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 30000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "bidrag_forsakring_eller_gt_samma_arbete"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 77528,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "B27-brf-radhus-fasad",
+      "beskrivning": "Bostadsrättsradhus, utebelysning på fasaden",
+      "input": {
+        "bostadstyp": "bostadsratt_smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "plats": "utanfor",
+        "arbetskostnad_inkl_moms": 6000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 6000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "utanfor_lagenheten"
+        ],
+        "avdrag_brutto_kr": 1800,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "D28-dodsbo-efter-dodsfall",
+      "beskrivning": "Dödsbo, arbete efter dödsfallet",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "dodsbo": "efter_dodsfall",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {}
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 30000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "dodsbo_efter_dodsfall"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "status": "ej_bedomd"
+          }
+        ]
+      }
+    },
+    {
+      "id": "S29-ej-skattskyldig-sverige",
+      "beskrivning": "Bor utomlands, betalar inte skatt i Sverige",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "skattskyldig_sverige": false,
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {}
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 30000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "ej_skattskyldig_sverige"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "status": "ej_bedomd"
+          }
+        ]
+      }
+    },
+    {
+      "id": "E30-agarlagenhet-inne",
+      "beskrivning": "Ägarlägenhet, arbete i lägenheten",
+      "input": {
+        "bostadstyp": "agarlagenhet",
+        "ager": "ja",
+        "bor": "jag",
+        "plats": "inne",
+        "arbetskostnad_inkl_moms": 20000,
+        "agare": [
+          {
+            "manadsinkomst": 40000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 6000,
+        "att_betala_kr": 14000,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 6000,
+        "fordelning_kr": [
+          6000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 62300,
+            "behov_rot_rut_kr": 6000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "V31-tva-agare-en-lag-inkomst",
+      "beskrivning": "Två ägare, 300 000 kr arbete (90 000 brutto), en heltid 50 000 och en deltid 15 000: omfördela",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 300000,
+        "agare": [
+          {
+            "manadsinkomst": 50000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000
+          },
+          {
+            "manadsinkomst": 15000,
+            "inkomsttyp": "lon"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 90000,
+        "att_betala_kr": 210000,
+        "skatt_racker": "ryms_delvis",
+        "flaggor": [
+          "flera_agare_delar",
+          "omfordela_mellan_agare"
+        ],
+        "avdrag_brutto_kr": 90000,
+        "fordelning_kr": [
+          50000,
+          40000
+        ],
+        "aterbetalningsrisk_kr": 28289,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 103181,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          },
+          {
+            "utrymme_kr": 11711,
+            "behov_rot_rut_kr": 40000,
+            "status": "ryms_delvis",
+            "aterbetalningsrisk_kr": 28289,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "L32-hoginkomst-80k",
+      "beskrivning": "Löntagare 80 000 kr/mån, villa, allt ryms",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 170000,
+        "agare": [
+          {
+            "manadsinkomst": 80000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 4000000,
+            "gron_teknik_planerad_i_ar": 50000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 50000,
+        "att_betala_kr": 120000,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "taket_begransar"
+        ],
+        "avdrag_brutto_kr": 51000,
+        "fordelning_kr": [
+          50000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 274569,
+            "behov_rot_rut_kr": 50000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 50000,
+            "gt_ryms_kr": 50000,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "L33-lon-30k-stort-bolan",
+      "beskrivning": "Löntagare 30 000 kr/mån, villa, ränteutgifter 100 000 kr/år -> utrymmet krymper med 30 000",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 30000,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 3000000,
+            "ranteutgifter_ar": 100000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 30000,
+        "att_betala_kr": 70000,
+        "skatt_racker": "ryms_delvis",
+        "flaggor": [
+          "ranteavdrag_minskar_utrymmet"
+        ],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          30000
+        ],
+        "aterbetalningsrisk_kr": 8130,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 21870,
+            "behov_rot_rut_kr": 30000,
+            "status": "ryms_delvis",
+            "aterbetalningsrisk_kr": 8130,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "P34-66plus-jobbar-och-pension",
+      "beskrivning": "66+, lön 20 000 + pension 15 000 per månad, villa",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 35000,
+            "inkomsttyp": "bada",
+            "lon_manad": 20000,
+            "pension_manad": 15000,
+            "fyllt_66_vid_arets_ingang": true,
+            "taxeringsvarde": 2000000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 30000,
+        "att_betala_kr": 70000,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          30000
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 42295,
+            "behov_rot_rut_kr": 30000,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "N35-nybygge-ej-fardigt",
+      "beskrivning": "Hus under uppförande, inte taxerat som färdigt",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "2026_ej_fardig",
+        "arbetstyp": "ombyggnad",
+        "arbetskostnad_inkl_moms": 30000,
+        "agare": [
+          {}
+        ]
+      },
+      "expected": {
+        "verdict": "nej",
+        "avdrag_kr": 0,
+        "att_betala_kr": 30000,
+        "skatt_racker": "ej_relevant",
+        "flaggor": [
+          "ej_fardigstallt_nybygge"
+        ],
+        "avdrag_brutto_kr": 9000,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "status": "ej_bedomd"
+          }
+        ]
+      }
+    },
+    {
+      "id": "V36-agare-utan-inkomst",
+      "beskrivning": "Ägare utan egen inkomst (0 kr/mån): inget skatteutrymme alls, hela avdraget kan bli kvarskatt",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 60000,
+        "agare": [
+          {
+            "manadsinkomst": 0,
+            "inkomsttyp": "lon",
+            "taxeringsvarde": 0
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 18000,
+        "att_betala_kr": 42000,
+        "skatt_racker": "ryms_inte",
+        "flaggor": [],
+        "avdrag_brutto_kr": 18000,
+        "fordelning_kr": [
+          18000
+        ],
+        "aterbetalningsrisk_kr": 18000,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 0,
+            "behov_rot_rut_kr": 18000,
+            "status": "ryms_inte",
+            "aterbetalningsrisk_kr": 18000,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "P37-pensionar-10k",
+      "beskrivning": "Pensionär 66+, 10 000 kr/mån, bostadsrätt: utrymme ca 12 800 kr mot 30 000 kr avdrag",
+      "input": {
+        "bostadstyp": "bostadsratt",
+        "ager": "ja",
+        "bor": "jag",
+        "plats": "inne",
+        "arbetskostnad_inkl_moms": 100000,
+        "agare": [
+          {
+            "manadsinkomst": 10000,
+            "inkomsttyp": "pension",
+            "fyllt_66_vid_arets_ingang": true
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja_med_villkor",
+        "avdrag_kr": 30000,
+        "att_betala_kr": 70000,
+        "skatt_racker": "ryms_delvis",
+        "flaggor": [
+          "brf_stadgar_inre_underhall"
+        ],
+        "avdrag_brutto_kr": 30000,
+        "fordelning_kr": [
+          30000
+        ],
+        "aterbetalningsrisk_kr": 17210,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 12790,
+            "behov_rot_rut_kr": 30000,
+            "status": "ryms_delvis",
+            "aterbetalningsrisk_kr": 17210,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "SKV-KAL-01",
+      "beskrivning": "Skatteverkets e-tjänst: född 1985, Stockholm, lön 360 000 -> 'Rotavdraget får högst vara 37 594 kronor'",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 0,
+        "agare": [
+          {
+            "manadsinkomst": 30000,
+            "inkomsttyp": "lon",
+            "kommunalskatt": 0.3055
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 0,
+        "att_betala_kr": 0,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 0,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 37594,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "SKV-KAL-02",
+      "beskrivning": "Skatteverkets e-tjänst: född 1955, Stockholm, pension 240 000 -> 35 702 kronor",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 0,
+        "agare": [
+          {
+            "manadsinkomst": 20000,
+            "inkomsttyp": "pension",
+            "fyllt_66_vid_arets_ingang": true,
+            "kommunalskatt": 0.3055
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 0,
+        "att_betala_kr": 0,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 0,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 35702,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "SKV-KAL-03",
+      "beskrivning": "Skatteverkets e-tjänst: född 1985, Stockholm, lön 720 000, ränteutgifter 60 000, fastighetsavgift 10 425 -> utrymme 120 960 (tjänsten gav 140 535 med okapad avgift 30 000)",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 0,
+        "agare": [
+          {
+            "manadsinkomst": 60000,
+            "inkomsttyp": "lon",
+            "kommunalskatt": 0.3055,
+            "ranteutgifter_ar": 60000,
+            "taxeringsvarde": 1390000
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 0,
+        "att_betala_kr": 0,
+        "skatt_racker": "ryms",
+        "flaggor": [
+          "ranteavdrag_minskar_utrymmet"
+        ],
+        "avdrag_brutto_kr": 0,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 120960,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "SKV-KAL-04",
+      "beskrivning": "Skatteverkets e-tjänst: född 1990, Göteborg, lön 180 000 -> 11 881 kronor",
+      "input": {
+        "bostadstyp": "smahus",
+        "ager": "ja",
+        "bor": "jag",
+        "vardear": "t2011",
+        "arbetstyp": "reparation",
+        "arbetskostnad_inkl_moms": 0,
+        "agare": [
+          {
+            "manadsinkomst": 15000,
+            "inkomsttyp": "lon",
+            "kommunalskatt": 0.326
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ja",
+        "avdrag_kr": 0,
+        "att_betala_kr": 0,
+        "skatt_racker": "ryms",
+        "flaggor": [],
+        "avdrag_brutto_kr": 0,
+        "fordelning_kr": [
+          0
+        ],
+        "aterbetalningsrisk_kr": 0,
+        "skatt_per_agare": [
+          {
+            "utrymme_kr": 11880,
+            "behov_rot_rut_kr": 0,
+            "status": "ryms",
+            "aterbetalningsrisk_kr": 0,
+            "gt_planerad_kr": 0,
+            "gt_ryms_kr": 0,
+            "gt_aterbetalningsrisk_kr": 0
+          }
+        ]
+      }
+    }
+  ]
+}

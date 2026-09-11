@@ -1,0 +1,225 @@
+[
+  {
+    "_meta": {
+      "beskrivning": "Testfall for Gron Teknik-kalkylatorn 2026. Formel och verdictprioritet: logik/gt-spec.md. Kallor: research/02-gron-teknik-regelverk.md. Belopp i hela kronor (GRONFL 5 par.). skatt_tillganglig_kr = availableTax per agare fran ROT-agentens modell (null = okant). avdrag_kr = det som dras pa fakturan efter tak; avdrag_efter_skatt_kr = vad skatten tacker; aterbetalningsrisk_kr = skillnaden. att_betala_kr = pris_total_kr - avdrag_kr + tillagg_elcentral_kr (for ROT-reservvagen: pris - rot_fallback_kr). skatt_racker: true | false | \"okant\" | \"ej_relevant\" (stopp) | \"rot_modellen\" (reservvag, ROT-agentens modell avgor).",
+      "defaults": { "alder_18": true, "skattskyldig_sverige": true, "material_fran_installator": true, "leasing": false, "fast_pris_schablon": false, "antal_agare": 1, "gt_anvant_kr": [0, 0], "rot_rut_anvant_kr": [0, 0], "tillagg_elcentral_kr": 0 },
+      "konstanter": { "TAX_YEAR": 2026, "RATE": { "gt_laddbox": 0.5, "gt_batteri": 0.5, "gt_sol": 0.15 }, "GT_CAP_PER_PERSON": 50000, "SCHABLON_ARBETE_MATERIAL": 0.97, "ROT_RATE": 0.3 }
+    }
+  },
+  {
+    "id": "GT-01",
+    "beskrivning": "Laddbox, villa, standardfall: 25 000 kr arbete + material, en agare, skatten racker.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": [] }
+  },
+  {
+    "id": "GT-02",
+    "beskrivning": "Laddbox i bostadsratt pa en p-plats som hor till bostadsratten och foljer med vid forsaljning (S2).",
+    "input": { "lage": "gt_laddbox", "bostad": "bostadsratt", "ager": true, "anvandning": "sjalv", "pplats": "foljer_bostadsratten", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [45000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["brf_pplats_ok"] }
+  },
+  {
+    "id": "GT-03",
+    "beskrivning": "Laddbox i bostadsratt pa en p-plats som hyrs av foreningen och kan sagas upp: inte gron teknik, inte ROT (utanfor lagenheten). Artikelns 'dedikerad p-plats' racker inte.",
+    "input": { "lage": "gt_laddbox", "bostad": "bostadsratt", "ager": true, "anvandning": "sjalv", "pplats": "hyrd_uppsagningsbar", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [45000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_brf_pplats_hyrd", "avdrag_kr": 0, "att_betala_kr": 25000, "skatt_racker": "ej_relevant", "flaggor": ["ladda_bilen_foreningen", "rot_ej_utanfor_lagenheten"] }
+  },
+  {
+    "id": "GT-04",
+    "beskrivning": "Laddbox i foreningens gemensamma garage: foreningen ar kopare, privatpersonen far ingen gron teknik. Route: Ladda bilen (Naturvardsverket).",
+    "input": { "lage": "gt_laddbox", "bostad": "bostadsratt", "ager": true, "anvandning": "sjalv", "pplats": "gemensamt", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [45000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_brf_gemensamt", "avdrag_kr": 0, "att_betala_kr": 25000, "skatt_racker": "ej_relevant", "flaggor": ["ladda_bilen_foreningen"] }
+  },
+  {
+    "id": "GT-05",
+    "beskrivning": "Batteri med befintliga solceller, 120 000 kr, en agare: brutto 60 000 men taket 50 000 slar i. Skatten (55 000) racker.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 120000, "antal_agare": 1, "skatt_tillganglig_kr": [55000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad_tak", "avdrag_kr": 50000, "att_betala_kr": 70000, "skatt_racker": true, "avdrag_efter_skatt_kr": 50000, "aterbetalningsrisk_kr": 0, "flaggor": ["stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-06",
+    "beskrivning": "Samma batteri, tva agare som delar fakturan: taket blir 100 000, hela 60 000 ryms. Skatt 40 000 var.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 120000, "antal_agare": 2, "skatt_tillganglig_kr": [40000, 40000], "rot_rut_anvant_kr": [0, 0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 60000, "att_betala_kr": 60000, "skatt_racker": true, "avdrag_efter_skatt_kr": 60000, "aterbetalningsrisk_kr": 0, "flaggor": ["tva_agare_delar", "stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-07",
+    "beskrivning": "Batteri UTAN solceller: gron teknik galler inte (S8). Verktyget sager sjalvmant reservvagen ROT 30 % pa arbetskostnaden (20 000 kr), aldrig pa batteriet.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "nej", "pris_total_kr": 120000, "pris_arbete_kr": 20000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "batteri_utan_sol_rot", "avdrag_kr": 0, "rot_fallback_kr": 6000, "att_betala_kr": 114000, "skatt_racker": "rot_modellen", "flaggor": ["rot_fallback_arbete_endast"] }
+  },
+  {
+    "id": "GT-08",
+    "beskrivning": "Solceller 15 %: 150 000 kr arbete + material, resor och projektering star separat.",
+    "input": { "lage": "gt_sol", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 150000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 22500, "att_betala_kr": 127500, "skatt_racker": true, "avdrag_efter_skatt_kr": 22500, "aterbetalningsrisk_kr": 0, "flaggor": [] }
+  },
+  {
+    "id": "GT-09",
+    "beskrivning": "Solceller till fast totalpris (totalentreprenad): Skatteverkets 97 %-schablon ger underlag 145 500 och avdrag 21 825 (S11, S5-exemplet). GRIND 1.",
+    "input": { "lage": "gt_sol", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 150000, "fast_pris_schablon": true, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 21825, "att_betala_kr": 128175, "skatt_racker": true, "avdrag_efter_skatt_kr": 21825, "aterbetalningsrisk_kr": 0, "flaggor": ["schablon_97_tillampad"] }
+  },
+  {
+    "id": "GT-10",
+    "beskrivning": "Sol och batteri samma ar delar potten: solcellerna tog 22 500 tidigare i ar, batteriet (100 000) far bara 27 500 av sina 50 000.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 100000, "antal_agare": 1, "gt_anvant_kr": [22500], "skatt_tillganglig_kr": [70000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad_tak", "avdrag_kr": 27500, "att_betala_kr": 72500, "skatt_racker": true, "avdrag_efter_skatt_kr": 27500, "aterbetalningsrisk_kr": 0, "flaggor": ["gt_anvant_i_ar", "stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-11",
+    "beskrivning": "Tva agare, stort batteri 200 000 kr: 100 000 i avdrag ryms exakt i det gemensamma taket.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 200000, "antal_agare": 2, "skatt_tillganglig_kr": [60000, 60000], "rot_rut_anvant_kr": [0, 0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 100000, "att_betala_kr": 100000, "skatt_racker": true, "avdrag_efter_skatt_kr": 100000, "aterbetalningsrisk_kr": 0, "flaggor": ["tva_agare_delar", "stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-12",
+    "beskrivning": "Tva agare men den ena har redan anvant hela sin gron teknik-pott i ar: bara 50 000 kvar totalt.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 200000, "antal_agare": 2, "gt_anvant_kr": [50000, 0], "skatt_tillganglig_kr": [60000, 60000], "rot_rut_anvant_kr": [0, 0] },
+    "expected": { "verdict": "berattigad_tak", "avdrag_kr": 50000, "att_betala_kr": 150000, "skatt_racker": true, "avdrag_efter_skatt_kr": 50000, "aterbetalningsrisk_kr": 0, "flaggor": ["tva_agare_delar", "gt_anvant_i_ar", "stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-13",
+    "beskrivning": "Hyresratt: stopp oavsett allt annat. Beskedet pekar pa hyresvarden, saljer inte.",
+    "input": { "lage": "gt_laddbox", "bostad": "hyresratt", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_hyresratt", "avdrag_kr": 0, "att_betala_kr": 25000, "skatt_racker": "ej_relevant", "flaggor": [] }
+  },
+  {
+    "id": "GT-14",
+    "beskrivning": "Under 18 vid arets slut: stopp (67 kap. 36 par. IL).",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "alder_18": false, "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [10000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_person", "avdrag_kr": 0, "att_betala_kr": 25000, "skatt_racker": "ej_relevant", "flaggor": [] }
+  },
+  {
+    "id": "GT-15",
+    "beskrivning": "Kunden har kopt laddboxen sjalv pa natet (7 000 kr) och betalar bara installationen (5 000 kr): 50 % pa arbetet, 0 pa boxen (S1).",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "material_fran_installator": false, "pris_total_kr": 12000, "pris_arbete_kr": 5000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 2500, "att_betala_kr": 9500, "skatt_racker": true, "avdrag_efter_skatt_kr": 2500, "aterbetalningsrisk_kr": 0, "flaggor": ["material_ej_avdrag"] }
+  },
+  {
+    "id": "GT-16",
+    "beskrivning": "Laddbox vid fritidshuset som agaren sjalv anvander: ja (S3 'fritidsbostad').",
+    "input": { "lage": "gt_laddbox", "bostad": "fritidshus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["fritidshus_ok"] }
+  },
+  {
+    "id": "GT-17",
+    "beskrivning": "Nybyggt hus (byggnad under upporande): ja, gron teknik har ingen femarsregel (S3, S13).",
+    "input": { "lage": "gt_laddbox", "bostad": "nybygge", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["nybygge_ok_ingen_femarsregel"] }
+  },
+  {
+    "id": "GT-18",
+    "beskrivning": "Redan anvant 30 000 kr gron teknik i ar (t.ex. laddbox i varas): batteriet (80 000) far bara 20 000 av sina 40 000.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 80000, "antal_agare": 1, "gt_anvant_kr": [30000], "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad_tak", "avdrag_kr": 20000, "att_betala_kr": 60000, "skatt_racker": true, "avdrag_efter_skatt_kr": 20000, "aterbetalningsrisk_kr": 0, "flaggor": ["gt_anvant_i_ar", "stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-19",
+    "beskrivning": "ROT 50 000 anvant i ar och lag skatt (55 000): ROT tar sin del forst (67 kap. 2 par. IL), gron teknik far 5 000 av 12 500. Fakturan visar anda -12 500; 7 500 kan kravas tillbaka i slutskatten.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [55000], "rot_rut_anvant_kr": [50000] },
+    "expected": { "verdict": "berattigad_skatt_racker_inte", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": false, "avdrag_efter_skatt_kr": 5000, "aterbetalningsrisk_kr": 7500, "flaggor": ["rot_rut_anvant_i_ar"] }
+  },
+  {
+    "id": "GT-20",
+    "beskrivning": "Besokaren vet inte hur mycket skatt hen betalar: avdraget pa fakturan visas, skattefragan hedgas med 'kan'.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [null], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": "okant", "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["skatt_okand"] }
+  },
+  {
+    "id": "GT-21",
+    "beskrivning": "Batteri, besokaren vet inte om det finns solceller: osakert besked, potentiellt belopp visas som 'kan bli'.",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "vet_inte", "pris_total_kr": 80000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "osaker", "avdrag_kr": 40000, "att_betala_kr": 40000, "skatt_racker": true, "avdrag_efter_skatt_kr": 40000, "aterbetalningsrisk_kr": 0, "flaggor": ["solceller_okant"] }
+  },
+  {
+    "id": "GT-22",
+    "beskrivning": "Batteri i bostadsratt: kraver egen produktion kopplad till just den bostadsratten; kan inte bedomas i verktyget (TOLKNING av S3/S4).",
+    "input": { "lage": "gt_batteri", "bostad": "bostadsratt", "ager": true, "anvandning": "sjalv", "solceller": "har", "pris_total_kr": 80000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "osaker", "avdrag_kr": 40000, "att_betala_kr": 40000, "skatt_racker": true, "avdrag_efter_skatt_kr": 40000, "aterbetalningsrisk_kr": 0, "flaggor": ["brf_batteri_kraver_egen_produktion"] }
+  },
+  {
+    "id": "GT-23",
+    "beskrivning": "Bostaden hyrs ut (nagon annan bor dar): stopp (S3).",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "annan", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_anvands_av_annan", "avdrag_kr": 0, "att_betala_kr": 25000, "skatt_racker": "ej_relevant", "flaggor": [] }
+  },
+  {
+    "id": "GT-24",
+    "beskrivning": "Foralders bostad: koparen ager huset (delvis), foraldern bor dar, koparen betalar: ja (S2, S3).",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "foralder", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["foralders_hushall"] }
+  },
+  {
+    "id": "GT-25",
+    "beskrivning": "Batteri som installeras samtidigt som solceller: ja (S9). Vaxelriktaren hor till solcellsdelen (15 %) i det fallet (S2, 2026-02-05). Testet racknar bara batteridelen 100 000 kr; solcellsdelen delar samma pott (se GT-10).",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "solceller": "samtidigt", "pris_total_kr": 100000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 50000, "att_betala_kr": 50000, "skatt_racker": true, "avdrag_efter_skatt_kr": 50000, "aterbetalningsrisk_kr": 0, "flaggor": ["vaxelriktare_15_vid_samtidig_sol", "stodtjanster_paverkar_inte_avdraget"] }
+  },
+  {
+    "id": "GT-26",
+    "beskrivning": "Laddbox som hyrs/leasas: ingen materialkostnad i lagens mening, bara arbetet (5 000) ger avdrag (S10).",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "material_fran_installator": true, "leasing": true, "pris_total_kr": 15000, "pris_arbete_kr": 5000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 2500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 2500, "aterbetalningsrisk_kr": 0, "flaggor": ["leasing_ej_material"] }
+  },
+  {
+    "id": "GT-27",
+    "beskrivning": "Laddbox 25 000 plus byte av elcentral 15 000 samma jobb: elcentralen ligger utanfor gron teknik (kan vara ROT). GT raknas bara pa laddboxdelen.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "tillagg_elcentral_kr": 15000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 27500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["elcentral_ej_gt_kan_vara_rot"] }
+  },
+  {
+    "id": "GT-28",
+    "beskrivning": "Inte skattskyldig i Sverige (bor utomlands, under 90 % svenska inkomster): stopp.",
+    "input": { "lage": "gt_sol", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "skattskyldig_sverige": false, "pris_total_kr": 150000, "antal_agare": 1, "skatt_tillganglig_kr": [0], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_person", "avdrag_kr": 0, "att_betala_kr": 150000, "skatt_racker": "ej_relevant", "flaggor": [] }
+  },
+  {
+    "id": "GT-29",
+    "beskrivning": "Tva agare dar den ena inte vet sin skatt: beloppet star, skattefragan blir 'okant' for hushallet.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 2, "skatt_tillganglig_kr": [60000, null], "rot_rut_anvant_kr": [0, 0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": "okant", "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["tva_agare_delar", "skatt_okand"] }
+  },
+  {
+    "id": "GT-30",
+    "beskrivning": "Skatten ar kand men besokaren vet inte om ROT/RUT anvants i ar: skattefragan kan inte avgoras, 'okant'.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [null] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": "okant", "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": ["rot_rut_okant"] }
+  },
+  {
+    "id": "GT-31",
+    "beskrivning": "Avrundning: 50 % av 9 999 = 4 999,50 -> 4 999 (oretal faller bort, GRONFL 5 par.).",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 9999, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 4999, "att_betala_kr": 5000, "skatt_racker": true, "avdrag_efter_skatt_kr": 4999, "aterbetalningsrisk_kr": 0, "flaggor": [] }
+  },
+  {
+    "id": "GT-32",
+    "beskrivning": "Stor solanlaggning 400 000 kr: 15 % = 60 000 men taket 50 000 slar i for en agare.",
+    "input": { "lage": "gt_sol", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 400000, "antal_agare": 1, "skatt_tillganglig_kr": [80000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad_tak", "avdrag_kr": 50000, "att_betala_kr": 350000, "skatt_racker": true, "avdrag_efter_skatt_kr": 50000, "aterbetalningsrisk_kr": 0, "flaggor": [] }
+  },
+  {
+    "id": "GT-33",
+    "beskrivning": "Prioritet mellan stopp: hyresratt OCH under 18 -> hyresratt vinner (forsta traff).",
+    "input": { "lage": "gt_laddbox", "bostad": "hyresratt", "alder_18": false, "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [0], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_hyresratt", "avdrag_kr": 0, "att_betala_kr": 25000, "skatt_racker": "ej_relevant", "flaggor": [] }
+  },
+  {
+    "id": "GT-34",
+    "beskrivning": "Prioritet: batteri utan sol men besokaren ager inte bostaden -> agande-stoppet vinner over ROT-reservvagen (ROT kraver ocksa agande).",
+    "input": { "lage": "gt_batteri", "bostad": "smahus", "ager": false, "solceller": "nej", "pris_total_kr": 120000, "pris_arbete_kr": 20000, "antal_agare": 1, "skatt_tillganglig_kr": [60000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "ej_ager_inte", "avdrag_kr": 0, "att_betala_kr": 120000, "skatt_racker": "ej_relevant", "flaggor": [] }
+  },
+  {
+    "id": "GT-35",
+    "beskrivning": "Pensionar med skatt pa pensionen 14 000 kr (availableTax fran ROT-modellen): laddboxens 12 500 ryms. Aldern spelar ingen roll uppat.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [14000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": true, "avdrag_efter_skatt_kr": 12500, "aterbetalningsrisk_kr": 0, "flaggor": [] }
+  },
+  {
+    "id": "GT-36",
+    "beskrivning": "Pensionar med lag skatt 8 000 kr: fakturan visar -12 500, men 4 500 kan kravas tillbaka i slutskatten.",
+    "input": { "lage": "gt_laddbox", "bostad": "smahus", "ager": true, "anvandning": "sjalv", "pris_total_kr": 25000, "antal_agare": 1, "skatt_tillganglig_kr": [8000], "rot_rut_anvant_kr": [0] },
+    "expected": { "verdict": "berattigad_skatt_racker_inte", "avdrag_kr": 12500, "att_betala_kr": 12500, "skatt_racker": false, "avdrag_efter_skatt_kr": 8000, "aterbetalningsrisk_kr": 4500, "flaggor": [] }
+  }
+]
