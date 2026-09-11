@@ -44,7 +44,7 @@ of the effective state (GT `agare` is visible for batteri/sol and folded for lad
 
 ## The evaluate() contract
 
-`evaluate(mode, uiState, touched)` returns:
+`evaluate(mode, uiState, touched, opts = { src })` returns (`opts.src` sets the `src` query param on the offert href: `artikel` in embed, default `avdragskollen`):
 
 ```
 {

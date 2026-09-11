@@ -410,6 +410,8 @@ export const COPY = Object.freeze({
   'cta.tel_osaker': 'Ring så reder vi ut det',
   'cta.tel_forening': 'Ring så reder vi ut vad som gäller i din förening',
   'cta.tel_prata': 'Prata med oss',
+  'cta.tel_prata_bestall': 'Prata med oss innan du beställer',
+  'cta.lage_byte_batteri': 'Räkna på batteri till solcellerna',
   'cta.tel_sekundar': 'Hellre prata? {tel}',
   'cta.lage_byte_rot': 'Räkna med ROT i stället',
   'cta.skatteverket_utrymme': 'Kolla ditt utrymme hos Skatteverket',
@@ -787,8 +789,10 @@ function taxBand(mode, uiState) {
  * question ids the user has interacted with. Untouched gate answers are "antaget"; "vet inte" is "okand".
  * Link-prefilled answers are NOT touched (a säljare cannot confirm on the customer's behalf, UX §7.1).
  */
-export function evaluate(mode, uiState = {}, touched = []) {
+let EVAL_OPTS = {};
+export function evaluate(mode, uiState = {}, touched = [], opts = {}) {
   assertMode(mode);
+  EVAL_OPTS = opts || {};
   const touchedSet = touched instanceof Set ? touched : new Set(touched || []);
   const state = withDefaults(mode, uiState);
   const eff = effectiveState(mode, state);
@@ -892,7 +896,7 @@ function ramFor(cls, rows) {
 
 function offertHref(mode, eff, klass) {
   const q = new URLSearchParams();
-  q.set('src', 'avdragskollen'); q.set('m', mode);
+  q.set('src', EVAL_OPTS.src || 'avdragskollen'); q.set('m', mode);
   if (mode === 'gt') q.set('l', eff.lage);
   q.set('b', eff.boende); q.set('v', klass);
   if (!eff.belopp_tomt) q.set('a', String(Math.round(eff.belopp / 1000) * 1000));
@@ -910,6 +914,18 @@ function ctaFor(mode, eff, cls, rows) {
   if (klass === 'ja' || klass === 'ja_villkor') {
     // BRF + laddbox with the p-plats unresolved: Ampy cannot quote before the association question is settled (UX §5.2)
     if (mode === 'gt' && rows.some((r) => r.id === 'pplats' && r.status === 'okand')) return { primary: { labelKey: 'cta.tel_forening', kind: 'tel', href: LINKS.tel, solid: true }, secondary: SKV_SEC() };
+    // Skatten räcker bara delvis (deep-dive known): a quote button next to "kan bli kvarskatt" sells against the
+    // customer's interest; the next step is a call (research/05 §1.3, GRINDLISTA 10). Offert stays as text link.
+    if (rows.some((r) => r.id === 'skatt' && r.status === 'varning' && r.typ === 'begransning')) {
+      return { primary: { labelKey: 'cta.tel_prata_bestall', kind: 'tel', href: LINKS.tel, solid: true },
+               secondary: { labelKey: 'cta.offert', kind: 'offert', href: offertHref(mode, eff, klass) } };
+    }
+    // Solceller: Ampy's sortiment is laddbox + batteri (foretagsdata §3.1); no sell button for a product not
+    // confirmed sold (GT GRIND 8 / GRINDLISTA 20). Text link to run the battery case + tel.
+    if (mode === 'gt' && eff.lage === 'sol') {
+      return { primary: { labelKey: 'cta.lage_byte_batteri', kind: 'lage_byte', href: '#batteri', solid: false,
+        byte: { mode: 'gt', state: { lage: 'batteri', boende: eff.boende, skatt: eff.skatt, agare: eff.agare, skatt_djup: eff.skatt_djup } } }, secondary: TEL_SEC() };
+    }
     return { primary: offert(mode === 'gt' && eff.lage === 'laddbox' ? 'cta.offert_laddbox' : 'cta.offert'), secondary: TEL_SEC() };
   }
   if (klass === 'troligen_inte') {
