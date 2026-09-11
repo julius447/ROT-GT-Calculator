@@ -170,7 +170,7 @@ Flaggor → rad (maskinkod i `rot_logik_ref.py` → svensk text):
 | `dodsbo_efter_dodsfall` | "Ett dödsbo kan bara få ROT för arbete som gjordes före dödsfallet." |
 | `ej_fardigstallt_nybygge` | "Tills huset är taxerat som färdigbyggt räknas allt elarbete som del av bygget, och bygget ger inte ROT." |
 | `utanfor_lagenheten` | "I en bostadsrätt gäller ROT bara inne i lägenheten. Fasad, trapphus, förråd och p-plats är föreningens sak." |
-| `femarsregeln_ombyggnad` | "Huset är yngre än fem år (värdeår 2021 eller senare). Då ger nytt, mer eller bättre inget ROT förrän femte året efter värdeåret. Att laga eller byta till likvärdigt går." |
+| `femarsregeln_ombyggnad` | "Huset är yngre än fem år (värdeår 2021 eller senare). Då ger nytt, mer eller bättre inget ROT de fem första åren efter värdeåret. Att laga eller byta till likvärdigt går." |
 | `femarsregeln_endast_reparation` | "Villkor: huset är yngre än fem år, så avdraget gäller bara om jobbet återställer elen till samma skick med likvärdigt material." |
 | `femarsregeln_arbetstyp_okand` | "Huset är yngre än fem år. Om jobbet är en reparation kan du få ROT, om det är nytt eller bättre troligen inte. Vi reder ut vilket." |
 | `agande_okant` | "Om du äger bostaden avgör allt. Står du på köpekontraktet eller är medlem i föreningen är du ägare." |
