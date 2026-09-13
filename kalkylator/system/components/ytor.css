@@ -1,0 +1,122 @@
+/* ============================================================================
+   AMPY DESIGNSYSTEM · system/components/ytor.css (S2)
+   Ytor: ljust kort, mörkt resultatkort, glaskort, navy-ram, avdelare, sektionsband, aurora.
+
+   Kanon (konsolidering/komponenter-karta.md, Ytor):
+   · .ampy-card            = live-ampy-se .rot__container (auk 1): vit, radie --apradius-l, på sky-mist ; ram + skugga från eljour-block index.html:57-58 (auk 1)
+                             skuggan: B10 -> --ampy-shadow-card (navy-alfa) i st.f. "husets" rgba(190,190,190,.19)
+   · .ampy-card--dark      = led-kalkylator styles.css:125-134 (__card--surface, auk 1) ; glöden är TILLVAL (--glow) per B9
+   · .ampy-card--glass     = thank-you v1/styles.css:36-46 (.card, auk 2) ; mörkt glas = fore-efter dist/01-fore-efter.css:283-290
+   · .ampy-frame           = hero-1 assets/style.css:190-235 (.vb2__frame/__veil/__content, auk 1)
+   · .ampy-divider         = var-process (hairline) / LED __internal-divider (på mörkt) / thank-you .divider (teal 60 px)
+   · .ampy-band            = live theme-style .brxe-section + testimonials/visste-du-att (sektionsrytm 2xl) ; elcentral blockläge band (tonat)
+   · .ampy-aurora          = thank-you v1/styles.css:18-24 (body-aurora) ; bara kundflödet per B11
+   ============================================================================ */
+
+/* ---------- Ljust kort ---------- */
+.ampy-card {
+  position: relative;
+  background: var(--ampy-bg-surface);
+  border: 1px solid var(--ampy-line);                   /* eljour index.html:57 1px #e6ecf6 -> --ampy-line */
+  border-radius: var(--ampy-radius-card);               /* live --apradius-l 20 -> 16.3 */
+  box-shadow: var(--ampy-shadow-card);                  /* eljour --shadow-card 0 1rem 3rem rgba(9,11,50,.07) ; B10 */
+  padding: var(--ampy-space-card);                      /* testimonials/eljour 28 -> 16.9 */
+  color: var(--ampy-ink-body);
+}
+.ampy-card--flat  { box-shadow: var(--ampy-shadow-subtle); }                                  /* LED inputkort: 1 px kant + shadow-sm */
+.ampy-card--plain { box-shadow: none; }
+.ampy-card--raised { box-shadow: var(--ampy-shadow-raised); border-color: transparent; }
+.ampy-card--lg { padding: var(--ampy-space-card-lg); }                                        /* LED resultat 40, energycalc 40, var-process 40 */
+.ampy-card--tight { padding: var(--ampy-space-s); }                                            /* LED inputkort 20/15 */
+.ampy-card--hover { transition: transform var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease); }
+.ampy-card--hover:hover, .ampy-card--hover.is-hover { transform: translateY(-2px); box-shadow: var(--ampy-shadow-raised); }   /* certificates hover -2 */
+.ampy-card > :first-child { margin-top: 0; }
+.ampy-card > :last-child { margin-bottom: 0; }
+
+/* ---------- Mörkt resultatkort (LED __card--surface) ---------- */
+.ampy-card--dark {
+  background: var(--ampy-bg-dark); color: var(--ampy-on-dark);
+  border-color: transparent;
+  box-shadow: var(--ampy-shadow-raised);                /* LED shadow-lg 0 1.6rem 4rem .14 */
+  padding: var(--ampy-space-card-lg);                   /* LED 40 (--spacing-3xl) ; <= 600: 20/15 */
+}
+.ampy-card--dark.ampy-card--glow { background-image: var(--ampy-bg-dark-glow); }              /* LED styles.css:131-133 ; B9: tillval, aldrig default */
+.ampy-card--dark h1, .ampy-card--dark h2, .ampy-card--dark h3, .ampy-card--dark h4 { color: var(--ampy-on-dark); }
+.ampy-card--dark p { color: var(--ampy-on-dark-soft); }
+.ampy-card--dark small { color: var(--ampy-on-dark-muted); }
+.ampy-card--dark hr { border-top-color: var(--ampy-on-dark-line); }
+.ampy-card--dark a { color: var(--ampy-on-dark); }
+.ampy-card--dark ::selection { background: rgba(85,255,154,.30); color: var(--ampy-on-dark); }
+@media (max-width: 600px) { .ampy-card--dark { padding: var(--ampy-space-s) var(--ampy-space-xs); } }   /* LED styles.css:134 */
+
+/* ---------- Glaskort (thank-you .card) ---------- */
+.ampy-card--glass {
+  --_glass-shadow: 0 30px 70px rgba(9,11,50,.12), inset 0 1px 0 rgba(255,255,255,.6);   /* thank-you v1/styles.css:43 ; saknas i tokens (raised = 0 16px 40px .14), se bygglogg */
+  background: var(--ampy-bg-glass);
+  border: 1px solid var(--ampy-glass-border);
+  border-radius: var(--ampy-radius-card-lg);             /* thank-you --apradius-xl 32 -> 24.5 (källan 16.3 <= 520 via --apradius-l) */
+  box-shadow: var(--_glass-shadow);
+  -webkit-backdrop-filter: var(--ampy-glass-blur); backdrop-filter: var(--ampy-glass-blur);
+  padding: clamp(32px, 4.5vw, 52px) var(--ampy-space-xl);   /* thank-you: clamp(3.2rem,4.5vw,5.2rem) clamp(2.8rem,4vw,5.6rem) ; x = xl 56/27.3 */
+  color: var(--ampy-ink-body);
+}
+@media (max-width: 520px) { .ampy-card--glass { border-radius: var(--ampy-radius-card); padding: 36px var(--ampy-space-l); } }
+.ampy-card--center { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--ampy-space-s); }   /* thank-you .card: flex-kolumn centrerad, gap clamp(1.8rem,2.4vw,2.4rem) -> s 19.8/13.3 */
+.ampy-card--center > * { margin: 0; }   /* thank-you :97-98: 3.6rem 2.4rem -> 36 / l 21.5 (m gav 16.9 = 7 px för lite) */
+.ampy-card--glass-dark {
+  background: var(--ampy-bg-glass-dark); color: var(--ampy-on-dark);
+  border: 1px solid rgba(255,255,255,.16);               /* fore-efter dist/01:285 */
+  -webkit-backdrop-filter: blur(10px) saturate(150%); backdrop-filter: blur(10px) saturate(150%);   /* fore-efter dist/01:286-287 ; tokenen är blur(16) för ljust glas */
+  box-shadow: 0 2px 10px rgba(9,11,50,.18);              /* fore-efter dist/01:281 */
+}
+.ampy-card--glass-dark p { color: var(--ampy-on-dark-soft); }
+
+/* ---------- Navy-ram / hjälteram (hero-1 .vb2__frame) ---------- */
+.ampy-frame {
+  --_max: 1700px;                                        /* hero-1 style.css:192 max-width 1700 (fullbredd tillåten, --ampy-container är inte ett tak) */
+  --_h: clamp(620px, calc(100svh - 7.6rem - 48px), 950px);   /* hero-1 style.css:194-196: 100svh - header - 48, min 620, max 950 */
+  --_veil-mobile: linear-gradient(180deg, rgba(9,11,50,.30) 0%, rgba(9,11,50,.24) 30%, rgba(9,11,50,.28) 62%, rgba(9,11,50,.64) 100%), linear-gradient(98deg, rgba(9,11,50,.28) 0%, rgba(9,11,50,.05) 60%);   /* hero-1 style.css:~300 <= 560 ; saknas i tokens (bara --ampy-scrim-hero) */
+  position: relative; overflow: hidden; isolation: isolate;
+  max-width: var(--_max); margin-inline: auto; height: var(--_h);
+  border-radius: var(--ampy-radius-card);                /* hero-1 22 (18 mobil) -> card 20/16.3 ; avvikelse, se sidan */
+  background: var(--ampy-bg-dark); color: var(--ampy-on-dark);
+}
+.ampy-frame--short { --_h: clamp(360px, 42vw, 520px); }  /* dokumentations- och tjänstesidevariant (hero-2: 683) */
+.ampy-frame__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 60%; }   /* hero-1 style.css:203-204 */
+.ampy-frame__veil { position: absolute; inset: 0; background: var(--ampy-scrim-hero); pointer-events: none; }
+.ampy-frame__content {
+  position: relative; z-index: 1; height: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 clamp(24px, 5vw, 84px);                     /* hero-1 style.css:219 */
+  max-width: 880px;                                      /* hero-1 style.css:220 */
+}
+.ampy-frame__content h1, .ampy-frame__content h2, .ampy-frame .ampy-display, .ampy-frame .ampy-h1 { color: var(--ampy-on-dark); }
+.ampy-frame__content p, .ampy-frame .ampy-lead { color: var(--ampy-on-dark-soft); text-shadow: 0 1px 12px rgba(9,11,50,.35); max-width: none; }   /* hero-1 style.css:228 */
+.ampy-frame__foot { position: absolute; z-index: 1; right: clamp(24px, 3vw, 44px); bottom: clamp(20px, 3vh, 32px); }   /* hero-1 proof-position style.css:238-241 */
+@media (max-width: 992px) { .ampy-frame { border-radius: var(--ampy-radius-card); } }
+@media (max-width: 560px) {
+  .ampy-frame__media { object-position: 66% 62%; }
+  .ampy-frame__veil { background: var(--_veil-mobile); }
+  .ampy-frame__content { padding: 0 24px 7vh; max-width: none; justify-content: flex-end; }   /* hero-1 <= 560: innehåll mot foten */
+  .ampy-frame__foot { position: static; padding: 0 24px 24px; }
+}
+
+/* ---------- Avdelare ---------- */
+.ampy-divider { border: 0; border-top: 1px solid var(--ampy-line); margin: var(--ampy-space-stack) 0; height: 0; }
+.ampy-divider--tight { margin: 0; }
+.ampy-divider--strong { border-top-color: var(--ampy-line-strong); }
+.ampy-divider--teal { width: 60px; margin-inline: auto; border: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,169,145,.35), transparent); }   /* thank-you v1/styles.css:73 */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-divider { border-top-color: var(--ampy-on-dark-line); }   /* LED __internal-divider .14 */
+
+/* ---------- Sektionsband ---------- */
+.ampy-band { padding: var(--ampy-space-section-y) var(--ampy-space-section-x); background: var(--ampy-bg-page); color: var(--ampy-ink-body); }
+.ampy-band--white { background: var(--ampy-bg-surface); }
+.ampy-band--fade { background: linear-gradient(180deg, var(--ampy-bg-page) 0%, var(--ampy-bg-surface) 100%); }   /* elcentral blockläge: #f5f9ff -> #fff */
+.ampy-band--dark { background: var(--ampy-bg-dark); color: var(--ampy-on-dark); }
+.ampy-band--dark h1, .ampy-band--dark h2, .ampy-band--dark h3 { color: var(--ampy-on-dark); }
+.ampy-band--dark p { color: var(--ampy-on-dark-soft); }
+.ampy-band--tight { padding-block: var(--ampy-space-xl); }                                  /* certificates v2 / main-cta / elcentral: xl 56/27.3 */
+.ampy-band__inner { max-width: var(--ampy-container); margin-inline: auto; }
+
+/* ---------- Den ljusa auroran (bakgrundsverktyg, kundflödet: tack, offert accepterad, bokning) ---------- */
+.ampy-aurora { background: var(--ampy-aurora-light); }                                       /* thank-you v1/styles.css:18-23 ; utan background-attachment: fixed (iOS renderar det inte) */

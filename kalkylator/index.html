@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Räkna ut ditt avdrag: Ampy</title>
+<meta name="description" content="Tre frågor. Ditt ROT-tak och grön teknik-tak 2026, räknat på din inkomst.">
+<link rel="stylesheet" href="system/ampy.css">
+<link rel="stylesheet" href="kalkylator.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="ampy rk-body">
+<main class="rk-page">
+  <section class="ampy-card rk" id="avdragskollen" aria-labelledby="rk-rubrik">
+    <h2 class="ampy-h2 rk__rubrik" id="rk-rubrik">Räkna ut ditt avdrag</h2>
+
+    <form class="rk__fragor" novalidate>
+      <fieldset class="rk__fraga">
+        <legend class="rk__etikett">Äger du din bostad?<span class="rk__under">Villa, radhus eller lägenhet. Helt eller delvis.</span></legend>
+        <div class="ampy-segment rk__segment" data-q="ager">
+          <label><input type="radio" name="ager" value="ja" checked><span>Ja</span></label>
+          <label><input type="radio" name="ager" value="nej"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="rk__fraga">
+        <legend class="rk__etikett">Är bostaden äldre än fem år?</legend>
+        <div class="ampy-segment rk__segment" data-q="aldre">
+          <label><input type="radio" name="aldre" value="ja" checked><span>Ja</span></label>
+          <label><input type="radio" name="aldre" value="nej"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="rk__fraga rk__fraga--inkomst">
+        <legend class="rk__etikett" id="rk-inkomst-etikett">Din inkomst förra året</legend>
+        <div class="rk__inkomst">
+          <div class="ampy-segment rk__segment rk__segment--typ" data-q="typ">
+            <label><input type="radio" name="typ" value="lon" checked><span>Lön</span></label>
+            <label><input type="radio" name="typ" value="pension"><span>Pension</span></label>
+          </div>
+          <div class="rk__belopp">
+            <input class="ampy-input rk__input" id="rk-inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett" aria-describedby="rk-enhet">
+            <span class="rk__enhet" id="rk-enhet">kr</span>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="rk__resultat" aria-live="polite" aria-atomic="true">
+      <div class="rk__tak" id="rk-tak">
+        <div class="rk__tile" data-avdrag="rot">
+          <span class="rk__tile-etikett">ROT-avdrag</span>
+          <span class="rk__tal" id="rk-rot">upp till 50 000 kr</span>
+          <span class="rk__not" id="rk-rot-not" hidden>Bara reparationer</span>
+        </div>
+        <div class="rk__tile" data-avdrag="gt">
+          <span class="rk__tile-etikett">Grön teknik</span>
+          <span class="rk__tal" id="rk-gt">upp till 50 000 kr</span>
+        </div>
+      </div>
+      <p class="rk__fot" id="rk-fot">Per person och år.</p>
+      <p class="rk__stopp" id="rk-stopp" hidden>Avdragen gäller den som äger bostaden.</p>
+    </div>
+  </section>
+</main>
+<script type="module" src="kalkylator.js"></script>
+</body>
+</html>

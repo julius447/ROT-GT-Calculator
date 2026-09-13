@@ -1,0 +1,398 @@
+/* ============================================================================
+   AMPY DESIGNSYSTEM · system/components/falt.css (S2)
+   Fält och reglage: fältgrupp, etikett, input, sökfält + lista, select, textarea,
+   checkbox/samtycke, radio-chips, segment, slider, stepper, hjälp/fel, på mörkt.
+
+   Kanon (konsolidering/komponenter-karta.md, Fält). Kartans konsoliderade fältkanon:
+   48 px hög, radie --ampy-radius-field (12 -> 10), kant --ampy-line-strong (3,39:1, WCAG 1.4.11),
+   fokus --ampy-focus-ring (elcentral). Källor per klass:
+   · .ampy-field / __label / __req / __opt = hero-2-alternatives dist/ampy-hero-primitives.css:484-489 (label 14/600 lh 20)
+                                           + elcentral-kollen assets/elcentralkollen.css:515-516 (lead-field gap 8, lead-req)
+                                           + led-kalkylator styles.css:362 (__lead-optional)
+   · .ampy-input                          = elcentral-kollen elcentralkollen.css:517-518 (__lead-input: Outfit 16, 1 px kant,
+                                           radie md, fokus kant teal-deep + ring) med kartans höjd 48 (LED/elkollen/booking/hero-2-form);
+                                           --lg 52 = elcentral, --sm 44 = energycalc/hero-2 Z
+   · .ampy-input på mörkt                 = led-kalkylator styles.css:355-361 (__lead-field input: vit .05, 1 px .28)
+   · .ampy-search / __icon                = elkollen assets/behorighetskollen.css:716-770 (__search: ikon 16 vänster, padding-left 36)
+   · .ampy-search__list / __opt           = main-form css/styles.css:174-196 (adress-combobox: lista radie, skugga, max 260, teal <mark>)
+   · .ampy-select                         = led-kalkylator styles.css:285-290 (__select 48 h, radie 12, 1 px kant) + hero-2-form
+                                           Hero2 Form Documentation/code/bricks-css.css:52 (svg-pil som data-URI, right 15px)
+   · .ampy-textarea                       = main-form css/styles.css:158-166 (min 70 h, resize none)
+   · .ampy-check                          = led-kalkylator styles.css:365-393 (ritad checkbox, bock via clip-path)
+                                           + elcentral-kollen elcentralkollen.css:388-392 (__check 22 radie sm, fylld teal + vit bock)
+   · .ampy-consent                        = elcentral-kollen elcentralkollen.css:527-529 (lead-consent-note 12/400 centrerad) + main-form :233
+   · .ampy-chips / .ampy-chip             = elcentral-kollen elcentralkollen.css:372-392 (__option 56/64 h, radie md, hover teal-kant + lyft,
+                                           vald tint, flerval med 22 px ruta) ; --grid = energycalc vB/tool.css:220-243 (hp-card ikonruta 40)
+   · .ampy-segment                        = led-kalkylator styles.css:249-259 (__segmented: spår 48 radie 12 padding 4, option 40 radie 6,
+                                           aktiv vit pill + shadow-sm + teal text) ; --pill = ev-kalkylator prototype/styles.css:439-456 (toggle)
+   · .ampy-range / __ticks                = led-kalkylator styles.css:216-236 (spår 6 radie full, fyllning teal->emerald, thumb 24 med 3 px teal
+                                           + shadow-md, tick-knappar 32 h) som native input[type=range] (energycalc vB/tool.css:196-213)
+   · .ampy-stepper                        = energycalc vB/tool.css:234-246 (1 px kant radie 6, knappar 44x44, värde 20/500, bump)
+                                           ; --pill = led-kalkylator styles.css:261-265 (bg subtle radie full padding 3, knappar 36)
+   · .ampy-help / .ampy-error             = hero-2-alternatives primitives.css:525-526 (13/1.35) + elcentral :522 (fel 13/500 accent-error)
+   · .ampy-msg                            = led-kalkylator styles.css:352-354 (lead-msg ok/err)
+
+   Literaler som saknar token står som komponent-egna custom properties (--_*) med källa.
+   Avvikelser mot källorna: site/komponenter/falt.html "Avvikelser" + site/_bygglogg/S2.md.
+   ============================================================================ */
+
+/* Gemensamma fältvärden (--ampy-field-h 48, --ampy-field-fs 16, --ampy-field-track) ligger i tokens.css (flyttade 2026-09-12, granskning S2-2/TOKENS-1). */
+
+/* ---------- Fältgrupp: etikett -> kontroll -> hjälp/fel ---------- */
+.ampy-field { display: flex; flex-direction: column; gap: var(--ampy-space-3xs); min-width: 0; }   /* hero-2 gap 6, elcentral 8, LED 5 -> 3xs 7/6.6 */
+.ampy-field__label, .ampy-field > label {
+  display: inline-flex; align-items: baseline; gap: 4px;
+  font-family: var(--ampy-font); font-size: var(--ampy-text-label); font-weight: var(--ampy-w-strong); line-height: var(--ampy-lh-ui);
+  color: var(--ampy-ink);
+}
+.ampy-field__req { color: var(--ampy-ink); }                                                              /* elcentral __lead-req: samma bläck, ingen röd asterisk */
+.ampy-field__opt { font-weight: var(--ampy-w-ui); color: var(--ampy-ink-faint); }                          /* LED __lead-optional "(valfritt)" */
+.ampy-field--inline { flex-direction: row; align-items: center; gap: var(--ampy-space-xs); }
+/* Fältgrid: två kolumner när kitet är brett nog (LED lead-grid >= 600 viewport, elcentral 767, main-form 768).
+   Brytpunkten mäts på gridets EGEN bredd, inte på fönstret (granskning S2-5): ett smalt kit i ett brett fönster
+   får en kolumn. Ett grid kan inte läsa sin egen @container-fråga, därför intrinsic: minsta kolumn = max(26rem, halva
+   bredden minus gap) ger exakt 1 eller 2 kolumner, aldrig 3; två kolumner från ca 534 px gridbredd (= LED:s 600-viewport). */
+.ampy-fields {
+  display: grid; gap: var(--ampy-space-s) var(--ampy-space-xs);                                                   /* elcentral 20/14, main-form 20/32 */
+  grid-template-columns: repeat(auto-fit, minmax(max(26rem, calc(50% - var(--ampy-space-xs) / 2)), 1fr));
+  container-type: inline-size;                                                                                    /* chips, segment och select inne i gridet frågar gridets bredd */
+}
+.ampy-fields > .ampy-field--full, .ampy-fields > .ampy-fields__full { grid-column: 1 / -1; }
+
+/* ---------- Input (text / tel / e-post / nummer) ---------- */
+.ampy-input, .ampy-textarea, .ampy-select {
+  width: 100%; min-width: 0;
+  min-height: var(--_h, var(--ampy-field-h));
+  padding: 0 var(--ampy-space-xs);                       /* elcentral 10/12, hero-2 0/16, LED 7.5/10 -> xs 14/10.5 */
+  font-family: var(--ampy-font); font-size: var(--ampy-field-fs); font-weight: var(--ampy-w-ui); line-height: 1.3;
+  color: var(--ampy-ink);
+  background: var(--ampy-bg-surface);
+  border: 1px solid var(--ampy-line-strong);            /* källorna #e3e5ed (1,26:1) -> kontrollkant >= 3:1 (booking, kartans kanon) */
+  border-radius: var(--ampy-radius-field);
+  -webkit-appearance: none; appearance: none;
+  transition: border-color var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease), background-color var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-input::placeholder, .ampy-textarea::placeholder { color: var(--ampy-ink-faint); opacity: 1; }     /* källorna #8a8da5 (3,26:1) / #8a97a6 -> faint 4,80:1 */
+.ampy-input:hover, .ampy-textarea:hover, .ampy-select:hover { border-color: var(--ampy-ink-muted); }   /* LED selector-button hover text-secondary */
+.ampy-input:focus-visible, .ampy-textarea:focus-visible, .ampy-select:focus-visible,
+.ampy-input.is-focus, .ampy-textarea.is-focus, .ampy-select.is-focus {
+  outline: 0; border-color: var(--ampy-action-strong); box-shadow: var(--ampy-focus-ring);              /* elcentral :518 */
+}
+.ampy-input[aria-invalid="true"], .ampy-textarea[aria-invalid="true"], .ampy-select[aria-invalid="true"],
+.ampy-input.is-invalid, .ampy-textarea.is-invalid, .ampy-select.is-invalid,
+.ampy-field.is-error :is(.ampy-input, .ampy-textarea, .ampy-select) {
+  border-color: var(--ampy-error);                                                                        /* LED is-invalid state-error, hero-2 1.5 px #e5484d -> --ampy-error (B13) */
+}
+.ampy-field.is-error :is(.ampy-input, .ampy-textarea, .ampy-select):focus-visible { box-shadow: 0 0 0 3px rgba(179,38,30,.35); }   /* fokus i felläge: samma ring i felfärgen (härledd, LED is-invalid ring .5) */
+.ampy-input:disabled, .ampy-textarea:disabled, .ampy-select:disabled,
+.ampy-input[aria-disabled="true"], .ampy-input.is-disabled {
+  background-color: var(--ampy-bg-subtle); color: var(--ampy-ink-muted); border-color: var(--ampy-line); cursor: not-allowed; box-shadow: none;   /* härledd: ingen källa ritar disabled input, se bygglogg. background-color (inte shorthand) så selectens pil behåller no-repeat */
+}
+.ampy-input--sm { --_h: 44px; }              /* energycalc lead-fält 44, hero-2 Z 44 */
+.ampy-input--lg { --_h: 52px; }              /* elcentral __lead-input 52, fotobedomningen 52 */
+.ampy-input--tabular { font-variant-numeric: tabular-nums lining-nums; }
+.ampy-input[type="number"] { -moz-appearance: textfield; }
+.ampy-input::-webkit-outer-spin-button, .ampy-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.ampy-input::-webkit-search-cancel-button, .ampy-input::-webkit-search-decoration { -webkit-appearance: none; display: none; }   /* elkollen: Safari-krom av */
+
+/* ---------- Sökfält: ikon vänster + valfri lista (elkollen __search + main-form adress) ---------- */
+.ampy-search { position: relative; display: block; min-width: 0; }
+.ampy-search__icon { position: absolute; left: var(--ampy-space-xs); top: calc(var(--_h, var(--ampy-field-h)) / 2); transform: translateY(-50%); width: 16px; height: 16px; color: var(--ampy-ink-faint); pointer-events: none; }   /* elkollen: 1.6rem, text-tertiary, left space-5 */
+.ampy-search .ampy-input { padding-left: calc(var(--ampy-space-xs) + 16px + var(--ampy-space-2xs)); }     /* elkollen: space-5 + 1.6rem + space-3 = 36 */
+.ampy-search__list {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + var(--ampy-space-3xs));
+  margin: 0; padding: 0; list-style: none;
+  background: var(--ampy-bg-surface); border: 1px solid var(--ampy-line); border-radius: var(--ampy-radius-field);
+  box-shadow: var(--ampy-shadow-raised);                 /* main-form 0 2rem 4rem -1rem rgba(15,18,60,.2) -> raised */
+  max-height: 260px; overflow-y: auto; overscroll-behavior: contain;
+}
+.ampy-search__list--static { position: static; margin-top: var(--ampy-space-3xs); box-shadow: var(--ampy-shadow-card); }   /* för dokumentation och inbäddad lista */
+.ampy-search__opt {
+  display: flex; align-items: center; gap: var(--ampy-space-2xs); width: 100%; text-align: left;
+  padding: var(--ampy-space-2xs) var(--ampy-space-xs);   /* main-form 11/14 */
+  font-family: var(--ampy-font); font-size: var(--ampy-text-small); font-weight: var(--ampy-w-ui); line-height: 1.4; color: var(--ampy-ink);
+  background: none; border: 0; border-bottom: 1px solid var(--ampy-line); cursor: pointer;
+}
+.ampy-search__opt:last-child { border-bottom: 0; }
+.ampy-search__opt:hover, .ampy-search__opt.is-active, .ampy-search__opt[aria-selected="true"] { background: var(--ampy-bg-subtle); }
+.ampy-search__opt:focus-visible { outline: 0; box-shadow: inset 0 0 0 2px var(--ampy-action-strong); }
+.ampy-search__opt svg { width: 16px; height: 16px; color: var(--ampy-action); flex: 0 0 auto; }
+.ampy-search__opt mark { background: none; color: var(--ampy-action-strong); font-weight: var(--ampy-w-strong); }   /* main-form <mark> teal 600 -> teal-deep (B5) */
+.ampy-search__opt small { color: var(--ampy-ink-muted); margin-left: auto; font-size: var(--ampy-text-fine); }
+
+/* ---------- Select (native) med chevron ---------- */
+.ampy-select {
+  padding-right: calc(var(--ampy-space-xs) + 28px);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23090b32' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");   /* hero-2-form: data-URI-pil, färg = --apmidnight-blue (kan inte läsa var() i URI) */
+  background-repeat: no-repeat; background-position: right var(--ampy-space-xs) center; background-size: 20px 20px;
+  cursor: pointer;
+}
+.ampy-select:disabled { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23565e82' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>"); }
+.ampy-select option { color: var(--ampy-ink); background: var(--ampy-bg-surface); }
+
+/* ---------- Textarea ---------- */
+.ampy-textarea { min-height: 70px; padding-top: var(--ampy-space-2xs); padding-bottom: var(--ampy-space-2xs); line-height: 1.4; resize: none; }   /* main-form min 7rem, resize none, lh (hero-2-form 1.4) */
+.ampy-textarea--resize { resize: vertical; }
+
+/* ---------- Checkbox / samtycke (ritad, LED + elcentral) ---------- */
+.ampy-check {
+  --_size: 20px;                                         /* källa: EV 2rem (native), hero-2-form 21, elcentral 22, LED 18 -> 20 ; saknas i tokens */
+  --_mark: 10px;                                         /* LED: bocken 1rem via clip-path */
+  --_r: 6px;                                             /* källa: elcentral __check radius-sm 0.6rem, hero-2-form 6 ; --ampy-radius-small är 8 vid 1440 = nästan cirkel på 20 px, se bygglogg */
+  display: flex; align-items: flex-start; gap: var(--ampy-space-2xs);   /* LED gap spacing-sm 7.5, hero-2-form 10 -> 2xs 9.9/8.3 */
+  min-height: 44px; cursor: pointer;                     /* EV: >= 44 px träffyta via raden (WCAG 2.5.5) */
+  font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); line-height: 1.5; color: var(--ampy-ink-muted);   /* LED lead-consent fs-xs 13 muted lh 1.5 */
+}
+.ampy-check--center { align-items: center; }
+.ampy-check input {
+  -webkit-appearance: none; appearance: none;
+  flex: 0 0 auto; width: var(--_size); height: var(--_size); margin: 2px 0 0;
+  display: inline-grid; place-content: center;
+  border: 1.5px solid var(--ampy-line-strong);          /* LED 0.15rem .28 på mörkt, hero-2-form 1.5 px .5 -> line-strong på ljust */
+  border-radius: var(--_r);                              /* elcentral __check radie sm (6), hero-2-form 6 ; LED 4 = drift */
+  background: var(--ampy-bg-surface);
+  cursor: pointer;
+  transition: background-color var(--ampy-dur-fast) var(--ampy-ease), border-color var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-check input::before {
+  content: ""; width: var(--_mark); height: var(--_mark); transform: scale(0);
+  transition: transform var(--ampy-dur-fast) var(--ampy-ease);
+  background: currentColor; color: var(--ampy-action-on);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);   /* LED styles.css:378 ordagrant */
+}
+.ampy-check input:checked { background: var(--ampy-action); border-color: var(--ampy-action); }   /* elcentral __check: fylld teal-core + vit bock (bocken är ingen text; kanten mäter 2,96:1, se avvikelser) */
+.ampy-check input:checked::before { transform: scale(1); }
+.ampy-check input:hover { border-color: var(--ampy-action-strong); }
+.ampy-check input:focus-visible { outline: 0; border-color: var(--ampy-action-strong); box-shadow: var(--ampy-focus-ring); }
+.ampy-check input:disabled { opacity: .5; cursor: not-allowed; }
+.ampy-check input:disabled + * { opacity: .6; cursor: not-allowed; }
+.ampy-check input.is-invalid, .ampy-check.is-error input, .ampy-check input[aria-invalid="true"] { border-color: var(--ampy-error); box-shadow: 0 0 0 2px rgba(179,38,30,.35); }   /* LED is-invalid: kant + ring .5 i felfärg */
+.ampy-check__text { flex: 1; min-width: 0; padding-top: 3px; }
+.ampy-check__text a { color: var(--ampy-action-strong); text-decoration: underline; text-underline-offset: 2px; }
+.ampy-check__text a:hover, .ampy-check__text a.is-hover { color: var(--ampy-ink); }
+.ampy-check--strong { font-size: var(--ampy-text-small); color: var(--ampy-ink); }   /* checkbox som val (inte finstilt samtycke) */
+/* Samtycke som textrad under knappen (mönstret i 4 källor: elcentral, energycalc, main-form, fotobedomningen; ägarbeslut v2.17) */
+.ampy-consent { margin: var(--ampy-space-xs) 0 0; font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); line-height: 1.55; color: var(--ampy-ink-muted); text-align: center; max-width: none; }   /* elcentral fs-12/400 -> fine 13 (en finstiltstorlek), se avvikelser */
+.ampy-consent a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.ampy-consent a:hover, .ampy-consent a.is-hover { color: var(--ampy-ink); }
+.ampy-consent--left { text-align: left; }
+
+/* ---------- Radio-chips / options (elcentral __option) ---------- */
+.ampy-chips { display: flex; flex-direction: column; gap: var(--ampy-space-xs); margin: 0; padding: 0; list-style: none; border: 0; min-width: 0; container-type: inline-size; }   /* elcentral gap 12 (14 >= 1024) -> xs 14/10.5 ; container: chipens desktopskala följer listans bredd, inte fönstret */
+.ampy-chips > legend { padding: 0; margin-bottom: var(--ampy-space-2xs); font-family: var(--ampy-font); font-size: var(--ampy-text-label); font-weight: var(--ampy-w-strong); color: var(--ampy-ink); }
+.ampy-chip {
+  --_h: 56px;                                            /* elcentral min-height 5.6rem (6.4rem >= 1024) ; saknas i tokens */
+  position: relative; width: 100%; min-height: var(--_h);
+  display: flex; align-items: center; gap: var(--ampy-space-xs);   /* elcentral gap space-5 12 */
+  padding: var(--ampy-space-xs) var(--ampy-space-s);     /* elcentral 14/16 (16/20 >= 1024) -> xs/s 14/19.8 ; 10.5/13.3 */
+  text-align: left; cursor: pointer; margin: 0;
+  font-family: var(--ampy-font); font-size: var(--ampy-text-small); font-weight: var(--ampy-w-medium); line-height: 1.4; color: var(--ampy-ink);   /* title fs-15 500 (fs-18 >= 1024) -> small 14.1->16, se avvikelser */
+  background: var(--ampy-bg-surface); border: 1px solid var(--ampy-line-strong); border-radius: var(--ampy-radius-field);   /* elcentral 1 px #e3e5ed radie md 10 -> line-strong + field 12/10.1 */
+  transition: border-color var(--ampy-dur-fast) var(--ampy-ease), background-color var(--ampy-dur-fast) var(--ampy-ease), transform var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease);
+}
+@container (min-width: 40rem) { .ampy-chip { --_h: 64px; font-size: var(--ampy-text-body); } }   /* elcentral desktopskala (viewport >= 1024 = stage ca 560-640 bred): 64 h, title fs-18 ; mäts på .ampy-chips bredd (granskning S2-5) */
+.ampy-chip input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }   /* riktig radio/checkbox, visuellt dold; chipet bär tillståndet */
+.ampy-chip__body { display: block; flex: 1; min-width: 0; }
+.ampy-chip__title { display: block; }
+.ampy-chip__clarifier { display: block; margin-top: 4px; font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); line-height: 1.45; color: var(--ampy-ink-muted); }   /* elcentral clarifier fs-13 400 (fs-15 >= 1024) */
+@container (min-width: 40rem) { .ampy-chip__clarifier { font-size: var(--ampy-text-small); } }
+.ampy-chip__arrow { flex: 0 0 auto; width: 16px; height: 16px; color: var(--ampy-ink-faint); margin-left: auto; }   /* elkollen option pil */
+@media (hover: hover) {
+  .ampy-chip:hover, .ampy-chip.is-hover { border-color: var(--ampy-action); background: var(--ampy-bg-subtle); transform: translateY(-1px); box-shadow: var(--ampy-shadow-subtle); }   /* elcentral :379 */
+}
+.ampy-chip:active { transform: scale(.99); border-color: var(--ampy-action); background: var(--ampy-bg-tint-action); }
+.ampy-chip:focus-visible, .ampy-chip:has(input:focus-visible), .ampy-chip.is-focus { outline: 0; border-color: var(--ampy-action-strong); box-shadow: var(--ampy-focus-ring); }
+.ampy-chip.is-selected, .ampy-chip[aria-pressed="true"], .ampy-chip[aria-checked="true"], .ampy-chip:has(input:checked) {
+  border-color: var(--ampy-action); background: var(--ampy-bg-tint-action);   /* elcentral --action-tint rgb(240,250,248) -> tint-action teal .08 = rgb(235,248,246), se avvikelser */
+}
+.ampy-chip[aria-disabled="true"], .ampy-chip:has(input:disabled) { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+/* Flerval: ritad ruta 22 med bock (elcentral __check) */
+.ampy-chip__check {
+  flex: 0 0 auto; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--ampy-line-strong); border-radius: 6px; color: var(--ampy-action-on); background: var(--ampy-bg-surface);   /* elcentral radius-sm 0.6rem = 6 fast (small-token 8 blir rund på 22 px) */
+  transition: background-color var(--ampy-dur-fast) var(--ampy-ease), border-color var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-chip__check svg { width: 15px; height: 15px; opacity: 0; transition: opacity var(--ampy-dur-fast) var(--ampy-ease); }   /* elcentral 1.5rem */
+.ampy-chip--multi { align-items: flex-start; }
+.ampy-chip--multi .ampy-chip__check { margin-top: 2px; }
+.ampy-chip.is-selected .ampy-chip__check, .ampy-chip[aria-pressed="true"] .ampy-chip__check, .ampy-chip[aria-checked="true"] .ampy-chip__check, .ampy-chip:has(input:checked) .ampy-chip__check { background: var(--ampy-action); border-color: var(--ampy-action); }
+.ampy-chip.is-selected .ampy-chip__check svg, .ampy-chip[aria-pressed="true"] .ampy-chip__check svg, .ampy-chip[aria-checked="true"] .ampy-chip__check svg, .ampy-chip:has(input:checked) .ampy-chip__check svg { opacity: 1; }
+/* Rutnät med ikonruta (energycalc hp-card: 2 kolumner, 88 h, ikonruta 40 radie sm på mist, tänd check uppe höger) */
+.ampy-chips--grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ampy-space-2xs); }   /* energycalc gap sp-2h 10 */
+.ampy-chips--grid .ampy-chip { --_h: 88px; flex-direction: column; align-items: flex-start; gap: var(--ampy-space-2xs); padding: var(--ampy-space-xs); border-width: 1.5px; }   /* hp-card: 1.5 px kant, padding sp-3 12 */
+.ampy-chips--grid .ampy-chip__title { line-height: 1.15; }
+.ampy-chip__icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--ampy-radius-small); background: var(--ampy-bg-subtle); color: var(--ampy-action); transition: background-color var(--ampy-dur-fast) var(--ampy-ease), color var(--ampy-dur-fast) var(--ampy-ease); }
+.ampy-chip__icon svg { width: 22px; height: 22px; }
+.ampy-chip.is-selected .ampy-chip__icon, .ampy-chip[aria-pressed="true"] .ampy-chip__icon, .ampy-chip:has(input:checked) .ampy-chip__icon { background: var(--ampy-action); color: var(--ampy-action-on); }   /* energycalc :237 */
+.ampy-chips--grid .ampy-chip__check { position: absolute; top: var(--ampy-space-2xs); right: var(--ampy-space-2xs); width: 20px; height: 20px; border-radius: var(--ampy-radius-pill); border: 0; background: var(--ampy-action); opacity: 0; transform: scale(.6); transition: opacity var(--ampy-dur-fast) var(--ampy-ease-out), transform var(--ampy-dur-fast) var(--ampy-ease-out); }   /* hp-check */
+.ampy-chips--grid .ampy-chip__check svg { width: 12px; height: 12px; opacity: 1; }
+.ampy-chips--grid .ampy-chip.is-selected .ampy-chip__check, .ampy-chips--grid .ampy-chip:has(input:checked) .ampy-chip__check { opacity: 1; transform: scale(1); }
+.ampy-chips--grid .ampy-chip--quiet { grid-column: 1 / -1; --_h: 44px; flex-direction: row; align-items: center; justify-content: center; gap: var(--ampy-space-2xs); padding: var(--ampy-space-2xs) var(--ampy-space-xs); border-style: dashed; color: var(--ampy-ink-muted); font-weight: var(--ampy-w-body); font-size: var(--ampy-text-small); }   /* energycalc "Vet inte" */
+.ampy-chips--grid .ampy-chip--quiet:has(input:checked), .ampy-chips--grid .ampy-chip--quiet.is-selected { color: var(--ampy-ink); font-weight: var(--ampy-w-medium); }
+.ampy-chips--row { flex-direction: row; flex-wrap: wrap; }
+.ampy-chips--row .ampy-chip { width: auto; --_h: 44px; padding: var(--ampy-space-2xs) var(--ampy-space-s); }
+
+/* ---------- Segment (LED __segmented: sunk track / raised pill) ---------- */
+.ampy-segment {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px;   /* LED 0.4rem/0.4rem */
+  background: var(--ampy-field-track); border-radius: var(--ampy-radius-field);            /* LED rgb(234,239,243) radie md 12 */
+  min-width: 0; container-type: inline-size;                                                 /* optionernas trånga läge mäts på spåret, inte fönstret */
+}
+.ampy-segment__option, .ampy-segment > button, .ampy-segment > label {
+  position: relative; min-height: 40px; min-width: 0;                                       /* LED option 4rem */
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: var(--ampy-space-3xs) var(--ampy-space-4xs);                                     /* LED 7.5/5 -> 3xs/4xs 7/5.2 */
+  font-family: var(--ampy-font); font-size: var(--ampy-text-small); font-weight: var(--ampy-w-strong); line-height: 1.2;   /* LED PJS 600 fs-sm 13->15 -> Outfit small 14->16 (B7) */
+  color: var(--ampy-ink-muted); background: transparent; border: 0; border-radius: var(--ampy-radius-small);   /* LED radie sm 6 -> small 6.1->8 */
+  text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+  transition: background-color var(--ampy-dur-fast) var(--ampy-ease), color var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-segment > label input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.ampy-segment__option:hover, .ampy-segment > button:hover, .ampy-segment > label:hover { color: var(--ampy-ink); }
+.ampy-segment__option[aria-pressed="true"], .ampy-segment > button[aria-pressed="true"], .ampy-segment [aria-checked="true"], .ampy-segment > label:has(input:checked), .ampy-segment .is-selected {
+  background: var(--ampy-bg-surface); color: var(--ampy-action-strong); box-shadow: var(--ampy-shadow-subtle);   /* LED: vit pill + shadow-sm + teal text ; teal-core 2,96:1 -> teal-deep (B5) */
+}
+.ampy-segment__option:focus-visible, .ampy-segment > button:focus-visible, .ampy-segment > label:has(input:focus-visible) { outline: 0; box-shadow: var(--ampy-focus-ring); }   /* LED ring .3 -> --ampy-focus-ring */
+.ampy-segment__option:disabled, .ampy-segment[aria-disabled="true"] > *, .ampy-segment.is-disabled > * { opacity: .5; cursor: not-allowed; }
+@container (max-width: 34rem) { .ampy-segment__option, .ampy-segment > button, .ampy-segment > label { padding-inline: 3px; font-size: var(--ampy-text-fine); } }   /* LED <= 380 viewport = spår ca 340 ; mäts på spårets bredd (granskning S2-5) */
+/* --pill: toggle med solid vald (EV AC/DC): pillspår, vald = solid teal-deep + vit text */
+.ampy-segment--pill { display: inline-grid; grid-auto-columns: auto; border-radius: var(--ampy-radius-pill); gap: 2px; container-type: normal; }   /* EV gap 0.2rem ; inline-grid får ingen inline-size-containment (bredden kommer ur innehållet) */
+.ampy-segment--pill > :is(label, button, .ampy-segment__option) { border-radius: var(--ampy-radius-pill); min-width: 64px; padding-inline: var(--ampy-space-2xs); }   /* EV min-width 6.4rem, padding 6/10 */
+.ampy-segment--pill > [aria-pressed="true"], .ampy-segment--pill > label:has(input:checked), .ampy-segment--pill .is-selected { background: var(--ampy-action-strong); color: var(--ampy-action-on); box-shadow: var(--ampy-shadow-subtle); }   /* EV #007d6b + vit -> teal-deep */
+@media (pointer: coarse) { .ampy-segment--pill > :is(label, button, .ampy-segment__option) { min-height: 44px; } }   /* EV: >= 44 på touch */
+/* --line: glidande pill i ram (energycalc .seg): kantade knappar, vald = solid */
+.ampy-segment--line { display: flex; flex-wrap: wrap; gap: var(--ampy-space-3xs); padding: 0; background: none; border-radius: 0; }   /* energycalc gap sp-1h 6 */
+.ampy-segment--line > :is(label, button, .ampy-segment__option) { flex: 1 1 auto; min-height: 44px; padding-inline: var(--ampy-space-2xs); border: 1px solid var(--ampy-line-strong); border-radius: var(--ampy-radius-small); font-weight: var(--ampy-w-ui); font-size: var(--ampy-text-label); color: var(--ampy-ink-muted); }   /* energycalc: 44 h, bd-light-2 #d7deeb (1,2:1) -> line-strong, r-xs 6, ty-label 13.5 */
+.ampy-segment--line > :is(label, button, .ampy-segment__option):hover { border-color: var(--ampy-action); color: var(--ampy-ink); }
+.ampy-segment--line > [aria-pressed="true"], .ampy-segment--line > label:has(input:checked), .ampy-segment--line .is-selected { background: var(--ampy-action-strong); border-color: var(--ampy-action-strong); color: var(--ampy-action-on); box-shadow: none; }   /* energycalc seg-pill #00806e -> teal-deep */
+
+/* ---------- Slider (native range med LED:s geometri) ---------- */
+.ampy-range-wrap { display: flex; flex-direction: column; gap: var(--ampy-space-3xs); min-width: 0; }   /* LED slider-wrap gap spacing-sm 7.5 */
+.ampy-range {
+  --_fill: 0%;                                           /* sätts av sidan/skriptet: andel fylld bana */
+  --_track-h: 6px;                                       /* LED spår 0.6rem ; energycalc 8 = drift */
+  --_thumb: 24px;                                        /* LED thumb 2.4rem ; fore-efter 26, energycalc 28 = drift */
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 44px; margin: 0; padding: 0 12px; background: transparent; cursor: pointer;   /* LED: 44 px träffyta, spår inset 12 */
+  touch-action: pan-y;
+}
+.ampy-range:focus { outline: 0; }
+.ampy-range::-webkit-slider-runnable-track {
+  height: var(--_track-h); border-radius: var(--ampy-radius-pill);
+  background: linear-gradient(90deg, var(--ampy-action) 0%, var(--ampy-success) var(--_fill), var(--ampy-field-track) var(--_fill), var(--ampy-field-track) 100%);   /* LED fill teal -> emerald, spår bg-subtle */
+}
+.ampy-range::-moz-range-track { height: var(--_track-h); border-radius: var(--ampy-radius-pill); background: var(--ampy-field-track); }
+.ampy-range::-moz-range-progress { height: var(--_track-h); border-radius: var(--ampy-radius-pill); background: linear-gradient(90deg, var(--ampy-action), var(--ampy-success)); }
+.ampy-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: var(--_thumb); height: var(--_thumb); margin-top: calc((var(--_track-h) - var(--_thumb)) / 2);
+  border-radius: var(--ampy-radius-pill); background: var(--ampy-bg-surface); border: 3px solid var(--ampy-action);   /* LED 0.3rem teal */
+  box-shadow: var(--ampy-shadow-card);                   /* LED shadow-md 0 .4rem 1.2rem .08 -> card (0 10px 30px .07), se avvikelser */
+  cursor: grab; transition: transform var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-range::-moz-range-thumb { width: var(--_thumb); height: var(--_thumb); border-radius: var(--ampy-radius-pill); background: var(--ampy-bg-surface); border: 3px solid var(--ampy-action); box-shadow: var(--ampy-shadow-card); cursor: grab; }
+.ampy-range:active::-webkit-slider-thumb { transform: scale(1.08); cursor: grabbing; }   /* LED :active scale 1.08 */
+.ampy-range:active::-moz-range-thumb { transform: scale(1.08); }
+.ampy-range:focus-visible::-webkit-slider-thumb { box-shadow: var(--ampy-shadow-card), var(--ampy-focus-ring); }   /* LED focus-within ring 4px .25 -> focus-ring */
+.ampy-range:focus-visible::-moz-range-thumb { box-shadow: var(--ampy-shadow-card), var(--ampy-focus-ring); }
+.ampy-range:disabled { opacity: .5; cursor: not-allowed; }
+.ampy-range__ticks { display: flex; justify-content: space-between; padding: 0 4px; margin: 0; list-style: none; }   /* LED padding 0 .4rem */
+.ampy-range__tick {
+  min-height: 32px; display: inline-flex; align-items: center; justify-content: center; padding: 6px 4px;   /* LED 3.2rem, .6rem .4rem */
+  border: 0; background: none; border-radius: var(--ampy-radius-small); cursor: pointer;
+  font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); font-variant-numeric: tabular-nums lining-nums;   /* LED mono 13 -> Outfit tabular (B7) */
+  -webkit-tap-highlight-color: transparent; user-select: none;
+}
+.ampy-range__tick:hover { color: var(--ampy-ink); }
+.ampy-range__tick.is-active, .ampy-range__tick[aria-current="true"] { color: var(--ampy-action-strong); font-weight: var(--ampy-w-display); }   /* LED aktiv teal 700 -> teal-deep (B5) */
+.ampy-range__tick:focus-visible { outline: 0; box-shadow: var(--ampy-focus-ring); }
+/* Värde ovanför reglaget (LED value-prominent: mono 700 28 + enhet 15 -> Outfit tabular) */
+.ampy-range-value { display: inline-flex; align-items: baseline; gap: 6px; font-family: var(--ampy-font); font-size: var(--ampy-text-mid); font-weight: var(--ampy-w-display); line-height: 1.3; letter-spacing: -0.01em; color: var(--ampy-ink); font-variant-numeric: tabular-nums lining-nums; }   /* LED value-prominent 28 -> 21 = --ampy-text-mid, samma rad som .ampy-calc__value (granskning S2-6) */
+.ampy-range-value__unit { font-size: var(--ampy-text-small); font-weight: var(--ampy-w-medium); color: var(--ampy-ink-muted); letter-spacing: 0; }
+
+/* ---------- Stepper (energycalc .stepper) ---------- */
+.ampy-stepper {
+  --_fs: 20px;                                           /* källa: energycalc --ty-h 2.0rem värde 20/500 ; saknas i tokens (20 fast) */
+  display: inline-flex; align-items: center; gap: 2px;   /* energycalc gap .2rem */
+  border: 1px solid var(--ampy-line); border-radius: var(--ampy-radius-small); overflow: hidden;   /* energycalc bd-light-2 #d7deeb radie r-xs 6 */
+  background: var(--ampy-bg-surface);
+}
+.ampy-stepper__btn {
+  width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;   /* energycalc 4.4rem */
+  border: 0; background: var(--ampy-bg-surface); color: var(--ampy-ink); cursor: pointer; padding: 0;
+  font-family: var(--ampy-font); font-size: 18px; line-height: 1;
+  transition: background-color var(--ampy-dur-fast) var(--ampy-ease), transform var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-stepper__btn svg { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) { .ampy-stepper__btn:hover:not(:disabled) { background: var(--ampy-bg-subtle); } }   /* energycalc #f0f4fb */
+.ampy-stepper__btn:active:not(:disabled) { transform: scale(.92); }
+.ampy-stepper__btn:focus-visible { outline: 2px solid var(--ampy-action-strong); outline-offset: -2px; }
+.ampy-stepper__btn:disabled { opacity: .35; cursor: default; }
+.ampy-stepper__value { min-width: 26px; padding: 0 4px; text-align: center; font-family: var(--ampy-font); font-size: var(--_fs); font-weight: var(--ampy-w-medium); line-height: 1; color: var(--ampy-ink); font-variant-numeric: tabular-nums lining-nums; }
+.ampy-stepper__value input { width: 3.5ch; border: 0; background: none; text-align: center; font: inherit; color: inherit; padding: 0; -moz-appearance: textfield; }
+.ampy-stepper__value input::-webkit-outer-spin-button, .ampy-stepper__value input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.ampy-stepper__value input:focus-visible { outline: 0; box-shadow: inset 0 -2px 0 var(--ampy-action-strong); }
+@keyframes ampyBump { 0% { transform: translateY(-2px); opacity: .55; } 100% { transform: none; opacity: 1; } }   /* energycalc :245 */
+.ampy-stepper__value.is-bump { animation: ampyBump var(--ampy-dur-fast) var(--ampy-ease-out); }
+/* --pill (LED/battery __stepper: bg subtle, radie full, padding 3, runda knappar 36) */
+.ampy-stepper--pill { border: 0; border-radius: var(--ampy-radius-pill); padding: 3px; background: var(--ampy-field-track); gap: 0; }
+.ampy-stepper--pill .ampy-stepper__btn { width: 36px; height: 36px; border-radius: var(--ampy-radius-pill); background: transparent; }
+@media (hover: hover) and (pointer: fine) { .ampy-stepper--pill .ampy-stepper__btn:hover:not(:disabled) { background: var(--ampy-bg-surface); } }
+.ampy-stepper--pill .ampy-stepper__value { min-width: 40px; font-size: var(--ampy-text-body); font-weight: var(--ampy-w-display); }
+
+/* ---------- Hjälp, fel, meddelanden ---------- */
+.ampy-help  { margin: 0; font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); line-height: 1.35; color: var(--ampy-ink-muted); max-width: var(--ampy-measure); }   /* hero-2 __help 13/1.35 quiet, LED hint 13 */
+.ampy-error { margin: 0; font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-medium); line-height: 1.35; color: var(--ampy-error-ink); display: flex; align-items: flex-start; gap: 6px; max-width: var(--ampy-measure); }   /* elcentral lead-error 13/500 accent-error */
+.ampy-error svg { width: 15px; height: 15px; flex: 0 0 auto; margin-top: 1px; }
+.ampy-error[hidden], .ampy-help[hidden] { display: none; }
+.ampy-msg { margin: 0; padding: var(--ampy-space-2xs) var(--ampy-space-xs); border-radius: var(--ampy-radius-field); font-family: var(--ampy-font); font-size: var(--ampy-text-small); line-height: 1.45; border: 1px solid transparent; }   /* LED lead-msg: fs-sm, padding sm/md, radie md */
+.ampy-msg--ok  { background: var(--ampy-success-tint); color: var(--ampy-success-ink); border-color: var(--ampy-success); }   /* LED rgba(57,194,129,.16) + 1 px state-success */
+.ampy-msg--err { background: var(--ampy-error-tint);   color: var(--ampy-error-ink);   border-color: var(--ampy-error); }     /* LED rgba(214,76,76,.16) + 1 px state-error -> B13 */
+.ampy-msg--info { background: var(--ampy-bg-subtle); color: var(--ampy-ink-body); border-color: var(--ampy-line); }             /* elcentral __info: bg subtle, 1 px tertiär */
+.ampy-msg--info svg, .ampy-msg--ok svg, .ampy-msg--err svg { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 2px; }
+.ampy-msg--row { display: flex; align-items: flex-start; gap: var(--ampy-space-2xs); }
+
+/* ---------- På mörk yta (LED lead-form på resultatkortet) ---------- */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-field__label, .ampy-field > label) { color: var(--ampy-on-dark-soft); }   /* LED label on-surface-text .94 */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select) {
+  background-color: rgba(255,255,255,.05); color: var(--ampy-on-dark); border-color: rgba(255,255,255,.28);   /* LED styles.css:359: vit .05, 1 px on-surface-border-strong .28 ; alfa-steg utan token */
+}
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-select { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>"); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea)::placeholder { color: var(--ampy-on-dark-faint); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select):hover { border-color: rgba(255,255,255,.45); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select):focus-visible,
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select).is-focus {
+  border-color: var(--ampy-focus-on-dark); box-shadow: 0 0 0 3px rgba(85,255,154,.30);   /* LED: rgb(28,196,175) + ring .35 -> neonmint (B14) + energycalc --ring-dark .30 */
+}
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select):disabled { background-color: var(--ampy-on-dark-subtle); color: var(--ampy-on-dark-faint); border-color: var(--ampy-on-dark-line); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check input { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.28); }   /* LED styles.css:370-372 */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check input:checked { background: var(--ampy-action); border-color: var(--ampy-action); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check input:focus-visible { border-color: var(--ampy-focus-on-dark); box-shadow: 0 0 0 3px rgba(85,255,154,.30); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check__text a { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-help, .ampy-consent) { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-consent a { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-error { color: #ffb4b6; }   /* hero-2 __err på navy (#b3261e mäter 2,5:1 på midnight) ; saknas i tokens, se bygglogg */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-msg--ok { background: rgba(57,194,129,.16); color: var(--ampy-on-dark); }   /* LED :353 */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-msg--err { background: rgba(179,38,30,.22); color: var(--ampy-on-dark); border-color: #ffb4b6; }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-msg--info { background: var(--ampy-on-dark-subtle); color: var(--ampy-on-dark-soft); border-color: var(--ampy-on-dark-line); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-segment > :is(label, button, .ampy-segment__option), :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range__tick { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-segment > :is(label, button, .ampy-segment__option):hover { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-segment > :is([aria-pressed="true"], [aria-checked="true"], label:has(input:checked), .is-selected) { background: var(--ampy-bg-surface); color: var(--ampy-action-strong); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chips > legend { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range__tick.is-active { color: var(--ampy-focus-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range-value { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range-value__unit { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.28); color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip__clarifier { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip:has(input:checked), :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip.is-selected { background: rgba(0,169,145,.14); border-color: var(--ampy-action); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stepper { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.28); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stepper__btn { background: transparent; color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stepper__value { color: var(--ampy-on-dark); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ampy-check input::before, .ampy-chip, .ampy-chip__check, .ampy-segment > *, .ampy-stepper__btn, .ampy-range::-webkit-slider-thumb { transition: none; }
+  .ampy-stepper__value.is-bump { animation: none; }
+  .ampy-chip:hover { transform: none; }
+}

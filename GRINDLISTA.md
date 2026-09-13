@@ -1,5 +1,11 @@
 # Grindlista: frågor som bara Julius (eller en elektriker/skatteexpert) kan stänga
 
+> **2026-09-14:** kalkylatorn gjordes om från noll till tre frågor och två tal (`kalkylator/`). Grindar som
+> bara gällde wireframes-riktningarna (7 CTA-mål, 9 säljlänk, 10, 11, 12, 32, 33) är vilande tills verktyget
+> ska få nästa steg. Grindarna som gäller nu: 3 (inkomstfrågan finns, får den vara kvar?), 5 (femårsregeln
+> ställs som ja/nej: "Nej" visar "Bara reparationer"), 14 (kommunalskatt = rikssnitt 32,38 %), 23–24
+> (artikelrättelser), 26 (årsväxeln).
+
 Sammanställd 2026-09-11 ur alla agenters grindar (ROT 14, grön teknik 11, UX 8, marknad 8, leadmagnet 3)
 och deduplicerad. Varje rad: vad frågan gäller, varför den spelar roll, vad wireframen gör tills vidare.
 Svara i en tur, numren räcker. Inget av detta blockerar riktningsvalet.

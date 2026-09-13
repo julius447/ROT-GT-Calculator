@@ -1,0 +1,220 @@
+/* ============================================================================
+   AMPY DESIGNSYSTEM · system/components/text.css (S2)
+   Textelement: eyebrow (utökar base), tag/badge, stat-trio, hero-siffra + enhet,
+   källrad, proof-rad, citat, listor (bock/steg), inline-kod, prisrad.
+
+   Kanon (konsolidering/komponenter-karta.md, Text-element):
+   · .ampy-eyebrow--dash      = energycalc vB/tool.css:317-319 (auk 1) 24x2 teal-streck ; --action = thank-you v1/styles.css:77 (auk 2)
+   · .ampy-tag                = elcentral-kollen assets/elcentralkollen.css:428-440 (__pill, auk 1) ; --sm = eljour-block index.html:99 (__tag, auk 1)
+   · .ampy-stat-trio          = led-kalkylator styles.css:300-311 (__trio, auk 1) ; typsnitt Outfit per B7
+   · .ampy-readout            = led-kalkylator styles.css:293-297 (__hero, auk 1)
+   · .ampy-source             = elkollen assets/behorighetskollen.css:880-889 (__source-line, auk 1)
+   · .ampy-proof              = hero-1 assets/style.css:236-265 (.vb2__proof, auk 1) ; stjärnfärg guld per B12
+   · .ampy-quote              = testimonials-block delivery/ampy-testimonials.css:46-66 (auk 1), citattecken + text + namn + meta
+   · .ampy-list--check        = elcentral-kollen elcentralkollen.css:198-201 (__rail-bullet, auk 1) ; eljour __trust (auk 1) som drift
+   · .ampy-list--steps        = rot-gt-cro designs/d2-kvittot-forst.html:163-217 (.av-steps, auk 1-2) utan förloppsbågen (block.css, S4)
+   · .ampy-code               = led-kalkylator styles.css:341 (methodology code, auk 1) ; Outfit + tabular-nums per B7
+   · .ampy-price              = rot-gt-cro d2-kvittot-forst.html:279-299 (.av-r-total, auk 1-2) "kanon med förbehåll": produktsidornas prisrad är inte inventerad
+   ============================================================================ */
+
+/* Finstilt 13 px: 9 källor (elkollen/elcentral fs-13, LED fs-xs 13, hero-2 help 13, booking 13.5, rot-gt 13.5)
+   saknar token (small = 14 -> 16). Definieras EN gång här och används av källrad, trio-sub, hjälp och fel. Se bygglogg. */
+/* --ampy-text-fine ligger i tokens.css (flyttad 2026-09-12) */
+
+/* ---------- Eyebrow: base.css äger grundrollen (12/600/.14em versal, dämpad). Utökningar: ---------- */
+.ampy-eyebrow { display: inline-flex; align-items: center; gap: var(--ampy-space-inline-sm); }
+.ampy-eyebrow--dash::before { content: ""; display: inline-block; width: 24px; height: 2px; background: var(--ampy-action); }   /* energycalc tool.css:318 24x2 (teal-bright #19c39e -> --ampy-action) */
+.ampy-eyebrow--action { color: var(--ampy-action-strong); }                                                                   /* thank-you cta-eyebrow teal-deep */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-eyebrow { color: var(--ampy-on-dark-muted); }   /* LED hero-eyebrow .66 ; energycalc #5dcaa5 = drift */
+
+/* ---------- Tag / badge / pill (elcentral __pill: fem nivåer, ikon 16, radie full) ---------- */
+.ampy-tag {
+  display: inline-flex; align-items: center; gap: var(--ampy-space-inline-xs);
+  padding: var(--ampy-space-2xs) var(--ampy-space-xs);                     /* elcentral 8/14 ; 2xs/xs = 9.9/14 -> 8.3/10.5 */
+  border-radius: var(--ampy-radius-pill);
+  font-family: var(--ampy-font); font-size: var(--ampy-text-small); font-weight: var(--ampy-w-strong);
+  letter-spacing: -0.005em; line-height: 1.2; max-width: 100%; white-space: nowrap;
+  background: var(--ampy-bg-subtle); color: var(--ampy-ink);
+}
+.ampy-tag svg { width: 16px; height: 16px; flex: 0 0 auto; }
+.ampy-tag--lg { font-size: var(--ampy-text-body); }                                    /* elcentral desktopskala >= 1280: fs-18 */
+.ampy-tag--sm { font-size: var(--ampy-text-eyebrow); padding: 4.5px 11px; letter-spacing: 0; }   /* eljour __tag 12/600, .45rem 1.1rem */
+.ampy-tag--sm svg { width: 12px; height: 12px; }
+.ampy-tag--success { background: var(--ampy-success-tint-strong); color: var(--ampy-success-ink); }   /* elcentral pill-bg rgb(214,240,229) (TOKENS-4): den ljusare --ampy-success-tint försvann i beskedzonen (granskning S2-7) */
+.ampy-tag--warning { background: var(--ampy-warn-tint-strong);    color: var(--ampy-warn-ink); }      /* elcentral rgb(250,233,197) */
+.ampy-tag--error   { background: var(--ampy-error-tint-strong);   color: var(--ampy-error-ink); }     /* elcentral rgb(250,224,222) */
+.ampy-tag--info    { background: var(--ampy-info-tint);    color: var(--ampy-info-ink); }                                   /* elcentralkollen.css:74 --pill-info-bg = --ampy-info-tint (TOKENS-4) */
+.ampy-tag--neutral { background: var(--ampy-bg-subtle);    color: var(--ampy-ink); border: 1px solid var(--ampy-line-strong); }   /* elcentral neutral: synlig kant */
+.ampy-tag--action  { background: var(--ampy-bg-tint-action); color: var(--ampy-action-strong); }                                  /* booking/offer ref-pill teal .08 */
+/* Interaktiv tagg (a/button, t.ex. --live som länk till jourens sida): härledd hover, ingen källa ritar den (granskning S2-10) */
+a.ampy-tag:hover, button.ampy-tag:hover, .ampy-tag.is-hover { text-decoration: underline; text-underline-offset: 2px; filter: brightness(.97); }
+a.ampy-tag, button.ampy-tag { cursor: pointer; text-decoration: none; border: 0; }
+/* Statuspill med puls (eljour __status "Jour öppen just nu": 13/600 teal-pill på teal-tint, prick 9 med puls 2 s) */
+.ampy-tag--live { background: var(--apteal-tint); color: var(--ampy-success-ink); }
+.ampy-tag__pulse { position: relative; width: 9px; height: 9px; border-radius: var(--ampy-radius-pill); background: var(--ampy-action); flex: 0 0 auto; }
+.ampy-tag__pulse::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--ampy-action); animation: ampyPulse 2s ease-out infinite; }
+@keyframes ampyPulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2); opacity: 0; } }
+/* På mörkt: hero-2 ampy-chip (teal .12 yta, kant .35, text #7fe9d4 -> vit är tokenen på mörkt) */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag:not([class*="--success"]):not([class*="--warning"]):not([class*="--error"]):not([class*="--info"]) {
+  background: rgba(0,169,145,.12); border: 1px solid rgba(0,169,145,.35); color: var(--ampy-on-dark);   /* hero-2 primitives.css:544-550 */
+}
+/* Nivåerna på mörkt = LED:s lead-msg-recept (styles.css:352-354): vit text på tint .16 + 1 px kant i tillståndsfärgen. Ingen källa ritar beskedpillen på mörkt; härledd ur LED. */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--success { background: rgba(57,194,129,.16); color: var(--ampy-on-dark); border: 1px solid var(--ampy-success); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--warning { background: rgba(240,175,56,.16); color: var(--ampy-on-dark); border: 1px solid var(--ampy-warn); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--error   { background: rgba(179,38,30,.22);  color: var(--ampy-on-dark); border: 1px solid #ffb4b6; }   /* #ffb4b6 = hero-2 felfärg på navy ; saknas i tokens */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--info    { background: rgba(182,242,255,.14); color: var(--ampy-on-dark); border: 1px solid var(--apcrystal-blue); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--live    { background: rgba(0,169,145,.12); border: 1px solid rgba(0,169,145,.35); color: var(--ampy-on-dark); }
+
+/* ---------- Stat-trio (LED __trio): 3 kolumner, etikett / värde + enhet / undertext ---------- */
+.ampy-stat-trio {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto auto;
+  grid-auto-flow: column; column-gap: var(--ampy-space-s); row-gap: 2px; align-items: baseline;   /* LED column-gap 15 (--spacing-lg) -> s 19.8/13.3 */
+  margin: 0; padding: 0; list-style: none;
+}
+.ampy-stat-trio--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ampy-stat { display: contents; }
+.ampy-stat__label { font-family: var(--ampy-font); font-size: var(--ampy-text-eyebrow); font-weight: var(--ampy-w-strong); letter-spacing: var(--ampy-ls-eyebrow); text-transform: uppercase; line-height: var(--ampy-lh-body); color: var(--ampy-ink-muted); }
+.ampy-stat__value { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; font-family: var(--ampy-font); font-size: var(--ampy-text-mid); font-weight: var(--ampy-w-display); line-height: 1.2; letter-spacing: -0.015em; color: var(--ampy-ink); font-variant-numeric: tabular-nums lining-nums; }
+.ampy-stat__unit { font-size: var(--ampy-text-small); font-weight: var(--ampy-w-medium); letter-spacing: normal; color: var(--ampy-ink-muted); }
+.ampy-stat__sub { font-size: var(--ampy-text-fine); line-height: 1.5; color: var(--ampy-ink-faint); align-self: start; }
+@media (max-width: 560px) {
+  .ampy-stat-trio { grid-template-columns: 1fr; grid-auto-flow: row; }
+  .ampy-stat:not(:first-child) .ampy-stat__label { margin-top: var(--ampy-space-2xs); }   /* LED: 10 px mellan staplade tiles */
+}
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__label { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__value { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__unit  { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__sub   { color: var(--ampy-on-dark-faint); }
+
+/* ---------- Hero-siffra + enhet (LED __hero): eyebrow -> siffra 56/38 + enhet 28/21 -> undertext ---------- */
+.ampy-readout { display: flex; flex-direction: column; gap: var(--ampy-space-2xs); }   /* LED gap 7.5 (--spacing-sm) -> 2xs 9.9/8.3 */
+.ampy-readout__value { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 0 12px; }   /* LED baseline-gap 12 */
+.ampy-readout__value .ampy-number { color: inherit; }
+.ampy-readout__unit { font-family: var(--ampy-font); font-size: var(--ampy-text-mid); font-weight: var(--ampy-w-medium); letter-spacing: -0.01em; line-height: 1; color: var(--ampy-ink-muted); }
+.ampy-readout__sub { font-size: var(--ampy-text-small); line-height: var(--ampy-lh-body); color: var(--ampy-ink-muted); max-width: var(--ampy-measure); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-readout__value { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-readout__unit,
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-readout__sub { color: var(--ampy-on-dark-muted); }
+
+/* ---------- Källrad (elkollen __source-line): 13/400/1.45 svag, hårlinje ovanför ---------- */
+.ampy-source {
+  margin: 0; padding-top: var(--ampy-space-xs);                       /* elkollen padding-top 12 (space-5) -> xs 14/10.5 */
+  border-top: 1px solid var(--ampy-line);
+  font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); line-height: 1.45;
+  color: var(--ampy-ink-faint);                                       /* källan #8a8da5 (3,26:1) -> --ampy-ink-faint (4,80:1) */
+  max-width: var(--ampy-measure);
+}
+.ampy-source--plain { border-top: 0; padding-top: 0; }
+.ampy-source a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.ampy-source a:hover, .ampy-source a.is-hover { color: var(--ampy-ink); text-decoration-thickness: 2px; }   /* .is-hover = dokumentationens spegling av hover (granskning S2-10) */
+.ampy-source svg { display: inline-block; width: 13px; height: 13px; vertical-align: -2px; opacity: .75; }     /* elkollen __verdict-src extern-ikon 1.3rem ; inline (base.css sätter svg block) */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-source { color: var(--ampy-on-dark-faint); border-top-color: var(--ampy-on-dark-line); }
+
+/* ---------- Proof-rad (hero-1 .vb2__proof): G-ikon 16 + "5,0 på Google" + 5 stjärnor 13.5 + separator + volymrad ---------- */
+.ampy-proof {
+  --_fs: 14.5px;   /* källa: hero-1 assets/style.css:244 font-size 14.5px ; saknas i tokens (small = 14 -> 16) */
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--ampy-space-xs);      /* hero-1 gap 14 */
+  font-family: var(--ampy-font); font-size: var(--_fs); font-weight: var(--ampy-w-ui); line-height: 1; color: var(--ampy-ink);
+}
+.ampy-proof__row { display: inline-flex; align-items: center; gap: 9px; color: inherit; text-decoration: none; }   /* hero-1 g-row gap 9 */
+.ampy-proof__row:hover .ampy-proof__label, .ampy-proof__row.is-hover .ampy-proof__label { text-decoration: underline; text-underline-offset: 3px; }
+.ampy-proof__icon { width: 16px; height: 16px; flex: 0 0 auto; }
+.ampy-proof__label { white-space: nowrap; }
+.ampy-proof strong { font-weight: var(--ampy-w-display); color: inherit; }
+.ampy-proof__stars { display: inline-flex; gap: 2.5px; color: var(--apgoogle-gold); }   /* B12: guld på alla ytor (hero-1 hade vita) */
+.ampy-proof__stars svg { width: 13.5px; height: 13.5px; display: block; }
+.ampy-proof__sep { width: 1px; height: 15px; background: var(--ampy-line-strong); }
+.ampy-proof__vol { white-space: nowrap; }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-proof { color: var(--ampy-on-dark); text-shadow: 0 1px 8px rgba(9,11,50,.45); }   /* hero-1 style.css:248 på foto */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-proof__sep { background: rgba(255,255,255,.45); }   /* hero-1 style.css:262 */
+@media (max-width: 560px) {   /* hero-1 style.css:304-314: kolumn, gap 9, 13.5 px, separatorn blir en 26 px liggande linje */
+  .ampy-proof { --_fs: 13.5px; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .ampy-proof__sep { width: 26px; height: 1px; }
+  .ampy-proof__vol { opacity: .92; }
+}
+
+/* ---------- Citat / testimonial (testimonials-block .att-card__*): citattecken 56/600, text, namn 22/600, hårlinje, stjärnor + datum ---------- */
+.ampy-quote { margin: 0; display: flex; flex-direction: column; gap: var(--ampy-space-s); font-family: var(--ampy-font); color: var(--ampy-ink); }
+.ampy-quote__top { display: flex; align-items: center; justify-content: space-between; min-height: 24px; }   /* delivery css:51 (min-height 2.4rem): citattecken vänster, Google-G 22 höger */
+.ampy-quote__mark { font-size: 56px; line-height: 1; font-weight: var(--ampy-w-strong); height: 24px; margin-top: -4px; user-select: none; color: var(--ampy-action); opacity: .55; }   /* delivery css:53-58 (5.6rem, höjd 2.4rem, neonmint .55 på mörkt); glyfen är &ldquo; som i källan (php:132), dekor, inte text */
+.ampy-quote__google { width: 22px; height: 22px; flex: 0 0 auto; }   /* delivery css:59 */
+.ampy-quote__text { margin: 0; font-size: var(--ampy-text-body); font-weight: var(--ampy-w-body); line-height: var(--ampy-lh-body); color: var(--ampy-ink-body); max-width: var(--ampy-measure); }   /* källan sätter inga citattecken runt texten (php:137); det stora tecknet bär citatet */
+.ampy-quote__foot { display: flex; flex-direction: column; gap: var(--ampy-space-2xs); }
+.ampy-quote__name { margin: 0; font-size: var(--ampy-text-h3); font-weight: var(--ampy-w-strong); line-height: var(--ampy-lh-h3); color: var(--ampy-ink); }
+.ampy-quote__divider { border: 0; border-top: 1px solid var(--ampy-line); margin: 0; }
+.ampy-quote__meta { display: flex; align-items: center; gap: var(--ampy-space-2xs); }
+.ampy-quote__stars { display: inline-flex; gap: 3px; color: var(--apgoogle-gold); }      /* B12: guld (källan neonmint på mörkt) */
+.ampy-quote__stars svg { width: 15px; height: 15px; }
+.ampy-quote__date { margin-left: auto; font-size: var(--ampy-text-eyebrow); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__mark { color: var(--apneon-mint); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__text { color: rgba(255,255,255,.95); }   /* delivery css:60 */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__name { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__divider { border-top-color: var(--ampy-on-dark-line); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__date { color: rgba(255,255,255,.72); }   /* delivery css:66 */
+
+/* ---------- Listor ---------- */
+/* Bocklista (elcentral __rail-bullet: 17/500 dämpad, ikon 20 teal, gap 12, rader 16) */
+.ampy-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--ampy-space-s); }   /* elcentral gap 1.6rem -> s 19.8/13.3 */
+.ampy-list--check li { display: flex; align-items: flex-start; gap: var(--ampy-space-xs); font-family: var(--ampy-font); font-size: var(--ampy-text-body); font-weight: var(--ampy-w-medium); line-height: 1.45; color: var(--ampy-ink-muted); }
+.ampy-list--check li > svg, .ampy-list__icon { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 2px; color: var(--ampy-action); }
+.ampy-list--check a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.ampy-list--check a:hover, .ampy-list--check a.is-hover { color: var(--ampy-ink); text-decoration-thickness: 2px; }
+/* Kompakt (eljour __trust: 15/400 brödtext, ikon 21 i 26-kolumn, hårlinjer runt) */
+.ampy-list--check.ampy-list--compact { padding: var(--ampy-space-s) 0; border-top: 1px solid var(--ampy-line); border-bottom: 1px solid var(--ampy-line); }
+.ampy-list--check.ampy-list--compact li { font-size: var(--ampy-text-small); font-weight: var(--ampy-w-ui); line-height: 1.4; color: var(--ampy-ink-body); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-list--check li { color: var(--ampy-on-dark-soft); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-list--check.ampy-list--compact { border-color: var(--ampy-on-dark-line); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-list--check.ampy-list--compact li { color: var(--ampy-on-dark-soft); }
+
+/* Stegvis lista (rot-gt d2 .av-steps): cirkel 46 med teal-ring, siffra 17/500, h3 + p, 2 px connector i ringens spår */
+.ampy-list--steps {
+  --_n: 46px;                              /* d2:169 --av-nsz cirkelns diameter ; saknas i tokens */
+  --_gap: clamp(32px, 3.1vw, 44px);         /* d2:163 --av-sgap */
+  counter-reset: ampy-step; gap: var(--_gap);
+}
+.ampy-list--steps li { counter-increment: ampy-step; position: relative; display: grid; grid-template-columns: var(--_n) 1fr; column-gap: var(--ampy-space-s); row-gap: 4px; }   /* d2: kolumn 20, rad 6 -> s 19.8, 4 */
+.ampy-list--steps li::before {
+  content: counter(ampy-step); grid-row: 1 / span 2; align-self: start;
+  width: var(--_n); height: var(--_n); border-radius: var(--ampy-radius-pill);
+  display: grid; place-items: center;
+  font-family: var(--ampy-font); font-size: 17px; font-weight: var(--ampy-w-medium); line-height: 1; font-variant-numeric: tabular-nums;   /* d2:196 siffra 17/500 ; 17 saknar token */
+  color: var(--ampy-ink); background: var(--ampy-bg-surface);
+  box-shadow: inset 0 0 0 1.5px rgba(0,169,145,.20);                                    /* d2:201 spåret .av-trk teal .20 1.5 px (bågen hör till block.css) */
+  position: relative; z-index: 1;
+}
+.ampy-list--steps li:not(:last-child)::after {
+  content: ""; position: absolute; left: calc(var(--_n) / 2 - 1px); top: calc(var(--_n) + 4px); bottom: calc(-1 * var(--_gap) + 4px);
+  border-left: 2px solid rgba(0,169,145,.20);                                            /* d2:212-217 connector = bågens spår */
+}
+.ampy-list--steps h3, .ampy-list--steps .ampy-list__title { margin: 0; font-family: var(--ampy-font); font-size: var(--ampy-text-h3); font-weight: var(--ampy-w-strong); line-height: var(--ampy-lh-h3); letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink); align-self: center; min-height: var(--_n); display: flex; align-items: center; }
+.ampy-list--steps p { margin: 0; font-size: var(--ampy-text-body); font-weight: var(--ampy-w-body); line-height: var(--ampy-lh-body); color: var(--ampy-ink-body); max-width: 58ch; }   /* d2:210 58ch */
+.ampy-list--steps li.is-done::before { box-shadow: inset 0 0 0 3px var(--ampy-action); }   /* d2 variant F: sluten båge = teal ring 3 px (stroke-width 3), siffran förblir navy */
+
+/* ---------- Inline-kod (LED methodology code: 13/600 på subtil yta, radie 6) ---------- */
+.ampy-code {
+  display: inline-block; padding: 2px 5px; border-radius: var(--ampy-radius-small);
+  background: var(--ampy-bg-subtle); color: var(--ampy-ink);
+  font-family: var(--ampy-font); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-strong); font-variant-numeric: tabular-nums lining-nums;   /* B7: Outfit + tabular-nums i st.f. JetBrains Mono */
+}
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-code { background: var(--ampy-on-dark-subtle); color: var(--ampy-on-dark); }
+
+/* ---------- Prisrad / total (rot-gt d2 .av-r-total): caps-etikett + belopp 20-24/700 + not "efter ROT-avdrag" ---------- */
+.ampy-price {
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 6px 14px;   /* d2:283 */
+  padding: var(--ampy-space-s) var(--ampy-space-m);                                       /* d2:281 20 / 24-32 */
+  border-radius: var(--ampy-radius-field);                                                 /* d2 --av-r-md 14 -> field 12/10.1 */
+  background: var(--ampy-bg-tint-action);                                                  /* d2:282 teal .055 -> tint .08 */
+  font-family: var(--ampy-font); color: var(--ampy-ink);
+}
+.ampy-price__label { font-size: var(--ampy-text-eyebrow); font-weight: var(--ampy-w-strong); letter-spacing: var(--ampy-ls-eyebrow); text-transform: uppercase; color: var(--ampy-ink); }   /* d2:287 13/700/.12em -> eyebrow-rollen */
+.ampy-price__amount { font-size: var(--ampy-text-h3); font-weight: var(--ampy-w-display); letter-spacing: var(--ampy-ls-heading); line-height: 1.1; white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; color: var(--ampy-ink); }   /* d2:291 clamp(20,1.6vw,24)/700 */
+.ampy-price__note { grid-column: 1 / -1; font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-ui); line-height: 1.5; color: var(--ampy-ink-muted); text-wrap: pretty; max-width: 62ch; }   /* d2:296-299 13.5/400 */
+.ampy-price--inline { display: inline-flex; align-items: baseline; gap: var(--ampy-space-2xs); padding: 0; background: none; border-radius: 0; }
+.ampy-price--inline .ampy-price__note { font-size: var(--ampy-text-small); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price { background: rgba(255,255,255,.08); color: var(--ampy-on-dark); }   /* d2:341 */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price__label,
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price__amount { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price__note { color: rgba(255,255,255,.78); }
+
+@media (prefers-reduced-motion: reduce) { .ampy-tag__pulse::after { animation: none; } }

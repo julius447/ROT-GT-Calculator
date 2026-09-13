@@ -1,17 +1,19 @@
 # ROT-GT-Calculator
 
-Ampy Nordic AB: ROT-kalkylatorn och Grön Teknik-kalkylatorn. Två verktyg, en design, olika logik.
-Svarar på kundens fråga "är jag berättigad, och hur mycket blir det?" för ROT-avdraget och
-skattereduktionen för grön teknik 2026. Embeddas i början av `/rot-avdrag-2026/` och
-`/gron-teknik-2026/` och skickas som länk av säljarna.
+Ampy Nordic AB: ROT- och grön teknik-kalkylatorn ("Avdragskollen"). Tre frågor, två tal.
+Äger du din bostad, är den äldre än fem år, vad hade du i inkomst förra året: ut kommer ditt uppskattade
+ROT-tak och grön teknik-tak 2026, räknat på din skatt med samma modell som Skatteverkets e-tjänst
+(validerad ±1 kr). Inga knappar, ingen process, ingen förklaringstext. Byggd på Ampys designsystem
+(julius447/Design-Guide-Ampy, snapshot i `kalkylator/system/`).
 
-## Struktur
+Live: https://julius447.github.io/ROT-GT-Calculator/ (roten pekar till `kalkylator/`; `?m=gt` sätter grön teknik först).
 
 | Mapp | Innehåll |
 |---|---|
-| `research/` | Grundning, regelverk (ROT, grön teknik), marknad, UX-flöde, leadmagnet, riktningar |
-| `logik/` | Beslutsmodell och testfall per avdrag (`*-spec.md`, `*-testfall.json`), motorn (`engine.js`) |
-| `wireframes/` | Tre divergenta, interaktiva wireframes + galleri (`index.html`) |
-| `GRINDLISTA.md` | Numrerade ägarfrågor som väntar på Julius |
+| `kalkylator/` | Kalkylatorn v2: `index.html`, `kalkylator.css`, `kalkylator.js`, `system/` (designsystemet), `_probe.mjs` |
+| `logik/` | Motorn: `engine.js` (skatteutrymme + ROT/GT-regler), specar, 77 testfall, `node logik/test.mjs` |
+| `research/` | Grundning, regelverk (ROT, grön teknik), marknad, UX, leadmagnet, riktningar (historik) |
+| `GRINDLISTA.md` | Ägarfrågor som väntar på Julius |
 
-Live: https://julius447.github.io/ROT-GT-Calculator/
+Historik: tre wireframe-riktningar (A Villkorstavlan, B Kvittot, C Avdragsmätaren) byggdes 2026-09-11 och
+underkändes av ägaren som för komplexa; de ligger i git-historiken (commit 5d9bd5e) men inte på sajten.

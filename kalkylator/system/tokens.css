@@ -1,0 +1,401 @@
+/* ============================================================================
+   AMPY DESIGNSYSTEM · system/tokens.css · den enda token-filen
+   Konsolidering 2026-09-11 ur 31 inventerade källor (inventering, 30 json + tidigare-dokumentation.md).
+   Laddas ensam. Kräver ingenting annat.
+
+   LAGER 1  (--ap*)   de 101 primitiva tokens som Bricks kör live, VERBATIM
+                      (namn + värden ur kallor/live-ampy-se/global-variables.css).
+                      Rem-baserade clamp() på sajtens 10 px-rot (html{font-size:62.5%}).
+   LAGER 1b (fix)     två dokumenterade buggar rättade, kommenterade.
+   LAGER 1c (--ap*)   primitiva som saknades men bevisligen bär en roll i >= 2 källor
+                      av auktoritet 1-2 (källor i kommentaren).
+   LAGER 2  (--ampy*) semantiska roller. Färger pekar på lager 1/1c via var().
+                      Mått (typ, spacing, radier) är samma VÄRDEN som lager 1 men skrivna
+                      som px-clamp() så att de blir rem-OBEROENDE: samma pixlar på sajtens
+                      62.5 %-rot som på en 16 px-rot (FluentSnippets, CRM-sidor, artikelmall).
+                      Varje semantisk token bär en radkommentar: källa: <slug> (<fil:rad>) ; drift: <värden>.
+
+   Precedens (KONSOLIDERINGSBRIEF.md): auktoritet 1 > 2 > 3; inom 1 ansvarsområde
+   (live = primitiver, Hero-1 = display, CTA-website = knappar, Website-blocks = header,
+   Led-kalkylator = verktyg, Elcentral/Elkollen = diagnostik, Eljour-block = innehållsblock,
+   Testimonials = omdömen, Brandbook = logo/palettnamn/vikter); frekvens bryter lika.
+   Beslut som inte kan tas utan Julius: konsolidering/beslut.md (B1-B20).
+   ============================================================================ */
+
+:root {
+  /* ======================================================================
+     LAGER 1 · 101 primitiva --ap*-tokens, verbatim ur global-variables.css
+     (47 färg · 11 space · 15 text · 6 radie · 5 skugga · 8 kolumner · 7 alias · 2 skärm).
+     global-variables.css deklarerar de 47 färgerna två gånger (hex, sedan rgb, identiska
+     värden) - här en gång med första deklarationen. Verifierat av
+     konsolidering/_probes/05-tokens-lager1.py (101 unika, 47 dubbletter, 0 avvikande).
+     px vid 1440/390 för varje clamp: konsolidering/_probes/out/tokens-px.json
+     ====================================================================== */
+  --apmidnight-blue: #090b32;
+  --apteal-core: #00a991;
+  --apemerald-flow: #39c281;
+  --apseafoam-mint: #5cc5b6;
+  --apneon-mint: #55ff9a;
+  --apsublime-green: #a0fbc9;
+  --apmint-surge: #9de1ec;
+  --apcrystal-blue: #b6f2ff;
+  --apaqua-frost: #ddf9fd;
+  --appure-white: #ffffff;
+  --apsky-mist: #f5f9ff;
+  --apmilk-white: #f5f5f5;
+  --apmilk-white-5: rgba(245,245,245,0.05);
+  --apmilk-white-10: rgba(245,245,245,0.1);
+  --apmilk-white-20: rgba(245,245,245,0.2);
+  --apmilk-white-30: rgba(245,245,245,0.3);
+  --apmilk-white-40: rgba(245,245,245,0.4);
+  --apmilk-white-50: rgba(245,245,245,0.5);
+  --apmilk-white-60: rgba(245,245,245,0.6);
+  --apmilk-white-70: rgba(245,245,245,0.7);
+  --apmilk-white-80: rgba(245,245,245,0.8);
+  --apmilk-white-90: rgba(245,245,245,0.9);
+  --apgray-white: rgb(217,217,217);
+  --apcharcoal-gray: rgb(51,51,51);
+  --apdarkest-black: rgb(30,30,30);
+  --apdarkest-black-5: rgba(30,30,30,0.05);
+  --apdarkest-black-10: rgba(30,30,30,0.1);
+  --apdarkest-black-20: rgba(30,30,30,0.2);
+  --apdarkest-black-30: rgba(30,30,30,0.3);
+  --apdarkest-black-40: rgba(30,30,30,0.4);
+  --apdarkest-black-50: rgba(30,30,30,0.5);
+  --apdarkest-black-60: rgba(30,30,30,0.6);
+  --apdarkest-black-70: rgba(30,30,30,0.7);
+  --apdarkest-black-80: rgba(30,30,30,0.8);
+  --apdarkest-black-90: rgba(30,30,30,0.9);
+  --apdeepest-blue: rgb(14,15,21);
+  --appure-black: rgb(0,0,0);
+  --appure-black-5: rgba(0,0,0,0.05);
+  --appure-black-10: rgba(0,0,0,0.1);
+  --appure-black-20: rgba(0,0,0,0.2);
+  --appure-black-30: rgba(0,0,0,0.3);
+  --appure-black-40: rgba(0,0,0,0.4);
+  --appure-black-50: rgba(0,0,0,0.5);
+  --appure-black-60: rgba(0,0,0,0.6);
+  --appure-black-70: rgba(0,0,0,0.7);
+  --appure-black-80: rgba(0,0,0,0.8);
+  --appure-black-90: rgba(0,0,0,0.9);
+  --apmin-screen-width: 320px;
+  --apmax-screen-width: 1280px;
+  --apspace-4xs: clamp(0.52rem,calc(-0.03vw + 0.53rem),0.49rem);
+  --apspace-3xs: clamp(0.66rem,calc(0.05vw + 0.64rem),0.7rem);
+  --apspace-2xs: clamp(0.82rem,calc(0.18vw + 0.76rem),0.99rem);
+  --apspace-xs: clamp(1.02rem,calc(0.39vw + 0.9rem),1.4rem);
+  --apspace-s: clamp(1.28rem,calc(0.73vw + 1.05rem),1.98rem);
+  --apspace-m: clamp(1.6rem,calc(1.25vw + 1.2rem),2.8rem);
+  --apspace-l: clamp(2rem,calc(2.04vw + 1.35rem),3.96rem);
+  --apspace-xl: clamp(2.5rem,calc(3.23vw + 1.47rem),5.6rem);
+  --apspace-2xl: clamp(3.13rem,calc(4.99vw + 1.53rem),7.92rem);
+  --apspace-3xl: clamp(3.91rem,calc(7.59vw + 1.48rem),11.19rem);
+  --apspace-4xl: clamp(4.88rem,calc(11.4vw + 1.23rem),15.83rem);
+  --aptext-xs: clamp(1rem,calc(0.21vw + 0.93rem),1.2rem);
+  --aptext-s: clamp(1.2rem,calc(0.21vw + 1.13rem),1.4rem);
+  --aptext-sm: clamp(1.4rem,calc(0.21vw + 1.33rem),1.6rem);
+  --aptext-m: clamp(1.6rem,calc(0.21vw + 1.53rem),1.8rem);
+  --aptext-mm: clamp(1.8rem,calc(0.21vw + 1.73rem),2rem);
+  --aptext-ml: clamp(2rem,calc(0.21vw + 1.93rem),2.2rem);
+  --aptext-l: clamp(2.2rem,calc(0.21vw + 2.13rem),2.4rem);
+  --aptext-lm: clamp(2.2rem,calc(0.63vw + 2rem),2.8rem);
+  --aptext-xl: clamp(2.4rem,calc(0.83vw + 2.13rem),3.2rem);
+  --aptext-2xl: clamp(2.6rem,calc(1.04vw + 2.27rem),3.6rem);
+  --aptext-2-5xl: clamp(2.8rem,calc(1.25vw + 2.4rem),4rem);
+  --aptext-3xl: clamp(3rem,calc(1.88vw + 2.4rem),4.8rem);
+  --aptext-3-5xl: clamp(3.2rem,calc(2.08vw + 2.53rem),5.2rem);
+  --aptext-4xl: clamp(3.4rem,calc(2.71vw + 2.53rem),6rem);
+  --aptext-5xl: clamp(4rem,calc(3.75vw + 2.8rem),7.6rem);
+  --aphero-title-size: var(--aptext-4xl);
+  --appost-title-size: var(--aptext-2xl);
+  --apnav-link-size: var(--aptext-s);
+  --apheader-space: var(--apspace-s);
+  --apbtn-space: var(--apspace-xs) var(--apspace-s);
+  --apcard-space: var(--apspace-s);
+  --apfooter-space: var(--apspace-s) var(--apspace-m);
+  --apcolumns-1: repeat(1,minmax(0,1fr));
+  --apcolumns-2: repeat(2,minmax(0,1fr));
+  --apcolumns-3: repeat(3,minmax(0,1fr));
+  --apcolumns-4: repeat(4,minmax(0,1fr));
+  --apcolumns-5: repeat(5,minmax(0,1fr));
+  --apcolumns-6: repeat(6,minmax(0,1fr));
+  --apcolumns-7: repeat(7,minmax(0,1fr));
+  --apcolumns-8: repeat(8,minmax(0,1fr));
+  --apradius-xs: clamp(0.4rem,calc(0vw + 0.4rem),0.4rem);
+  --apradius-s: clamp(0.6rem,calc(0.21vw + 0.53rem),0.8rem);
+  --apradius-m: clamp(1rem,calc(0.21vw + 0.93rem),1.2rem);
+  --apradius-l: clamp(1.6rem,calc(0.42vw + 1.47rem),2rem);
+  --apradius-xl: clamp(2.4rem,calc(0.83vw + 2.13rem),3.2rem);
+  --apradius-full: 999rem;
+  --apshadow-xs: 0 1px 2px var(--shadow-primary);
+  --apshadow-s: 0 1.5px 3px var(--shadow-primary);
+  --apshadow-m: 0 2px 6px var(--shadow-primary);
+  --apshadow-l: 0 3px 12px var(--shadow-primary);
+  --apshadow-xl: 0 6px 48px var(--shadow-primary);
+
+  /* ======================================================================
+     LAGER 1b · FIX av dokumenterade buggar (ändrar beteende, medvetet)
+     ====================================================================== */
+  /* 1) --shadow-primary refereras av alla fem --apshadow-* men definieras aldrig på live
+        (30 referenser, 0 definitioner -> box-shadow: none). Värdet nedan är det enda som
+        någon källa definierar: thank-you v1/styles.css:7 "--shadow-primary: rgba(9,11,50,.10)".
+        Effekt: --apshadow-xs..xl blir giltiga navy-tonade skuggor (0 1px 2px ... 0 6px 48px). */
+  --shadow-primary: rgba(9,11,50,.10);
+  /* 2) --apspace-4xs hade min > max (0.52rem > 0.49rem) -> clamp låste på 5.19 px överallt
+        och vw-lutningen var negativ. Rättad till samma ändpunkter i rätt ordning och positiv
+        lutning som resten av skalan: 4.9 px @320 -> 5.2 px @1280. Enda live-användning:
+        footer-bar padding (footer-cro baseline.css:130). */
+  --apspace-4xs: clamp(0.49rem, calc(0.03vw + 0.48rem), 0.52rem);
+  /* 3) --aptext-mmm finns bara i theme-style.css (inte i global-variables) men live h3
+        (.brxe-34d975 ROT/GT-steg) använder den. Värdet är identiskt med --aptext-ml. Alias
+        så att live-block som refererar den inte tappar storlek när theme-style saknas. */
+  --aptext-mmm: var(--aptext-ml);
+
+  /* ======================================================================
+     LAGER 1c · primitiva tillägg (roll i >= 2 källor av auktoritet 1-2)
+     Namngivna i ap-stil. Ingen hittas på: varje hex finns i källorna nedan.
+     ====================================================================== */
+  /* Brandbokens "Secondary teal" (s.8). Live: Bricks --color-7 (#5fb1bf), site-css --ap-blue,
+     primärknappens gradientslut. 17 källor: cta-website, hero-1, main-cta, mini-menu, certificates,
+     rot-gt-cro, hero-2-alternatives, hero-2-form, fotobedomningen, eljour-sticky-bar, elkollen,
+     elcentral-kollen, picasso, booking-confirmation (shared.css:848), live-ampy-se ... */
+  --apsecondary-teal: #5eb1bf;
+  /* Mörk teal för text/länk/solid knapp med vit text (5,27:1 på vit). Elcentral-kollen
+     (elcentralkollen.css:46-47 --action-primary-strong) + Elkollen (behorighetskollen.css:51).
+     Drift: EV #007d6b, Energycalc #00806e, Elkollen länk #006e5e, eljour-familjen #0a8f7c/#0a6e58,
+     CRM-flödet #016a5d/#017666/#018271. Teal-core själv är 2,96:1 och får aldrig vara text. */
+  --apteal-deep: #007a69;
+  /* Ljus teal-tonad yta (pill/chip): eljour-block index.html:14 --teal-tint, fotobedomningen
+     afk-styles.css:~29, eljour-sticky-bar. Drift: #e0f5f2 (rot-gt-cro --av-teal-soft, booking). */
+  --apteal-tint: #e3f6f1;
+  /* "Mjuk navy" = hsl(237 35% 24%): knapptexten på handlingsgradienten. cta-website (*.css:14),
+     hero-1 (style.css:72), main-cta, rot-gt-cro (d2:356), eljour-sticky-bar (:257), fotobedomningen
+     (--afk-cta-ink). 5,51:1 på #5eb1bf, 4,58:1 på teal-core. Drift: #0d0d0d (elkollen/elcentral/picasso). */
+  --apindigo: #282a53;
+  /* Brödtextbläck i eljour-familjen: eljour-block (:13 --ink-body, 10,29:1), fotobedomningen
+     (--afk-ink-body), eljour-sticky-bar (hörnkortets ledtext). Ligger i beslut B3 (brödtext). */
+  --apnavy-ink: #3b3f59;
+  /* Dämpad text (6,33:1 på vit). 8 källor: hero-1/website-blocks (--ink-muted header.css:15),
+     led-kalkylator + ev-kalkylator (--text-secondary rgb(86,94,130)), mini-menu, rot-gt-cro
+     (--av-muted), booking (--muted). Drift: #5f6480 (eljour-familjen), #5a5d7a (elkollen/elcentral),
+     #51607a (energycalc). */
+  --apnavy-muted: #565e82;
+  /* Svag text/undertext (4,80:1 på vit). hero-1 + website-blocks (--ink-faint header.css:15).
+     Drift: #646b88 (booking 4,97:1), #686b80 (elkollen), #8a8da5 (elcentral, 3,26:1 = underkänd). */
+  --apnavy-faint: #6a7190;
+  /* Amber för "före"-staplar och varningar i verktyg: led-kalkylator (styles.css:25 --state-warning /
+     --chart-line-loss), ev-kalkylator (:45). Drift: #f0b429 (energycalc), #f5af19 (elkollen/elcentral
+     --state-warning), #e3a008 (eljour-prick). */
+  --apamber: #f0af38;
+  /* Signalröd för fel och akut (6,54:1 på vit): eljour-block (:15 Akut-tagg), fotobedomningen
+     (--afk-fel), hero-2-alternatives eljour. Drift: rgb(214,76,76) (LED/EV, 4,20:1 = underkänd som text),
+     rgb(214,64,64) (elkollen), #e00000 (main-form), #e5484d/#e24b4a (hero-2), #ff8a8a (energycalc på mörkt). */
+  --apsignal-red: #b3261e;
+  --apsignal-red-tint: #fdeceb;   /* eljour-block, fotobedomningen, hero-2-alternatives (Akut-bg) */
+  --apamber-tint: #fff4e0;        /* eljour-block, hero-2-alternatives (Varning-bg) */
+  /* Besked-accenter i diagnostiken (4 nivåer), identiska i Elcentral-kollen (elcentralkollen.css:85-88)
+     och Elkollen (behorighetskollen.css:44,397,407,1237-1239): stapel, ikon, text-success/-info. */
+  --apverdict-green: #0f6e56;     /* rgb(15,110,86) */
+  --apverdict-amber: #876507;     /* rgb(135,101,7) */
+  --apverdict-red:   #7a1623;     /* rgb(122,22,35) */
+  --apverdict-blue:  #0d568c;     /* rgb(13,86,140) */
+  /* Googles stjärngult. testimonials-block (delivery css:97) + hero-2-alternatives (primitives:640-655,
+     ÄGARDIREKTIV 2026-08-06 "alla stjärnor guld på alla ytor"). Drift: #f6b53d (thank-you/offer),
+     #ffc24b (main-form), #f0b429 (energycalc), vita (hero-1), teal (footer live). Beslut B12. */
+  --apgoogle-gold: #fbbc04;
+}
+
+:root {
+  /* ======================================================================
+     LAGER 2 · semantiska --ampy-*-tokens
+     Format per rad (i kommentaren efter värdet): källa: <slug> (<fil:rad>) ; drift: <värden>
+     ====================================================================== */
+
+  /* ---------- YTOR ---------- */
+  --ampy-bg-page:    var(--apsky-mist);       /* källa: live-ampy-se (post-15498 .brxe-rclikf #f5f9ff) + hero-1, header, eljour, thank-you, booking, visste-du-att = 21 källor ; drift: rgb(247,249,251) LED/EV, #f4f5fb elkollen/elcentral, #f4f5f7 main-form, #e9eff8 energycalc */
+  --ampy-bg-surface: var(--appure-white);     /* källa: live-ampy-se (.rot__container) + 26 källor: alla kort är vita ; drift: rgb(247,249,251) LED inputkort */
+  --ampy-bg-subtle:  var(--apsky-mist);       /* källa: fotobedomningen (afk-styles.css:~20 "två ytor: #fff + #f5f9ff") + energycalc (hp-ic #f5f9ff) + elkollen job-row hover #f4f5fb ; drift: rgb(234,239,243) LED/EV spår, #f7f8fc elcentral, #f7f7f7 main-form */
+  --ampy-bg-dark:    var(--apmidnight-blue);  /* källa: led-kalkylator (styles.css:16 --bg-surface) + EV, energycalc, visste-du-att, hero-2 S/G/E, footer ; drift: rgb(27,29,75) rot-gt-panel/hero-2 Z, #16183f Z-kort, #0b0f30->#2d516d testimonials, #00011e/#01021f footer, #11163f/#0c1040 energycalc */
+  --ampy-bg-dark-glow: radial-gradient(120% 60% at 90% -10%, rgba(0,169,145,.28), transparent 60%), radial-gradient(80% 50% at -10% 110%, rgba(57,194,129,.16), transparent 60%); /* källa: led-kalkylator (styles.css:131-132) = ev-kalkylator, battery ; drift: energycalc 3 radialer (#00c4a7 .22 / neon .10 / midnight .40), visste-du-att (teal .42 + neon .18). Beslut B9: glöd eller platt */
+  --ampy-bg-glass:   rgba(255,255,255,.72);   /* källa: thank-you (v1/styles.css:40 glaskort) ; drift: .74 offer-accepted, .85 utan blur booking, rgba(255,255,255,.16) website-blocks go-cirkel. Beslut B15 */
+  --ampy-glass-border: rgba(255,255,255,.9);  /* källa: thank-you (v1/styles.css:41) ; drift: booking .9 (samma), hero-2 Z 1px vit .14 på mörkt */
+  --ampy-glass-blur: blur(16px) saturate(1.1);/* källa: thank-you (v1/styles.css:44) + offer-accepted ; drift: blur(30px) hero-2-form (dömd ut av hero-2-alternatives), blur(8/10px) saturate(150%) fore-efter navy-glas, blur(4px) website-blocks */
+  --ampy-bg-glass-dark: rgba(9,11,50,.82);    /* källa: fore-efter-cro (dist/01:~206-215 chip/ledtråd) ; drift: hero-2-form #090b32 + 156.51deg -> #5eb1bf .76 (underkänd, kant 1,2:1) */
+  --ampy-bg-tint-action: rgba(0,169,145,.08); /* källa: elkollen (roomtile-chip .08) + thank-you (ghost hover .08) + booking/offer (pill .08) + website-blocks (.09/.06) ; drift: solid --apteal-tint #e3f6f1 (eljour-familjen), #e0f5f2 (rot-gt/booking) */
+
+  /* ---------- BLÄCK (text på ljust) ---------- */
+  --ampy-ink:        var(--apmidnight-blue);  /* källa: eljour-block (:13 --ink H2), testimonials-block (delivery css:21), elkollen/elcentral (--text-primary), fore-efter, visste-du-att, var-process = 29 källor ; drift: #0f123c (hero-1 header, LED/EV, mini-menu = near-miss, konsolideras hit), #0b1030 (thank-you/booking/offer), #1f1f1f (live ROT h2 --color-8), #1e1e1e (energycalc, rot-gt-familjen), #090c34 (main-cta) */
+  --ampy-ink-body:   var(--apmidnight-blue);  /* källa: testimonials-block (delivery css:21 "Outfit 300 navy" block-text) + fore-efter-cro (sektionens basfont Outfit 300 #090b32) + elkollen/elcentral/mini-menu/LED/EV via #0f123c-konsolidering = 11 källor ; drift: #363636/300 live Bricks-default (frontend.css body, ej token), #3b3f59/400 eljour-familjen (--apnavy-ink), #333 rot-gt-familjen/booking, rgba(9,11,50,.72) var-process, .62 thank-you. BESLUT B3 */
+  --ampy-ink-muted:  var(--apnavy-muted);     /* källa: hero-1/website-blocks (header.css:15 --ink-muted) + LED/EV (--text-secondary) + mini-menu + rot-gt + booking = 8 källor, 6,33:1 ; drift: #5f6480 eljour-familjen (5,80:1), #5a5d7a elkollen/elcentral, #51607a energycalc, rgba(11,16,48,.62) thank-you */
+  --ampy-ink-faint:  var(--apnavy-faint);     /* källa: hero-1/website-blocks (header.css:15 --ink-faint), 4,80:1 ; drift: #646b88 booking (4,97:1), #686b80 elkollen, #8a8da5 elcentral (3,26:1 underkänd), #8a8fa3 cta-website demo */
+  --ampy-ink-on-action: var(--apindigo);      /* källa: cta-website (*.css:14 hsl(237 35% 24%)) + hero-1 + main-cta + rot-gt + fotobedomningen + eljour-sticky-bar ; drift: #0d0d0d (elkollen/elcentral/picasso), #1e1e1e (hero-2 Z submit), vit (LED/EV/energycalc/elcentral solid) */
+
+  /* ---------- BLÄCK (text på mörkt) ---------- */
+  --ampy-on-dark:        var(--appure-white);      /* källa: hero-1 (h1 vit), LED (--text-inverse), visste-du-att, testimonials = 14+ källor ; drift: #dbe3ec hero-2-alternatives --ap-ink (~13:1) */
+  --ampy-on-dark-soft:   rgba(255,255,255,.92);    /* källa: hero-1 (style.css:234 lead .92) + hero-2-alternatives (lead .92) + main-form (.96 på foto) ; drift: .95 testimonials korttext, .94 LED lead-etiketter, #c9d4e0 hero-2 crumbs */
+  --ampy-on-dark-muted:  rgba(255,255,255,.66);    /* källa: led-kalkylator (styles.css:31 --on-surface-text-muted) + ev-kalkylator + battery, 8,44:1 ; drift: .82 visste-du-att brödtext, .72 testimonials datum, #aeb8d4 energycalc */
+  --ampy-on-dark-faint:  rgba(255,255,255,.55);    /* källa: led-kalkylator (styles.css:32 --on-surface-text-faint, höjd från .42 efter WCAG) + ev + testimonials (citattecken .55), 6,12:1 ; drift: .42 battery (3,99:1 underkänd), .70 rot-gt finstilt, #8a93b5 energycalc */
+  --ampy-on-dark-line:   rgba(255,255,255,.14);    /* källa: led-kalkylator (styles.css:33 --on-surface-border hr) + hero-2-alternatives (--ap-hairline .14) + EV ; drift: .12 energycalc --bd-dark, .16 rot-gt/energycalc trust, .18 rot-gt panel */
+  --ampy-on-dark-subtle: rgba(255,255,255,.06);    /* källa: led-kalkylator (styles.css:35 jämförelsespår) + ev-kalkylator (monthly-panel/lead-form .06) + energycalc (sp-item-kant .06) ; drift: .08 EV stapelspår/rot-gt totalplatta, .02/.04 energycalc */
+
+  /* ---------- HANDLING ---------- */
+  --ampy-action:            var(--apteal-core);      /* REGEL (beslut B21): teal core är aldrig text på ljus yta (2,96:1 mot vit). På midnight (6,41:1) tillåten för kicker, readout-enhet och siffra >= 16 px där källan gör så (visste-du-att, battery); all annan text-teal = --ampy-action-strong. Samma text i farg.html, tillganglighet.html, ai-tells.html. ; källa: energycalc (tool.css:26 CTA + valda kanter), led-kalkylator (styles.css:21 --action-primary), website-blocks (header-CTA), elkollen/elcentral (accent), 25 källor ; drift: EV #007d6b, elcentral/elkollen knapp #007a69 (= --ampy-action-strong). Ägarbeslut 2026-07: teal ensam accent (cobalt #326afd 0 i produktion) */
+  --ampy-action-strong:     var(--apteal-deep);      /* källa: elcentral-kollen (elcentralkollen.css:46-47) + elkollen (behorighetskollen.css:51): solid knapp med vit text, textlänkar, sista H1-raden ; drift: se --apteal-deep. Beslut B5 (teal-kontrast) */
+  --ampy-action-hover:      #008d79;                 /* källa: hero-1 + website-blocks (header.css:13 --ap-teal-hover, header-CTA) ; drift: #00b89e energycalc (ljusare), rgb(0,108,93) elcentral strong-hover, LED/EV opacity .92 i stället för färgbyte */
+  --ampy-action-on:         var(--appure-white);     /* källa: website-blocks (header-CTA vit 600) + energycalc + LED + elcentral/elkollen solid ; drift: --apindigo på gradienten (= --ampy-ink-on-action) */
+  --ampy-action-gradient:   linear-gradient(120deg, #55ff9a 0%, #5eb1bf 100%);   /* källa: cta-website (radgivning-cta.css:16, offert-cta.css:16) = hero-1 (style.css:71), rot-gt (d2:358), fotobedomningen (--afk-cta-grad), hero-2-alternatives (primitives:80 "DEN ENDA HANDLINGSGRADIENTEN"), elkollen/elcentral rail, picasso, booking shared.css:848 = 10+ källor. Stopp: --apneon-mint -> --apsecondary-teal ; drift: 282.84deg #55ff9a->#00ffda (hero-2-form, dödförklarad), 135deg #00b89c->#018271 (thank-you), 100deg #009e88->#17c6a0 (main-form), 146deg #055a4b->#0a8169 (eljour nödknapp), 145deg #c7f5ff->#5eb1bf (live ROT hover) */
+  --ampy-action-gradient-ring: linear-gradient(120deg, #b6f2ff 0%, #5eb1bf 100%); /* källa: cta-website (ring-cta.css:16) = main-cta, eljour-sticky-bar, hero-2 Z/E. Stopp: --apcrystal-blue -> --apsecondary-teal ; drift: 141deg (picasso, elkollen, elcentral) */
+  --ampy-action-gradient-on: var(--apindigo);        /* källa: cta-website (hsl(237 35% 24%)), 5,51:1 mot #5eb1bf ; drift: #0d0d0d, #1e1e1e */
+
+  /* ---------- TILLSTÅND ---------- */
+  --ampy-success:        var(--apemerald-flow);   /* källa: led-kalkylator (styles.css:23 --state-success "Med LED"), EV, battery, main-form (success-ikon), elcentral (--state-success deklarerad) ; drift: rgb(54,178,92)/rgb(27,132,71) elkollen verdikt-grön ("lövigare än teal"), #1f9d6b main-form validering, #1bd365/#00ad48 testimonials prickar */
+  --ampy-success-ink:    var(--apverdict-green);  /* källa: elcentral-kollen (--text-success) + elkollen (--text-success/row-icon), 6,20:1 ; drift: rgb(6,71,55) elcentral pill-fg */
+  --ampy-success-tint:   rgba(57,194,129,.12);    /* källa: main-form (styles.css:238 success-ikon bg .12) ; drift: .16 LED ok-msg/glöd, rgb(240,249,245) elcentral tint, rgba(54,178,92,.10) elkollen board */
+  --ampy-warn:           var(--apamber);          /* källa: led-kalkylator (styles.css:25 "I dag"-stapel), ev-kalkylator ; scopad till diagram/staplar på mörkt (1,93:1 på vit = aldrig text) ; drift: #f0b429 energycalc, #f5af19 elkollen/elcentral --state-warning */
+  --ampy-warn-ink:       var(--apverdict-amber);  /* källa: elcentral-kollen + elkollen (accent-warning, factnote), 5,39:1 ; drift: #8a5800 eljour Varning-tagg, #8a6116 booking fältfel, rgb(92,64,5) elcentral pill-fg */
+  --ampy-warn-tint:      var(--apamber-tint);     /* källa: eljour-block (:16) + hero-2-alternatives eljour ; drift: rgb(252,247,234)/rgb(250,233,197) elcentral */
+  --ampy-error:          var(--apsignal-red);     /* källa: eljour-block (:15) + fotobedomningen (--afk-fel invalid-kant + feltext) + hero-2 eljour, 6,54:1 ; drift: rgb(214,76,76) LED/EV (4,20:1), rgb(214,64,64) elkollen, #e00000 main-form, #e5484d hero-2 primitives, teal (hero-2-form, ingen felfärg). Beslut B13 */
+  --ampy-error-ink:      var(--apverdict-red);    /* källa: elcentral-kollen (akut-text rgb(122,22,35)) + elkollen (accent red), 10,68:1 ; drift: rgb(124,32,32) elcentral pill-fg */
+  --ampy-error-tint:     var(--apsignal-red-tint);/* källa: eljour-block + fotobedomningen + hero-2 eljour ; drift: rgb(252,237,238) elcentral akut, rgba(209,73,91,.08) main-form banner, rgba(214,64,64,.06) elkollen board */
+  --ampy-info-ink:       var(--apverdict-blue);   /* källa: elcentral-kollen (info-ikon, accent-info) + elkollen (info-ikon), 7,70:1 ; drift: rgb(10,122,191) elkollen --text-info, rgb(17,82,135) elcentral pill-fg */
+  --ampy-info-tint:          rgb(224,236,248);   /* källa: elcentral-kollen (info-pill bg) + elkollen ; tillagd 2026-09-12 (TOKENS-4) */
+  --ampy-success-tint-strong: rgb(214,240,229);  /* källa: elcentral-kollen (besked-pill bg) ; för pillar i beskedzon (TOKENS-4) */
+  --ampy-warn-tint-strong:   rgb(250,233,197);   /* källa: elcentral-kollen (varnings-pill bg) (TOKENS-4) */
+  --ampy-error-tint-strong:  rgb(250,224,222);   /* källa: elcentral-kollen (akut-pill bg) (TOKENS-4) */
+  --ampy-focus:          var(--apmidnight-blue);  /* källa: cta-website (*.css:33 focus-visible 3px solid #090b32 offset 3) + booking/offer (outline 3px navy, teal mätte 2,91:1) + fotobedomningen (3px, 19:1) + mini-menu/website-blocks ; drift: teal 3px (hero-1 CTA, thank-you, picasso), teal-ringar .2-.35 (LED sju varianter), #5eb1bf + rgba(94,177,191,.2) (live Bricks-formulär). Beslut B14 */
+  --ampy-focus-on-dark:  var(--apneon-mint);      /* källa: energycalc (tool.css --ring-dark rgba(85,255,154,.30) + outline neon på mörkt) + elkollen/LED-sp-item neon inset ; drift: LED teal .35 på mörkt */
+  --ampy-focus-ring:     0 0 0 3px rgba(0,122,105,.9); /* källa: elcentral-kollen (elcentralkollen.css --focus-ring, "höjd från .25 för WCAG 2.4.11", EN ring på alla fält+knappar) ; drift: 0 0 0 3px rgba(0,169,145,.25) elkollen (1,3:1 underkänd), .30 main-form, .18 hero-2 fält, 0 0 0 3px rgba(94,177,191,.2) live */
+
+  /* ---------- LINJER ---------- */
+  --ampy-line:           rgba(9,11,50,.14);    /* källa: var-process-cro (v2/ampy-process.css:16 "blockets ENDA hairline") + led-kalkylator (styles.css:26 --border-default rgba(15,18,60,.12) -> midnight) + fore-efter/certificates inset .07 ; solida drift: #e6ecf6 eljour-familjen (1,19:1), #dbe4f0 header, #e3e5ed/#ebedf3 elkollen/elcentral, #eaeef5 fore-efter, #d7deeb m.fl. energycalc */
+  --ampy-line-strong:    rgba(9,11,50,.48);    /* källa: booking-confirmation (shared.css:42 --line-strong, kontrollkanter WCAG 1.4.11 -> 3,39:1) ; drift: #5f6480 fotobedomningen (kontrollkant 5,80:1), #e3e5ed elkollen/elcentral inputs (1,26:1 underkänd), 2px transparent main-form */
+  --ampy-line-on-dark:   var(--ampy-on-dark-line);   /* källa: se --ampy-on-dark-line (LED hr .14, hero-2 --ap-hairline) ; drift: .12 energycalc, .16/.18 rot-gt */
+
+  /* ---------- RADIER (px-clamp = samma värden som --apradius-*) ---------- */
+  --ampy-radius-small:   clamp(6px, 0.21vw + 5.3px, 8px);       /* = --apradius-s (8 @1440, 6.1 @390) ; källa: led-kalkylator (--radius-sm 6: tooltip, tick, option), energycalc --r-xs 6, elkollen/elcentral --radius-sm 6 ; drift: 4 (LED checkbox = --apradius-xs), 8 main-form input, 9 energycalc --r-sm */
+  --ampy-radius-field:   clamp(10px, 0.21vw + 9.3px, 12px);     /* = --apradius-m (12 @1440, 10.1 @390) ; källa: led-kalkylator (styles.css --radius-md 12: select/input/knapp) + EV + hero-2-alternatives (--ap-r-field 12) + fotobedomningen (--afk-r-in 12) ; drift: 10 elkollen/elcentral/hero-2 Z, 14 booking/hero-2-form, 8 main-form, 9 energycalc */
+  --ampy-radius-button:  16px;                                   /* källa: cta-website (*.css:11 "radie 16", alla tre) = hero-1, main-cta, rot-gt, fotobedomningen, elkollen/elcentral rail-CTA, eljour-sticky-bar, picasso (--radius-m 16 = Core Framework legacy --radius i global-variables.css) = 17 källor ; drift: live Bricks ROT --apradius-l 20 / GT --radius-s 12, header-CTA 15, LED/EV/energycalc 12, elkollen/elcentral solid 10, hero-2-form/primitiver 14, pill (thank-you, main-form, mini-menu). BESLUT B4 */
+  --ampy-radius-card:    clamp(16px, 0.42vw + 14.7px, 20px);    /* = --apradius-l (20 @1440, 16.3 @390) ; källa: live-ampy-se (.rot__container --apradius-l) + LED/EV/energycalc (20), eljour (20), certificates, visste-du-att, fore-efter, fotobedomningen, mini-menu, main-cta, website-blocks lösningskort = 17 källor ; drift: 14 elkollen/elcentral, 22 hero-1-ram/booking/rot-gt-panel, 27 hero-2-form, 15 main-form, 16 testimonials (legacy --radius) */
+  --ampy-radius-card-lg: clamp(24px, 0.83vw + 21.3px, 32px);    /* = --apradius-xl (32 @1440, 24.5 @390) ; källa: thank-you (v1/styles.css:42 var(--apradius-xl)) + rot-gt-cro (--av-r-xl 32 "kanon 3.2rem") + offer-accepted (px-översatt xl) ; drift: hero-1 A-variant 32/28 */
+  --ampy-radius-pill:    999px;                                  /* = --apradius-full (999rem) ; källa: live (--apradius-full), testimonials prickar, thank-you knapp, mini-menu pill, hero-2 (--ap-r-pill 999px), fotobedomningen chip ; drift: 99rem eljour, 9999px legacy --radius-pill/article */
+
+  /* ---- Fält (tillagda 2026-09-12, granskning TOKENS-1) ---- */
+  --ampy-field-h:      48px;                     /* källa: main-form (fält 48), LED select 48, thank-you input 48 ; drift: elcentral 52, booking 44 */
+  --ampy-field-fs:     16px;                     /* källa: main-form/LED/elkollen: 16 px i fält (iOS-zoomgolv) ; drift: 15 fotobedomningen */
+  --ampy-field-track:  rgba(9,11,50,.07);        /* källa: led-kalkylator (segment/slider-spår rgb(234,239,243) på vitt = midnight .07) ; drift: EV .06, energycalc #eef1f5 */
+
+  /* ---------- SKUGGOR (ordagranna) ---------- */
+  --ampy-shadow-subtle:  0 1px 2px rgba(9,11,50,.06);            /* källa: led-kalkylator (styles.css:54 --shadow-sm rgba(15,18,60,.06) -> midnight) + ev-kalkylator ; drift: .04 elcentral/elkollen (11,13,42), .04 fotobedomningen/article, cta-chip 0 1px 3px .14 */
+  --ampy-shadow-card:    0 10px 30px rgba(9,11,50,.07);          /* källa: eljour-block (index.html:21 --shadow-card "0 1rem 3rem rgba(9,11,50,.07)") + fotobedomningen (mittlagret) + eljour-sticky-bar (hörnkort) ; drift: LIVE "husets" 0 0 16px 0 rgba(190,190,190,.19) (live, testimonials .14, main-cta .4, var-process), 0 8px 28px rgba(11,13,42,.07) elcentral, 0 18px 44px .09 booking, 0 1.2rem 4rem .18 visste-du-att, tredelade fore-efter/certificates/mini-menu. Beslut B10 */
+  --ampy-shadow-raised:  0 16px 40px rgba(9,11,50,.14);          /* källa: led-kalkylator (styles.css:56 --shadow-lg rgba(15,18,60,.14): resultatkort, selector-lista, tooltip -> midnight) + EV + battery + eljour-sticky-bar (0 16px 40px rgba(9,11,50,.16)) ; drift: 0 24px 50px -10px .18 rot-gt block, 0 3rem 7rem .12 thank-you, 0 16px 40px -12px .28 mini-menu */
+  --ampy-shadow-button:  inset 0 1px 0 rgba(255,255,255,.45), 0 2px 4px rgba(9,11,50,.06), 0 10px 26px -6px rgba(94,199,160,.45);        /* källa: cta-website (radgivning-cta.css:17-20) = rot-gt (d2), fotobedomningen (--afk-skugga-handling), hero-2-alternatives ; drift: hero-1:s kopia 0 2px 4px .10 + 0 14px 32px -8px rgba(9,11,50,.40) (navy i st.f. grön glöd) */
+  --ampy-shadow-button-hover: inset 0 1px 0 rgba(255,255,255,.5), 0 3px 6px rgba(9,11,50,.07), 0 16px 34px -8px rgba(94,199,160,.55);   /* källa: cta-website (radgivning-cta.css:27-30) ; drift: hero-1 0 18px 38px -8px .46 navy */
+  --ampy-shadow-button-ring:  inset 0 1px 0 rgba(255,255,255,.55), 0 2px 4px rgba(9,11,50,.06), 0 10px 26px -6px rgba(94,177,191,.55);  /* källa: cta-website (ring-cta.css:17-20) = main-cta, eljour-sticky-bar ; drift: 0 0 16px rgba(241,241,241,.25) picasso/elkollen/elcentral (live-knappens "glöd") */
+  --ampy-shadow-glow-action:  0 4px 12px -5px rgba(0,169,145,.5);/* källa: website-blocks + hero-1 (header.css:73 header-CTA teal-glow) ; drift: 0 1rem 2.4rem rgba(0,169,145,.3) thank-you, 0 1.2rem 3rem -.8rem .42 energycalc hover, 0 1rem 2.4rem -.8rem .45 main-form */
+  --ampy-shadow-photo:   0 18px 40px -20px rgba(9,11,50,.26);    /* källa: main-cta (index.html porträtt) ; drift: 0 28px 60px -28px rgba(0,0,0,.65) hero-2 Z-kort */
+
+  /* ---------- SCRIM / VEIL på foto ---------- */
+  --ampy-scrim-hero:   linear-gradient(98deg, rgba(9,11,50,.68) 0%, rgba(9,11,50,.46) 42%, rgba(9,11,50,.12) 66%, rgba(9,11,50,.02) 100%), linear-gradient(0deg, rgba(9,11,50,.38) 0%, rgba(9,11,50,0) 26%); /* källa: hero-1 (assets/style.css:212-217 .vb2__veil) = live site-css .home-hero ; drift: main-form platt rgba(6,8,26,.55), energycalc trust 103deg .94->.28 */
+  --ampy-scrim-strong: linear-gradient(180deg, rgba(9,11,50,.58) 0%, rgba(9,11,50,.60) 55%, rgba(9,11,50,.82) 100%), linear-gradient(98deg, rgba(9,11,50,.28) 0%, rgba(9,11,50,.05) 60%); /* källa: hero-2-alternatives (primitives.css:110-112 --ampy-scrim-bastant, kontrastmätt >= 4,75:1 för vit text på helvit bild) */
+  --ampy-scrim-light:  linear-gradient(180deg, rgba(9,11,50,.06) 0%, rgba(9,11,50,.22) 100%); /* källa: hero-2-alternatives (primitives.css:113-114 --ampy-scrim-latt, foto som objekt) ; drift: mini-menu radial .30->.56 + body-scrim */
+
+  /* ---------- AURORA (den ljusa) ---------- */
+  --ampy-aurora-light: radial-gradient(115% 85% at 14% -12%, rgba(0,169,145,.12) 0%, rgba(0,169,145,0) 46%), radial-gradient(105% 75% at 94% 6%, rgba(182,242,255,.48) 0%, rgba(182,242,255,0) 44%), radial-gradient(120% 95% at 90% 112%, rgba(160,251,201,.28) 0%, rgba(160,251,201,0) 48%), radial-gradient(115% 90% at 8% 104%, rgba(0,169,145,.08) 0%, rgba(0,169,145,0) 46%), var(--apsky-mist); /* källa: thank-you (v1/styles.css:18-23) = booking-confirmation (shared.css:65-69) = offer-accepted ; stopp = --apteal-core / --apcrystal-blue / --apsublime-green på --apsky-mist ; drift: brandbokens mesh (midnight+cobalt+neon+lime, s.1/22/23/26), mini-menu aurora-fallback (fem navyer). Beslut B11 */
+
+  /* ---------- RÖRELSE ---------- */
+  --ampy-dur-fast: 160ms;   /* källa: cta-website (*.css:21 ".16s ease" hover/pil) = hero-1, main-cta, rot-gt, fotobedomningen, live site-css hero-CTA (8 källor) ; drift: 150ms LED/EV/elkollen/booking (9 källor, tool-kontroller), 120ms elcentral, 140ms energycalc, 180ms hero-2 (--ap-motion) */
+  --ampy-dur-base: 200ms;   /* källa: website-blocks + hero-1 (header.css:20 --t .2s ease-out, 26 användningar) + thank-you, main-form, mini-menu, elkollen, elcentral = 11 källor ; drift: 220ms energycalc/elcentral/booking, 280ms mini-menu/main-form, 240ms elkollen kort */
+  --ampy-dur-slow: 300ms;   /* källa: led-kalkylator (styles.css --motion-normal 300ms slider/staplar) + eljour (--m .3s) + energycalc --t-slow + live Bricks fadeIn 0.3s = 13 källor; "tak 300 ms" (hero-2-alternatives, fotobedomningen) ; drift: 350ms testimonials prickar, 400ms rot-gt fade, 520/640ms mini-menu */
+  --ampy-ease:     cubic-bezier(.2,.6,.2,1);   /* källa: live-ampy-se (site-css.css .ampy-elfirma --ease) + mini-menu, energycalc, elcentral, elkollen, main-form, footer = 7 källor ; drift: cubic-bezier(.2,0,.2,1) LED/EV/battery, cubic-bezier(.16,.84,.44,1) thank-you/booking, "ease" (CTA-bibliotekets transition-shorthand) */
+  --ampy-ease-out: cubic-bezier(.16,1,.3,1);   /* källa: energycalc (tool.css --ease-out) + mini-menu (foto-zoom) + main-form (--ease-out) ; drift: ease-out (header --t), cubic-bezier(.33,1,.68,1) thank-you --ease-soft */
+  --ampy-lift:     -1.5px;                     /* källa: cta-website (*.css:22 hover translateY(-1.5px)) = hero-1, rot-gt, fotobedomningen, main-cta ; drift: -1px picasso/elcentral/EV-knapp, -2px energycalc/certificates/thank-you, -4px mini-menu kort */
+  --ampy-hover-filter: saturate(1.06) brightness(1.02); /* källa: cta-website (radgivning-cta.css:24) ; drift: saturate(1.08) ring-cta, saturate(1.05) picasso/elkollen, brightness(1.06) main-form, opacity .92 LED/EV */
+
+  /* ---------- TYPOGRAFI ---------- */
+  --ampy-font: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif; /* källa: brandbook (s.13 "Main typography: OUTFIT", enda typsnittet) + live theme-style body + energycalc/elkollen/eljour/testimonials ; drift: Plus Jakarta Sans (LED/EV/battery/elcentral rubriker, footer "5.0"), JetBrains Mono (LED/EV/battery inputsiffror). Beslut B7 */
+  /* --ampy-font-mono: ... FÖRSLAG, ej kanon: JetBrains Mono finns bara i kalkylatorkitet (3 källor auk 1/1/3) och strider mot brandbokens ett-typsnitt. Se beslut B7. */
+
+  /* Storlekar: fluida px-clamp() (rem-oberoende). px vid 390 / 768 / 1440 i kommentaren. */
+  --ampy-text-display: clamp(36px, 4.6vw, 60px);                 /* 36 / 36 / 60 ; källa: hero-1 (assets/style.css:40 .hero__h1) = live site-css .home-hero__heading ; drift: hero-2-alternatives 34/40/48 (ampy-h1), elcentral rail 44 (clamp 3.2rem,4vw,4.4rem), energycalc anchor 52, article 48, --aptext-4xl 35.9->60 (samma ändpunkter, annan kurva) */
+  --ampy-text-h1:      clamp(30px, 1.88vw + 24px, 48px);         /* 31.3 / 38.4 / 48 = --aptext-3xl ; källa: hero-2-alternatives (primitives.css 2b ampy-h1 48 >= 1200) + article (48) + booking (46) + elcentral rail (44) ; drift: elkollen hero-h1 40/600, thank-you h1 40 (--aptext-2-5xl), theme-style h1 = --aptext-4xl (60, refereras inte) */
+  --ampy-text-h2:      clamp(26px, 1.04vw + 22.7px, 36px);       /* 26.8 / 30.7 / 36 = --aptext-2xl ; källa: eljour-block (index.html:33 clamp(2.6rem,3.3vw,3.6rem) = 36/26) + testimonials-block (delivery css:32 var(--aptext-2xl)) + certificates v2 + rot-gt-cro (d2:122 "medianen av mini-menu 38 / content 32 / testimonials 36") + visste-du-att + fotobedomningen (36 desktop) = 7 källor ; drift: 32 (--aptext-xl: live ROT/GT, fore-efter "8 av 16 live-H2:or", footer h3, elcentral block-titel), 40 (--aptext-2-5xl: temats h2-default, main-cta, var-process), 38 (mini-menu). */
+  --ampy-text-h3:      clamp(20px, 0.21vw + 19.3px, 22px);       /* 20.1 / 20.9 / 22 = --aptext-ml ; källa: live-ampy-se (ROT/GT-steg h3 --aptext-ml/--aptext-mmm 22) + elkollen (entry-title/q-title --fs-22) + var-process (22) + testimonials (namn --aptext-ml 22) ; drift: 19->23 rot-gt-familjen, 20 energycalc spark-h, 24 booking of-h2, 32 elcentral q-title (desktop) */
+  --ampy-text-lead:    clamp(17px, 1.55vw, 22px);                /* 17 / 17 / 22 ; källa: hero-1 (assets/style.css:49 .hero__sub) = live site-css .home-hero__text ; drift: 20/16 hero-2-alternatives (16/17/20), 20/18 elcentral rail-lead, 20/16 elkollen sub, 18 (--aptext-m) testimonials subline/certificates/visste/thank-you, 18.5 mini-menu */
+  --ampy-text-body:    clamp(16px, 0.21vw + 15.3px, 18px);       /* 16.1 / 16.9 / 18 = --aptext-m ; källa: live-ampy-se (.rot__text-basic --aptext-m, .brxe-post-content) + testimonials (korttext-kurva 17->19 =~), certificates v2, main-cta ("--aptext-m-formeln"), rot-gt ("paragrafstandard = --aptext-m"), visste-du-att, fore-efter tagline = 8 källor ; drift: 16 fast (header, main-form, booking, article 18 fast), 17 (eljour risktext, var-process, foto), 19 (mini-menu body, LED body), 15.5 (eljour lead) */
+  --ampy-text-small:   clamp(14px, 0.21vw + 13.3px, 16px);       /* 14.1 / 14.9 / 16 = --aptext-sm ; källa: live-ampy-se (theme-style body --aptext-sm, .bricks-button, footer-länkar) + thank-you (betyg/knapp/ghost --aptext-sm) + testimonials badge + elkollen/elcentral (16 = knapp/input-golv, 15 sekundär, 14 meta) ; drift: 14.5 hero-1 proof, 13-13.5 header/elcentral, 15 fotobedomningen (golv "aldrig under 15") */
+  --ampy-text-eyebrow: 12px;                                     /* 12 / 12 / 12 (fast) ; källa: energycalc (tool.css --ty-eyebrow 1.2rem 500 .14em), thank-you (cta-eyebrow --aptext-xs 600 .14em), offer-accepted (12 600 .14em), booking (12 700 .12em), elcentral (result-eyebrow 12 600), hero-2 trustrow 12 ; drift: 12.5 header, 13/700 rot-gt caps, 15/600 fotobedomningen/LED tier-label, 24 visste-du-att kicker (--aptext-l), 10-15/800 article */
+  --ampy-text-number:  clamp(38px, 1.989vw + 30.54px, 56px);     /* 38.3 / 45.8 / 56 ; källa: led-kalkylator (styles.css:295 hero-number --fs-4xl clamp(3.8rem, 3.054rem + 1.989vw, 5.6rem)) ; drift: energycalc anchor-num 52/35.7 (= --aptext-3-5xl-ändpunkter, Outfit 900), EV/battery avsett 75 (cqi-bugg -> 38.7/44), rot-gt total clamp(20,1.6vw,24), booking belopp clamp(26,3.4vw,30) */
+  --ampy-text-label:   14px;                                     /* 14 / 14 / 14 (fast) ; källa: hero-2-alternatives (primitives.css:488 label 14px 600 lh 20) + elkollen (lead-label --fs-14 600) + main-form (14/500) ; drift: 15/600 LED (PJS), 13/600 elcentral + booking 13.5, 15/500 fotobedomningen, 12/400 energycalc */
+  --ampy-text-fine:    13px;                                     /* 13 / 13 / 13 (fast) finstilt ; källa: rot-gt-cro d2 (13/700 kvittoetiketter), eljour-block (:96 13/400 ground), hero-2-alternatives (crumbs 13/500), elcentral/booking meta 13-13.5, header 13 ; nio källor. Tillagd 2026-09-12 (granskning TOKENS-1) */
+  --ampy-text-mid:     clamp(21px, 0.78vw + 9.8px, 28px);        /* 21 / 24 / 28 ; källa: led-kalkylator (--fs-xl 28 -> 21: stat-värde, enhet, prominent värde) + EV ; drift: energycalc 24. Tillagd 2026-09-12 (TOKENS-3) */
+  --ampy-text-button:  16px;                                     /* 16 / 16 / 16 (fast) ; källa: cta-website (*.css:13 "16px 500 lh 1, ingen mobilskalning") = main-cta, rot-gt, fotobedomningen, picasso (--aptext-sm), live .bricks-button (--aptext-sm 16->14.1) ; drift: 15.5/15 hero-1 mobil, 15/600 elcentral/LED, 17/600 EV/hero-2 ampy-btn, 18 energycalc, 19 hero-2 Z submit */
+
+  /* Vikter */
+  --ampy-w-display: 700;  /* källa: hero-1 (h1 700) + hero-2-alternatives (ampy-h1 700) + elcentral rail-h1 700 + LED hero-number 700 ; drift: 800 article, 900 energycalc anchor + brandbok "Black" (s.14, används i inget byggt block). Beslut B2 */
+  --ampy-w-heading: 500;  /* h2 ; källa: eljour-block (36/500) + theme-style h2 500 + visste-du-att + mini-menu + main-cta + var-process = 6 källor ; drift: 400 testimonials V1/certificates/live ROT/fore-efter, 450 rot-gt-familjen, 600 elkollen/booking, 700 article */
+  --ampy-w-strong:  600;  /* h3, etiketter, UI-starkt ; källa: elkollen (600 = rubriker), elcentral (q-title 600), booking (600), header kolumntitlar 600, testimonials namn 600 ; drift: 400 live h3, 500 var-process/energycalc */
+  --ampy-w-medium:  500;  /* knappar, chips, interaktivt ; källa: cta-website (500) + live .bricks-button 500 + elkollen "500 = interaktivt" ; drift: 600 header-CTA/elcentral/LED/EV, 400 picasso */
+  --ampy-w-ui:      400;  /* UI-text, leads, formulär ; källa: hero-1 lead 400, elkollen "400 = body", LED/EV body 400, thank-you ingress 400 */
+  --ampy-w-body:    300;  /* brödtext ; källa: brandbook s.14 ("Light = lång/sekundär text") + live theme-style body 300 + testimonials V1 + certificates + rot-gt + main-cta + visste-du-att + var-process + energycalc --w-body = 10 källor ; drift: 400 (eljour, elkollen/elcentral, LED/EV, thank-you, booking, main-form, article). Beslut B3 */
+
+  /* Radavstånd */
+  --ampy-lh-display: 1.07;  /* källa: hero-1 (style.css:41) = hero-2-alternatives 1.07 ; drift: 1.08 elcentral/energycalc, 1.05 booking/var-process, 1.0 article */
+  --ampy-lh-heading: 1.2;   /* h2 ; källa: certificates v2, mini-menu, rot-gt, visste-du-att, fore-efter (5) ; drift: 1.15 eljour/testimonials, 1.3 live ROT, 1.4 temats h1/h2-default (frontend.css) */
+  --ampy-lh-h3:      1.25;  /* källa: elkollen (entry-title 1.25) + rot-gt (h3 1.25) ; drift: 1.3 live/elkollen q-title, 1.2 var-process/booking */
+  --ampy-lh-lead:    1.58;  /* källa: hero-1 (style.css:50) ; drift: 1.6 hero-2/elcentral/elkollen, 1.5 mini-menu/thank-you, 1.55 certificates */
+  --ampy-lh-body:    1.5;   /* källa: testimonials V1 (1.5), rot-gt ("paragrafstandard lh 1.5"), visste-du-att, var-process, mini-menu, thank-you = 11 rader ; drift: 1.7 live Bricks-default (frontend.css body), 1.6 eljour/main-cta, 1.55 certificates/energycalc, 1.45 fore-efter */
+  --ampy-lh-ui:      1.4;   /* källa: hero-2-alternatives (label lh 20/14 = 1.43), eljour trust 1.4, elcentral option-title 1.4 ; drift: 1.5 LED, 1.3 elcentral cta */
+  --ampy-lh-tight:   1;     /* knappar, siffror ; källa: cta-website (lh 1), LED hero-number 1.0, hero-1 proof 1 */
+
+  /* Spärrning */
+  --ampy-ls-display: -0.018em; /* källa: hero-1 (style.css:43) ; drift: -0.008em hero-2 (V6, var -.018), -0.02em elcentral/energycalc, -0.025em booking/article */
+  --ampy-ls-heading: -0.01em;  /* h2/h3 ; källa: testimonials V1, certificates v2, mini-menu, rot-gt (4) ; drift: -0.015em eljour/fotobedomningen, normal live/fore-efter/footer, -0.018em var-process */
+  --ampy-ls-number:  -0.03em;  /* källa: led-kalkylator (hero-number) + EV + battery ; drift: -0.02em energycalc anchor, -0.012em rot-gt total */
+  --ampy-ls-eyebrow: 0.14em;   /* källa: energycalc, header (.14em), thank-you, offer-accepted (4) ; drift: .12em rot-gt/booking, .06em elcentral/LED, .02em fotobedomningen, .2-.25em article */
+  --ampy-ls-button:  normal;   /* källa: cta-website ; drift: .5px live .bricks-button, .005em hero-1, .01em mini-menu pill */
+
+  /* Mått */
+  --ampy-measure:      62ch;  /* källa: eljour-block (risktext max 62ch), energycalc (sp-verdict 62ch), fore-efter (tagline 62ch), elcentral (info/finding 62ch) ; drift: 58ch rot-gt/elcentral lede, 54ch visste, 52ch main-cta, 48ch certificates, 27em var-process ("ch ljuger i Outfit") */
+  --ampy-measure-lead: 46ch;  /* källa: elcentral (rail-lead 46ch) + elkollen (hero__sub 46ch) ; drift: 54ch hero-1 A-lead, 30ch energycalc citat */
+
+  /* ---------- CONTAINER / BRYTPUNKTER ---------- */
+  --ampy-container:   1280px;   /* källa: live-ampy-se (--container-width, --apmax-screen-width, theme-style .brxe-container) + hero-1 header, eljour, LED/EV, elcentral, main-cta, var-process, visste-du-att, fore-efter, certificates = 14 källor ; drift: 1320 mini-menu, 1360 energycalc, 1180 elkollen hero, 1100 live testimonials (Bricks-default), 1088 article, 1424/1700 hjälteramar (fullbredd tillåten: ägardirektiv 2026-08-14, 1280 är inte ett tak) */
+  --ampy-container-text: 980px; /* källa: live-ampy-se (global-variables.css --max-width 980, legacy Core Framework) ; drift: 840/640 (--max-width-m/-s), 720 testimonials rubrik, 600 mini-menu rubrik, 704 article */
+  --ampy-gutter: clamp(20px, 2.04vw + 13.5px, 39.6px);           /* = --apspace-l (39.6 @1440, 21.5 @390) ; källa: live-ampy-se (theme-style .brxe-section padding --apspace-l) + visste-du-att + footer ; drift: 40/16 eljour/main-cta/elcentral, 28/16 header (--wrap), 24 mini-menu/energycalc, 15/10 LED */
+  /* Brytpunkter kan inte läsas av @media via var(); de står här som dokumentation.
+     Kanon 992 / 768 / 480 (skill + §9.5, bekräftat: 992 i 9 källor, 768 i 9, 480 i 9; som max-width 991/767/478 i Bricks).
+     Föredra @container mot blockets egen bredd (hero-2-alternatives, EV, fore-efter, fotobedomningen, main-cta-leverans). */
+  --ampy-bp-lg: 992px;   /* källa: hero-1/website-blocks (992/993), eljour (992), energycalc (991/992), var-process, visste-du-att, live site-css ; drift: 1024 (Bricks-blocken, elkollen/elcentral tvåpanel), 960 (kalkylatorkitet, cqi) */
+  --ampy-bp-md: 768px;   /* källa: live (767/768), LED/EV (768), elkollen (767), hero-2 (768), main-cta, main-form ; drift: 780 (Bricks-blocken), 759 testimonials, 680 booking/fore-efter */
+  --ampy-bp-sm: 480px;   /* källa: eljour (480), energycalc (480), visste-du-att, booking, rot-gt (480), hero-2-form (README) ; drift: 478 (Bricks), 560 (hero-1/website-blocks/LED/EV), 520 thank-you/fore-efter, 600 hero-2-form/LED */
+  --ampy-bp-xl: 1200px;  /* källa: hero-1 (993-1200-band), energycalc (>=1200), hero-2 (1200), live site-css (1200) */
+
+  /* ---------- SPACING-ROLLER (px-clamp = samma värden som --apspace-*) ---------- */
+  --ampy-space-4xs: clamp(4.9px, 0.03vw + 4.8px, 5.2px);            /* = --apspace-4xs efter fix 1b (5.2 / 4.9) ; källa: footer-cro (baseline.css:130 bar-padding) - enda användningen */
+  --ampy-space-3xs: clamp(6.6px, 0.05vw + 6.4px, 7px);            /* = --apspace-3xs (7 / 6.6) ; källa: footer li padding, testimonials */
+  --ampy-space-2xs: clamp(8.2px, 0.18vw + 7.6px, 9.9px);          /* = --apspace-2xs (9.9 / 8.3) ; källa: testimonials (h2->subline, namn-mb), thank-you ghost, footer sociala, var-process "10 inom grupp", main-form etikett->fält 8 */
+  --ampy-space-xs:  clamp(10.2px, 0.39vw + 9px, 14px);            /* = --apspace-xs (14 / 10.5) ; källa: certificates (h2->p), footer (row-gap), fore-efter (chip-offset), CTA gap 14-16 (cta-website), hero-1 proof-gap 14 */
+  --ampy-space-s:   clamp(12.8px, 0.73vw + 10.5px, 19.8px);       /* = --apspace-s (19.8 / 13.3) ; källa: testimonials (kortkropp, nav-mt), visste-du-att (innehållsgap), thank-you (rubrik->ingress), live (steg row-gap, --apcard-space), certificates (kolumngap) = 9 källor */
+  --ampy-space-m:   clamp(16px, 1.25vw + 12px, 28px);             /* = --apspace-m (28 / 16.9) ; källa: testimonials (kortpadding), live (GT-grid gap, block row-gap), certificates (text<->kort), fore-efter (par-gap), footer, eljour (kortpadding 28/20) = 9 källor */
+  --ampy-space-l:   clamp(20px, 2.04vw + 13.5px, 39.6px);         /* = --apspace-l (39.6 / 21.5) ; källa: live (sektion .brxe-section, kort row-gap), testimonials (head-mb), fore-efter (h2-mb, tagline-mt), LED/energycalc (resultatkort padding 40), var-process (40) = 7+ källor */
+  --ampy-space-xl:  clamp(25px, 3.23vw + 14.7px, 56px);           /* = --apspace-xl (56 / 27.3) ; källa: certificates v2 (sektion), footer (prefooter), live GT (kortpadding), main-cta (56), elcentral (shell 56), var-process (56) */
+  --ampy-space-2xl: clamp(31.3px, 4.99vw + 15.3px, 79.2px);       /* = --apspace-2xl (79.2 / 34.8) ; källa: testimonials (sektion), visste-du-att (sektion + kort), fore-efter (sektion), footer (mörk zon), certificates live, var-process (80 botten) = 6 källor */
+  --ampy-space-3xl: clamp(39.1px, 7.59vw + 14.8px, 111.9px);      /* = --apspace-3xl (111.9 / 44.4) ; källa: live (ROT-kortets padding), rot-gt ; drift: mini-menu sektion 110 */
+  --ampy-space-4xl: clamp(48.8px, 11.4vw + 12.3px, 158.3px);      /* = --apspace-4xl (158.3 / 56.8) ; källa: live-ampy-se (global-variables.css, definierad) ; drift: ingen källa använder den (0 referenser live) - behålls för skalans skull */
+
+  --ampy-space-section-y: var(--ampy-space-2xl);  /* källa: testimonials-block (delivery css:22 var(--apspace-2xl)), visste-du-att, fore-efter, footer, certificates live (5; 3 av auk 1) ; drift: --apspace-xl (certificates v2, prefooter, main-cta, elcentral, var-process), --apspace-l (theme-style .brxe-section 39.6), 64/28 eljour, 110/64 mini-menu, 60/0 main-form */
+  --ampy-space-section-x: var(--ampy-gutter);      /* källa: live theme-style .brxe-section --apspace-l + visste-du-att + footer ; drift: --apspace-m testimonials, 40/16 eljour/main-cta/elcentral */
+  --ampy-space-card:      var(--ampy-space-m);     /* källa: testimonials-block (kort padding --apspace-m 28) + eljour-block (28/20) + live testimonials (--apspace-m) + certificates inner ; drift: 20 LED inputkort/EV, 32 elcentral/elkollen/energycalc input, 40 LED resultat, 24 mini-menu/booking, 79 visste-du-att */
+  --ampy-space-card-lg:   var(--ampy-space-l);     /* källa: led-kalkylator (resultatkort 40) + energycalc (40 >= 1200) + var-process (40/80/48) ; drift: 56 GT-kort (xl), 112 ROT-kort (3xl), 52/56 thank-you */
+  --ampy-space-stack-xs:  var(--ampy-space-2xs);   /* källa: testimonials (h2->subline 9.9), thank-you, var-process (10 "inom grupp"), energycalc (label->kontroll 8) */
+  --ampy-space-stack-sm:  var(--ampy-space-xs);    /* källa: certificates (h2->p 14), hero-1 (h1->lead 18 =~), energycalc (head->innehåll 16) */
+  --ampy-space-stack:     var(--ampy-space-s);     /* källa: thank-you (rubrik->ingress --apspace-s), visste-du-att (kicker/h2/text --apspace-s), testimonials, eljour (inre gap 16) ; drift: 24 thank-you kort-gap, 20 var-process syskon */
+  --ampy-space-stack-lg:  var(--ampy-space-l);     /* källa: testimonials (rubrikblock-mb --apspace-l), fore-efter (h2-mb 39.6), hero-1 (lead->CTA 32), eljour (rubrik-mb 36), rot-gt (H2-mb 44) */
+  --ampy-space-stack-xl:  var(--ampy-space-xl);    /* källa: var-process ("zon" 56), visste-du-att grid-gap 79 (2xl) ; drift: 64 mini-menu head->grid */
+  --ampy-space-inline-xs: var(--ampy-space-3xs);   /* källa: footer (li 7), testimonials (meta 8 =~), hero-1 (proof g-row 9 =~) */
+  --ampy-space-inline-sm: var(--ampy-space-2xs);   /* källa: header (nav gap 10, chevron 8), main-form (etikett->fält 8), LED (gap 7.5-10) */
+  --ampy-space-inline:    var(--ampy-space-xs);    /* källa: cta-website (gap 16 pil / 14 chip), hero-1 (proof gap 14), footer (row-gap 14) */
+  --ampy-space-inline-lg: var(--ampy-space-s);     /* källa: live (steg-grid gap --apspace-s 19.8), certificates (kolumngap --apspace-s "≥ radien") */
+  --ampy-space-gap:       var(--ampy-space-m);     /* rutnät ; källa: fore-efter (par-gap 28 = --apspace-m), live GT (--apspace-m), certificates (28), testimonials (24 =~), mini-menu (30 =~) */
+  --ampy-space-gap-lg:    var(--ampy-space-l);     /* källa: main-cta (grid-gap 43 =~), eljour (col-gap 40), fotobedomningen (43.7), elcentral (64 -> se drift) ; drift: 64 elcentral/elkollen shell, 56 var-process, 79 rot-gt/visste */
+}
