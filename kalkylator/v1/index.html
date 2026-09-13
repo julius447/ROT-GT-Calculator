@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Räkna ut ditt ROT-avdrag: Ampy</title>
+<meta name="description" content="Tre frågor. Ditt ROT-avdrag 2026, räknat på din inkomst.">
+<link rel="stylesheet" href="../system/ampy.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="ampy rk-sida">
+<main class="rk-spalt">
+
+  <section class="ampy-card rk" id="avdragskollen" aria-labelledby="rk-rubrik" data-mode="rot">
+
+    <div class="rk__fragor">
+      <h2 class="ampy-h2 rk__rubrik" id="rk-rubrik">Räkna ut ditt ROT-avdrag</h2>
+
+      <form class="rk__form" novalidate autocomplete="off">
+        <fieldset class="rk__fraga">
+          <legend class="rk__etikett">Äger du din bostad?</legend>
+          <p class="rk__under">Villa, radhus eller lägenhet. Helt eller delvis.</p>
+          <div class="ampy-segment rk__segment" data-q="ager">
+            <label><input type="radio" name="ager" value="ja" checked><span>Ja</span></label>
+            <label><input type="radio" name="ager" value="nej"><span>Nej</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="rk__fraga">
+          <legend class="rk__etikett">Är bostaden äldre än fem år?</legend>
+          <div class="ampy-segment rk__segment rk__segment--direkt" data-q="aldre">
+            <label><input type="radio" name="aldre" value="ja" checked><span>Ja</span></label>
+            <label><input type="radio" name="aldre" value="nej"><span>Nej</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="rk__fraga">
+          <legend class="rk__etikett" id="rk-inkomst-etikett">Din inkomst förra året</legend>
+          <div class="rk__inkomst">
+            <div class="ampy-segment rk__segment" data-q="typ">
+              <label><input type="radio" name="typ" value="lon" checked><span>Lön</span></label>
+              <label><input type="radio" name="typ" value="pension"><span>Pension</span></label>
+            </div>
+            <div class="rk__belopp">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett" aria-describedby="rk-enhet">
+              <span class="rk__enhet" id="rk-enhet" aria-label="kronor">kr</span>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="rk__panel">
+      <div class="rk__resultat" id="rk-resultat" aria-live="polite" aria-atomic="true" data-status="tak">
+        <div class="rk__huvud">
+          <p class="ampy-eyebrow ampy-eyebrow--dash rk__eyebrow" id="rk-eyebrow">Ditt ROT-avdrag 2026</p>
+
+          <div class="rk__talrad" id="rk-talrad">
+            <span class="rk__prefix" id="rk-prefix">upp till</span>
+            <span class="ampy-number rk__tal" id="rk-tal">50 000</span>
+            <span class="rk__talenhet" id="rk-talenhet">kr</span>
+          </div>
+          <p class="rk__per" id="rk-per">Per person och år.</p>
+
+          <div class="rk__stopp" id="rk-stopp" hidden>
+            <svg class="rk__x" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" focusable="false">
+              <circle cx="22" cy="22" r="22"/>
+              <g fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" transform="translate(10 10)">
+                <path d="M5 5l14 14M19 5L5 19"/>
+              </g>
+            </svg>
+            <p class="rk__stopptext" id="rk-stopptext"></p>
+          </div>
+        </div>
+
+        <p class="rk__not" id="rk-not" hidden></p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

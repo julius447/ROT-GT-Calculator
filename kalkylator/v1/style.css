@@ -1,0 +1,142 @@
+/* Avdragskollen v1 "Två spalter". Ett kort, två spalter: frågorna till vänster, beskedet till höger på en
+   sky mist-panel bakom en hårlinje. Bygger på designsystemet (../system/ampy.css); här ligger bara det som
+   är unikt för kalkylatorn. Alla mått ur --ampy-*; egna värden står som lokala variabler med kommentar. */
+
+/* ---------- Sidan: artikelspalten (980 px) på vit artikelbakgrund ---------- */
+.rk-sida { background: var(--ampy-bg-surface); }                       /* artikelmallens brödyta är vit, inte sky mist */
+.rk-spalt { max-width: 98rem; margin: 0 auto; padding: var(--ampy-space-xl) 0; }   /* kortet fyller spaltens 980 px */
+@media (max-width: 1040px) { .rk-spalt { padding-inline: var(--ampy-space-m); } }
+
+/* ---------- Kortet ---------- */
+.rk {
+  /* lokala rytmvariabler, alla ur skalan (px vid 1440 / 390 i kommentaren) */
+  --rk-pad-x: var(--ampy-space-l);        /* kortpadding sida 39,6 / 21,5 */
+  --rk-pad-y: 32px;                        /* kortpadding topp/botten: skalan har 28 (m) eller 39,6 (l); 32 = briefens golv, håller kortet nära 460 */
+  --rk-gap-h2: var(--ampy-space-s);       /* H2 -> första frågan 19,8 / 13,3 */
+  --rk-gap-q: var(--ampy-space-m);        /* fråga -> fråga 28 / 16,9 */
+  --rk-gap-sub: var(--ampy-space-3xs);    /* fråga -> underrad 7 / 6,6 */
+  --rk-gap-ctl: var(--ampy-space-xs);     /* underrad -> kontroll 14 / 10,2 */
+  --rk-text-fraga: 20px;                   /* frågor 20/500 (h3-tokenen är 22 vid 1440, briefen säger 20) */
+  --rk-text-under: 16px;                   /* underrad 16/400 (small-tokenen faller till 14 på mobil) */
+  --rk-text-tal: var(--ampy-text-number); /* 56 vid 1440; på mobil höjs den till 42 nedan */
+  --rk-text-siffror: 18px;                 /* siffrorna i beloppsfältet */
+
+  display: grid;
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);              /* 55 / 45 */
+  padding: 0;
+  overflow: visible;
+}
+
+/* ---------- Vänster: rubrik + frågor ---------- */
+.rk__fragor { padding: var(--rk-pad-y) var(--rk-pad-x); min-width: 0; }
+.rk__rubrik { margin: 0 0 var(--rk-gap-h2); }
+.rk__form { display: flex; flex-direction: column; gap: var(--rk-gap-q); }
+
+.rk__fraga { border: 0; margin: 0; padding: 0; min-width: 0; min-inline-size: 0; }
+.rk__etikett {
+  display: block; padding: 0; margin: 0;
+  font-family: var(--ampy-font); font-size: var(--rk-text-fraga); font-weight: var(--ampy-w-medium);
+  line-height: var(--ampy-lh-h3); letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink);
+}
+.rk__under {
+  margin: var(--rk-gap-sub) 0 0;
+  font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
+  max-width: none;
+}
+.rk__fraga > .rk__segment, .rk__fraga > .rk__inkomst { margin-top: var(--rk-gap-ctl); }
+
+/* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val */
+.rk__segment {
+  display: inline-grid; grid-auto-columns: 1fr;                         /* lika breda val, bredden ur den längsta texten */
+  container-type: normal;
+}
+.rk__segment > label {
+  min-width: 88px; min-height: 40px; padding-inline: var(--ampy-space-xs);
+  font-size: var(--ampy-text-button); font-weight: var(--ampy-w-medium);
+}
+.rk__segment > label:has(input:checked) { font-weight: var(--ampy-w-strong); }
+
+/* Inkomstraden: typ-väljare + belopp på samma rad */
+.rk__inkomst { display: flex; flex-wrap: wrap; gap: var(--ampy-space-xs); align-items: center; }
+.rk__belopp { position: relative; flex: 1 1 200px; min-width: 0; }
+.rk__input {
+  width: 100%; padding-right: calc(var(--ampy-space-xs) + var(--ampy-space-2xs) + 1.1em); text-align: right;   /* plats för kr-suffixet */
+  font-size: var(--rk-text-siffror); font-weight: var(--ampy-w-medium); color: var(--ampy-ink);
+}
+.rk__input::placeholder { font-weight: var(--ampy-w-ui); }
+.rk__enhet {
+  position: absolute; right: var(--ampy-space-xs); top: 50%; transform: translateY(-50%);
+  font-size: var(--ampy-text-button); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); pointer-events: none;
+}
+
+/* ---------- Höger: beskedet ---------- */
+.rk__panel {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--rk-pad-y) var(--rk-pad-x);
+  background: var(--ampy-bg-subtle);
+  border-left: 1px solid var(--ampy-line);
+  border-radius: 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px) 0;
+  min-width: 0;
+}
+/* Tre rader: luft / huvudbeskedet / luft. Huvudet (etikett, tal, underrad) ligger alltid mitt i panelen och
+   flyttar sig inte när femårsraden dyker upp; raden får plats i den nedre luften. På mobil (auto-höjd) blir
+   luften 0 och raden följer direkt under. */
+.rk__resultat { flex: 1 1 auto; display: grid; grid-template-rows: 1fr auto 1fr; min-width: 0; }
+.rk__huvud { grid-row: 2; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.rk__eyebrow { margin: 0; }
+
+.rk__talrad {
+  display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--ampy-space-2xs);
+  margin-top: var(--ampy-space-xs);                                     /* etikett -> tal 14 / 10 */
+}
+.rk__prefix { font-size: var(--rk-text-fraga); font-weight: var(--ampy-w-medium); line-height: 1; color: var(--ampy-ink-muted); }
+.rk__tal { font-size: var(--rk-text-tal); }
+.rk__talenhet { font-size: var(--ampy-text-mid); font-weight: var(--ampy-w-medium); line-height: 1; letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink-muted); }
+.rk__per {
+  margin: var(--ampy-space-2xs) 0 0;                                    /* tal -> underrad 9,9 / 8 */
+  font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
+}
+.rk__not {
+  grid-row: 3; align-self: start;
+  margin: var(--ampy-space-s) 0 0; padding-top: var(--ampy-space-s);
+  border-top: 1px solid var(--ampy-line);
+  font-size: var(--ampy-text-small); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-body);
+  max-width: none;
+}
+
+/* Stoppläget: rött X + beskedet ersätter talet */
+.rk__stopp { display: flex; flex-direction: column; align-items: flex-start; gap: var(--ampy-space-s); margin-top: var(--ampy-space-s); }
+.rk__x { width: 44px; height: 44px; display: block; flex: 0 0 auto; }
+.rk__x circle { fill: var(--ampy-error-ink); }
+.rk__stopptext {
+  margin: 0; font-size: var(--ampy-text-body); font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-lead); color: var(--ampy-ink);
+  max-width: none; text-wrap: pretty;
+}
+.rk__resultat[data-status="stopp"] :is(.rk__talrad, .rk__per, .rk__not) { display: none; }
+
+/* Talet byts med en kort intoning; aldrig count-up. base.css nollar tiden vid reduced motion. */
+@keyframes rk-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.rk__talrad.is-swap, .rk__stopp.is-swap { animation: rk-in var(--ampy-dur-base) var(--ampy-ease-out); }
+
+[hidden] { display: none !important; }
+
+/* ---------- Mobil: frågorna först, beskedet som fullbreddsblock under ---------- */
+@media (max-width: 767px) {
+  .rk-spalt { padding: var(--ampy-space-m) var(--ampy-space-m); }
+  .rk {
+    --rk-pad-x: var(--ampy-space-l);       /* 21,5 vid 390 */
+    --rk-pad-y: var(--ampy-space-l);
+    --rk-gap-h2: var(--ampy-space-m);      /* 16,9 vid 390 */
+    --rk-gap-q: var(--ampy-space-l);       /* 21,5: luft mellan frågorna utan att spränga 640 */
+    --rk-text-tal: 42px;                    /* number-tokenen ger 38 vid 390; briefen vill 40 till 44 */
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
+  .rk__inkomst { flex-direction: column; align-items: stretch; }
+  .rk__belopp { flex: 1 1 auto; }
+  .rk__panel {
+    border-left: 0; border-top: 1px solid var(--ampy-line);
+    border-radius: 0 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px);
+  }
+  .rk__resultat { display: flex; flex-direction: column; }             /* auto-höjd: 1fr-raderna skulle annars ärva femårsradens höjd */
+}

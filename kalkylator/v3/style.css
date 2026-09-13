@@ -1,0 +1,126 @@
+/* Avdragskollen v3 "Talet först": resultatet är hjälten överst i kortet, de tre frågorna en lugn rad under.
+   Allt kommer ur system/ampy.css (tokens + .ampy-card/.ampy-segment/.ampy-input/.ampy-h2/.ampy-eyebrow).
+   Egna värden finns bara som lokala --ak-variabler med kommentar. Inga midnattsytor: vit + sky mist, midnight som text. */
+
+.ak-body { background: var(--ampy-bg-page); }
+.ak-main { box-sizing: content-box; max-width: 98rem; margin: 0 auto; padding: var(--ampy-space-2xl) var(--ampy-gutter); }   /* 980 px artikelspalt (innehållet), sajtens gutter utanför */
+.ak [hidden] { display: none !important; }                                                          /* hidden vinner över komponenternas display */
+
+.ak {
+  --ak-tal: clamp(44px, 3.4vw + 30.7px, 56px);                 /* brief: talet 44 (390) till 56 (>= 744); systemets --ampy-text-number bottnar på 38 */
+  --ak-q: min(var(--ampy-text-h3), 20px);                      /* brief: frågor 20/500; h3-token ger 22 på desktop, brief säger 20 */
+  --ak-under: 16px;                                            /* brief: underrad 16/400 dämpad */
+  --ak-gap-under: var(--ampy-space-3xs);                       /* fråga -> underrad 6.6 till 7 (brief 6 till 8) */
+  --ak-gap-kontroll: clamp(12px, var(--ampy-space-xs), 14px);  /* underrad -> kontroll 12 till 14; xs bottnar på 10.5 och klamras upp till 12 */
+  --ak-gap-fraga: clamp(28px, var(--ampy-space-l), 40px);      /* fråga -> fråga 28 till 40 (staplat) */
+  --ak-gap-rad: var(--ampy-space-m);                           /* fråga -> fråga på desktopraden: 28 (kolumnerna får luft av att kontrollerna är smalare än etiketterna) */
+  --ak-kort: var(--ampy-space-card-lg);                        /* kortpadding 39.6 desktop / 21.5 mobil (brief 32 till 40 / 20 till 24) */
+  --ak-enhet: clamp(21px, var(--ak-tal) / 2, 28px);           /* "upp till"/"ca"/"kr": halva talet, 22 mobil -> 28 desktop (LED: 56 + 28); --ampy-text-mid ger bara 21 på 1440 */
+  --ak-ikon-x: 44px;                                           /* rött X: cirkel 40 till 48 */
+  --ak-ikon-bock: 28px;                                        /* grön bock vid talet, mindre än X:et (bekräftelse, inte stopp) */
+}
+
+/* ---------- Rubrik + kort ---------- */
+.ak__rubrik { margin: 0 0 max(20px, var(--ampy-space-m)); }                       /* H2 -> kort 28 desktop, 20 mobil; text-wrap: balance ur .ampy-h2 */
+.ak__kort { padding: var(--ak-kort); overflow: hidden; container-type: inline-size; container-name: ak-kort; }   /* hjälten går kant i kant upptill, kortets radie klipper; layouten frågar kortets bredd, inte fönstrets */
+
+/* ---------- Hjälten: sky mist-yta kant i kant i kortets övre del, hårlinje mot frågorna ----------
+   Vänsterkanten på etikett, tal och frågor är samma linje (kortets padding), som i LED-kalkylatorn. */
+.ak__kort.ampy-card > .ak__hero {                                                /* specificitet över systemets .ampy-card > :first-child { margin-top: 0 } */
+  display: flex; flex-direction: column; gap: var(--ampy-space-2xs);              /* etikett -> tal -> rad: 9.9 desktop / 8.3 mobil (LED readout-gap) */
+  margin: calc(-1 * var(--ak-kort)) calc(-1 * var(--ak-kort)) 0;
+  padding: var(--ampy-space-l) var(--ak-kort);                                   /* 39.6/39.6 desktop, 21.5 mobil */
+  background: var(--ampy-bg-subtle);
+  border-bottom: 1px solid var(--ampy-line);
+}
+.ak__etikett { margin: 0; }
+
+/* Talraden: prefix (upp till / ca) + siffra + kr, alla på samma baslinje */
+.ak__tal { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--ampy-space-2xs); margin: 0; }
+.ak__prefix { font-size: var(--ak-enhet); font-weight: var(--ampy-w-medium); line-height: 1; letter-spacing: -0.01em; color: var(--ampy-ink-muted); }
+.ak__siffra {
+  font-size: var(--ak-tal); font-weight: var(--ampy-w-display); line-height: 1; letter-spacing: var(--ampy-ls-number);
+  color: var(--ampy-ink); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap;
+}
+.ak__enhet { font-size: var(--ak-enhet); font-weight: var(--ampy-w-medium); line-height: 1; color: var(--ampy-ink-muted); }
+.ak__bock {
+  display: inline-flex; align-self: center; margin-left: var(--ampy-space-3xs);
+  width: var(--ak-ikon-bock); height: var(--ak-ikon-bock); border-radius: var(--ampy-radius-pill);
+  background: var(--ampy-success-ink); color: var(--ampy-action-on);
+  animation: ak-bock var(--ampy-dur-slow) var(--ampy-ease-out);
+}
+.ak__bock svg { width: 18px; height: 18px; margin: auto; }                       /* 18 av 24 i viewBox: stroke 2.33 -> 1.75 renderat */
+
+/* Stopp: rött X + beskedet ersätter talet. Samma höjd som tal + rad så panelen inte hoppar. */
+.ak__stopp {
+  display: flex; align-items: center; gap: var(--ampy-space-s); margin: 0;
+  min-height: calc(var(--ak-tal) + var(--ampy-space-2xs) + var(--ak-under) * 1.5);
+  font-size: 18px; font-weight: var(--ampy-w-medium); line-height: 1.35; color: var(--ampy-ink); max-width: 60ch;   /* brief: texten 18 px i --ampy-ink */
+}
+.ak__kryss {
+  flex: 0 0 auto; display: inline-flex; width: var(--ak-ikon-x); height: var(--ak-ikon-x); border-radius: var(--ampy-radius-pill);
+  background: var(--ampy-error-ink); color: var(--ampy-action-on);
+}
+.ak__kryss svg { width: 24px; height: 24px; margin: auto; }                      /* 24 = viewBox: stroke 1.75 renderat exakt */
+
+/* Raden under talet: "Per person och år." + femårsnoten (bara ROT) */
+.ak__rad { display: flex; flex-wrap: wrap; gap: 0 var(--ampy-space-s); margin: 0; font-size: var(--ak-under); font-weight: var(--ampy-w-ui); line-height: 1.5; }
+.ak__per { color: var(--ampy-ink-muted); }
+.ak__not { color: var(--ampy-ink); }
+
+/* Tick när talet byts (aldrig vid load; reduced motion nollas av systemet) */
+.is-tick { animation: ak-tick var(--ampy-dur-base) var(--ampy-ease-out); }
+@keyframes ak-tick { from { opacity: .35; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@keyframes ak-bock { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+
+/* ---------- Frågorna ---------- */
+.ak__fragor { display: flex; flex-direction: column; gap: var(--ak-gap-fraga); margin-top: var(--ampy-space-l); }   /* hårlinje -> frågor 39.6 / 21.5 */
+.ak__q { margin: 0; font-size: var(--ak-q); font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-h3); color: var(--ampy-ink); }
+.ak__under { margin: var(--ak-gap-under) 0 0; font-size: var(--ak-under); font-weight: var(--ampy-w-ui); line-height: 1.5; color: var(--ampy-ink-muted); }
+.ak__under > span { white-space: nowrap; }                                       /* bryter bara mellan meningarna: "Villa, radhus eller lägenhet." / "Helt eller delvis." */
+.ak__kontroll { margin-top: var(--ak-gap-kontroll); }
+
+/* Segment: 48 px högt (spår 4 + option 40 + 4), text 16 till 18, valt = vit pill med text-teal ur systemet */
+.ak__seg.ampy-segment { container-type: normal; grid-auto-columns: minmax(88px, 1fr); }   /* brief: min 88 per alternativ; systemets container-fråga (13 px text i smala spår) stängs av */
+.ak__seg.ampy-segment > label { min-height: 40px; padding-inline: var(--ampy-space-xs); font-size: var(--ampy-text-body); }   /* 16.1 -> 18 */
+
+/* Belopp: 48 px, 18 px tabulära siffror, "kr" som suffix inne i fältet */
+.ak__falt { position: relative; min-width: 0; }
+.ak__input.ampy-input {
+  font-size: 18px; font-weight: var(--ampy-w-medium); text-align: right;          /* brief: 18 px siffror */
+  font-variant-numeric: tabular-nums lining-nums;
+  padding-right: calc(var(--ampy-space-xs) + 1.4em + var(--ampy-space-2xs));     /* plats för "kr" + luft */
+}
+.ak__input.ampy-input::placeholder { font-weight: var(--ampy-w-ui); }             /* platshållaren ska inte se ut som ett ifyllt värde */
+.ak__kr { position: absolute; right: var(--ampy-space-xs); top: 50%; transform: translateY(-50%); font-size: var(--ampy-text-body); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); pointer-events: none; }
+.ak__inkomst { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--ampy-space-xs); align-items: center; }
+
+/* ---------- Smalt kort (< 440, dvs mobil): fullbreddskontroller, beloppet på egen rad ---------- */
+@media (max-width: 47.99em) {
+  .ak-main { padding: var(--ampy-space-l) var(--ampy-gutter); }
+  .ak__kort.ampy-card > .ak__hero { padding: var(--ampy-space-l) var(--ak-kort); }
+}
+@container ak-kort (max-width: 439px) {
+  .ak__seg.ampy-segment { display: grid; }                                        /* fullbredd: två lika alternativ */
+  .ak__inkomst { grid-template-columns: minmax(0, 1fr); }                         /* Lön/Pension över beloppet */
+}
+
+/* ---------- Från 440: kontroller efter innehåll ---------- */
+@container ak-kort (min-width: 440px) {
+  .ak__seg.ampy-segment { display: inline-grid; }
+  .ak__inkomst { grid-template-columns: auto minmax(14rem, 20rem); }              /* beloppet 140 till 200, breder inte ut sig över en hel spalt */
+}
+
+/* ---------- Brett kort (>= 860, dvs 980-spalten): de tre frågorna på EN rad, kontrollerna på samma baslinje (subgrid) ----------
+   Kolumn 1 = auto (krymper till längsta meningen), 2 och 3 = max-content så etiketten och beloppsraden aldrig bryts.
+   Underraden till fråga 1 läggs UNDER kontrollen på raden: annars blir raden "etikett / underrad / kontroll" gemensam
+   och fråga 2 och 3 får sin kontroll 69 px under etiketten (mätt). Nu: etikett -> kontroll 14 px för alla tre. */
+@container ak-kort (min-width: 860px) {
+  .ak__fragor { display: grid; grid-template-columns: min-content max-content max-content; grid-template-rows: auto auto auto; column-gap: var(--ak-gap-rad); row-gap: 0; justify-content: space-between; }   /* kolumnerna = sitt innehåll, överskottet delas lika mellan dem (annars hamnade allt i kolumn 1: 75 mot 29 px mellan etiketterna) */
+  .ak__fraga { display: grid; grid-template-rows: subgrid; grid-row: span 3; align-content: start; }
+  .ak__text { grid-row: 1; display: contents; }
+  .ak__q { grid-row: 1; }
+  .ak__kontroll { grid-row: 2; align-self: start; }
+  .ak__under { grid-row: 3; margin-top: var(--ampy-space-2xs); }                 /* kontroll -> underrad 9.9 (hjälptext under kontrollen) */
+  .ak__inkomst { grid-template-columns: auto 15rem; }                             /* beloppet 150 (7 siffror + kr) */
+}

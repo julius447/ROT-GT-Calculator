@@ -1,0 +1,233 @@
+{
+ "desktop": {
+  "fel": [],
+  "matt": {
+   "layout": "en rad (tre kolumner)",
+   "kort": {
+    "bredd": 980,
+    "hojd": 424
+   },
+   "h2_till_kort": 28,
+   "hero": {
+    "hojd": 198,
+    "kortkant_till_etikett": 39.6,
+    "etikett_till_tal": 9.9,
+    "tal_till_rad": 9.9,
+    "rad_till_harlinje": 40.6
+   },
+   "harlinje_till_fraga1": 39.6,
+   "fraga1": {
+    "etikett_till_kontroll": 14,
+    "kontroll_till_underrad": 9.9
+   },
+   "fraga2": {
+    "etikett_till_kontroll": 14
+   },
+   "fraga3": {
+    "etikett_till_kontroll": 14
+   },
+   "fraga_till_fraga": {
+    "kolumngap": 43.9
+   },
+   "sista_kontroll_till_kortkant": 40.6,
+   "typografi": {
+    "h2": "36px/500",
+    "fraga": "20px/500",
+    "underrad": "16px/400",
+    "etikett": "12px",
+    "tal": "56px/700",
+    "prefix": "28px",
+    "per": "16px",
+    "segment": "18px",
+    "input": "18px"
+   },
+   "kontroller": {
+    "segment_hojd": 48,
+    "segment_bredd": 188,
+    "option_bredd": 88,
+    "option_hojd": 40,
+    "input_hojd": 48,
+    "input_bredd": 150
+   }
+  },
+  "start": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "agerNej": {
+   "tal": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "agerJaIgen": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "aldreNej": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": "Yngre än fem år: ROT gäller bara reparationer.",
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "lon180k": {
+   "tal": "ca 12 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": true,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "faltvarde": "180 000",
+  "pension240k": {
+   "tal": "ca 38 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": true,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "lonIgen240k": {
+   "tal": "ca 21 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": true,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "overflowX": false
+ },
+ "mobil": {
+  "fel": [],
+  "matt": {
+   "layout": "staplat",
+   "kort": {
+    "bredd": 347.1,
+    "hojd": 615.5
+   },
+   "h2_till_kort": 20,
+   "hero": {
+    "hojd": 146.5,
+    "kortkant_till_etikett": 21.5,
+    "etikett_till_tal": 8.3,
+    "tal_till_rad": 8.3,
+    "rad_till_harlinje": 22.5
+   },
+   "harlinje_till_fraga1": 21.5,
+   "fraga1": {
+    "etikett_till_underrad": 6.6,
+    "underrad_till_kontroll": 12
+   },
+   "fraga2": {
+    "etikett_till_kontroll": 12
+   },
+   "fraga3": {
+    "etikett_till_kontroll": 12
+   },
+   "fraga_till_fraga": {
+    "f1_till_f2": 28,
+    "f2_till_f3": 28
+   },
+   "sista_kontroll_till_kortkant": 22.5,
+   "typografi": {
+    "h2": "26.756px/500",
+    "fraga": "20px/500",
+    "underrad": "16px/400",
+    "etikett": "12px",
+    "tal": "44px/700",
+    "prefix": "22px",
+    "per": "16px",
+    "segment": "16.119px",
+    "input": "18px"
+   },
+   "kontroller": {
+    "segment_hojd": 48,
+    "segment_bredd": 302.2,
+    "option_bredd": 145.1,
+    "option_hojd": 40,
+    "input_hojd": 48,
+    "input_bredd": 302.2
+   }
+  },
+  "start": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "agerNej": {
+   "tal": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "agerJaIgen": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "aldreNej": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": "Yngre än fem år: ROT gäller bara reparationer.",
+   "bock": false,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "lon180k": {
+   "tal": "ca 12 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": true,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "faltvarde": "180 000",
+  "pension240k": {
+   "tal": "ca 38 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": true,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "lonIgen240k": {
+   "tal": "ca 21 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": true,
+   "etikett": "Ditt ROT-avdrag 2026"
+  },
+  "overflowX": false
+ },
+ "gt": {
+  "start": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt grön teknik-avdrag 2026"
+  },
+  "rubrik": "Räkna ut ditt grön teknik-avdrag",
+  "agerNej": {
+   "tal": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt grön teknik-avdrag 2026"
+  },
+  "aldreNej": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "bock": false,
+   "etikett": "Ditt grön teknik-avdrag 2026"
+  }
+ }
+}

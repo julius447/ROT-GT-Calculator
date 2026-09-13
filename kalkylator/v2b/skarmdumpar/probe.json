@@ -1,0 +1,353 @@
+{
+ "errors": [],
+ "desktop": {
+  "viewport": "1440x1000",
+  "typografi": {
+   "h2": "36px / 500 / lh 43.2px",
+   "fraga": "20px / 500",
+   "under": "16px / 400",
+   "segmentText": "18px / 500",
+   "input": "18px / 500",
+   "etikett": "12px / 600 / ls 1.68px",
+   "tal": "56px / 700 / lining-nums tabular-nums",
+   "prefix": "28px / 500",
+   "per": "16px / 400",
+   "stoppText": "18px",
+   "q2Rader": 1,
+   "q1UnderRader": 2,
+   "textbredd": {
+    "Q2 en rad": 261,
+    "Q1 underrad en rad": 306,
+    "femårsraden": 333
+   }
+  },
+  "rytm": {
+   "H2 -> kort": 39.6,
+   "kortpadding topp (kort -> fråga)": 40.6,
+   "fråga -> underrad (Q1)": 7,
+   "underrad -> kontroll (Q1)": 14,
+   "fråga -> kontroll (Q2)": 69,
+   "fråga -> kontroll (Q3)": 69,
+   "kontroll -> band (hårlinje)": 39.6,
+   "band: hårlinje -> etikett": 20.8,
+   "etikett -> tal": 14,
+   "tal -> per person": 9.9,
+   "per person -> kortets kant": 28,
+   "fråga -> fråga (mobil, Q1-kontroll -> Q2-fråga)": null
+  },
+  "matt": {
+   "kortBredd": 980,
+   "kortHojd": 393.9,
+   "fragorHojd": 221.2,
+   "bandHojd": 170.7,
+   "segmentHojd": 48,
+   "segmentBredd": 188,
+   "optionHojd": 40,
+   "optionBredd": 88,
+   "inputHojd": 48,
+   "inputBredd": 133.8,
+   "typSegmentBredd": 190,
+   "kolumnbredder": [
+    213,
+    266.8,
+    337.8
+   ],
+   "talHojd": 56,
+   "talBredd": 898.8
+  },
+  "overflowX": false,
+  "tillstand": {
+   "start": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9
+   },
+   "nejAgande": {
+    "status": "stopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
+    "kortHojd": 393.9
+   },
+   "jaIgen": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9
+   },
+   "nejFemAr": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": "Yngre än fem år: ROT gäller bara reparationer.",
+    "stopp": null,
+    "kortHojd": 393.9
+   },
+   "lon180k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "ca 12 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9,
+    "falt": "180 000"
+   },
+   "pension240k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "ca 38 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9,
+    "falt": "240 000"
+   },
+   "tillbakaLon240k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "ca 21 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9
+   },
+   "lon600k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9
+   },
+   "aterstalld": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9
+   }
+  },
+  "overflowXEfter": false,
+  "gt": {
+   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "status": "tak",
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "tal": "upp till 50 000 kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null,
+   "kortHojd": 393.9,
+   "nejAgande": {
+    "status": "stopp",
+    "etikett": "Ditt grön teknik-avdrag 2026",
+    "tal": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+    "kortHojd": 393.9
+   },
+   "nejFemAr": {
+    "status": "tak",
+    "etikett": "Ditt grön teknik-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 393.9
+   }
+  },
+  "tangentbord": {
+   "efterPilHoger": "stopp",
+   "fokusRing": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px"
+  }
+ },
+ "mobil": {
+  "viewport": "390x844",
+  "typografi": {
+   "h2": "26.756px / 500 / lh 32.1072px",
+   "fraga": "20px / 500",
+   "under": "16px / 400",
+   "segmentText": "16.119px / 500",
+   "input": "16.119px / 500",
+   "etikett": "12px / 600 / ls 1.68px",
+   "tal": "44px / 700 / lining-nums tabular-nums",
+   "prefix": "22px / 500",
+   "per": "16px / 400",
+   "stoppText": "16.119px",
+   "q2Rader": 1,
+   "q1UnderRader": 2,
+   "textbredd": {
+    "Q2 en rad": 261,
+    "Q1 underrad en rad": 306,
+    "femårsraden": 333
+   }
+  },
+  "rytm": {
+   "H2 -> kort": 21.5,
+   "kortpadding topp (kort -> fråga)": 22.6,
+   "fråga -> underrad (Q1)": 6.6,
+   "underrad -> kontroll (Q1)": 12,
+   "fråga -> kontroll (Q2)": 12,
+   "fråga -> kontroll (Q3)": 12,
+   "kontroll -> band (hårlinje)": 317.4,
+   "band: hårlinje -> etikett": 17.9,
+   "etikett -> tal": 10.5,
+   "tal -> per person": 8.3,
+   "per person -> kortets kant": 21.5,
+   "fråga -> fråga (mobil, Q1-kontroll -> Q2-fråga)": 34.8
+  },
+  "matt": {
+   "kortBredd": 347.1,
+   "kortHojd": 624.8,
+   "fragorHojd": 478.7,
+   "bandHojd": 144.1,
+   "segmentHojd": 48,
+   "segmentBredd": 302.2,
+   "optionHojd": 40,
+   "optionBredd": 145.1,
+   "inputHojd": 48,
+   "inputBredd": 302.2,
+   "typSegmentBredd": 302.2,
+   "kolumnbredder": [
+    302.2,
+    302.2,
+    302.2
+   ],
+   "talHojd": 44,
+   "talBredd": 302.2
+  },
+  "overflowX": false,
+  "tillstand": {
+   "start": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8
+   },
+   "nejAgande": {
+    "status": "stopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
+    "kortHojd": 624.8
+   },
+   "jaIgen": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8
+   },
+   "nejFemAr": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": "Yngre än fem år: ROT gäller bara reparationer.",
+    "stopp": null,
+    "kortHojd": 672.8
+   },
+   "lon180k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "ca 12 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8,
+    "falt": "180 000"
+   },
+   "pension240k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "ca 38 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8,
+    "falt": "240 000"
+   },
+   "tillbakaLon240k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "ca 21 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8
+   },
+   "lon600k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8
+   },
+   "aterstalld": {
+    "status": "tak",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8
+   }
+  },
+  "overflowXEfter": false,
+  "gt": {
+   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "status": "tak",
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "tal": "upp till 50 000 kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null,
+   "kortHojd": 624.8,
+   "nejAgande": {
+    "status": "stopp",
+    "etikett": "Ditt grön teknik-avdrag 2026",
+    "tal": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+    "kortHojd": 624.8
+   },
+   "nejFemAr": {
+    "status": "tak",
+    "etikett": "Ditt grön teknik-avdrag 2026",
+    "tal": "upp till 50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 624.8
+   }
+  },
+  "tangentbord": {
+   "efterPilHoger": "stopp",
+   "fokusRing": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px"
+  }
+ }
+}

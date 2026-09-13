@@ -1,0 +1,372 @@
+{
+ "desktop": {
+  "rot": {
+   "kortHojd": 475.4,
+   "kortBredd": 980,
+   "spaltBredd": 980,
+   "fragorBredd": 537.9,
+   "panelBredd": 440.1,
+   "avstand": {
+    "h2_till_fraga1": 19.8,
+    "fraga1_till_underrad": 7,
+    "underrad_till_kontroll": 14,
+    "kontroll1_till_fraga2": 28,
+    "fraga2_till_kontroll": 14,
+    "kontroll2_till_fraga3": 28,
+    "fraga3_till_kontroll": 14,
+    "kortkant_till_h2": 33,
+    "sista_kontroll_till_kortkant": 33,
+    "eyebrow_till_tal": 14,
+    "tal_till_per": 9.9,
+    "panel_topp_till_innehall": 32,
+    "innehall_till_panel_botten": 32
+   },
+   "typografi": {
+    "h2": "36px / 500 / lh 43.2px",
+    "fraga": "20px / 500 / lh 25px",
+    "underrad": "16px / 400",
+    "eyebrow": "12px / 600 / ls 1.68px",
+    "tal": "56px / 700 / lining-nums tabular-nums",
+    "per": "16px / 400",
+    "segment": "16px / vald 600 / ovald 500",
+    "input": "18px / 500"
+   },
+   "kontroller": {
+    "segmentSpar": [
+     "188 x 48",
+     "188 x 48",
+     "188 x 48"
+    ],
+    "alternativ": [
+     "Ja 88 x 40",
+     "Nej 88 x 40",
+     "Ja 88 x 40",
+     "Nej 88 x 40",
+     "Lön 88 x 40",
+     "Pension 88 x 40"
+    ],
+    "input": "256.7 x 48"
+   },
+   "talradBredd": 263.5,
+   "panelInnerBredd": 359.9,
+   "talradTopp": 265.5,
+   "overflowX": false,
+   "besked": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
+  },
+  "agerNej": {
+   "besked": {
+    "status": "stopp",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+   },
+   "kortHojd": 475.4
+  },
+  "agerJaIgen": {
+   "status": "tak",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "aldreNej": {
+   "besked": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": "Yngre än fem år: ROT gäller bara reparationer.",
+    "stopp": null
+   },
+   "kortHojd": 475.4,
+   "talradTopp": 265.5,
+   "talradToppUtgangslage": 265.5
+  },
+  "lon180k": {
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "12 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "falt": "180 000",
+   "kortHojd": 475.4
+  },
+  "pension240k": {
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "38 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "falt": "240 000",
+   "kortHojd": 475.4
+  },
+  "lon600k": {
+   "status": "belopp",
+   "prefix": null,
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "tomIgen": {
+   "status": "tak",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "tangentbord": {
+   "status": "stopp",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+  },
+  "gt": {
+   "kortHojd": 518.6,
+   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "eyebrow": "Ditt grön teknik-avdrag 2026",
+   "besked": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "overflowX": false
+  },
+  "gtAgerNej": {
+   "status": "stopp",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+  },
+  "gtAldreNej": {
+   "status": "tak",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "errors": []
+ },
+ "mobile": {
+  "rot": {
+   "kortHojd": 619.9,
+   "kortBredd": 356.3,
+   "spaltBredd": 390,
+   "fragorBredd": 354.3,
+   "panelBredd": 354.3,
+   "avstand": {
+    "h2_till_fraga1": 16.9,
+    "fraga1_till_underrad": 6.6,
+    "underrad_till_kontroll": 10.5,
+    "kontroll1_till_fraga2": 21.5,
+    "fraga2_till_kontroll": 10.5,
+    "kontroll2_till_fraga3": 21.5,
+    "fraga3_till_kontroll": 10.5,
+    "kortkant_till_h2": 22.5,
+    "sista_kontroll_till_kortkant": 167.6,
+    "eyebrow_till_tal": 10.5,
+    "tal_till_per": 8.3,
+    "panel_topp_till_innehall": 22.5,
+    "innehall_till_panel_botten": 21.5
+   },
+   "typografi": {
+    "h2": "26.756px / 500 / lh 32.1072px",
+    "fraga": "20px / 500 / lh 25px",
+    "underrad": "16px / 400",
+    "eyebrow": "12px / 600 / ls 1.68px",
+    "tal": "42px / 700 / lining-nums tabular-nums",
+    "per": "16px / 400",
+    "segment": "16px / vald 600 / ovald 500",
+    "input": "18px / 500"
+   },
+   "kontroller": {
+    "segmentSpar": [
+     "311.3 x 48",
+     "311.3 x 48",
+     "311.3 x 48"
+    ],
+    "alternativ": [
+     "Ja 149.7 x 40",
+     "Nej 149.7 x 40",
+     "Ja 149.7 x 40",
+     "Nej 149.7 x 40",
+     "Lön 149.7 x 40",
+     "Pension 149.7 x 40"
+    ],
+    "input": "311.3 x 48"
+   },
+   "talradBredd": 218.9,
+   "panelInnerBredd": 311.3,
+   "talradTopp": 541.7,
+   "overflowX": false,
+   "besked": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
+  },
+  "agerNej": {
+   "besked": {
+    "status": "stopp",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+   },
+   "kortHojd": 658.4
+  },
+  "agerJaIgen": {
+   "status": "tak",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "aldreNej": {
+   "besked": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": "Yngre än fem år: ROT gäller bara reparationer.",
+    "stopp": null
+   },
+   "kortHojd": 667.4,
+   "talradTopp": 541.7,
+   "talradToppUtgangslage": 541.7
+  },
+  "lon180k": {
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "12 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "falt": "180 000",
+   "kortHojd": 619.9
+  },
+  "pension240k": {
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "38 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "falt": "240 000",
+   "kortHojd": 619.9
+  },
+  "lon600k": {
+   "status": "belopp",
+   "prefix": null,
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "tomIgen": {
+   "status": "tak",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "tangentbord": {
+   "status": "stopp",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+  },
+  "gt": {
+   "kortHojd": 652,
+   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "eyebrow": "Ditt grön teknik-avdrag 2026",
+   "besked": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "overflowX": false
+  },
+  "gtAgerNej": {
+   "status": "stopp",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+  },
+  "gtAldreNej": {
+   "status": "tak",
+   "prefix": "upp till",
+   "tal": "50 000",
+   "enhet": "kr",
+   "per": "Per person och år.",
+   "not": null,
+   "stopp": null
+  },
+  "errors": []
+ }
+}

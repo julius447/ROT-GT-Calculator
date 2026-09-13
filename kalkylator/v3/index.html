@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Räkna ut ditt ROT-avdrag: Ampy</title>
+<meta name="description" content="Tre frågor. Ditt ROT-avdrag 2026, räknat på din inkomst.">
+<link rel="stylesheet" href="../system/ampy.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body class="ampy ak-body">
+<main class="ak-main">
+  <section class="ak" id="avdragskollen" aria-labelledby="ak-rubrik">
+    <h2 class="ampy-h2 ak__rubrik" id="ak-rubrik">Räkna ut ditt ROT-avdrag</h2>
+
+    <div class="ampy-card ak__kort">
+
+      <!-- Talet först: resultatet är hjälten, på en sky mist-panel inne i det vita kortet -->
+      <div class="ak__hero" id="ak-hero" aria-live="polite" aria-atomic="true">
+        <p class="ampy-eyebrow ak__etikett" id="ak-etikett">Ditt ROT-avdrag 2026</p>
+
+        <p class="ak__tal" id="ak-tal">
+          <span class="ak__prefix" id="ak-prefix">upp till</span>
+          <span class="ak__siffra" id="ak-siffra">50 000</span>
+          <span class="ak__enhet">kr</span>
+          <span class="ak__bock" id="ak-bock" hidden aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.33" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </span>
+        </p>
+
+        <p class="ak__stopp" id="ak-stopp" hidden>
+          <span class="ak__kryss" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
+          </span>
+          <span id="ak-stopp-text">Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.</span>
+        </p>
+
+        <p class="ak__rad" id="ak-rad">
+          <span class="ak__per">Per person och år.</span>
+          <span class="ak__not" id="ak-not" hidden>Yngre än fem år: ROT gäller bara reparationer.</span>
+        </p>
+      </div>
+
+      <!-- Tre frågor på en lugn rad (desktop), staplade med fullbreddskontroller (mobil) -->
+      <form class="ak__fragor" novalidate autocomplete="off">
+        <div class="ak__fraga">
+          <div class="ak__text">
+            <p class="ak__q" id="ak-q1">Äger du din bostad?</p>
+            <p class="ak__under"><span>Villa, radhus eller lägenhet.</span> <span>Helt eller delvis.</span></p>
+          </div>
+          <div class="ak__kontroll">
+            <div class="ampy-segment ak__seg" role="radiogroup" aria-labelledby="ak-q1">
+              <label><input type="radio" name="ager" value="ja" checked><span>Ja</span></label>
+              <label><input type="radio" name="ager" value="nej"><span>Nej</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="ak__fraga">
+          <div class="ak__text">
+            <p class="ak__q" id="ak-q2">Är bostaden äldre än fem år?</p>
+          </div>
+          <div class="ak__kontroll">
+            <div class="ampy-segment ak__seg" role="radiogroup" aria-labelledby="ak-q2">
+              <label><input type="radio" name="aldre" value="ja" checked><span>Ja</span></label>
+              <label><input type="radio" name="aldre" value="nej"><span>Nej</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="ak__fraga ak__fraga--inkomst">
+          <div class="ak__text">
+            <p class="ak__q" id="ak-q3">Din inkomst förra året</p>
+          </div>
+          <div class="ak__kontroll ak__inkomst">
+            <div class="ampy-segment ak__seg" role="radiogroup" aria-labelledby="ak-q3">
+              <label><input type="radio" name="typ" value="lon" checked><span>Lön</span></label>
+              <label><input type="radio" name="typ" value="pension"><span>Pension</span></label>
+            </div>
+            <div class="ak__falt">
+              <input class="ampy-input ak__input" id="ak-inkomst" type="text" inputmode="numeric" maxlength="11" enterkeyhint="done" placeholder="300 000" aria-labelledby="ak-q3" aria-describedby="ak-kr">
+              <span class="ak__kr" id="ak-kr">kr</span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
