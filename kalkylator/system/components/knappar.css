@@ -1,0 +1,205 @@
+/* ============================================================================
+   AMPY DESIGNSYSTEM · system/components/knappar.css (S2)
+   Knappar och länkar. Klon av kanonkällorna, värdena bundna till --ampy-*-tokens.
+
+   Kanon (konsolidering/komponenter-karta.md, Handling):
+   · .ampy-btn (skelett) + --primary  = cta-website radgivning-cta/radgivning-cta.css:8-48 (auk 1)
+   · --ring                            = cta-website ring-cta/ring-cta.css:8-65 (auk 1)
+   · --secondary (solid)               = website-blocks Header/delivery/fluentsnippets/styles.css:66-77 (auk 1)
+                                         yta enligt beslut B5: --ampy-action-strong i st.f. teal-core. "kanon med förbehåll"
+   · --ghost (outline)                 = elcentral-kollen assets/elcentralkollen.css:555-570 (--outline) + 572-579 (cta-secondary) (auk 1)
+                                         "kanon med förbehåll": biblioteket saknar sekundär/tertiär (kartan, Saknas)
+   · --compact (48 px)                 = header-CTA 48 / elcentral solid 48 / elkollen 48 / thank-you 48
+   · .ampy-link                        = elcentral-kollen elcentralkollen.css:607-614 (cta-link) (auk 1)
+   · .ampy-link--quiet                 = hero-2-alternatives dist/ampy-hero-primitives.css:449-457 (auk 2) + var-process __handoff
+   · .ampy-link--ghost                 = thank-you v1/styles.css:91-93 (auk 2)
+   · .ampy-link--tel                   = eljour-sticky-bar (tabular-nums på numret) + elcentral rail-phone: "kanon med förbehåll"
+
+   Literaler som saknar token står som komponent-egna custom properties (--_*) med källa.
+   Avvikelser mot källan: site/komponenter/knappar.html "Avvikelser" + site/_bygglogg/S2.md.
+   ============================================================================ */
+
+/* ---------- Skelett: 58 px, radie 16, Outfit 500 16, indigo-text, tre-lagers skugga ---------- */
+.ampy-btn {
+  --_h: 58px;            /* källa: cta-website *.css:10 min-height 58px ; saknas i tokens, se bygglogg */
+  --_px: 24px;           /* källa: cta-website radgivning-cta.css:10 padding 11px 24px ; saknas i tokens */
+  --_py: 11px;
+  --_gap: 16px;          /* källa: cta-website radgivning-cta.css:9 gap 16 (pil) ; --ampy-space-inline är 14 fluid, se bygglogg */
+  --_icon: 16px;         /* källa: cta-website offert-cta.html svg 16x16 */
+  --_ink: var(--ampy-action-gradient-on);   /* knappens textfärg, läses av spinnern i laddningsläget */
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--_gap);
+  min-height: var(--_h); padding: var(--_py) var(--_px);
+  border: 0; border-radius: var(--ampy-radius-button);
+  font-family: var(--ampy-font); font-size: var(--ampy-text-button); font-weight: var(--ampy-w-medium);
+  line-height: var(--ampy-lh-tight); letter-spacing: var(--ampy-ls-button); white-space: nowrap;
+  color: var(--_ink);
+  background: var(--ampy-action-gradient);
+  box-shadow: var(--ampy-shadow-button);
+  text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: transform var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease),
+              filter var(--ampy-dur-fast) var(--ampy-ease), background-color var(--ampy-dur-fast) var(--ampy-ease),
+              border-color var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-btn:hover, .ampy-btn.is-hover {
+  transform: translateY(var(--ampy-lift));
+  filter: var(--ampy-hover-filter);
+  box-shadow: var(--ampy-shadow-button-hover);
+}
+.ampy-btn:active { transform: translateY(0); }
+.ampy-btn:focus-visible { outline: 3px solid var(--ampy-focus); outline-offset: 3px; border-radius: var(--ampy-radius-button); }
+
+/* Ikon (pil): skalar upp vid hover, glider aldrig (cta-website radgivning-cta.css:35-37) */
+.ampy-btn__icon { flex: 0 0 auto; width: var(--_icon); height: var(--_icon); transition: transform var(--ampy-dur-fast) var(--ampy-ease); }
+.ampy-btn:hover .ampy-btn__icon, .ampy-btn.is-hover .ampy-btn__icon { transform: scale(1.18); }
+
+/* --primary = skelettet (gradient). Klassen finns för läsbarhet i markup. */
+.ampy-btn--primary { background: var(--ampy-action-gradient); --_ink: var(--ampy-action-gradient-on); }
+
+/* ---------- --block: fullbredd, text vänster / ikon höger (cta-website *.css:40-43) ---------- */
+.ampy-btn--block { width: 100%; justify-content: space-between; padding: var(--_py) 22px; white-space: normal; }
+
+/* ---------- --ring: tel-länk med blå gradient, vit chip med lur + puls (ring-cta.css:8-53) ---------- */
+.ampy-btn--ring {
+  --_gap: 14px;                                           /* ring-cta.css:9 */
+  --_ring-filter: saturate(1.08) brightness(1.02);        /* ring-cta.css:26 ; --ampy-hover-filter är 1.06, ring avviker i källan */
+  --_ring-shadow-hover: inset 0 1px 0 rgba(255,255,255,.55), 0 3px 6px rgba(9,11,50,.07), 0 16px 34px -8px rgba(94,177,191,.65); /* ring-cta.css:27-30 ; saknas i tokens */
+  --_chip: 36px;                                          /* ring-cta.css:38 */
+  --_chip-shadow: 0 1px 3px rgba(9,11,50,.14);            /* ring-cta.css:41 ; saknas i tokens */
+  padding: var(--_py) 30px var(--_py) 12px;               /* ring-cta.css:10 */
+  background: var(--ampy-action-gradient-ring);
+  box-shadow: var(--ampy-shadow-button-ring);
+}
+.ampy-btn--ring:hover, .ampy-btn--ring.is-hover { filter: var(--_ring-filter); box-shadow: var(--_ring-shadow-hover); }
+.ampy-btn--ring:active { filter: saturate(1.05); }
+.ampy-btn--ring.ampy-btn--block { flex-direction: row-reverse; padding: var(--_py) 12px var(--_py) 22px; }   /* chip till höger */
+.ampy-btn__chip {
+  position: relative; flex: 0 0 auto;
+  width: var(--_chip); height: var(--_chip); border-radius: var(--ampy-radius-pill);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.92);                      /* ring-cta.css:40 ; alfa-steg av --appure-white utan token */
+  color: var(--ampy-action-gradient-on);
+  box-shadow: var(--_chip-shadow);
+}
+.ampy-btn__chip svg { width: 17px; height: 17px; flex: 0 0 auto; transform: translate(-1px, 1px); }  /* ring-cta.css:43 optisk mikro-centrering */
+.ampy-btn__chip::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(255,255,255,.65);
+  animation: ampyRing 2.8s cubic-bezier(.4,0,.4,1) infinite;   /* ring-cta.css:47 ; egen kurva och längd, ej i rörelsetokens */
+}
+@keyframes ampyRing {
+  0%   { box-shadow: 0 0 0 0 rgba(255,255,255,.65); }
+  55%  { box-shadow: 0 0 0 9px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+/* ---------- --secondary: solid teal, vit text (header-CTA, B5 -> teal-deep) ---------- */
+.ampy-btn--secondary {
+  --_hover: rgb(0,108,93);                                /* källa: elcentral --action-primary-strong-hover (elcentralkollen.css:66) ; --ampy-action-hover (#008d79) är header-CTA:ns hover FRÅN teal-core och mäter 4,13:1 med vit text, en hover för teal-deep saknas i tokens, se bygglogg */
+  background: var(--ampy-action-strong); --_ink: var(--ampy-action-on);
+  font-weight: var(--ampy-w-strong);                      /* header styles.css:67 16/600 */
+  box-shadow: var(--ampy-shadow-glow-action);
+}
+.ampy-btn--secondary:hover, .ampy-btn--secondary.is-hover {
+  background: var(--_hover); filter: none; transform: none; box-shadow: var(--ampy-shadow-glow-action);   /* header: bara färgbyte, ingen lyft */
+}
+.ampy-btn--secondary:active { background: var(--_hover); }
+.ampy-btn--secondary .ampy-btn__icon { transition: transform var(--ampy-dur-fast) var(--ampy-ease); }
+.ampy-btn--secondary:hover .ampy-btn__icon, .ampy-btn--secondary.is-hover .ampy-btn__icon { transform: translateX(3px); }   /* thank-you cta pil +3 px */
+
+/* ---------- --ghost: outline, transparent, ink-text (elcentral --outline / cta-secondary) ---------- */
+.ampy-btn--ghost {
+  background: transparent; --_ink: var(--ampy-ink);
+  border: 1px solid var(--ampy-line-strong);              /* källan #e3e5ed (1,26:1) -> kontrollkant >= 3:1 enligt tokens */
+  box-shadow: none;
+}
+.ampy-btn--ghost:hover, .ampy-btn--ghost.is-hover {
+  border-color: var(--ampy-action); background: var(--ampy-bg-subtle);   /* elcentralkollen.css:561/577 */
+  filter: none; transform: none; box-shadow: none;
+}
+.ampy-btn--ghost:active { transform: scale(.99); }
+.ampy-btn--ghost .ampy-btn__icon { transition: none; }
+.ampy-btn--ghost:hover .ampy-btn__icon, .ampy-btn--ghost.is-hover .ampy-btn__icon { transform: none; }
+
+/* ---------- Storlekar ---------- */
+.ampy-btn--compact { --_h: 48px; --_px: 26px; --_py: 8px; }          /* header-CTA 48 h, padding 0 26 (Website-blocks styles.css:66-67), elcentral 48, elkollen 48, thank-you 48 (14/28) */
+.ampy-btn--compact .ampy-btn__chip { --_chip: 30px; }
+.ampy-btn--compact.ampy-btn--ring { padding-right: 24px; padding-left: 9px; }
+/* Fullbredd på mobil (rail-CTA:erna i elcentral/elkollen fyller raden <= 480) */
+@media (max-width: 480px) {
+  .ampy-btn--block-mobile { width: 100%; justify-content: space-between; white-space: normal; }
+}
+
+/* ---------- Tillstånd ---------- */
+.ampy-btn:disabled, .ampy-btn[aria-disabled="true"], .ampy-btn.is-disabled {
+  opacity: .5; cursor: not-allowed;                       /* elcentralkollen.css:565 aria-disabled .5 */
+  transform: none; filter: none; box-shadow: var(--ampy-shadow-subtle);
+}
+.ampy-btn:disabled .ampy-btn__icon, .ampy-btn[aria-disabled="true"] .ampy-btn__icon, .ampy-btn.is-disabled .ampy-btn__icon { transform: none; }
+/* Laddar: etikett (även ren textnod) och ikon göms via transparent färg, spinner 20 px i knappens bläck (main-form css/styles.css:214-218) */
+.ampy-btn.is-loading { cursor: progress; color: transparent; }
+.ampy-btn.is-loading > :not(.ampy-btn__spin) { visibility: hidden; }
+.ampy-btn__spin {
+  display: none; position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px;
+  border: 2.5px solid color-mix(in srgb, var(--_ink) 28%, transparent); border-top-color: var(--_ink);
+  border-radius: var(--ampy-radius-pill);
+  animation: ampySpin .7s linear infinite;                /* main-form styles.css:218 */
+}
+.ampy-btn.is-loading .ampy-btn__spin { display: block; }
+@keyframes ampySpin { to { transform: rotate(360deg); } }
+
+/* ---------- På mörk yta ---------- */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn:focus-visible { outline-color: var(--ampy-focus-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn--ghost {
+  --_ink: var(--ampy-on-dark);
+  background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.40);   /* hero-2-alternatives primitives.css:440-446 ampy-btn--ghost ; alfa-steg utan token */
+}
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn--ghost:hover,
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn--ghost.is-hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.40); }
+
+/* ---------- Textlänkar ---------- */
+/* Understruken handlingslänk (elcentral cta-link: 14/500 teal-deep, understrykning offset 3, träffyta 44) */
+.ampy-link {
+  display: inline-flex; align-items: center; gap: var(--ampy-space-inline-xs);
+  min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+  font-family: var(--ampy-font); font-size: var(--ampy-text-label); font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-ui);
+  color: var(--ampy-action-strong);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+  transition: color var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-link:hover, .ampy-link.is-hover { color: var(--ampy-ink); text-decoration-thickness: 2px; }
+.ampy-link:focus-visible { outline: 2px solid var(--ampy-focus); outline-offset: 3px; border-radius: var(--ampy-radius-small); }
+.ampy-link svg { width: 15px; height: 15px; flex: 0 0 auto; }
+/* Tyst länk: ink 15/500 utan understrykning, 48 px träffyta, teal-understrykning vid hover (hero-2 ampy-link-quiet, var-process __handoff) */
+.ampy-link--quiet {
+  min-height: 48px; gap: 8px;
+  font-size: var(--ampy-text-small); color: var(--ampy-ink); text-decoration: none;
+}
+.ampy-link--quiet:hover, .ampy-link--quiet.is-hover { color: var(--ampy-action-strong); text-decoration: underline; text-decoration-thickness: 1px; }
+.ampy-link--quiet svg { width: 16px; height: 16px; transition: transform var(--ampy-dur-fast) var(--ampy-ease); }
+.ampy-link--quiet:hover svg, .ampy-link--quiet.is-hover svg { transform: translateX(3px); }
+/* Ghost: pillformad lågemfas-länk (thank-you ghost: 16/500 dämpad, padding 2xs/s, hover teal-deep på teal .08) */
+.ampy-link--ghost {
+  min-height: 44px; padding: var(--ampy-space-2xs) var(--ampy-space-s); border-radius: var(--ampy-radius-pill);
+  font-size: var(--ampy-text-small); color: var(--ampy-ink-muted); text-decoration: none;
+  transition: color var(--ampy-dur-base) var(--ampy-ease), background-color var(--ampy-dur-base) var(--ampy-ease);
+}
+.ampy-link--ghost:hover, .ampy-link--ghost.is-hover { color: var(--ampy-action-strong); background: var(--ampy-bg-tint-action); text-decoration: none; }
+/* Tel-länk i löptext: lur + nummer i tabular-nums (numret får aldrig hoppa när det byts) */
+.ampy-link--tel { font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+.ampy-link--tel svg { width: 18px; height: 18px; color: var(--ampy-action); }
+/* Länkar på mörkt */
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link { color: var(--ampy-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link:hover,
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link.is-hover { color: var(--ampy-focus-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link:focus-visible { outline-color: var(--ampy-focus-on-dark); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link--ghost { color: var(--ampy-on-dark-muted); }
+:where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link--ghost:hover { color: var(--ampy-on-dark); background: var(--ampy-on-dark-subtle); }
+
+/* ---------- Reduced motion (cta-website *.css:45-48, 62-65) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ampy-btn, .ampy-btn:hover, .ampy-btn.is-hover { transition: none; transform: none; }
+  .ampy-btn .ampy-btn__icon, .ampy-btn:hover .ampy-btn__icon { transition: none; transform: none; }
+  .ampy-btn__chip::after { animation: none; }
+  .ampy-btn__spin { animation-duration: 1.4s; }
+}

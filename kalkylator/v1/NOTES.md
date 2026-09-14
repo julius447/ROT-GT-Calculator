@@ -173,3 +173,35 @@ talblockets höjd: klar, 0 px skift på båda skärmar. i) "grön teknik" obrytb
   ägarfråga till `rakna.js`.
 - Segmentens vikt (600 vald / 500 ovald) avviker från systemets 600/600 (R2-8); ägarfråga om systemet ska ändras
   eller versionen följa det.
+
+## Hushåll, redan använt avdrag och 18-årsfrågan (ägarbeslut 2026-09-14, efter att riktning 1 valdes)
+
+Julius valde riktning 1 och beställde tre tillägg. Byggt direkt i v1 på samma designsystem, samma rytm.
+
+1. **"ROT du redan använt i år"** (grön teknik: "Grön teknik du redan använt i år"): en rad under inkomsten, etiketten
+   till vänster och ett 150 px-fält i höger kant, i linje med inkomstfältet (bankblankettens mönster; på mobil etikett
+   ovanför fullbreddsfält). Tomt = 0. Logik i `rakna.js` `beraknaHushall()`: personens rest = max(0, min(50 000,
+   skatteutrymme) − använt). Utan inkomst: "upp till 30 000 kr" vid 20 000 använt. Allt använt: "0 kr" och raden
+   "Du har redan använt hela årets ROT-avdrag." (ni-form vid flera personer).
+2. **Fler personer:** "+ Lägg till en person" (systemets `.ampy-link`, 16 px) under sista raden. Varje ny person får
+   Lön/Pension + inkomst + "ROT använt i år"; ägande, fem år och 18 år antas gälla (ägarens ord: "vi kan ta det för
+   givet att de bor på bostaden"). Från två personer visas eyebrow "Person 1", "Person 2" (+ "Ta bort") och en
+   hårlinje mellan blocken; etiketten blir "Ert ROT-avdrag 2026" och underraden "Ni två tillsammans, per år."
+   Högst fyra personer (`MAX_PERSONER`); länken försvinner vid fyra och kommer tillbaka vid Ta bort. Numrering och
+   fokus hanteras (ny person: fokus i nya inkomstfältet; Ta bort: fokus på länken). Summan: "upp till" så snart någon
+   saknar inkomst, "ca" så snart någon är räknad under taket, annars exakt (600 000 lön + 240 000 pension = ca 88 000).
+3. **"Har du fyllt 18 år?"** Ja/Nej, förinställt Ja, som tredje fråga. Nej ger rött X + "Du behöver ha fyllt 18 år
+   senast vid årets slut för att få ROT-avdrag." (Skatteverket: "fyllt 18 år senast vid årets slut", research/02 S3).
+   Ordval: "fyllt 18" i stället för ägarens "över 18" eftersom 18-åringen räknas med.
+
+Prövat och förkastat: fem år + 18 år sida vid sida i vänsterspalten (etiketterna kräver 578 px, spalten har 509:
+frågan bröt på två rader och segmenten hamnade i otakt). En fråga per rad behölls.
+
+Mått efter tillägget (probe.json, 96/96 krav): desktop kort 682 (gt 567), mobil 877 (gt 764); två personer 952 /
+1 232. Talet står stilla i alla tillstånd på desktop; på mobil ligger panelen under frågorna som förut.
+Playwright-artefakt dokumenterad i `_probe.mjs bild()`: en fullPage-skärmdump av en sida högre än viewporten släpper
+`pointer: coarse` i mobilemuleringen, återställs via CDP (annars mäts 40 px alternativ i stället för 44).
+
+Öppet för ägaren: mobilen kräver scroll för att se talet efter fem frågor (en fast resultatrad nederst på mobil är
+nästa steg om det stör); "Ta bort"-länken är 22 px hög på fin pekare (44 px på touch); hushållets "redan använt"
+frågas per person eftersom taket är per person.

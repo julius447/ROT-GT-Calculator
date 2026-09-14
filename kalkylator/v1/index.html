@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Räkna ut ditt ROT-avdrag: Ampy</title>
-<meta name="description" content="Tre frågor. Ditt ROT-avdrag 2026, räknat på din inkomst.">
+<meta name="description" content="Några frågor. Ditt ROT-avdrag 2026, räknat på din inkomst.">
 <link rel="stylesheet" href="../system/ampy.css">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:,">
@@ -34,19 +34,79 @@
         </div>
       </fieldset>
 
-      <fieldset class="rk__fraga rk__fraga--inkomst">
-        <legend class="rk__etikett" id="rk-inkomst-etikett">Din inkomst förra året</legend>
-        <div class="rk__inkomst">
-          <div class="ampy-segment rk__segment" data-q="typ">
-            <label><input type="radio" name="typ" value="lon" checked><span>Lön</span></label>
-            <label><input type="radio" name="typ" value="pension"><span>Pension</span></label>
-          </div>
-          <div class="rk__belopp">
-            <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett" aria-describedby="rk-enhet">
-            <span class="rk__enhet" id="rk-enhet" aria-label="kronor">kr</span>
-          </div>
+      <fieldset class="rk__fraga rk__fraga--myndig">
+        <legend class="rk__etikett">Har du fyllt 18 år?</legend>
+        <div class="ampy-segment rk__segment" data-q="myndig">
+          <label><input type="radio" name="myndig" value="ja" checked><span>Ja</span></label>
+          <label><input type="radio" name="myndig" value="nej"><span>Nej</span></label>
         </div>
       </fieldset>
+
+      <!-- Personerna i hushållet. Person 1 är den som svarar; fler personer läggs till ur mallen nedan och antas
+           bo i bostaden och uppfylla frågorna ovan (ägarbeslut 2026-09-14). -->
+      <div class="rk__personer" id="rk-personer" data-antal="1">
+        <div class="rk__person" data-person="1">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett">Person 1</p>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="rk-inkomst-etikett-1">Din inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="typ-1" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="typ-1" value="pension"><span>Pension</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-1" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett-1" aria-describedby="rk-enhet-1">
+                <span class="rk__enhet" id="rk-enhet-1" aria-label="kronor">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <div class="rk__fraga rk__fraga--anvant">
+            <label class="rk__etikett" for="rk-anvant-1" data-etikett="anvant">ROT du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--anvant">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-anvant-1" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-anvant-1">
+              <span class="rk__enhet" id="rk-enhet-anvant-1" aria-label="kronor">kr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rk__lagg">
+        <button type="button" class="ampy-link rk__lank" id="rk-lagg">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+          Lägg till en person
+        </button>
+      </div>
+
+      <template id="rk-personmall">
+        <div class="rk__person">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett">Person 2</p>
+            <button type="button" class="ampy-link rk__lank rk__tabort">Ta bort</button>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="rk-inkomst-etikett-N">Inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="typ-N" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="typ-N" value="pension"><span>Pension</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-N" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett-N" aria-describedby="rk-enhet-N">
+                <span class="rk__enhet" id="rk-enhet-N" aria-label="kronor">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <div class="rk__fraga rk__fraga--anvant">
+            <label class="rk__etikett" for="rk-anvant-N" data-etikett="anvant">ROT använt i år</label>
+            <div class="rk__belopp rk__belopp--anvant">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-anvant-N" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-anvant-N">
+              <span class="rk__enhet" id="rk-enhet-anvant-N" aria-label="kronor">kr</span>
+            </div>
+          </div>
+        </div>
+      </template>
     </form>
 
     <div class="rk__panel">

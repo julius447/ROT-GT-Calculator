@@ -50,7 +50,31 @@
   font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
   max-width: none;
 }
-.rk__fraga > .rk__segment, .rk__fraga > .rk__inkomst { margin-top: var(--rk-gap-ctl); }
+.rk__fraga > .rk__segment, .rk__fraga > .rk__inkomst, .rk__fraga > .rk__belopp { margin-top: var(--rk-gap-ctl); }
+
+/* Personerna i hushållet: person 1 utan huvud; från två personer visas "Person N" som eyebrow (+ Ta bort) och en
+   hårlinje mellan blocken. Fråga -> fråga inom blocket = samma rytm som resten av formuläret. */
+.rk__personer { display: flex; flex-direction: column; gap: var(--rk-gap-q); }
+.rk__person > * + * { margin-top: var(--rk-gap-q); }
+.rk__person > .rk__personhuvud + * { margin-top: var(--ampy-space-2xs); }   /* eyebrow -> fråga 9,9 / 8,3 */
+.rk__person + .rk__person { padding-top: var(--ampy-space-s); border-top: 1px solid var(--ampy-line); }
+.rk__personer[data-antal="1"] .rk__personhuvud { display: none; }
+.rk__personhuvud { display: flex; align-items: center; justify-content: space-between; gap: var(--ampy-space-s); min-height: 24px; }
+.rk__personetikett { margin: 0; }
+
+/* Textlänkarna (systemets .ampy-link, 14 -> 16 px för en 55-åring); "Ta bort" utan 44-boxen på fin pekare så
+   eyebrow-raden håller sin höjd, 44 px träffyta på touch */
+.rk__lank { font-size: var(--rk-text-under); }
+.rk__lank svg { width: 16px; height: 16px; }
+.rk__lagg { margin-top: calc(var(--ampy-space-2xs) - var(--rk-gap-q)); }   /* 44-boxen: textens överkant hamnar ~ 20 px under sista fältet */
+.rk__tabort { min-height: 0; }
+@media (pointer: coarse) { .rk__tabort { min-height: 44px; margin-block: -10px; } }
+
+/* "Redan använt i år": en rad under inkomsten, etiketten till vänster om ett kort fält (bankblankettens mönster;
+   på mobil etikett ovanför fullbreddsfält). Fältet 150 px rymmer "50 000" med marginal. */
+.rk__fraga--anvant { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-s); }   /* fältet i höger kant, i linje med inkomstfältet */
+.rk__fraga--anvant > .rk__etikett { flex: 0 1 auto; }
+.rk__fraga--anvant > .rk__belopp { flex: 0 0 15rem; margin-top: 0; }
 
 /* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val.
    Valt läge = vit pill + teal-deep text (systemet) + vikt 600 mot 500: tre signaler, inte bara färg. */
@@ -152,6 +176,8 @@
   .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
   .rk__inkomst { flex-direction: column; align-items: stretch; }
   .rk__belopp { flex: 1 1 auto; }
+  .rk__fraga--anvant { flex-direction: column; align-items: stretch; }
+  .rk__fraga--anvant > .rk__belopp { flex: 0 0 auto; }
   .rk__panel {
     border-left: 0; border-top: 1px solid var(--ampy-line);
     border-radius: 0 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px);

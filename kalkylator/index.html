@@ -16,6 +16,7 @@
   .g__img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--ampy-line); background: var(--ampy-bg-page); }
   .g__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--ampy-space-xs) var(--ampy-space-m); align-items: center; padding: var(--ampy-space-s) var(--ampy-space-m); }
   .g__name { margin: 0; font-size: var(--ampy-text-h3); font-weight: var(--ampy-w-strong); }
+  .g__vald { display: inline-block; vertical-align: middle; margin-left: var(--ampy-space-2xs); padding: 0.2rem 0.9rem; border-radius: var(--ampy-radius-pill); background: var(--ampy-action-strong); color: var(--ampy-action-on); font-size: var(--ampy-text-fine); font-weight: var(--ampy-w-medium); letter-spacing: 0.04em; }
   .g__idea { margin: 0.3rem 0 0; color: var(--ampy-ink-muted); font-size: var(--ampy-text-small); }
   .g__links { display: flex; gap: var(--ampy-space-2xs); }
   .g__btn { display: inline-flex; align-items: center; min-height: 4.4rem; padding: 0 var(--ampy-space-s); border-radius: var(--ampy-radius-pill); border: 1px solid var(--ampy-line-strong); text-decoration: none; color: var(--ampy-ink); font-size: var(--ampy-text-small); font-weight: var(--ampy-w-medium); }
@@ -26,11 +27,11 @@
 <body class="ampy">
 <main class="g">
   <h1 class="ampy-h2 g__h1">Avdragskollen, tre versioner</h1>
-  <p class="ampy-body g__lead">Samma tre frågor och samma logik. Det som skiljer är layouten. Varje version finns för ROT och för grön teknik.</p>
+  <p class="ampy-body g__lead">Samma frågor och samma logik. Det som skiljer är layouten. Version 1 är vald (2026-09-14) och byggs vidare med hushåll, redan använt avdrag och 18-årsfrågan; 2 och 3 står kvar som referens.</p>
   <div class="g__list">
     <article class="g__card">
       <img class="g__img" src="galleri/v1.jpg" alt="Version 1, två spalter" width="1400" height="560">
-      <div class="g__body"><div><h2 class="g__name">1. Två spalter</h2><p class="g__idea">Frågorna till vänster, resultatet till höger.</p></div><div class="g__links"><a class="g__btn g__btn--p" href="v1/index.html?m=rot">ROT</a><a class="g__btn" href="v1/index.html?m=gt">Grön teknik</a></div></div>
+      <div class="g__body"><div><h2 class="g__name">1. Två spalter <span class="g__vald">Vald</span></h2><p class="g__idea">Frågorna till vänster, resultatet till höger.</p></div><div class="g__links"><a class="g__btn g__btn--p" href="v1/index.html?m=rot">ROT</a><a class="g__btn" href="v1/index.html?m=gt">Grön teknik</a></div></div>
     </article>
     <article class="g__card">
       <img class="g__img" src="galleri/v2b.jpg" alt="Version 2, bred rad" width="1400" height="560">

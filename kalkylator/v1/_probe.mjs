@@ -48,10 +48,10 @@ async function matt(page) {
     const h2 = q('#rk-rubrik');
     const fragor = qa('.rk__fraga').filter(synlig);
     const etiketter = fragor.map((f) => f.querySelector('.rk__etikett'));
-    const seg = fragor.map((f) => f.querySelector('.rk__segment'));
+    const seg = fragor.map((f) => f.querySelector('.rk__segment')).filter(Boolean);   /* använt-raden har inget segment */
     const segOpt = qa('.rk__segment > label').filter(synlig);
     const under = q('.rk__under');
-    const input = q('#rk-inkomst');
+    const input = q('#rk-inkomst-1');
     const panel = q('.rk__panel');
     const eyebrow = q('#rk-eyebrow');
     const huvud = q('.rk__huvud');
@@ -65,7 +65,7 @@ async function matt(page) {
     const not = q('#rk-not');
     const res = q('#rk-resultat');
     const spalt = q('.rk-spalt');
-    const sista = fragor[fragor.length - 1];
+    const sista = [...fragor].reverse().find((f) => f.querySelector('.rk__segment'));   /* sista frågan med segment (inkomsten) */
     const typSeg = q('[data-q="typ"]');
     const r = (el) => ({ top: round(b(el).top + scrollY), h: round(b(el).height), w: round(b(el).width) });
     return {
@@ -125,6 +125,16 @@ async function bild(page, namn) {
   });
   const m = 24;
   await page.screenshot({ path: join(ut, `${namn}.png`), fullPage: true, clip: { x: Math.max(0, box.x - m), y: Math.max(0, box.y - m), width: box.w + 2 * m, height: box.h + 2 * m } });
+  /* Playwright-artefakt: en fullPage-skärmdump av en sida som är högre än viewporten släpper (pointer: coarse) i
+     mobilemuleringen efteråt (uppmätt 2026-09-14: 44 -> 40 px alternativ). Återställs via CDP på touch-sidor. */
+  if (page.viewportSize().width < 768) {
+    page._cdp ||= await page.context().newCDPSession(page);   /* sessionen hålls öppen: detach() nollar överstyrningen */
+    const { width, height } = page.viewportSize();
+    await page._cdp.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 2, mobile: true });
+    await page._cdp.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
+    await page._cdp.send('Emulation.setEmulatedMedia', { features: [{ name: 'pointer', value: 'coarse' }, { name: 'hover', value: 'none' }] });
+    await page.waitForTimeout(100);
+  }
 }
 
 async function las(page) {
@@ -148,7 +158,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   o.rot = { ...start, besked: await las(page) };
   await bild(page, `${namn}-1-utgangslage`);
   kontrollera(`${namn}: pointer coarse = ${touch}`, start.kontroller.pointerCoarse === touch, start.kontroller.pointerCoarse);
-  kontrollera(`${namn}: kort <= ${touch ? 640 : 460} (rot)`, start.kortHojd <= (touch ? 640 : 460), start.kortHojd);
+  kontrollera(`${namn}: kort <= ${touch ? 900 : 700} (rot, fem frågor + använt-rad + länk)`, start.kortHojd <= (touch ? 900 : 700), start.kortHojd);
   kontrollera(`${namn}: ingen horisontell scroll`, !start.overflowX, start.overflowX);
   kontrollera(`${namn}: prefix = enhet = halva talet`, start.px.prefix === start.px.enhet && Math.abs(start.px.prefix - start.px.tal / 2) < 0.6, `${start.px.prefix} / ${start.px.enhet} / tal ${start.px.tal}`);
   if (!touch) kontrollera('desktop: prefix och enhet 28 px vid 1440', start.px.prefix === 28 && start.px.enhet === 28, `${start.px.prefix} / ${start.px.enhet}`);
@@ -196,52 +206,52 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
     new MutationObserver(() => window.__live.push({ t: Math.round(performance.now()), text: el.textContent.replace(/\s+/g, ' ').trim() })).observe(el, { subtree: true, childList: true, characterData: true });
     window.__t0 = Math.round(performance.now());
   });
-  await page.focus('#rk-inkomst');
+  await page.focus('#rk-inkomst-1');
   for (const ch of '180000') { await page.keyboard.type(ch); await page.waitForTimeout(80); }
   const underSkrivning = await page.evaluate(() => window.__live.length);
   const textUnderSkrivning = await las(page);
   await page.waitForTimeout(700);
   const live = await page.evaluate(() => ({ batchar: window.__live, t0: window.__t0 }));
-  o.lon180k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst'), kortHojd: (await matt(page)).kortHojd, live: { mutationerUnderSkrivning: underSkrivning, talUnderSkrivning: textUnderSkrivning.tal, batcharTotalt: live.batchar.length, texter: live.batchar.map((b) => b.text) } };
+  o.lon180k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst-1'), kortHojd: (await matt(page)).kortHojd, live: { mutationerUnderSkrivning: underSkrivning, talUnderSkrivning: textUnderSkrivning.tal, batcharTotalt: live.batchar.length, texter: live.batchar.map((b) => b.text) } };
   await bild(page, `${namn}-4-lon-180000`);
   kontrollera(`${namn}: 180 000 ger "ca 12 000 kr"`, o.lon180k.besked.prefix === 'ca' && o.lon180k.besked.tal === '12 000' && o.lon180k.falt === '180 000', `${o.lon180k.besked.prefix} ${o.lon180k.besked.tal} kr, fält "${o.lon180k.falt}"`);
   kontrollera(`${namn}: ingen mutation i live-regionen medan hon skriver (talet står kvar på 50 000)`, underSkrivning === 0 && textUnderSkrivning.tal === '50 000', `${underSkrivning} mutationer, tal "${textUnderSkrivning.tal}"`);
   kontrollera(`${namn}: exakt EN live-mutation efter fördröjningen, aldrig "ca 0"`, live.batchar.length === 1 && live.batchar[0].text === 'ca 12 000 kr', live.batchar);
 
   /* 4. Pension 240 000 */
-  await page.click(lab('typ', 'pension'));
-  await page.fill('#rk-inkomst', '240000');
+  await page.click(lab('typ-1', 'pension'));
+  await page.fill('#rk-inkomst-1', '240000');
   await page.waitForTimeout(700);
   const pension = await matt(page);
-  o.pension240k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst'), kortHojd: pension.kortHojd, typSparBredd: pension.kontroller.typSparBredd, typSparBreddLon: start.kontroller.typSparBredd };
+  o.pension240k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst-1'), kortHojd: pension.kortHojd, typSparBredd: pension.kontroller.typSparBredd, typSparBreddLon: start.kontroller.typSparBredd };
   await bild(page, `${namn}-5-pension-240000`);
   kontrollera(`${namn}: pension 240 000 ger "ca 38 000 kr"`, o.pension240k.besked.prefix === 'ca' && o.pension240k.besked.tal === '38 000', `${o.pension240k.besked.prefix} ${o.pension240k.besked.tal}`);
   kontrollera(`${namn}: Lön/Pension-spåret byter inte bredd när vikten byter (600 på vald)`, o.pension240k.typSparBredd === o.pension240k.typSparBreddLon, `${o.pension240k.typSparBreddLon} -> ${o.pension240k.typSparBredd}`);
 
   /* tillbaka till lön + 600 000 (taket) och tom; blur ger direkt rendering */
-  await page.click(lab('typ', 'lon'));
-  await page.fill('#rk-inkomst', '600000');
+  await page.click(lab('typ-1', 'lon'));
+  await page.fill('#rk-inkomst-1', '600000');
   await page.waitForTimeout(700);
   o.lon600k = await las(page);
   kontrollera(`${namn}: 600 000 ger "50 000 kr" utan prefix`, o.lon600k.tal === '50 000' && o.lon600k.prefix === null, o.lon600k);
-  await page.fill('#rk-inkomst', '');
-  await page.dispatchEvent('#rk-inkomst', 'blur');
+  await page.fill('#rk-inkomst-1', '');
+  await page.dispatchEvent('#rk-inkomst-1', 'blur');
   await page.waitForTimeout(50);
   o.tomIgen = await las(page);
   kontrollera(`${namn}: blur renderar direkt: tomt fält ger "upp till 50 000 kr"`, o.tomIgen.prefix === 'upp till' && o.tomIgen.tal === '50 000', o.tomIgen);
 
   /* 5. Enter / "Klar" i fältet: ingen omladdning, beloppet kvar, läget kvar */
-  await page.click('#rk-inkomst');
+  await page.click('#rk-inkomst-1');
   await page.keyboard.type('180000');
   const urlFore = page.url();
   await page.keyboard.press('Enter');
   await page.waitForTimeout(600);
-  const enter = { urlFore, urlEfter: page.url(), faltVardeEfter: await page.inputValue('#rk-inkomst'), aktivtElement: await page.evaluate(() => document.activeElement?.id || document.activeElement?.tagName), besked: await las(page) };
+  const enter = { urlFore, urlEfter: page.url(), faltVardeEfter: await page.inputValue('#rk-inkomst-1'), aktivtElement: await page.evaluate(() => document.activeElement?.id || document.activeElement?.tagName), besked: await las(page) };
   enter.sidanLaddadesOm = enter.urlFore !== enter.urlEfter;
   o.enter = enter;
   kontrollera(`${namn}: Enter i fältet laddar inte om sidan`, !enter.sidanLaddadesOm && enter.faltVardeEfter === '180 000' && enter.besked.tal === '12 000', enter);
-  await page.fill('#rk-inkomst', '');
-  await page.dispatchEvent('#rk-inkomst', 'blur');
+  await page.fill('#rk-inkomst-1', '');
+  await page.dispatchEvent('#rk-inkomst-1', 'blur');
 
   /* 6. Tryckyta (mobil): tryck i spårets överkant ovanför "Nej" */
   if (touch) {
@@ -275,8 +285,8 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   const g = await matt(page);
   o.gt = { kortHojd: g.kortHojd, antalFragorSynliga: g.antalFragorSynliga, femarSynlig: g.femarSynlig, h2: await page.textContent('#rk-rubrik'), h2Ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-rubrik .rk__ihop')).whiteSpace), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX, avstand: g.avstand };
   await bild(page, `${namn}-6-gt-utgangslage`);
-  kontrollera(`${namn}: gt visar ingen femårsfråga (två frågor)`, !g.femarSynlig && g.antalFragorSynliga === 2, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
-  kontrollera(`${namn}: gt-kort <= ${touch ? 640 : 460}`, g.kortHojd <= (touch ? 640 : 460), g.kortHojd);
+  kontrollera(`${namn}: gt visar ingen femårsfråga (fyra frågor: äger, 18 år, inkomst, använt)`, !g.femarSynlig && g.antalFragorSynliga === 4, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
+  kontrollera(`${namn}: gt-kort <= ${touch ? 800 : 600}`, g.kortHojd <= (touch ? 800 : 600), g.kortHojd);
   kontrollera(`${namn}: gt-rubriken exakt, "grön teknik-avdrag" i nowrap-span`, o.gt.h2 === 'Räkna ut ditt grön teknik-avdrag' && o.gt.h2Ihop === 'nowrap', `${o.gt.h2} / ${o.gt.h2Ihop}`);
   kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt grön teknik-avdrag 2026', o.gt.eyebrow);
   await page.click(lab('ager', 'nej'));
@@ -286,12 +296,67 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   await bild(page, `${namn}-7-gt-ager-nej`);
   kontrollera(`${namn}: gt-stoppbeskedet exakt, ihop, ingenting hoppar`, o.gtAgerNej.besked.stopp === 'Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.' && o.gtAgerNej.ihop === 'nowrap' && o.gtAgerNej.skiftEyebrow.dy === 0 && o.gtAgerNej.skiftKort.dh === 0 && o.gtAgerNej.stopptextH <= o.gtAgerNej.stoppMinH, o.gtAgerNej);
   await page.click(lab('ager', 'ja'));
-  await page.click('#rk-inkomst');
+  await page.click('#rk-inkomst-1');
   await page.keyboard.type('180000');
   await page.keyboard.press('Enter');
   await page.waitForTimeout(600);
-  o.gtEnter = { modeEfter: await page.evaluate(() => new URLSearchParams(location.search).get('m')), falt: await page.inputValue('#rk-inkomst'), besked: await las(page) };
+  o.gtEnter = { modeEfter: await page.evaluate(() => new URLSearchParams(location.search).get('m')), falt: await page.inputValue('#rk-inkomst-1'), besked: await las(page) };
   kontrollera(`${namn}: Enter i gt behåller läget och beloppet`, o.gtEnter.modeEfter === 'gt' && o.gtEnter.falt === '180 000' && o.gtEnter.besked.tal === '12 000', o.gtEnter);
+
+  /* 9. Hushållet (ägarbeslut 2026-09-14): 18 år, redan använt, fler personer */
+  await oppna('?m=rot');
+  const h0 = await matt(page);
+  await page.click(lab('myndig', 'nej')); await page.waitForTimeout(350);
+  const h18 = await matt(page);
+  o.arton = { besked: await las(page), skiftEyebrow: skift(h0, h18, 'eyebrow'), skiftKort: skift(h0, h18, 'kort') };
+  await bild(page, `${namn}-9-arton-nej`);
+  kontrollera(`${namn}: Nej på 18 år ger stoppbeskedet, ingenting hoppar`, o.arton.besked.status === 'stopp' && o.arton.besked.stopp === 'Du behöver ha fyllt 18 år senast vid årets slut för att få ROT-avdrag.' && o.arton.skiftEyebrow.dy === 0 && o.arton.skiftKort.dh === 0, o.arton);
+  await page.click(lab('myndig', 'ja')); await page.waitForTimeout(350);
+  kontrollera(`${namn}: Ja på 18 år ger talet tillbaka`, (await las(page)).tal === '50 000', await las(page));
+
+  await page.fill('#rk-anvant-1', '20000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
+  o.anvant20 = await las(page);
+  kontrollera(`${namn}: 20 000 använt utan inkomst ger "upp till 30 000 kr"`, o.anvant20.prefix === 'upp till' && o.anvant20.tal === '30 000', o.anvant20);
+  await page.fill('#rk-inkomst-1', '180000'); await page.fill('#rk-anvant-1', '5000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
+  o.anvant5 = await las(page);
+  kontrollera(`${namn}: 180 000 i lön och 5 000 använt ger "ca 7 000 kr"`, o.anvant5.prefix === 'ca' && o.anvant5.tal === '7 000', o.anvant5);
+  await page.fill('#rk-anvant-1', '50000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
+  o.anvantAllt = await las(page);
+  await bild(page, `${namn}-10-allt-anvant`);
+  kontrollera(`${namn}: 50 000 använt ger "0 kr" + raden om årets tak`, o.anvantAllt.tal === '0' && o.anvantAllt.prefix === null && o.anvantAllt.not === 'Du har redan använt hela årets ROT-avdrag.', o.anvantAllt);
+  await page.click('#rk-anvant-1'); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
+  kontrollera(`${namn}: Enter i använt-fältet laddar inte om`, page.url().endsWith('?m=rot') && (await las(page)).tal === '0', page.url());
+  await page.fill('#rk-anvant-1', ''); await page.fill('#rk-inkomst-1', '600000'); await page.dispatchEvent('#rk-inkomst-1', 'blur'); await page.waitForTimeout(200);
+
+  await page.click('#rk-lagg'); await page.waitForTimeout(200);
+  const p2 = await page.evaluate(() => {
+    const b = document.querySelectorAll('.rk__person');
+    const r = (el) => el.getBoundingClientRect();
+    const bort = document.querySelector('.rk__tabort');
+    return { antal: b.length, dataAntal: document.querySelector('#rk-personer').dataset.antal, etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), huvudSynligt: r(document.querySelector('.rk__personhuvud')).height > 0, fokus: document.activeElement.id, inkomstEtikett2: b[1].querySelector('legend').textContent, anvantEtikett2: b[1].querySelector('[data-etikett="anvant"]').textContent, taBortHojd: Math.round(r(bort).height), eyebrow: document.querySelector('#rk-eyebrow').textContent };
+  });
+  o.person2 = p2;
+  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.anvantEtikett2 === 'ROT använt i år' && p2.eyebrow === 'Ert ROT-avdrag 2026', p2);
+  if (touch) kontrollera('mobil: Ta bort har 44 px träffyta', p2.taBortHojd >= 44, p2.taBortHojd);
+  await page.click(lab('typ-2', 'pension')); await page.fill('#rk-inkomst-2', '240000'); await page.dispatchEvent('#rk-inkomst-2', 'blur'); await page.waitForTimeout(200);
+  o.tvaPersoner = await las(page);
+  await bild(page, `${namn}-11-tva-personer`);
+  kontrollera(`${namn}: 600 000 lön + 240 000 pension ger "ca 88 000 kr", "Ni två tillsammans, per år."`, o.tvaPersoner.prefix === 'ca' && o.tvaPersoner.tal === '88 000' && o.tvaPersoner.per === 'Ni två tillsammans, per år.', o.tvaPersoner);
+  await page.click('#rk-lagg'); await page.click('#rk-lagg'); await page.waitForTimeout(200);
+  o.fyra = await page.evaluate(() => ({ antal: document.querySelectorAll('.rk__person').length, laggSynlig: document.querySelector('#rk-lagg').getClientRects().length > 0, per: document.querySelector('#rk-per').textContent }));
+  kontrollera(`${namn}: fyra personer: länken försvinner, "Ni fyra tillsammans, per år."`, o.fyra.antal === 4 && !o.fyra.laggSynlig && o.fyra.per === 'Ni fyra tillsammans, per år.', o.fyra);
+  await page.click('.rk__person[data-person="3"] .rk__tabort'); await page.waitForTimeout(200);
+  o.taBort = await page.evaluate(() => ({ etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), laggSynlig: document.querySelector('#rk-lagg').getClientRects().length > 0, per: document.querySelector('#rk-per').textContent, fokus: document.activeElement.id }));
+  kontrollera(`${namn}: Ta bort person 3 numrerar om (1, 2, 3), länken tillbaka, fokus på länken`, o.taBort.etiketter.join('|') === 'Person 1|Person 2|Person 3' && o.taBort.laggSynlig && o.taBort.per === 'Ni tre tillsammans, per år.' && o.taBort.fokus === 'rk-lagg', o.taBort);
+  await page.click('.rk__person[data-person="3"] .rk__tabort'); await page.click('.rk__person[data-person="2"] .rk__tabort'); await page.waitForTimeout(200);
+  o.enIgen = { ...(await las(page)), huvudSynligt: await page.evaluate(() => document.querySelector('.rk__personhuvud').getClientRects().length > 0), eyebrow: await page.textContent('#rk-eyebrow') };
+  kontrollera(`${namn}: tillbaka till en person: "Ditt", "Per person och år.", inget personhuvud`, o.enIgen.eyebrow === 'Ditt ROT-avdrag 2026' && o.enIgen.per === 'Per person och år.' && !o.enIgen.huvudSynligt && o.enIgen.tal === '50 000', o.enIgen);
+
+  await oppna('?m=gt');
+  o.gtAnvant = await page.evaluate(() => [...document.querySelectorAll('[data-etikett="anvant"]')].map((e) => e.textContent));
+  await page.click('#rk-lagg'); await page.waitForTimeout(200);
+  o.gtAnvant2 = await page.evaluate(() => [...document.querySelectorAll('[data-etikett="anvant"]')].map((e) => e.textContent));
+  kontrollera(`${namn}: gt: använt-etiketterna "Grön teknik du redan använt i år" / "Grön teknik använt i år"`, o.gtAnvant.join('|') === 'Grön teknik du redan använt i år' && o.gtAnvant2.join('|') === 'Grön teknik du redan använt i år|Grön teknik använt i år', o.gtAnvant2);
 
   o.errors = errors;
   kontrollera(`${namn}: inga konsolfel`, errors.length === 0, errors);
