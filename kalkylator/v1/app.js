@@ -39,7 +39,7 @@ const gom = (el, dolj) => { if (el.hidden !== dolj) el.hidden = dolj; };
 /* Läget ur ?m= (default rot). Ett läge, ett avdrag: aldrig båda. Femårsfrågan visas bara i ROT (style.css). */
 const mode = new URLSearchParams(location.search).get('m') === 'gt' ? 'gt' : 'rot';
 kort.dataset.mode = mode;
-const NAMN = mode === 'gt' ? 'grön teknik-avdrag' : 'ROT-avdrag';     /* etiketten är inline-flex (ingen span där): hårt mellanslag i stället */
+const NAMN = mode === 'gt' ? 'grön teknik-avdrag' : 'ROT-avdrag';
 const ANVANT = mode === 'gt'
   ? { forsta: 'Grön teknik du redan använt i år', ovriga: 'Grön teknik använt i år' }
   : { forsta: 'ROT du redan använt i år', ovriga: 'ROT använt i år' };
@@ -116,8 +116,7 @@ function rendera() {
   if (fran !== r.status) resultat.dataset.status = r.status;
   let andrat = false;
 
-  const nyEyebrow = `${r.antal > 1 ? 'Ert' : 'Ditt'} ${NAMN} 2026`;
-  if (eyebrow.textContent !== nyEyebrow) eyebrow.textContent = nyEyebrow;
+  skriv(eyebrow, `${r.antal > 1 ? 'Ert' : 'Ditt'} tillgängliga ${NAMN}`);   /* ägarens ordval 2026-09-14: "tillgängliga", inget årtal */
 
   if (r.status === 'stopp') {
     gom(stopp, false);                              /* synlig först, texten sedan: då läser skärmläsaren upp beskedet */

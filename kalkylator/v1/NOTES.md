@@ -205,3 +205,17 @@ Playwright-artefakt dokumenterad i `_probe.mjs bild()`: en fullPage-skärmdump a
 Öppet för ägaren: mobilen kräver scroll för att se talet efter fem frågor (en fast resultatrad nederst på mobil är
 nästa steg om det stör); "Ta bort"-länken är 22 px hög på fin pekare (44 px på touch); hushållets "redan använt"
 frågas per person eftersom taket är per person.
+
+## Finputs 2026-09-14 (ägarens feedback: etiketten, mobilens resultatpanel)
+
+- Etiketten över talet: "Ditt tillgängliga ROT-avdrag" / "Ert tillgängliga ROT-avdrag" (grön teknik: "Ditt/Ert
+  tillgängliga grön teknik-avdrag"), inget årtal. Skrivs via `skriv()` så "grön teknik-avdrag" ligger i ihop-spannet;
+  `.rk__eyebrow` är `display: block` (systemets inline-flex kan inte radbryta) och bryter före "grön" på mobil.
+- `.rk__ihop` är nu `inline-block` + `nowrap`: Chrome bröt efter bindestrecket i "TEKNIK-AVDRAG" trots nowrap
+  (syntes i probens gt-skärmdump); inline-block flyttar hela ordet till nästa rad.
+- Mobilens resultatpanel större: talet 44 -> 52 (prefix/kr 22 -> 26), panelens vertikala padding 21,5 -> 28,
+  etikett -> tal 14 (var 10,5). Kort 901,7 (rot) / 806,7 (gt). Stoppläget ±0 (huvudhöjden följer talstorleken).
+- Talet och "kr" i ett `.rk__talpar` (nowrap): långa summor på smala skärmar (fyra personer, "upp till 200 000 kr"
+  vid 375) bryter som "upp till" / "200 000 kr", aldrig "kr" ensamt på sista raden. Vid 390+ på en rad.
+- `text-wrap: pretty` på underraden: ingen ensam "delvis." vid 375.
+- Probe 96/96 (mobiltak 920/820 efter panelen).

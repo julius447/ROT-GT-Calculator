@@ -158,11 +158,11 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   o.rot = { ...start, besked: await las(page) };
   await bild(page, `${namn}-1-utgangslage`);
   kontrollera(`${namn}: pointer coarse = ${touch}`, start.kontroller.pointerCoarse === touch, start.kontroller.pointerCoarse);
-  kontrollera(`${namn}: kort <= ${touch ? 900 : 700} (rot, fem frågor + använt-rad + länk)`, start.kortHojd <= (touch ? 900 : 700), start.kortHojd);
+  kontrollera(`${namn}: kort <= ${touch ? 920 : 700} (rot, fem frågor + använt-rad + länk)`, start.kortHojd <= (touch ? 920 : 700), start.kortHojd);
   kontrollera(`${namn}: ingen horisontell scroll`, !start.overflowX, start.overflowX);
   kontrollera(`${namn}: prefix = enhet = halva talet`, start.px.prefix === start.px.enhet && Math.abs(start.px.prefix - start.px.tal / 2) < 0.6, `${start.px.prefix} / ${start.px.enhet} / tal ${start.px.tal}`);
   if (!touch) kontrollera('desktop: prefix och enhet 28 px vid 1440', start.px.prefix === 28 && start.px.enhet === 28, `${start.px.prefix} / ${start.px.enhet}`);
-  if (touch) kontrollera('mobil: talet 44 px', start.px.tal === 44, start.px.tal);
+  if (touch) kontrollera('mobil: talet 52 px', start.px.tal === 52, start.px.tal);
   kontrollera(`${namn}: femårsraden 16 px`, start.px.not === 16, start.px.not);
   kontrollera(`${namn}: stoppbeskedet 18 px`, start.px.stopptext === 18, start.px.stopptext);
   kontrollera(`${namn}: spåret 48 hög`, start.kontroller.sparHojd === 48, start.kontroller.sparHojd);
@@ -286,9 +286,9 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   o.gt = { kortHojd: g.kortHojd, antalFragorSynliga: g.antalFragorSynliga, femarSynlig: g.femarSynlig, h2: await page.textContent('#rk-rubrik'), h2Ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-rubrik .rk__ihop')).whiteSpace), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX, avstand: g.avstand };
   await bild(page, `${namn}-6-gt-utgangslage`);
   kontrollera(`${namn}: gt visar ingen femårsfråga (fyra frågor: äger, 18 år, inkomst, använt)`, !g.femarSynlig && g.antalFragorSynliga === 4, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
-  kontrollera(`${namn}: gt-kort <= ${touch ? 800 : 600}`, g.kortHojd <= (touch ? 800 : 600), g.kortHojd);
+  kontrollera(`${namn}: gt-kort <= ${touch ? 820 : 600}`, g.kortHojd <= (touch ? 820 : 600), g.kortHojd);
   kontrollera(`${namn}: gt-rubriken exakt, "grön teknik-avdrag" i nowrap-span`, o.gt.h2 === 'Räkna ut ditt grön teknik-avdrag' && o.gt.h2Ihop === 'nowrap', `${o.gt.h2} / ${o.gt.h2Ihop}`);
-  kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt grön teknik-avdrag 2026', o.gt.eyebrow);
+  kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt tillgängliga grön teknik-avdrag', o.gt.eyebrow);
   await page.click(lab('ager', 'nej'));
   await page.waitForTimeout(350);
   const gtNej = await matt(page);
@@ -336,7 +336,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
     return { antal: b.length, dataAntal: document.querySelector('#rk-personer').dataset.antal, etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), huvudSynligt: r(document.querySelector('.rk__personhuvud')).height > 0, fokus: document.activeElement.id, inkomstEtikett2: b[1].querySelector('legend').textContent, anvantEtikett2: b[1].querySelector('[data-etikett="anvant"]').textContent, taBortHojd: Math.round(r(bort).height), eyebrow: document.querySelector('#rk-eyebrow').textContent };
   });
   o.person2 = p2;
-  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.anvantEtikett2 === 'ROT använt i år' && p2.eyebrow === 'Ert ROT-avdrag 2026', p2);
+  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.anvantEtikett2 === 'ROT använt i år' && p2.eyebrow === 'Ert tillgängliga ROT-avdrag', p2);
   if (touch) kontrollera('mobil: Ta bort har 44 px träffyta', p2.taBortHojd >= 44, p2.taBortHojd);
   await page.click(lab('typ-2', 'pension')); await page.fill('#rk-inkomst-2', '240000'); await page.dispatchEvent('#rk-inkomst-2', 'blur'); await page.waitForTimeout(200);
   o.tvaPersoner = await las(page);
@@ -350,7 +350,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   kontrollera(`${namn}: Ta bort person 3 numrerar om (1, 2, 3), länken tillbaka, fokus på länken`, o.taBort.etiketter.join('|') === 'Person 1|Person 2|Person 3' && o.taBort.laggSynlig && o.taBort.per === 'Ni tre tillsammans, per år.' && o.taBort.fokus === 'rk-lagg', o.taBort);
   await page.click('.rk__person[data-person="3"] .rk__tabort'); await page.click('.rk__person[data-person="2"] .rk__tabort'); await page.waitForTimeout(200);
   o.enIgen = { ...(await las(page)), huvudSynligt: await page.evaluate(() => document.querySelector('.rk__personhuvud').getClientRects().length > 0), eyebrow: await page.textContent('#rk-eyebrow') };
-  kontrollera(`${namn}: tillbaka till en person: "Ditt", "Per person och år.", inget personhuvud`, o.enIgen.eyebrow === 'Ditt ROT-avdrag 2026' && o.enIgen.per === 'Per person och år.' && !o.enIgen.huvudSynligt && o.enIgen.tal === '50 000', o.enIgen);
+  kontrollera(`${namn}: tillbaka till en person: "Ditt", "Per person och år.", inget personhuvud`, o.enIgen.eyebrow === 'Ditt tillgängliga ROT-avdrag' && o.enIgen.per === 'Per person och år.' && !o.enIgen.huvudSynligt && o.enIgen.tal === '50 000', o.enIgen);
 
   await oppna('?m=gt');
   o.gtAnvant = await page.evaluate(() => [...document.querySelectorAll('[data-etikett="anvant"]')].map((e) => e.textContent));

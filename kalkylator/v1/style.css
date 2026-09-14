@@ -48,7 +48,7 @@
 .rk__under {
   margin: var(--rk-gap-sub) 0 0;
   font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
-  max-width: none;
+  max-width: none; text-wrap: pretty;                                    /* ingen ensam "delvis." på sista raden vid 375 */
 }
 .rk__fraga > .rk__segment, .rk__fraga > .rk__inkomst, .rk__fraga > .rk__belopp { margin-top: var(--rk-gap-ctl); }
 
@@ -120,12 +120,13 @@
    luften 0 och raden följer direkt under. */
 .rk__resultat { flex: 1 1 auto; display: grid; grid-template-rows: 1fr auto 1fr; min-width: 0; }
 .rk__huvud { grid-row: 2; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
-.rk__eyebrow { margin: 0; }
+.rk__eyebrow { display: block; margin: 0; }                              /* block i stället för systemets inline-flex: etiketten får radbrytas ("Ert tillgängliga grön teknik-avdrag"), med "grön teknik-avdrag" ihop */
 
 .rk__talrad {
   display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--ampy-space-2xs);
   margin-top: var(--ampy-space-xs);                                     /* etikett -> tal 14 / 10,5 */
 }
+.rk__talpar { display: inline-flex; align-items: baseline; column-gap: var(--ampy-space-2xs); white-space: nowrap; }   /* talet och kr hålls ihop: bryts raden hamnar "upp till" ensam på första raden, aldrig "kr" ensam på sista */
 .rk__prefix, .rk__talenhet {
   font-size: var(--rk-text-enhet); font-weight: var(--ampy-w-medium); line-height: 1;
   letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink-muted);
@@ -156,7 +157,7 @@
   font-size: var(--rk-text-stopp); font-weight: var(--ampy-w-medium); line-height: 1.35; color: var(--ampy-ink);
   max-width: none; text-wrap: pretty;
 }
-.rk__ihop { white-space: nowrap; }                                       /* "grön teknik-avdrag" bryts aldrig, varken vid mellanslaget eller bindestrecket */
+.rk__ihop { white-space: nowrap; display: inline-block; }                /* "grön teknik-avdrag" bryts aldrig: nowrap stoppar mellanslaget, inline-block stoppar bindestrecket (Chrome bryter annars efter "-" även i nowrap, sett i probens gt-skärmdump) */
 .rk__resultat[data-status="stopp"] :is(.rk__talrad, .rk__per, .rk__not) { display: none; }
 
 /* Talet byts med en kort intoning; aldrig count-up. base.css nollar tiden vid reduced motion. */
@@ -170,7 +171,8 @@
   .rk-spalt { padding: var(--ampy-space-m); }                           /* rubrikens vänsterkant = kortets */
   .rk {
     --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
-    --rk-text-tal: 44px;                    /* number-tokenen ger 38 vid 390; briefen vill 44 till 56 */
+    --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
+    --rk-panel-pad-y: 28px;                 /* panelen får mer luft upptill och nedtill än frågorna (21,5) */
     grid-template-columns: minmax(0, 1fr);
   }
   .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
@@ -179,8 +181,10 @@
   .rk__fraga--anvant { flex-direction: column; align-items: stretch; }
   .rk__fraga--anvant > .rk__belopp { flex: 0 0 auto; }
   .rk__panel {
+    padding-block: var(--rk-panel-pad-y);
     border-left: 0; border-top: 1px solid var(--ampy-line);
     border-radius: 0 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px);
   }
+  .rk__talrad, .rk__stopp { margin-top: 14px; }                          /* etikett -> tal 14 som på desktop (xs-steget är 10,5 vid 390); tal -> underrad 8,3 som förut (ingår i --rk-huvud-h) */
   .rk__resultat { display: flex; flex-direction: column; }             /* auto-höjd: 1fr-raderna skulle annars ärva femårsradens höjd */
 }
