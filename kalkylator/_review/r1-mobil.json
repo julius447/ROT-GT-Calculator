@@ -1,0 +1,107 @@
+{
+ "v1": {
+  "fonster664": {
+   "talTop": 542,
+   "talBottom": 584,
+   "talHeltSynligt": true,
+   "sistaKontrollTop": 421,
+   "sistaKontrollBottom": 469,
+   "sistaKontrollHeltSynlig": true,
+   "kortBottom": 637,
+   "stoppTop": 545,
+   "stoppBottom": 653,
+   "stoppHeltSynligt": true,
+   "avstandQ1TillStopp": 388
+  },
+  "tangentbord370": {
+   "tal": {
+    "top": 282,
+    "bottom": 324
+   },
+   "input": {
+    "top": 161,
+    "bottom": 209
+   },
+   "vh": 370,
+   "talSynligtMedTangentbord": true,
+   "faltSynligt": true
+  },
+  "faltMiljon": {
+   "varde": "1 000 000",
+   "bredd": 255,
+   "scrollW": 255,
+   "klipps": false,
+   "tal": "50 000"
+  }
+ },
+ "v2b": {
+  "fonster664": {
+   "talTop": 596,
+   "talBottom": 640,
+   "talHeltSynligt": true,
+   "sistaKontrollTop": 480,
+   "sistaKontrollBottom": 528,
+   "sistaKontrollHeltSynlig": true,
+   "kortBottom": 695,
+   "stoppTop": 596,
+   "stoppBottom": 673,
+   "stoppHeltSynligt": false,
+   "avstandQ1TillStopp": 407
+  },
+  "tangentbord370": {
+   "tal": {
+    "top": 277,
+    "bottom": 321
+   },
+   "input": {
+    "top": 161,
+    "bottom": 209
+   },
+   "vh": 370,
+   "talSynligtMedTangentbord": true,
+   "faltSynligt": true
+  },
+  "faltMiljon": {
+   "varde": "1 000 000",
+   "bredd": 132,
+   "scrollW": 136,
+   "klipps": true,
+   "tal": "50 000"
+  }
+ },
+ "v3": {
+  "fonster664": {
+   "talTop": 122,
+   "talBottom": 166,
+   "talHeltSynligt": true,
+   "sistaKontrollTop": 619,
+   "sistaKontrollBottom": 667,
+   "sistaKontrollHeltSynlig": false,
+   "kortBottom": 689,
+   "stoppTop": 122,
+   "stoppBottom": 199,
+   "stoppHeltSynligt": true,
+   "avstandQ1TillStopp": 216
+  },
+  "tangentbord370": {
+   "tal": {
+    "top": -219,
+    "bottom": -175
+   },
+   "input": {
+    "top": 278,
+    "bottom": 326
+   },
+   "vh": 370,
+   "talSynligtMedTangentbord": false,
+   "faltSynligt": true
+  },
+  "faltMiljon": {
+   "varde": "1 000 000",
+   "bredd": 148,
+   "scrollW": 148,
+   "klipps": false,
+   "tal": "50 000"
+  }
+ }
+}

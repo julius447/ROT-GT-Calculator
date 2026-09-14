@@ -1,0 +1,3128 @@
+{
+ "v1": {
+  "desktop": {
+   "rot": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 1000,
+    "kort": {
+     "x": 230,
+     "y": 56,
+     "w": 980,
+     "h": 475.4,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "eyebrow": "DITT ROT-AVDRAG 2026",
+    "resultatText": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "56px",
+     "talW": "700",
+     "prefix": "20px",
+     "eyebrow": "12px",
+     "segLabel": "16px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "500",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "36px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 274.6,
+      "y": 224.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 366.6,
+      "y": 224.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 366.6,
+      "y": 454.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 472.6,
+      "y": 450.4,
+      "w": 256.7,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 878.4,
+     "y": 265.5,
+     "w": 165.8,
+     "h": 56,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 472.6,
+     "y": 450.4,
+     "w": 256.7,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 232.9,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": -19,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": true,
+      "notText": "Yngre än fem år: ROT gäller bara reparationer."
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v1/index.html?m=rot",
+      "urlEfter": "http://localhost:8804/kalkylator/v1/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   },
+   "gt": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 1000,
+    "kort": {
+     "x": 230,
+     "y": 56,
+     "w": 980,
+     "h": 518.6,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt grön teknik-avdrag",
+    "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+    "resultatText": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "56px",
+     "talW": "700",
+     "prefix": "20px",
+     "eyebrow": "12px",
+     "segLabel": "16px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "500",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "36px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 274.6,
+      "y": 267.6,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 366.6,
+      "y": 267.6,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 366.6,
+      "y": 497.6,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 472.6,
+      "y": 493.6,
+      "w": 256.7,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 878.4,
+     "y": 287.1,
+     "w": 165.8,
+     "h": 56,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 472.6,
+     "y": 493.6,
+     "w": 256.7,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 254.5,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": -19.1,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": false,
+      "notText": ""
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v1/index.html?m=gt",
+      "urlEfter": "http://localhost:8804/kalkylator/v1/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "gt: fem år Nej",
+      "femarFragaFinns": true,
+      "resultatFore": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "resultatEfter": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "notText": "",
+      "kortDh": 0
+     },
+     {
+      "steg": "gt: ager Nej",
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+      "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+      "h2": "Räkna ut ditt grön teknik-avdrag"
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   }
+  },
+  "mobile": {
+   "rot": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 844,
+    "kort": {
+     "x": 16.9,
+     "y": 16.9,
+     "w": 356.3,
+     "h": 619.9,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "eyebrow": "DITT ROT-AVDRAG 2026",
+    "resultatText": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "42px",
+     "talW": "700",
+     "prefix": "20px",
+     "eyebrow": "12px",
+     "segLabel": "16px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "500",
+     "input": "18px",
+     "stopptext": "16.119px",
+     "not": "14.119px",
+     "per": "16px",
+     "h2": "26.756px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 43.3,
+      "y": 156.8,
+      "w": 149.7,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 197,
+      "y": 156.8,
+      "w": 149.7,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 197,
+      "y": 366.7,
+      "w": 149.7,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 39.3,
+      "y": 421.3,
+      "w": 311.3,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 106.7,
+     "y": 541.7,
+     "w": 124.3,
+     "h": 42,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 39.3,
+     "y": 421.3,
+     "w": 311.3,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 162.4,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 38.5,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 47.5,
+      "notSynlig": true,
+      "notText": "Yngre än fem år: ROT gäller bara reparationer."
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v1/index.html?m=rot",
+      "urlEfter": "http://localhost:8804/kalkylator/v1/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   },
+   "gt": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 844,
+    "kort": {
+     "x": 16.9,
+     "y": 16.9,
+     "w": 356.3,
+     "h": 652,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt grön teknik-avdrag",
+    "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+    "resultatText": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "42px",
+     "talW": "700",
+     "prefix": "20px",
+     "eyebrow": "12px",
+     "segLabel": "16px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "500",
+     "input": "18px",
+     "stopptext": "16.119px",
+     "not": "14.119px",
+     "per": "16px",
+     "h2": "26.756px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 43.3,
+      "y": 188.9,
+      "w": 149.7,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 197,
+      "y": 188.9,
+      "w": 149.7,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 197,
+      "y": 398.8,
+      "w": 149.7,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 39.3,
+      "y": 453.3,
+      "w": 311.3,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 106.7,
+     "y": 573.8,
+     "w": 124.3,
+     "h": 42,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 39.3,
+     "y": 453.3,
+     "w": 311.3,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 162.5,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 38.5,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": false,
+      "notText": ""
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v1/index.html?m=gt",
+      "urlEfter": "http://localhost:8804/kalkylator/v1/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "gt: fem år Nej",
+      "femarFragaFinns": true,
+      "resultatFore": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "resultatEfter": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "notText": "",
+      "kortDh": 0
+     },
+     {
+      "steg": "gt: ager Nej",
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+      "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+      "h2": "Räkna ut ditt grön teknik-avdrag"
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   }
+  }
+ },
+ "v2b": {
+  "desktop": {
+   "rot": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 1000,
+    "kort": {
+     "x": 230,
+     "y": 138.8,
+     "w": 980,
+     "h": 393.9,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "eyebrow": "DITT ROT-AVDRAG 2026",
+    "resultatText": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "56px",
+     "talW": "700",
+     "prefix": "28px",
+     "eyebrow": "12px",
+     "segLabel": "18px",
+     "segLabelW": "500",
+     "segLabelValdW": "500",
+     "segLabelOvaldW": "500",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "36px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 274.6,
+      "y": 277.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 366.6,
+      "y": 277.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 927.6,
+      "y": 277.4,
+      "w": 90,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 1035.6,
+      "y": 273.4,
+      "w": 133.8,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 360.9,
+     "y": 413.8,
+     "w": 165.8,
+     "h": 56,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 1035.6,
+     "y": 273.4,
+     "w": 133.8,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 196.4,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": true,
+      "notText": "Yngre än fem år: ROT gäller bara reparationer."
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v2b/index.html?m=rot",
+      "urlEfter": "http://localhost:8804/kalkylator/v2b/index.html?m=rot",
+      "sidanLaddadesOm": false,
+      "faltVardeEfter": "180 000",
+      "modeEfter": "rot"
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   },
+   "gt": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 1000,
+    "kort": {
+     "x": 230,
+     "y": 138.8,
+     "w": 980,
+     "h": 393.9,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt grön teknik-avdrag",
+    "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+    "resultatText": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "56px",
+     "talW": "700",
+     "prefix": "28px",
+     "eyebrow": "12px",
+     "segLabel": "18px",
+     "segLabelW": "500",
+     "segLabelValdW": "500",
+     "segLabelOvaldW": "500",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "36px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 274.6,
+      "y": 277.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 366.6,
+      "y": 277.4,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 927.6,
+      "y": 277.4,
+      "w": 90,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 1035.6,
+      "y": 273.4,
+      "w": 133.8,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 360.9,
+     "y": 413.8,
+     "w": 165.8,
+     "h": 56,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 1035.6,
+     "y": 273.4,
+     "w": 133.8,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 196.4,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": false,
+      "notText": ""
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v2b/index.html?m=gt",
+      "urlEfter": "http://localhost:8804/kalkylator/v2b/index.html?m=gt",
+      "sidanLaddadesOm": false,
+      "faltVardeEfter": "180 000",
+      "modeEfter": "gt"
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "gt: fem år Nej",
+      "femarFragaFinns": true,
+      "resultatFore": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "resultatEfter": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "notText": "",
+      "kortDh": 0
+     },
+     {
+      "steg": "gt: ager Nej",
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+      "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+      "h2": "Räkna ut ditt grön teknik-avdrag"
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   }
+  },
+  "mobile": {
+   "rot": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 844,
+    "kort": {
+     "x": 21.5,
+     "y": 70.4,
+     "w": 347.1,
+     "h": 624.8,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "eyebrow": "DITT ROT-AVDRAG 2026",
+    "resultatText": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "44px",
+     "talW": "700",
+     "prefix": "22px",
+     "eyebrow": "12px",
+     "segLabel": "16.119px",
+     "segLabelW": "500",
+     "segLabelValdW": "500",
+     "segLabelOvaldW": "500",
+     "input": "16.119px",
+     "stopptext": "16.119px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "26.756px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 47.9,
+      "y": 188.7,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 197,
+      "y": 188.7,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 197,
+      "y": 428.2,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 43.9,
+      "y": 480.5,
+      "w": 302.2,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 115.4,
+     "y": 596.5,
+     "w": 130.3,
+     "h": 44,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 43.9,
+     "y": 480.5,
+     "w": 302.2,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 160,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 48,
+      "notSynlig": true,
+      "notText": "Yngre än fem år: ROT gäller bara reparationer."
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v2b/index.html?m=rot",
+      "urlEfter": "http://localhost:8804/kalkylator/v2b/index.html?m=rot",
+      "sidanLaddadesOm": false,
+      "faltVardeEfter": "180 000",
+      "modeEfter": "rot"
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   },
+   "gt": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 844,
+    "kort": {
+     "x": 21.5,
+     "y": 102.5,
+     "w": 347.1,
+     "h": 624.8,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt grön teknik-avdrag",
+    "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+    "resultatText": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "44px",
+     "talW": "700",
+     "prefix": "22px",
+     "eyebrow": "12px",
+     "segLabel": "16.119px",
+     "segLabelW": "500",
+     "segLabelValdW": "500",
+     "segLabelOvaldW": "500",
+     "input": "16.119px",
+     "stopptext": "16.119px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "26.756px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 47.9,
+      "y": 220.8,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 197,
+      "y": 220.8,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 197,
+      "y": 460.3,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 43.9,
+      "y": 512.5,
+      "w": 302.2,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 115.4,
+     "y": 628.6,
+     "w": 130.3,
+     "h": 44,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 43.9,
+     "y": 512.5,
+     "w": 302.2,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 160.1,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": false,
+      "notText": ""
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": null
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": null
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v2b/index.html?m=gt",
+      "urlEfter": "http://localhost:8804/kalkylator/v2b/index.html?m=gt",
+      "sidanLaddadesOm": false,
+      "faltVardeEfter": "180 000",
+      "modeEfter": "gt"
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "gt: fem år Nej",
+      "femarFragaFinns": true,
+      "resultatFore": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "resultatEfter": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "notText": "",
+      "kortDh": 0
+     },
+     {
+      "steg": "gt: ager Nej",
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+      "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+      "h2": "Räkna ut ditt grön teknik-avdrag"
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "rk-in",
+      "bockAnimDur": null,
+      "reduce": true
+     }
+    ]
+   }
+  }
+ },
+ "v3": {
+  "desktop": {
+   "rot": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 1000,
+    "kort": {
+     "x": 230,
+     "y": 150.4,
+     "w": 980,
+     "h": 424,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "eyebrow": "DITT ROT-AVDRAG 2026",
+    "resultatText": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "56px",
+     "talW": "700",
+     "prefix": "28px",
+     "eyebrow": "12px",
+     "segLabel": "18px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "600",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "36px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 274.6,
+      "y": 431.9,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 366.6,
+      "y": 431.9,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 910.1,
+      "y": 431.9,
+      "w": 91.3,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 1019.4,
+      "y": 427.9,
+      "w": 150,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 360.9,
+     "y": 218.9,
+     "w": 165.8,
+     "h": 56,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 1019.4,
+     "y": 427.9,
+     "w": 150,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 257,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": true,
+      "notText": "Yngre än fem år: ROT gäller bara reparationer."
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": true
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v3/index.html?m=rot",
+      "urlEfter": "http://localhost:8804/kalkylator/v3/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "none",
+      "bockAnimDur": "1e-06s",
+      "reduce": true
+     }
+    ]
+   },
+   "gt": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 1000,
+    "kort": {
+     "x": 230,
+     "y": 150.4,
+     "w": 980,
+     "h": 424,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt grön teknik-avdrag",
+    "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+    "resultatText": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "56px",
+     "talW": "700",
+     "prefix": "28px",
+     "eyebrow": "12px",
+     "segLabel": "18px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "600",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "36px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 274.6,
+      "y": 431.9,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 366.6,
+      "y": 431.9,
+      "w": 88,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 910.1,
+      "y": 431.9,
+      "w": 91.3,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 1019.4,
+      "y": 427.9,
+      "w": 150,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 360.9,
+     "y": 218.9,
+     "w": 165.8,
+     "h": 56,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 1019.4,
+     "y": 427.9,
+     "w": 150,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 257,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": false,
+      "notText": ""
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": true
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v3/index.html?m=gt",
+      "urlEfter": "http://localhost:8804/kalkylator/v3/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "gt: fem år Nej",
+      "femarFragaFinns": true,
+      "resultatFore": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "resultatEfter": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "notText": "",
+      "kortDh": 0
+     },
+     {
+      "steg": "gt: ager Nej",
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+      "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+      "h2": "Räkna ut ditt grön teknik-avdrag"
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "none",
+      "bockAnimDur": "1e-06s",
+      "reduce": true
+     }
+    ]
+   }
+  },
+  "mobile": {
+   "rot": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 844,
+    "kort": {
+     "x": 21.5,
+     "y": 73.5,
+     "w": 347.1,
+     "h": 615.5,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "eyebrow": "DITT ROT-AVDRAG 2026",
+    "resultatText": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "44px",
+     "talW": "700",
+     "prefix": "22px",
+     "eyebrow": "12px",
+     "segLabel": "16.119px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "600",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "26.756px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 47.9,
+      "y": 338.1,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 197,
+      "y": 338.1,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 197,
+      "y": 564.1,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 43.9,
+      "y": 618.6,
+      "w": 302.2,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 115.4,
+     "y": 122.3,
+     "w": 130.3,
+     "h": 44,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 43.9,
+     "y": 618.6,
+     "w": 302.2,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 544.3,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 48,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 48,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 48,
+       "dh": 0
+      },
+      "kortDh": 48,
+      "notSynlig": true,
+      "notText": "Yngre än fem år: ROT gäller bara reparationer."
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": true
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v3/index.html?m=rot",
+      "urlEfter": "http://localhost:8804/kalkylator/v3/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "none",
+      "bockAnimDur": "1e-06s",
+      "reduce": true
+     }
+    ]
+   },
+   "gt": {
+    "fel": [],
+    "overflowX": false,
+    "docH": 844,
+    "kort": {
+     "x": 21.5,
+     "y": 105.6,
+     "w": 347.1,
+     "h": 615.5,
+     "synlig": true
+    },
+    "h2": "Räkna ut ditt grön teknik-avdrag",
+    "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+    "resultatText": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+    "typo": {
+     "tal": "44px",
+     "talW": "700",
+     "prefix": "22px",
+     "eyebrow": "12px",
+     "segLabel": "16.119px",
+     "segLabelW": "600",
+     "segLabelValdW": "600",
+     "segLabelOvaldW": "600",
+     "input": "18px",
+     "stopptext": "18px",
+     "not": "16px",
+     "per": "16px",
+     "h2": "26.756px"
+    },
+    "inputmode": "numeric",
+    "tapYtor": {
+     "agerJa": {
+      "x": 47.9,
+      "y": 370.2,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "agerNej": {
+      "x": 197,
+      "y": 370.2,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "pension": {
+      "x": 197,
+      "y": 596.2,
+      "w": 145.1,
+      "h": 40,
+      "synlig": true
+     },
+     "input": {
+      "x": 43.9,
+      "y": 650.7,
+      "w": 302.2,
+      "h": 48,
+      "synlig": true
+     }
+    },
+    "talPos": {
+     "x": 115.4,
+     "y": 154.4,
+     "w": 130.3,
+     "h": 44,
+     "synlig": true
+    },
+    "inputPos": {
+     "x": 43.9,
+     "y": 650.7,
+     "w": 302.2,
+     "h": 48,
+     "synlig": true
+    },
+    "spannFaltTal": 544.3,
+    "steg": [
+     {
+      "steg": "ager Nej",
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": false,
+      "stoppSynlig": true,
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+     },
+     {
+      "steg": "ager Ja igen",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "talSynlig": true,
+      "talText": "upp till 50 000"
+     },
+     {
+      "steg": "fem år Nej",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftEyebrow": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftFemarKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0,
+      "notSynlig": false,
+      "notText": ""
+     },
+     {
+      "steg": "fem år Ja igen",
+      "kortDh": 0,
+      "notText": ""
+     },
+     {
+      "steg": "lön 180 000",
+      "mellan": [
+       {
+        "falt": "1",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "1 800",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "18 000",
+        "tal": "ca 0",
+        "bock": true
+       },
+       {
+        "falt": "180 000",
+        "tal": "ca 12 000",
+        "bock": true
+       }
+      ],
+      "talText": "ca 12 000",
+      "faltVarde": "180 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftForstaKontroll": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "pension 240 000",
+      "talText": "ca 38 000",
+      "faltVarde": "240 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "inkomst tom igen",
+      "talText": "upp till 50 000",
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "fokus i beloppsfältet",
+      "skiftInput": {
+       "dy": 0,
+       "dh": 0
+      },
+      "skiftTal": {
+       "dy": 0,
+       "dh": 0
+      },
+      "kortDh": 0
+     },
+     {
+      "steg": "Enter i fältet",
+      "urlFore": "http://localhost:8804/kalkylator/v3/index.html?m=gt",
+      "urlEfter": "http://localhost:8804/kalkylator/v3/index.html?ager=ja&aldre=ja&typ=lon",
+      "sidanLaddadesOm": true,
+      "faltVardeEfter": "",
+      "modeEfter": null
+     },
+     {
+      "steg": "tangentbord",
+      "forstaTab": "INPUT[name=ager][value=ja]",
+      "efterPilHoger": {
+       "aktiv": "INPUT[name=ager][value=nej]",
+       "agerValt": "nej",
+       "labelBoxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "labelOutline": "none 0px",
+       "inputOutline": "solid 3px opacity 0",
+       "stoppSynlig": true
+      },
+      "tabTillFalt": 4,
+      "faltFokusStil": {
+       "boxShadow": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px",
+       "borderColor": "rgb(0, 122, 105)",
+       "outline": "none 0px"
+      }
+     },
+     {
+      "steg": "gt: fem år Nej",
+      "femarFragaFinns": true,
+      "resultatFore": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "resultatEfter": "DITT GRÖN TEKNIK-AVDRAG 2026 upp till 50 000 kr Per person och år.",
+      "notText": "",
+      "kortDh": 0
+     },
+     {
+      "steg": "gt: ager Nej",
+      "stoppText": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+      "eyebrow": "DITT GRÖN TEKNIK-AVDRAG 2026",
+      "h2": "Räkna ut ditt grön teknik-avdrag"
+     },
+     {
+      "steg": "reduced motion",
+      "stoppAnimDur": "1e-06s",
+      "stoppAnimName": "none",
+      "bockAnimDur": "1e-06s",
+      "reduce": true
+     }
+    ]
+   }
+  }
+ }
+}

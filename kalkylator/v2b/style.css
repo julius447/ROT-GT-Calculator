@@ -1,28 +1,40 @@
 /* Avdragskollen v2b "Bred rad": tre frågor i bredd, ett resultatband under. Bygger på Ampys
    designsystem (../system/). Bara det som är unikt för verktyget ligger här; mått, färger och
-   typografi kommer ur tokens. Egna värden står som lokala variabler med kommentar. */
+   typografi kommer ur tokens. Egna värden står som lokala variabler med kommentar.
+   Fixrunda 2026-09-14 (R1 + R2 punchlistor): se NOTES.md "Fixrunda". */
 
-/* ---------- Artikelspalten (demo-värd): 980 px på desktop, fullbredd med gutter på mobil ---------- */
-.rk-main { max-width: 98rem; margin: 0 auto; padding: var(--ampy-space-xl) var(--ampy-gutter); box-sizing: content-box; }
+/* ---------- Demo-värden: artikelsidan är vit (artikelmallen: pixel (20,500) = #ffffff), kortet ligger på vitt med hårlinje + systemets skugga ---------- */
+body.ampy { background: var(--ampy-bg-surface); }
+.rk-main { max-width: 98rem; margin: 0 auto; padding: var(--ampy-space-xl) var(--ampy-gutter); box-sizing: content-box; }   /* 980-spalten på desktop, fullbredd med gutter på mobil */
 
 .rk {
   --rk-pad: var(--ampy-space-l);                        /* kortpadding: 39.6 @1440, 21.5 @390 (brief 32-40 / 20-24) */
   --rk-num: clamp(44px, 1.6vw + 33px, 56px);            /* talet: 56 @1440, 44 @390 (brief 44-56); --ampy-text-number bottnar på 38 */
-  --rk-under-fs: 16px;                                  /* underrad och "per person": 16 på alla skärmar (brief); --ampy-text-small bottnar på 14 */
+  --rk-under-fs: 16px;                                  /* underrad, "per person" och femårsraden: 16 på alla skärmar (brief); --ampy-text-small bottnar på 14 */
   --rk-fraga-fs: min(var(--ampy-text-h3), 20px);        /* frågor 20/500 (brief); h3-token ger 22 vid 1440 */
   --rk-kolgap: var(--ampy-space-s);                     /* luft på var sida om kolumnernas hårlinje: 19.8 @1440 */
   --rk-enhet-fs: calc(var(--rk-num) * 0.5);             /* "upp till"/"ca" och "kr": halva talet (28 @1440, 22 @390), som LED:s enhet; --ampy-text-mid ger 21 vid 1440 */
+  --rk-siffror-fs: 18px;                                /* fältets siffror och "kr": 18 på alla skärmar (brief); --ampy-text-body bottnar på 16 */
+  --rk-falt-b: 150px;                                   /* beloppsfältet: "1 200 000" 81.5 + padding 14 + 40 + kant 2 = 137.5, 150 ger marginal (R2 blocker 1) */
+  --rk-ctl-gap: max(12px, var(--ampy-space-xs));        /* fråga/underrad -> kontroll: 14 @1440, 12 @390 (brief 12-14; xs-token bottnar på 10.2) */
+  --rk-q-pad: max(13.5px, var(--ampy-space-s));         /* mobil: luft på var sida om hårlinjen mellan frågor: 13.5 + 1 + 13.5 = 28 (brief 28-40; R1 v2b-2) */
 }
 
 /* ---------- Rubriken: en riktig H2 i artikeln, utanför kortet ---------- */
-.rk__h2 { margin: 0 0 var(--ampy-space-stack-lg); }     /* H2 -> block: 39.6 @1440, 21.5 @390 (systemets rubrik->block, som LED) */
+.rk__h2 { margin: 0 0 var(--ampy-space-stack-lg); }     /* H2 -> block: 39.6 @1440 (systemets rubrik->block, som LED); mobil: se nedan */
+.rk__nobr { white-space: nowrap; }                      /* "grön teknik-avdrag" bryts varken vid mellanslaget eller bindestrecket (R2 minor 7) */
 
 /* ---------- Kortet: vit yta med kant, radie och skugga ur systemet; ytorna inuti sätter sin padding ---------- */
 .rk__card { padding: 0; overflow: hidden; }
 
-/* ---------- Frågorna: tre kolumner, hårlinjer emellan, kontrollerna på en gemensam rad ---------- */
-.rk__fragor { display: grid; grid-template-columns: 1fr 1.32fr 1.54fr; padding: var(--rk-pad); }   /* kolumnerna är satta efter innehållet: varje fråga på en rad (Q2 mäter 261 px), tredje frågan bär två kontroller (segment 194 + 14 + fält >= 120) */
+/* ---------- Frågorna: tre spalter satta efter innehållet, hårlinjer emellan, varje kontroll 14 px under sin egen fråga ----------
+   Spalt 3 = max-content (segment 190 + 14 + fält 150), spalt 2 ca 300 så "Är bostaden äldre än fem år?" (255) står på en rad,
+   spalt 1 tar resten (ca 225: underraden bryter meningsvis på två rader). Ingen gemensam kontrollrad: den gav 69 px hål under
+   fråga 2 och 3 (R1 v2b-1, R2 major 2). Spalt 1 blir 55 px högre nedtill; det ligger mot bandets hårlinje och läses som luft. */
+.rk__fragor { display: grid; grid-template-columns: minmax(21rem, 1fr) minmax(min-content, 1.36fr) max-content; padding: var(--rk-pad); }   /* 1 : 1.36 ger spalt 2 = 302.5 vid 1440 (frågan 255 + 2 x 19.8 = 295 ryms med 7 px marginal); spalt 1 minst 210 så "Villa, radhus eller lägenhet." (190) alltid ryms; under ca 1020 px viker fråga 2 balanserat i stället för att fråga 1 kläms */
+[data-mode="gt"] .rk__fragor { grid-template-columns: minmax(0, 1fr) max-content; }   /* grön teknik: fråga 2 dold, två spalter; fältets högerkant på samma ställe som i rot */
 .rk__q { display: flex; flex-direction: column; min-width: 0; padding-inline: var(--rk-kolgap); }
+.rk__q[hidden] { display: none; }                       /* fråga 2 i gt-läget (ägarbeslut 2026-09-14): ingen femårsregel för grön teknik */
 .rk__q:first-child { padding-left: 0; }
 .rk__q:last-child { padding-right: 0; }
 .rk__q + .rk__q { border-left: 1px solid var(--ampy-line); }
@@ -37,29 +49,38 @@
   font-size: var(--rk-under-fs); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-body);
   color: var(--ampy-ink-muted); max-width: none; text-wrap: pretty;
 }
-.rk__kontroll { display: flex; margin-top: auto; padding-top: max(12px, var(--ampy-space-xs)); }   /* underrad -> kontroll 14 @1440, 12 @390 (brief 12-14; xs-token bottnar på 10.5); margin auto lägger alla kontroller på samma rad */
+.rk__under > span { display: inline-block; }            /* bryter meningsvis: "Villa, radhus eller lägenhet." / "Helt eller delvis." (R2 minor 6); inline-block (inte nowrap) så meningen viker inuti i stället för att rinna över hårlinjen när spalten är smalare än 190 (992-1010 px) */
+.rk__kontroll { display: flex; padding-top: var(--rk-ctl-gap); }
 
-/* Segment: 48 hög (spår 4 + option 40 + 4), bredd efter text med minst 88 per alternativ, 18/16 px text */
+/* Segment: 48 hög (spår 4 + option 40 + 4), bredd efter text med minst 88 per alternativ, 18/16 px text.
+   Vikten är systemets 600 på båda alternativen (LED: 600 på alla), så spåret inte byter bredd när valet byter (R1 v2b-3, R2 minor 9). */
 .rk__seg { display: inline-grid; grid-auto-columns: minmax(88px, max-content); container-type: normal; -webkit-tap-highlight-color: transparent; }
-.rk__seg > label { min-height: 40px; padding-inline: var(--ampy-space-xs); font-size: var(--ampy-text-body); font-weight: var(--ampy-w-medium); }
+.rk__seg > label { min-height: 40px; padding-inline: var(--ampy-space-xs); font-size: var(--ampy-text-body); }
+@media (pointer: coarse) {                              /* touch: träffytan 44 (R1 G3), spåret förblir 48 (2 + 44 + 2) */
+  .rk__seg.ampy-segment { padding: 2px; }
+  .rk__seg > label { min-height: 44px; }
+}
 
-/* Inkomst: typ-väljare + belopp på samma rad, beloppet tar resten */
+/* Inkomst: typ-väljare + belopp på samma rad; fältet fast 150 så sju siffror alltid ryms */
 .rk__inkomst { display: flex; align-items: center; gap: var(--ampy-space-xs); }
 .rk__inkomst .rk__seg { flex: 0 0 auto; }
-.rk__falt { position: relative; flex: 1 1 auto; min-width: 0; }
+.rk__falt { position: relative; flex: 0 0 var(--rk-falt-b); min-width: 0; }
 .rk__input {
-  font-size: var(--ampy-text-body); font-weight: var(--ampy-w-medium); text-align: right;
+  font-size: var(--rk-siffror-fs); font-weight: var(--ampy-w-medium); text-align: right;
   padding-right: calc(var(--ampy-space-xs) + 1.45em);   /* plats för "kr" inne i fältet */
   font-variant-numeric: tabular-nums lining-nums;
 }
+.rk__input::placeholder { font-weight: var(--ampy-w-ui); }   /* platshållaren lättare än ett ifyllt belopp (R2 minor 5) */
 .rk__kr {
   position: absolute; right: var(--ampy-space-xs); top: 50%; transform: translateY(-50%);
-  font-size: var(--ampy-text-body); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); pointer-events: none;
+  font-size: var(--rk-siffror-fs); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); pointer-events: none;
 }
 
-/* ---------- Resultatbandet: sky mist under en hårlinje, talet är hjälten ---------- */
+/* ---------- Resultatbandet: sky mist under en hårlinje, talet är hjälten ----------
+   Grundlayout (mobil och webbläsare utan subgrid): staplat, etikett / tal / "Per person och år." / femårsraden.
+   Desktop (subgrid): kvittorad, se nedan. */
 .rk__band { border-top: 1px solid var(--ampy-line); background: var(--ampy-bg-subtle); padding: var(--ampy-space-s) var(--rk-pad) var(--ampy-space-m); }   /* 19.8 upptill (versalernas luft läggs till optiskt), 28 nedtill */
-.rk__etikett { display: flex; margin: 0; }              /* blocknivå: ingen radbox-offset från bandets brödtext */
+.rk__etikett { display: block; margin: 0; }
 .rk__varde { display: grid; margin-top: var(--ampy-space-xs); }
 .rk__varde > * { grid-area: 1 / 1; }                     /* båda lägena delar cell: kortet byter aldrig höjd */
 
@@ -73,17 +94,13 @@
   line-height: 1; letter-spacing: -0.01em; color: var(--ampy-ink-muted);
 }
 .rk__prefix[hidden] { display: none; }
-.rk__sub {
-  display: flex; flex-wrap: wrap; gap: 0 var(--ampy-space-s);   /* "Per person och år." och femårsraden på samma rad med 19.8 emellan; på mobil bryter raden hel */
-  margin: var(--ampy-space-2xs) 0 0; max-width: none;
-  font-size: var(--rk-under-fs); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-body); color: var(--ampy-ink-muted);
-}
-.rk__not { color: var(--ampy-ink-body); }
-.rk__not[hidden] { display: none; }
+.rk__sub, .rk__not { margin: 0; max-width: none; font-size: var(--rk-under-fs); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-body); }
+.rk__sub { margin-top: var(--ampy-space-2xs); color: var(--ampy-ink-muted); }
+.rk__not { margin-top: var(--ampy-space-3xs); min-height: calc(var(--rk-under-fs) * 1.5); color: var(--ampy-ink-body); }   /* egen rad under "Per person och år." (R2 major 4); höjden reserverad så inget hoppar när den tänds */
 
 .rk__stopp { display: flex; align-items: center; gap: var(--ampy-space-s); }
 .rk__x { flex: 0 0 auto; width: 44px; height: 44px; display: block; color: var(--ampy-error-ink); }
-.rk__stopp-text { margin: 0; font-size: var(--ampy-text-body); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink); max-width: var(--ampy-measure); text-wrap: pretty; }
+.rk__stopp-text { margin: 0; font-size: 18px; font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-ui); color: var(--ampy-ink); max-width: var(--ampy-measure); text-wrap: pretty; }   /* 18/500 på alla skärmar (brief; R1 v2b-5, R2 minor 8) */
 
 /* Dolt läge: kvar i cellen (så höjden hålls) men osynligt och utanför tillgänglighetsträdet (aria-hidden sätts i app.js) */
 .rk__utfall.is-dold, .rk__stopp.is-dold { visibility: hidden; pointer-events: none; }
@@ -92,26 +109,48 @@
 .rk__utfall.is-ny, .rk__stopp.is-ny { animation: rk-in var(--ampy-dur-base) var(--ampy-ease-out); }
 @keyframes rk-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-/* ---------- Surfplatta (768-991): två kolumner, inkomsten på egen rad under en hårlinje ---------- */
+/* ---------- Bandet på desktop och surfplatta: kvittoraden ----------
+   Etiketten och "Per person och år." till vänster som en stapel, talet högerställt mot fältets kant och centrerat mot stapeln,
+   femårsraden på en egen rad under (reserverad). Stoppet (X + text) tar hela raden under etiketten. Etiketten står utanför
+   live-regionen (R1 G2), därför subgrid: live-regionen och utfallet ärver bandets spår så deras barn kan placeras i dem.
+   Utan subgrid-stöd gäller den staplade grundlayouten. */
+@supports (grid-template-columns: subgrid) {
+  @media (min-width: 768px) {
+    .rk__band { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto; column-gap: var(--ampy-space-m); row-gap: var(--ampy-space-3xs); align-items: start; padding-bottom: var(--ampy-space-s); }   /* 19.8 nedtill som upptill: femårsraden (reserverad) står 19.8 från kanten när den tänds */
+    .rk__etikett { grid-area: 1 / 1; padding-top: var(--ampy-space-4xs); }   /* 5 px: versalernas överkant i linje med siffrornas (12/1.5 mot 56/1) */
+    .rk__varde, .rk__utfall { display: grid; grid-area: 1 / 1 / 4 / 3; grid-template-columns: subgrid; grid-template-rows: subgrid; margin: 0; }
+    .rk__varde > * { grid-area: auto; }
+    .rk__utfall { grid-area: 1 / 1 / 4 / 3; }
+    .rk__tal { grid-area: 1 / 2 / 3 / 3; align-self: center; justify-self: end; flex-wrap: nowrap; }
+    .rk__sub { grid-area: 2 / 1; margin: 0; }
+    .rk__not { grid-area: 3 / 1 / 4 / 3; margin: 0; }
+    .rk__stopp { grid-area: 2 / 1 / 4 / 3; align-self: start; margin-top: var(--ampy-space-3xs); }   /* X:et 13.6 under etiketten (6.6 radgap + 7); raden är lägre än per + femårsrad, så bandet håller höjden */
+  }
+}
+
+/* ---------- Surfplatta (768-991): två spalter, inkomsten på egen rad under en hårlinje ---------- */
 @media (max-width: 991px) and (min-width: 768px) {
-  .rk__fragor { grid-template-columns: 1fr 1fr; }
+  .rk__fragor, [data-mode="gt"] .rk__fragor { grid-template-columns: 1fr 1fr; }
   .rk__q:nth-child(2) { padding-right: 0; }
-  .rk__q + .rk__q--inkomst { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--ampy-line); padding: var(--ampy-space-m) 0 0; margin-top: var(--ampy-space-m); }
-  .rk__q--inkomst .rk__kontroll { margin-top: 0; }
-  .rk__falt { max-width: 240px; }                        /* fältet ska inte växa till hela raden */
+  .rk__q + .rk__q--inkomst { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--ampy-line); padding: var(--ampy-space-s) 0 0; margin-top: var(--ampy-space-s); }   /* 19.8 + 1 + 19.8 som kolumnernas hårlinje */
+  [data-mode="gt"] .rk__fragor { grid-template-columns: 1fr; }
 }
 
 /* ---------- Mobil: frågorna staplas med hårlinjer, kontroller i full bredd ---------- */
 @media (max-width: 767px) {
   .rk-main { padding: var(--ampy-space-m) var(--ampy-gutter); }
+  .rk__h2 { margin-bottom: var(--ampy-space-s); }         /* 13.3 @390 (var 21.5): stoppbeskedet ska rymmas ovanför vikningen i ett 664-fönster (R1 v2b-2) */
   .rk__fragor { grid-template-columns: 1fr; padding: var(--ampy-space-s) var(--rk-pad); }
-  .rk__q { padding: var(--ampy-space-m) 0; }              /* fråga -> fråga 2 x 16.9 + hårlinje = 34.8 (brief 28-40) */
+  [data-mode="gt"] .rk__fragor { grid-template-columns: 1fr; }
+  .rk__q { padding: var(--rk-q-pad) 0; }                  /* fråga -> fråga 13.5 + hårlinje + 13.5 = 28 (brief 28-40) */
   .rk__q + .rk__q { border-left: 0; border-top: 1px solid var(--ampy-line); }
   .rk__q:first-child { padding-top: var(--ampy-space-2xs); }
   .rk__q:last-child { padding-bottom: var(--ampy-space-2xs); }
-  .rk__kontroll { margin-top: 0; }
   .rk__seg { display: grid; grid-auto-columns: 1fr; width: 100%; }
   .rk__inkomst { flex-direction: column; align-items: stretch; gap: var(--ampy-space-2xs); }
-  .rk__band { padding: var(--ampy-space-m) var(--rk-pad) var(--ampy-space-l); }   /* 16.9 upptill, 21.5 nedtill */
+  .rk__falt { flex: 0 0 auto; }                           /* kolumnriktning: flex-basis 150 skulle annars bli höjd */
+  .rk__band { padding: var(--ampy-space-s) var(--rk-pad) var(--ampy-space-l); }   /* 13.3 upptill (var 16.9), 21.5 nedtill */
+  .rk__not { min-height: 0; }
+  .rk__not:empty { display: none; }                       /* mobil: femårsraden (två rader, 48 px) reserveras inte; kortet ska hålla <= 640 i utgångsläget, se NOTES */
   .rk__x { width: 40px; height: 40px; }
 }

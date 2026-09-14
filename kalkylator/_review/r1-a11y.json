@@ -1,0 +1,164 @@
+{
+ "v1": {
+  "desktop": {
+   "live": {
+    "attr": {
+     "ariaLive": "polite",
+     "atomic": "true",
+     "text": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år."
+    },
+    "batchar": 6,
+    "mutationer": 40
+   },
+   "tap": {
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "x": 411,
+    "yPadding": 222,
+    "yLabel": 226,
+    "valtEfterPaddingKlick": "ja",
+    "valtEfterLabelKlick": "nej",
+    "spårkantTryckbar": false
+   },
+   "ordning": {
+    "domUnderForst": true,
+    "visuelltUnderForst": true,
+    "stammer": true
+   }
+  },
+  "mobile": {
+   "live": {
+    "attr": {
+     "ariaLive": "polite",
+     "atomic": "true",
+     "text": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år."
+    },
+    "batchar": 6,
+    "mutationer": 40
+   },
+   "tap": {
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "x": 272,
+    "yPadding": 155,
+    "yLabel": 159,
+    "valtEfterPaddingKlick": "ja",
+    "valtEfterLabelKlick": "nej",
+    "spårkantTryckbar": false
+   },
+   "ordning": {
+    "domUnderForst": true,
+    "visuelltUnderForst": true,
+    "stammer": true
+   }
+  }
+ },
+ "v2b": {
+  "desktop": {
+   "live": {
+    "attr": {
+     "ariaLive": "polite",
+     "atomic": "true",
+     "text": "upp till 50 000 kr Per person och år."
+    },
+    "batchar": 6,
+    "mutationer": 40
+   },
+   "tap": {
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "x": 411,
+    "yPadding": 275,
+    "yLabel": 279,
+    "valtEfterPaddingKlick": "ja",
+    "valtEfterLabelKlick": "nej",
+    "spårkantTryckbar": false
+   },
+   "ordning": {
+    "domUnderForst": true,
+    "visuelltUnderForst": true,
+    "stammer": true
+   }
+  },
+  "mobile": {
+   "live": {
+    "attr": {
+     "ariaLive": "polite",
+     "atomic": "true",
+     "text": "upp till 50 000 kr Per person och år."
+    },
+    "batchar": 6,
+    "mutationer": 40
+   },
+   "tap": {
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "x": 270,
+    "yPadding": 187,
+    "yLabel": 191,
+    "valtEfterPaddingKlick": "ja",
+    "valtEfterLabelKlick": "nej",
+    "spårkantTryckbar": false
+   },
+   "ordning": {
+    "domUnderForst": true,
+    "visuelltUnderForst": true,
+    "stammer": true
+   }
+  }
+ },
+ "v3": {
+  "desktop": {
+   "live": {
+    "attr": {
+     "ariaLive": "polite",
+     "atomic": "true",
+     "text": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år."
+    },
+    "batchar": 6,
+    "mutationer": 29
+   },
+   "tap": {
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "x": 411,
+    "yPadding": 430,
+    "yLabel": 434,
+    "valtEfterPaddingKlick": "ja",
+    "valtEfterLabelKlick": "nej",
+    "spårkantTryckbar": false
+   },
+   "ordning": {
+    "domUnderForst": true,
+    "visuelltUnderForst": false,
+    "stammer": false
+   }
+  },
+  "mobile": {
+   "live": {
+    "attr": {
+     "ariaLive": "polite",
+     "atomic": "true",
+     "text": "DITT ROT-AVDRAG 2026 upp till 50 000 kr Per person och år."
+    },
+    "batchar": 6,
+    "mutationer": 29
+   },
+   "tap": {
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "x": 270,
+    "yPadding": 336,
+    "yLabel": 340,
+    "valtEfterPaddingKlick": "ja",
+    "valtEfterLabelKlick": "nej",
+    "spårkantTryckbar": false
+   },
+   "ordning": {
+    "domUnderForst": true,
+    "visuelltUnderForst": true,
+    "stammer": true
+   }
+  }
+ }
+}

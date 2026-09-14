@@ -1,102 +1,175 @@
 # v1 "Två spalter": anteckningar
 
 Filer: `index.html` (`?m=rot` default, `?m=gt`), `style.css`, `app.js` (importerar `../rakna.js`), `_probe.mjs`
-(tillståndsprob, skriver `skarmdumpar/*.png` + `skarmdumpar/probe.json`).
-Render: `node tools/shot.mjs kalkylator/v1/index.html _shots/v1 --query "?m=rot"` (och `?m=gt`) ger
-`errors: []`, `overflowX: false` på 1440 och 390. `node kalkylator/v1/_probe.mjs` ger samma.
+(tillståndsprob + fixrundans 71 krav, skriver `skarmdumpar/*.png` + `skarmdumpar/probe.json`, avslutar med kod 1
+om ett krav faller).
+Render: `node tools/shot.mjs kalkylator/v1/index.html _shots/v1 --query "?m=rot"` och `... _shots/v1-gt --query "?m=gt"`
+ger `errors: []`, `overflowX: false` på 1440 och 390 (körda 2026-09-14 efter fixrundan). `node kalkylator/v1/_probe.mjs`
+ger 71/71 krav OK.
 
 ## Idén
 
-Ett vitt kort (`.ampy-card`, hårlinje + kortskugga) som fyller artikelspalten (980 px) och delas 55/45.
-Vänster: H2 + tre frågor staplade, etikett över kontroll, luft i stället för ramar. Höger: beskedet på en
-sky mist-panel (`--ampy-bg-subtle`) som går ända ut till kortets kant, skild från frågorna av en enda
-hårlinje (`--ampy-line`), innehållet vertikalt centrerat: teal-streck + etikett (`.ampy-eyebrow--dash`),
-talet som hero (Outfit 700, tabulära siffror, midnight), "kr" som mindre enhet bredvid (samma grepp som
-LED-kalkylatorns "kr/år"), "Per person och år." dämpad under. Ingen midnattsyta någonstans; teal är enda
-accenten (strecket 24 x 2 samt vald text i segmenten, `--ampy-action-strong`).
+Artikelns H2 (`.ampy-h2`, 36/500) står ovanför kortet med `--ampy-space-stack-lg` (39,6) emellan, som
+LED-kalkylatorn. Under den ett vitt kort (`.ampy-card`, hårlinje + kortskugga) som fyller artikelspalten (980 px)
+och delas 55/45. Vänster: tre frågor staplade, etikett över kontroll, luft i stället för ramar. Höger: beskedet på
+en sky mist-panel (`--ampy-bg-subtle`) som går ända ut till kortets kant, skild från frågorna av en enda hårlinje
+(`--ampy-line`), innehållet vertikalt centrerat: etikett i versaler, talet som hero (Outfit 700, tabulära siffror,
+midnight), "upp till"/"ca" och "kr" i halva talets storlek (28/22) i dämpad 500 bredvid (samma grepp som
+LED-kalkylatorns "kr/år"), "Per person och år." dämpad under. Ingen midnattsyta någonstans; teal är enda accenten
+(vald text i segmenten, `--ampy-action-strong`). Demo-sidan är vit som artikelmallen; kortet bär hårlinje +
+systemskugga så det läses som kort på vitt.
 
-Panelen är tre rader (luft / huvud / luft): huvudbeskedet ligger alltid mitt i panelen och flyttar sig
-inte när femårsraden dyker upp; raden får plats i den nedre luften bakom en hårlinje. Uppmätt: talradens
-överkant 265,5 px både utan och med femårsraden (desktop), 541,7 px på mobil.
+Panelen är tre rader (luft / huvud / luft): huvudbeskedet ligger alltid mitt i panelen och flyttar sig inte när
+femårsraden dyker upp; raden får plats i den nedre luften bakom en hårlinje.
 
 Stoppläget: talet, underraden och femårsraden döljs; en 44 px cirkel i `--ampy-error-ink` med vitt kryss
-(inline-SVG, stroke 1,75, rund ände) och beskedet ur `rakna.js` i `--ampy-ink` 18/500. Ja igen tar talet
-tillbaka. Talet byts med en 200 ms intoning (aldrig count-up, aldrig på första renderingen); base.css
-nollar den vid reduced motion.
+(inline-SVG, stroke 1,75, rund ände) och beskedet ur `rakna.js` i `--ampy-ink` 18/500 på SAMMA rad, mitt för
+varandra. Stoppblocket har talblockets höjd (`--rk-huvud-h` = tal + luft + "Per person och år." = 88,3 / 74,7) och
+samma avstånd från etiketten, så etikett, panel och kort står stilla när talet byts mot X + besked. Ja igen tar
+talet tillbaka. Talet byts med en 200 ms intoning (aldrig count-up, aldrig på första renderingen); base.css nollar
+den vid reduced motion (uppmätt 1e-06 s).
 
-Mobil (390): en spalt, frågorna först, panelen som fullbreddsblock i kortets botten bakom en hårlinje
-uppåt. Segment och fält går på hela bredden, inkomstraden staplas, talet 42 px.
+`?m=gt`: rubrik, etikett och stoppbesked i grön teknik-strängarna; femårsfrågan visas inte (den påverkar bara ROT;
+`.rk[data-mode="gt"] .rk__fraga--aldre { display: none }`). "grön teknik-avdrag" ligger i en `span.rk__ihop` med
+`white-space: nowrap` i H2 och stoppbesked (textContent oförändrad, varken mellanslaget eller bindestrecket bryter);
+etiketten (inline-flex) använder hårt mellanslag.
 
-## Uppmätt (Playwright `getBoundingClientRect`, `skarmdumpar/probe.json`)
+Inmatning: beloppet formateras med mellanslag på varje tangent, men beskedet räknas om först 500 ms efter sista
+tangenten, direkt vid `change`/blur och vid Enter/"Klar" (`submit` -> `preventDefault` + blur, ingen omladdning).
+DOM:en skrivs bara när en text faktiskt ändrats, så live-regionerna (`aria-live` på talraden, stoppblocket och
+femårsraden, inte på etiketten) muterar exakt en gång per verklig ändring.
 
-Desktop 1440, kortet 980 x 475 px (55/45: frågor 538, panel 440):
+Mobil (390): en spalt, frågorna först, panelen som fullbreddsblock i kortets botten bakom en hårlinje uppåt.
+Segment och fält går på hela bredden, inkomstraden staplas, talet 44 px. På touch (`pointer: coarse`) är spårets
+kant 2 px och alternativet 44 px högt i det 48 px höga spåret.
+
+## Uppmätt efter fixrundan (Playwright `getBoundingClientRect`, `skarmdumpar/probe.json`)
+
+Desktop 1440, kortet 980 x 427,6 px (55/45: frågor 538, panel 440), gt 312,6:
 
 | Mått | px | Brief |
 |---|---|---|
-| kortkant -> H2 | 33 (32 + 1 kant) | 32 till 40 |
-| H2 -> fråga 1 | 19,8 (`--ampy-space-s`) | |
+| H2 -> kort | 39,6 (`--ampy-space-stack-lg`) | rubrik -> block |
+| kortkant -> fråga 1 | 40,6 (39,6 + 1 kant, `--ampy-space-l`) | 32 till 40 |
 | fråga -> underrad | 7 (`--ampy-space-3xs`) | 6 till 8 |
-| underrad -> kontroll | 14 (`--ampy-space-xs`) | 12 till 14 |
+| underrad -> kontroll | 14 (`max(12px, --ampy-space-xs)`) | 12 till 14 |
 | fråga (etikett) -> kontroll | 14 | 12 till 14 |
 | kontroll -> nästa fråga | 28 (`--ampy-space-m`) | 28 till 40 |
-| sista kontroll -> kortkant | 33 | 32 till 40 |
+| sista kontroll -> kortkant | 40,6 | 32 till 40 |
 | panel: etikett -> tal | 14, tal -> "Per person" 9,9 | |
+| panel: etikett -> stoppblock | 14 (samma som talraden), stoppblock 88,3 hög = talblocket | |
 
-Typografi: H2 36/500/lh 43,2 (`.ampy-h2`); frågor 20/500/lh 25; underrad 16/400 dämpad; etikett
-12/600 versaler spärrning 1,68 px; tal 56/700 tabular-nums; "Per person och år." 16/400 dämpad; segment 16
-(vald 600 teal-deep, ovald 500 dämpad); belopp 18/500.
+Typografi: H2 36/500/lh 43,2 (`.ampy-h2`); frågor 20/500/lh 25; underrad 16/400 dämpad; etikett 12/600 versaler
+spärrning 1,68 px (inget streck); prefix "upp till"/"ca" 28/500 dämpad = enhet "kr" 28/500 dämpad (halva talet);
+tal 56/700 tabular-nums; "Per person och år." 16/400 dämpad; femårsraden 16/400; stoppbesked 18/500/lh 24,3 i
+`--ampy-ink`; segment 16 (vald 600 teal-deep, ovald 500 dämpad); belopp 18/500.
 
-Kontroller: segmentspår 188 x 48, varje val 88 x 40 (4 px spår runt, som LED-kalkylatorn); beloppsfält
-257 x 48 med "kr" som suffix inne i fältet. Talraden "upp till 50 000 kr" är 264 px bred i 360 px panel.
+Kontroller: segmentspår 188 x 48, varje val 88 x 40 (4 px spår runt, som LED-kalkylatorn); Lön/Pension-spåret är
+188 både med Lön och med Pension vald ("Pension" i 600 + padding = 84,3 < 88, så viktbytet flyttar ingenting);
+beloppsfält 257 x 48 med "kr" som suffix inne i fältet.
 
-Mobil 390, kortet 356 x 620 px i utgångsläget (tak 640): kortpadding 22,5, H2 -> fråga 16,9,
-fråga -> underrad 6,6, underrad -> kontroll 10,5, fråga -> fråga 21,5; segment 311 x 48 (val 150 x 40), fält
-311 x 48; tal 42 px. Med femårsraden 667, i stoppläget 658, i gt-läget 652 (rubriken bryter på två rader).
+Mobil 390 (touch), kortet 356 x 590,5 px i utgångsläget (tak 640), gt 477,5: H2 -> kort 21,5, kortpadding 21,5
+(+1 kant), fråga -> underrad 6,6, underrad -> kontroll 12, fråga -> kontroll 12, fråga -> fråga 28; segment 311 x 48
+(val 152 x 44, spårkant 2 px), fält 311 x 48; tal 44, prefix/enhet 22, stoppbesked 18, femårsraden 16;
+etikett -> tal 10,5, tal -> per 8,3. Stoppläget: kortet +-0 (stoppblock min-höjd 74,7, texten tre rader 72,9).
+Femårsraden: kortet +72,5 (raden bryter på två rader vid 16 px; talet står stilla, växten ligger under talet).
 
-Kontrast (alla >= 4,5:1): dämpad text `#565e82` på sky mist 5,99:1, teal-deep på vit 5,27:1, vitt kryss på `--ampy-error-ink` 10,7:1, placeholder
-`#6a7190` 4,8:1, midnight på sky mist 18:1.
+Kontrast (alla >= 4,5:1, oförändrat): dämpad text `#565e82` på sky mist 5,99:1, teal-deep på vit 5,27:1, vitt kryss
+på `--ampy-error-ink` 10,7:1, placeholder `#6a7190` 4,8:1, midnight på sky mist 18:1.
 
-## De fyra tillstånden (PNG i `skarmdumpar/`)
+## Tillstånden (PNG i `skarmdumpar/`, klippta från rubriken till kortets nederkant)
 
-1. Nej på ägande: `desktop-2-ager-nej.png`, `mobile-2-ager-nej.png` (rött X + besked, talet borta; Ja igen
-   ger talet tillbaka, proben verifierar `agerJaIgen`).
-2. Nej på fem år: `desktop-3-femar-nej.png`, `mobile-3-femar-nej.png` ("Yngre än fem år: ROT gäller bara
-   reparationer." bakom hårlinje, talet står kvar på samma plats).
-3. 180 000 kr lön: `desktop-4-lon-180000.png`, `mobile-4-lon-180000.png` (ca 12 000 kr).
-4. Pension 240 000: `desktop-5-pension-240000.png`, `mobile-5-pension-240000.png` (ca 38 000 kr). Tillbaka
-   till lön + 600 000 ger 50 000 kr utan prefix, tomt fält ger "upp till 50 000 kr" igen (`lon600k`, `tomIgen`).
+1. Utgångsläge: `desktop-1-utgangslage.png`, `mobile-1-utgangslage.png` ("upp till 50 000 kr").
+2. Nej på ägande: `desktop-2-ager-nej.png`, `mobile-2-ager-nej.png` (rött X + besked på en rad, talet borta;
+   etikett 0 px, huvud 0 px / 0 px, kort 0 px; Ja igen ger talet tillbaka på samma plats, `agerJaIgen`).
+3. Nej på fem år: `desktop-3-femar-nej.png`, `mobile-3-femar-nej.png` ("Yngre än fem år: ROT gäller bara
+   reparationer." bakom hårlinje, talet 0 px; desktop kort 0 px).
+4. 180 000 kr lön: `desktop-4-lon-180000.png`, `mobile-4-lon-180000.png` (ca 12 000 kr; 0 mutationer medan hon
+   skriver, 1 efter fördröjningen).
+5. Pension 240 000: `desktop-5-pension-240000.png`, `mobile-5-pension-240000.png` (ca 38 000 kr). Tillbaka till
+   lön + 600 000 ger 50 000 kr utan prefix, tomt fält + blur ger "upp till 50 000 kr" direkt.
+6. gt: `desktop-6-gt-utgangslage.png`, `mobile-6-gt-utgangslage.png` (två frågor), `desktop-7-gt-ager-nej.png`,
+   `mobile-7-gt-ager-nej.png` (grön teknik-strängarna, "grön teknik-avdrag" ihop).
+7. `*-8-tangentbordsfokus.png` (piltangent i segmentet: fokusring ur systemet, valet byts).
 
-Dessutom: `*-1-utgangslage.png`, `*-6-gt-utgangslage.png`, `*-7-gt-ager-nej.png` (grön teknik-strängarna),
-`*-8-tangentbordsfokus.png` (piltangent i segmentet: fokusring ur systemet, valet byts).
+## Fixrunda 2026-09-14 (R1-ux.md v1 punkt 1 till 14, R2-design.md v1 punkt 1 till 10, orkestreringens beslut a till i)
+
+Konfliktregel: R2 vinner på layout/typografi, R1 på tillstånd/a11y. En konflikt fanns (R2-8 mot R1-G6), se nedan.
+
+### R1 (UX)
+
+| # | Punkt | Status | Vad |
+|---|---|---|---|
+| 1 | submit -> preventDefault + blur | Klar | `app.js`: `form.addEventListener('submit', ...)`. Enter/Klar: `sidanLaddadesOm: false`, beloppet kvar, gt-läget kvar (desktop + mobil). |
+| 2 | Fördröjd rendering 500 ms, direkt på change | Klar | 500 ms efter sista `input`, direkt på `change` OCH `blur` (beslut c). "ca 0" syns aldrig: 0 mutationer under skrivning, talet står på 50 000 tills "ca 12 000 kr". |
+| 3 | Skriv bara när texten ändrats | Klar | `skriv()`/`gom()` jämför före varje skrivning (text + hidden + data-status). |
+| 4 | aria-live från `#rk-resultat` till talrad + stopp | Klar | `aria-live="polite" aria-atomic="true"` på `#rk-talrad` och `#rk-stopp`, dessutom `aria-live="polite"` på femårsraden `#rk-not`. Etiketten ligger utanför. Stoppblocket visas först, texten skrivs sedan (uppläsning). Tillbaka från stopp skrivs talet om (uppläsning av att det är tillbaka). Uppmätt: 1 batch per verklig ändring, även med attribut i observatören. |
+| 5 | prefix + enhet `--ampy-text-mid` | Klar, R2:s variant | `--ampy-text-mid` är 21 vid 1440 (R2-2); i stället `--rk-text-enhet: calc(tal * .5)` = 28/22, samma vikt 500, samma spärrning (beslut g). |
+| 6 | `pointer: coarse`: spår 2 px, alternativ 44 | Klar | Uppmätt på touch-sidan: spår 48, alternativ 44, spårkant 2; tryck 2 px in i spåret väljer Nej. |
+| 7 | `--rk-text-tal: 44px` mobil | Klar | 44 (prefix/enhet 22). |
+| 8 | femårsraden 16 px | Klar | `--rk-text-under`; 16 på båda skärmar. Pris: raden bryter på två rader på mobil, kortet växer 72,5 i det läget (R1-7 "acceptera, det är under kortet"; att reservera raden hade lagt 48 px tom luft i utgångsläget och sprängt 640). |
+| 9 | stopptext 18 px | Klar | `--rk-text-stopp: 18px`, båda skärmar. |
+| 10 | X + text på en rad, stoppblock i talblockets höjd, `skiftEyebrow.dy: 0` | Klar | `.rk__stopp { display:flex; align-items:center; gap: s; margin-top: xs; min-height: var(--rk-huvud-h) }`. Etikett 0 px, huvud 0/0, kort 0 på desktop OCH mobil (beslut h). |
+| 11 | ta bort `ampy-eyebrow--dash` | Klar | Inget streck. |
+| 12 | `id="rk-under-1"` + `aria-describedby` på båda radioknapparna | Klar | |
+| 13 | Ägarbeslut: dölj fråga 2 i gt | Klar (beslut a) | `.rk[data-mode="gt"] .rk__fraga--aldre { display: none }`; gt visar två frågor, Tab går Ja -> Lön -> fältet. |
+| 14 | Kör om shot + prob | Klar | shot rot/gt: `errors: []`, `overflowX: false`. Proben: 71/71. |
+
+### R2 (design)
+
+| # | Punkt | Status | Vad |
+|---|---|---|---|
+| 1 | H2 ut ur kortet, första barn i `main` | Klar (beslut f) | Kortet 427,6 (rot) / 312,6 (gt) på desktop, 590,5 / 477,5 på mobil. gt-rubriken på en rad i 980. |
+| 2 | `.rk__rubrik { margin: 0 0 stack-lg }`, bort med `--rk-gap-h2` | Klar | H2 -> kort 39,6 / 21,5. |
+| 3 | `--rk-text-enhet: calc(tal * .5)` på prefix och enhet, 500, lh 1, ls -0,01em, dämpad | Klar | 28/28 desktop, 22/22 mobil, samma baslinje som talet. |
+| 4 | `.rk__stopp` rad, center, gap s; stopptext 18/500/1,35 ink | Klar | R2 föreslog `margin-top: s`; R1 punkt 10 och beslut h kräver 0 px skift, så `margin-top: xs` (= talradens). Texten 18/500/lh 24,3. |
+| 5 | Mobil: `.rk__huvud { min-height: ... }` | Klar, annan väg | Samma effekt via `min-height` på stoppblocket (= talblockets höjd): kortet +-0 i stoppläget på mobil, texten (72,9) ryms i 74,7. |
+| 6 | Mobil `--rk-gap-q: clamp(28px, l, 40px)`, `--rk-gap-ctl: max(12px, xs)` | Klar | fråga -> fråga 28, underrad/fråga -> kontroll 12 (mobil), 14 (desktop). |
+| 7 | femårsraden `--rk-text-under` | Klar | Se R1-8. |
+| 8 | Segment 600 på båda (inget vikthopp) | INTE gjort, R1 vinner | R1-G6 vill ha vikt + färg + yta som valt-signal för en 55-åring (tillstånd/a11y). Kvar: vald 600, ovald 500. R2:s underliggande hantverksproblem (bredden byter när vikten byter) är löst på annat sätt: "Pension" i 600 + padding är 84,3 < min-width 88, uppmätt spår 188 -> 188 vid byte Lön/Pension. |
+| 9 | ta bort `ampy-eyebrow--dash` | Klar | |
+| 10 | Kör prob + shot: kort <= 460 / <= 640, stopp +-0 mobil, prefix = enhet = 28 | Klar | 427,6 / 312,6 / 590,5 / 477,5; 0 px; 28 = 28. |
+
+### Orkestreringens beslut a till i
+
+a) fråga 2 dold i gt: klar. b) demo-sidan vit (`--ampy-bg-surface`), kortet med hårlinje + `--ampy-shadow-card`,
+panelen sky mist: klar (oförändrat från v1, verifierat). c) 500 ms debounce, direkt på change/blur, skriv bara vid
+ändring: klar. d) submit -> preventDefault: klar. e) 44 px på coarse pointer: klar. f) H2 ovanför kortet med
+`--ampy-space-stack-lg`: klar. g) prefix/enhet 28 vid 56, 500, dämpad: klar. h) X + mening på en rad, centrerade,
+talblockets höjd: klar, 0 px skift på båda skärmar. i) "grön teknik" obrytbar i H2 och stoppmening: klar
+(`span.rk__ihop`, nowrap; H2 på mobil bryter "Räkna ut ditt / grön teknik-avdrag").
+
+### Övrigt ur fixrundan
+
+- Kortpaddingen är nu `--ampy-space-l` (39,6 / 21,5) på alla sidor i stället för det egna värdet 32 px: med H2:n
+  utflyttad finns höjden, och 39,6 ligger i briefens 32 till 40 (mobil 21,5 i 20 till 24).
+- `impeccable`-hooken flaggar `border-left: 1px solid var(--ampy-line)` (panelens hårlinje, rad 90) och fältets
+  `padding-right` (plats för kr-suffixet, rad 76) som "side-tab": falskt positivt båda (R2 säger detsamma om
+  hårlinjen: "en avdelare, inte en sidoflik"). Inte ändrat.
+- Proben kör mobilen med `hasTouch` + `isMobile` (då gäller `pointer: coarse`, som på en telefon).
+  `tools/shot.mjs` kör 390 utan touch, så där är alternativen 40 px i 48-spåret (fin pekare); båda är riktiga lägen.
 
 ## Självgranskning
 
-1. Femåring? Första utkastet hade kortet 924 px brett (spaltens padding åt 56 px) och "grön / teknik-avdrag"
-   bröts fel i gt-rubriken. Rättat: kortet är 980, "grön teknik" hålls ihop med hårt mellanslag så
-   rubriken bryter "Räkna ut ditt / grön teknik-avdrag". På mobil ärvde de tomma 1fr-raderna femårsradens
-   höjd och sköt ner talet 47 px; rättat med flex-kolumn på mobil (talet står nu stilla på 541,7).
-2. Spacing: tabellen ovan. Allt ur `--ampy-space-*`; enda egna värdet är kortets vertikala padding 32 px
-   (skalan har 28 eller 39,6 vid 1440; 32 är briefens golv).
-3. Fyra tillstånd renderade, se listan.
-4. Mot LED-kalkylatorn: samma spår/pill-segment (48/40), samma etikett-över-kontroll-rytm, samma
-   hero-tal med mindre enhet, samma kort-på-ljus-yta med hårlinje, men utan mörkt resultatkort (ägarens
-   krav). Mot Hero-1: samma Outfit-vikter (500 rubrik, 700 tal) och samma tysta ytor. Nivån håller.
+1. Femåring? Desktop: rubriken står i artikelflödet med 39,6 luft, kortet är kort och luftigt (427), talraden
+   läses som en enhet ("upp till 50 000 kr" i 28/56/28 på samma baslinje), stoppläget är ett besked på en rad.
+   Mobil: alla kontroller fullbredd, 44 px tryckyta, talet 44, ingenting hoppar när hon trycker Nej.
+2. Spacing: tabellen ovan, allt inom briefens intervall, allt ur `--ampy-space-*` (enda egna: `max(12px, xs)` som
+   golv på mobil, `clamp(28px, l, 40px)` som golv på mobil, textstorlekar 20/16/18 och min-width 88 som briefen anger).
+3. Fyra tillstånd + gt renderade, se listan; 71 krav mätta i proben.
+4. Mot LED-kalkylatorn: samma rubrik-i-flödet med 40 under, samma spår/pill-segment (48/40, 44 på touch), samma
+   hero-tal med enhet i halva storleken på baslinjen, samma kort-på-ljus-yta med hårlinje, men utan mörkt
+   resultatkort (ägarens krav). Mot Hero-1: samma Outfit-vikter (500 rubrik, 700 tal) och tysta ytor.
 
 ## Öppet / kunde inte lösas
 
-- **Korthöjd desktop 475 px mot briefens 460.** Med H2:n inne i kortet och briefens egna rytmgolv
-  (padding 32, fråga -> fråga 28, underrad -> kontroll 12 till 14) blir minsta möjliga ca 466 px; 460 nås
-  bara om H2:n flyttas ut ovanför kortet (som LED-kalkylatorn) eller frågeavståndet krymps till 24. Jag
-  valde rytmen. Om 460 är hårt: `--rk-gap-q: 24px` ger 467, H2 ovanför kortet ger ca 412.
-- Grön teknik-rubriken är 32 tecken och bryter på två rader i 36 px (kortet 519 px desktop, 652 mobil).
-  Den ryms inte på en rad i en 55-procentsspalt oavsett.
-- Fråga 2 (fem år) visas även i `?m=gt` fast den inte påverkar grön teknik (innehållet är låst till
-  samma tre frågor; `rakna.js` ignorerar den i gt). Ägarfråga om den ska döljas i gt-läget.
-- Bocken (grön) är medvetet utelämnad: talbytet "upp till 50 000" -> "ca 12 000" är beskedet, en ikon till
-  bredvid talet gör det inte tydligare.
-- Sidan renderas på vit bakgrund (artikelmallens brödyta), inte systemets sky mist, så panelen syns som
-  panel. I Bricks-artikeln blir det samma sak.
-- `impeccable`-hooken flaggar `border-left: 1px solid var(--ampy-line)` på panelen som "side-tab accent":
-  falskt positivt, det är hårlinjen mellan spalterna, inte en färgad kant.
-- 180 000 kr lön ger "ca 12 000 kr" (skatteutrymmet är litet vid låg lön); det är `rakna.js`, inte
-  designen. Briefens exempel "ca 31 000 kr" motsvarar ungefär 300 000 kr.
+- Femårsraden på mobil bryter på två rader (16 px i 313 px) och kortet växer 72,5 px i det läget; talet står
+  stilla. Att reservera raden hade kostat 48 px tom luft i utgångsläget. Ägarfråga om raden får vara 14 px på mobil
+  (då ryms den nästan på en rad) eller om växten accepteras (R1: "acceptera").
+- Femårsfrågan är dold i gt (beslut a). Om innehållet "samma tre frågor" var tänkt bokstavligt även i gt, ta bort
+  CSS-regeln `.rk[data-mode="gt"] .rk__fraga--aldre`.
+- 180 000 kr lön ger "ca 12 000 kr" (skatteutrymmet är litet vid låg lön); det är `rakna.js`, inte designen.
+  Briefens exempel "ca 31 000 kr" motsvarar ungefär 300 000 kr. R1-G1(b): `belopp === 0` -> "0 kr" utan "ca" är en
+  ägarfråga till `rakna.js`.
+- Segmentens vikt (600 vald / 500 ovald) avviker från systemets 600/600 (R2-8); ägarfråga om systemet ska ändras
+  eller versionen följa det.

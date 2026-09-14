@@ -1,44 +1,57 @@
 {
  "desktop": {
-  "fel": [],
   "matt": {
    "layout": "en rad (tre kolumner)",
    "kort": {
     "bredd": 980,
-    "hojd": 424
+    "hojd": 408
    },
-   "h2_till_kort": 28,
-   "hero": {
-    "hojd": 198,
-    "kortkant_till_etikett": 39.6,
-    "etikett_till_tal": 9.9,
+   "h2_till_kort": 39.6,
+   "panel": {
+    "hojd": 200.6,
+    "kortkant_till_panel": 20.8,
+    "kortkant_till_panel_sida": 20.8,
+    "panelkant_till_etikett": 28,
+    "panelkant_till_text_sida": 19.8,
+    "kortkant_till_text": 40.6,
+    "etikett_till_tal": 13.9,
     "tal_till_rad": 9.9,
-    "rad_till_harlinje": 40.6
+    "per_till_panelkant": 50.8,
+    "rad_reserverad_hojd": 55
    },
-   "harlinje_till_fraga1": 39.6,
+   "panel_till_fraga1": 28,
+   "kortkant_till_fraga1": 249.4,
+   "fraga_vansterkant_lika_etikett": true,
    "fraga1": {
-    "etikett_till_kontroll": 14,
-    "kontroll_till_underrad": 9.9
+    "etikett_till_underrad": 7,
+    "underrad_till_kontroll": 14,
+    "underrad_rader": 1,
+    "underrad_bredd": 306.4
    },
    "fraga2": {
-    "etikett_till_kontroll": 14
+    "etikett_till_kontroll": 45
    },
    "fraga3": {
-    "etikett_till_kontroll": 14
+    "etikett_till_kontroll": 45
    },
    "fraga_till_fraga": {
-    "kolumngap": 43.9
+    "kolumngap_1_2": 49.8,
+    "kolumngap_2_3": 49.8,
+    "underrad_slut_till_kolumn2": -68.6
    },
    "sista_kontroll_till_kortkant": 40.6,
    "typografi": {
     "h2": "36px/500",
-    "fraga": "20px/500",
+    "fraga": "20px/500 ls -0.2px",
     "underrad": "16px/400",
-    "etikett": "12px",
+    "etikett": "12px/600 ls 1.68px",
     "tal": "56px/700",
     "prefix": "28px",
     "per": "16px",
-    "segment": "18px",
+    "not": "16px",
+    "stopp": "18px/500",
+    "segment_ovald": "18px/500",
+    "segment_vald": "600",
     "input": "18px"
    },
    "kontroller": {
@@ -47,81 +60,147 @@
     "option_bredd": 88,
     "option_hojd": 40,
     "input_hojd": 48,
-    "input_bredd": 150
-   }
+    "input_bredd": 150,
+    "kr_gap": 9,
+    "kryss_path": "M6 6l12 12M18 6L6 18",
+    "kryss_px": 12
+   },
+   "bakgrund": {
+    "sida": "rgb(255, 255, 255)",
+    "kort": "rgb(255, 255, 255)",
+    "panel": "rgb(245, 249, 255)",
+    "panel_radie": "12px"
+   },
+   "svg_antal": 1
   },
   "start": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": null,
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "agerNej": {
    "tal": null,
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
    "not": null,
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
+  },
+  "skiftVidStopp": {
+   "kontroll1": 0,
+   "input": 0,
+   "panelHojd": 0,
+   "kortHojd": 0
   },
   "agerJaIgen": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": null,
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "aldreNej": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": "Yngre än fem år: ROT gäller bara reparationer.",
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
+  "skiftVidFemarsnot": {
+   "kontroll1": 0,
+   "femarKontroll": 0,
+   "input": 0,
+   "tal": 0,
+   "panelHojd": 0,
+   "kortHojd": 0
+  },
+  "lon180k_medanHonSkriver": [
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr"
+  ],
   "lon180k": {
    "tal": "ca 12 000 kr",
    "stopp": null,
    "not": null,
-   "bock": true,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "faltvarde": "180 000",
+  "liveBatchar": 1,
+  "enterIFaltet": {
+   "sidanLaddadesOm": false,
+   "mode": "rot",
+   "faltvarde": "180 000",
+   "aktivtElement": "BODY"
+  },
   "pension240k": {
    "tal": "ca 38 000 kr",
    "stopp": null,
    "not": null,
-   "bock": true,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "lonIgen240k": {
    "tal": "ca 21 000 kr",
    "stopp": null,
    "not": null,
-   "bock": true,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
-  "overflowX": false
+  "faltMiljon": {
+   "varde": "1 000 000",
+   "klipps": false
+  },
+  "ordning": {
+   "domUnderForst": true,
+   "visuelltUnderForst": true,
+   "stammer": true
+  },
+  "tap": {
+   "sparHojd": 48,
+   "labelHojd": 40,
+   "x": 411,
+   "yPadding": 483,
+   "valtEfterKlickPaSparkant": "ja",
+   "sparkantTryckbar": false,
+   "pointerCoarse": false
+  },
+  "overflowX": false,
+  "fel": []
  },
  "mobil": {
-  "fel": [],
   "matt": {
-   "layout": "staplat",
+   "layout": "staplat, panelen under frågorna",
    "kort": {
     "bredd": 347.1,
-    "hojd": 615.5
+    "hojd": 614.2
    },
-   "h2_till_kort": 20,
-   "hero": {
-    "hojd": 146.5,
-    "kortkant_till_etikett": 21.5,
-    "etikett_till_tal": 8.3,
+   "h2_till_kort": 21.5,
+   "panel": {
+    "hojd": 136.8,
+    "kortkant_till_panel": 11.5,
+    "kortkant_till_panel_sida": 11.5,
+    "panelkant_till_etikett": 16.9,
+    "panelkant_till_text_sida": 13.3,
+    "kortkant_till_text": 24.9,
+    "etikett_till_tal": 12.3,
     "tal_till_rad": 8.3,
-    "rad_till_harlinje": 22.5
+    "per_till_panelkant": 13.3,
+    "rad_reserverad_hojd": 24
    },
-   "harlinje_till_fraga1": 21.5,
+   "panel_till_fraga1": 16.9,
+   "kortkant_till_fraga1": 24.9,
+   "fraga_vansterkant_lika_etikett": true,
    "fraga1": {
     "etikett_till_underrad": 6.6,
-    "underrad_till_kontroll": 12
+    "underrad_till_kontroll": 12,
+    "underrad_rader": 2,
+    "underrad_bredd": 297.4
    },
    "fraga2": {
     "etikett_till_kontroll": 12
@@ -133,101 +212,450 @@
     "f1_till_f2": 28,
     "f2_till_f3": 28
    },
-   "sista_kontroll_till_kortkant": 22.5,
+   "sista_kontroll_till_kortkant": 16.9,
    "typografi": {
     "h2": "26.756px/500",
-    "fraga": "20px/500",
+    "fraga": "20px/500 ls -0.2px",
     "underrad": "16px/400",
-    "etikett": "12px",
+    "etikett": "12px/600 ls 1.68px",
     "tal": "44px/700",
     "prefix": "22px",
     "per": "16px",
-    "segment": "16.119px",
+    "not": "16px",
+    "stopp": "18px/500",
+    "segment_ovald": "16.119px/500",
+    "segment_vald": "600",
     "input": "18px"
    },
    "kontroller": {
     "segment_hojd": 48,
-    "segment_bredd": 302.2,
-    "option_bredd": 145.1,
-    "option_hojd": 40,
+    "segment_bredd": 297.4,
+    "option_bredd": 144.7,
+    "option_hojd": 44,
     "input_hojd": 48,
-    "input_bredd": 302.2
-   }
+    "input_bredd": 297.4,
+    "kr_gap": 10.7,
+    "kryss_path": "M6 6l12 12M18 6L6 18",
+    "kryss_px": 12
+   },
+   "bakgrund": {
+    "sida": "rgb(255, 255, 255)",
+    "kort": "rgb(255, 255, 255)",
+    "panel": "rgb(245, 249, 255)",
+    "panel_radie": "10.119px"
+   },
+   "svg_antal": 1
   },
   "start": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": null,
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "agerNej": {
    "tal": null,
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
    "not": null,
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
+  },
+  "skiftVidStopp": {
+   "kontroll1": 0,
+   "input": 0,
+   "panelHojd": 0,
+   "kortHojd": 0
   },
   "agerJaIgen": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": null,
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "aldreNej": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": "Yngre än fem år: ROT gäller bara reparationer.",
-   "bock": false,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
+  "skiftVidFemarsnot": {
+   "kontroll1": 0,
+   "femarKontroll": 0,
+   "input": 0,
+   "tal": 0,
+   "panelHojd": 54.6,
+   "kortHojd": 54.6
+  },
+  "lon180k_medanHonSkriver": [
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr",
+   "upp till 50 000 kr"
+  ],
   "lon180k": {
    "tal": "ca 12 000 kr",
    "stopp": null,
    "not": null,
-   "bock": true,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "faltvarde": "180 000",
+  "liveBatchar": 1,
+  "enterIFaltet": {
+   "sidanLaddadesOm": false,
+   "mode": "rot",
+   "faltvarde": "180 000",
+   "aktivtElement": "BODY"
+  },
   "pension240k": {
    "tal": "ca 38 000 kr",
    "stopp": null,
    "not": null,
-   "bock": true,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
   "lonIgen240k": {
    "tal": "ca 21 000 kr",
    "stopp": null,
    "not": null,
-   "bock": true,
-   "etikett": "Ditt ROT-avdrag 2026"
+   "etikett": "Ditt ROT-avdrag 2026",
+   "bock": false
   },
-  "overflowX": false
+  "faltMiljon": {
+   "varde": "1 000 000",
+   "klipps": false
+  },
+  "ordning": {
+   "domUnderForst": true,
+   "visuelltUnderForst": true,
+   "stammer": true
+  },
+  "tap": {
+   "sparHojd": 48,
+   "labelHojd": 44,
+   "x": 269,
+   "yPadding": 193,
+   "valtEfterKlickPaSparkant": "nej",
+   "sparkantTryckbar": true,
+   "pointerCoarse": true
+  },
+  "overflowX": false,
+  "fel": []
  },
- "gt": {
+ "mobilTangentbord": {
+  "vh": 370,
+  "efterFokus": {
+   "falt": {
+    "top": 161,
+    "bottom": 209
+   },
+   "panel": {
+    "top": 226,
+    "bottom": 363
+   }
+  },
+  "medanHonSkriver": {
+   "falt": {
+    "top": 161,
+    "bottom": 209
+   },
+   "panel": {
+    "top": 226,
+    "bottom": 363
+   },
+   "tal": "ca 12 000 kr",
+   "panelHeltSynlig": true,
+   "faltSynligt": true
+  },
+  "efterBlur": {
+   "panel": {
+    "top": 226,
+    "bottom": 363
+   },
+   "panelHeltSynlig": true
+  },
+  "varstaFallet": {
+   "foreFokus": {
+    "falt": {
+     "top": 322,
+     "bottom": 370
+    },
+    "panel": {
+     "top": 387,
+     "bottom": 524
+    }
+   },
+   "efterFokus": {
+    "falt": {
+     "top": 135,
+     "bottom": 183
+    },
+    "panel": {
+     "top": 200,
+     "bottom": 337
+    }
+   },
+   "efterEnter": {
+    "panel": {
+     "top": 200,
+     "bottom": 337
+    },
+    "tal": "ca 12 000 kr",
+    "sidanLaddadesOm": false,
+    "panelHeltSynlig": true
+   }
+  }
+ },
+ "mobil664": {
+  "sistaKontroll": {
+   "top": 476,
+   "bottom": 524
+  },
+  "sistaKontrollHeltSynlig": true,
+  "tal": {
+   "top": 588,
+   "bottom": 632
+  },
+  "talHeltSynligt": true,
+  "kortBottom": 689
+ },
+ "gt_desktop": {
   "start": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": null,
-   "bock": false,
-   "etikett": "Ditt grön teknik-avdrag 2026"
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "bock": false
   },
-  "rubrik": "Räkna ut ditt grön teknik-avdrag",
+  "rubrik": "Räkna ut ditt grön teknik-avdrag",
+  "matt": {
+   "layout": "en rad (tre kolumner)",
+   "kort": {
+    "bredd": 980,
+    "hojd": 377
+   },
+   "h2_till_kort": 39.6,
+   "panel": {
+    "hojd": 169.6,
+    "kortkant_till_panel": 20.8,
+    "kortkant_till_panel_sida": 20.8,
+    "panelkant_till_etikett": 28,
+    "panelkant_till_text_sida": 19.8,
+    "kortkant_till_text": 40.6,
+    "etikett_till_tal": 13.9,
+    "tal_till_rad": 9.9,
+    "per_till_panelkant": 19.8,
+    "rad_reserverad_hojd": 24
+   },
+   "panel_till_fraga1": 28,
+   "kortkant_till_fraga1": 218.4,
+   "fraga_vansterkant_lika_etikett": true,
+   "fraga1": {
+    "etikett_till_underrad": 7,
+    "underrad_till_kontroll": 14,
+    "underrad_rader": 1,
+    "underrad_bredd": 306.4
+   },
+   "fraga2": "dold (grön teknik)",
+   "fraga3": {
+    "etikett_till_kontroll": 45
+   },
+   "fraga_till_fraga": {
+    "kolumngap_1_3": 158.3,
+    "underrad_slut_till_kolumn3": 39.9
+   },
+   "sista_kontroll_till_kortkant": 40.6,
+   "typografi": {
+    "h2": "36px/500",
+    "fraga": "20px/500 ls -0.2px",
+    "underrad": "16px/400",
+    "etikett": "12px/600 ls 1.68px",
+    "tal": "56px/700",
+    "prefix": "28px",
+    "per": "16px",
+    "not": "16px",
+    "stopp": "18px/500",
+    "segment_ovald": "18px/500",
+    "segment_vald": "600",
+    "input": "18px"
+   },
+   "kontroller": {
+    "segment_hojd": 48,
+    "segment_bredd": 188,
+    "option_bredd": 88,
+    "option_hojd": 40,
+    "input_hojd": 48,
+    "input_bredd": 150,
+    "kr_gap": 9,
+    "kryss_path": "M6 6l12 12M18 6L6 18",
+    "kryss_px": 12
+   },
+   "bakgrund": {
+    "sida": "rgb(255, 255, 255)",
+    "kort": "rgb(255, 255, 255)",
+    "panel": "rgb(245, 249, 255)",
+    "panel_radie": "12px"
+   },
+   "svg_antal": 1
+  },
+  "femarsfraga": {
+   "finnsIDom": true,
+   "synlig": false,
+   "antalSynligaFragor": 2
+  },
+  "gronTeknikObruten": {
+   "rubrik": true,
+   "etikett": true,
+   "stopp": true
+  },
   "agerNej": {
    "tal": null,
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
    "not": null,
-   "bock": false,
-   "etikett": "Ditt grön teknik-avdrag 2026"
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "bock": false
   },
-  "aldreNej": {
+  "agerJaIgen": {
    "tal": "upp till 50 000 kr",
    "stopp": null,
    "not": null,
-   "bock": false,
-   "etikett": "Ditt grön teknik-avdrag 2026"
-  }
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "bock": false
+  },
+  "overflowX": false,
+  "fel": []
+ },
+ "gt_mobil": {
+  "start": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "bock": false
+  },
+  "rubrik": "Räkna ut ditt grön teknik-avdrag",
+  "matt": {
+   "layout": "staplat, panelen under frågorna",
+   "kort": {
+    "bredd": 347.1,
+    "hojd": 501.2
+   },
+   "h2_till_kort": 21.5,
+   "panel": {
+    "hojd": 136.8,
+    "kortkant_till_panel": 11.5,
+    "kortkant_till_panel_sida": 11.5,
+    "panelkant_till_etikett": 16.9,
+    "panelkant_till_text_sida": 13.3,
+    "kortkant_till_text": 24.9,
+    "etikett_till_tal": 12.3,
+    "tal_till_rad": 8.3,
+    "per_till_panelkant": 13.3,
+    "rad_reserverad_hojd": 24
+   },
+   "panel_till_fraga1": 16.9,
+   "kortkant_till_fraga1": 24.9,
+   "fraga_vansterkant_lika_etikett": true,
+   "fraga1": {
+    "etikett_till_underrad": 6.6,
+    "underrad_till_kontroll": 12,
+    "underrad_rader": 2,
+    "underrad_bredd": 297.4
+   },
+   "fraga2": "dold (grön teknik)",
+   "fraga3": {
+    "etikett_till_kontroll": 12
+   },
+   "fraga_till_fraga": {
+    "f1_till_f3": 28
+   },
+   "sista_kontroll_till_kortkant": 16.9,
+   "typografi": {
+    "h2": "26.756px/500",
+    "fraga": "20px/500 ls -0.2px",
+    "underrad": "16px/400",
+    "etikett": "12px/600 ls 1.68px",
+    "tal": "44px/700",
+    "prefix": "22px",
+    "per": "16px",
+    "not": "16px",
+    "stopp": "18px/500",
+    "segment_ovald": "16.119px/500",
+    "segment_vald": "600",
+    "input": "18px"
+   },
+   "kontroller": {
+    "segment_hojd": 48,
+    "segment_bredd": 297.4,
+    "option_bredd": 144.7,
+    "option_hojd": 44,
+    "input_hojd": 48,
+    "input_bredd": 297.4,
+    "kr_gap": 10.7,
+    "kryss_path": "M6 6l12 12M18 6L6 18",
+    "kryss_px": 12
+   },
+   "bakgrund": {
+    "sida": "rgb(255, 255, 255)",
+    "kort": "rgb(255, 255, 255)",
+    "panel": "rgb(245, 249, 255)",
+    "panel_radie": "10.119px"
+   },
+   "svg_antal": 1
+  },
+  "femarsfraga": {
+   "finnsIDom": true,
+   "synlig": false,
+   "antalSynligaFragor": 2
+  },
+  "gronTeknikObruten": {
+   "rubrik": true,
+   "etikett": true,
+   "stopp": true
+  },
+  "agerNej": {
+   "tal": null,
+   "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
+   "not": null,
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "bock": false
+  },
+  "agerJaIgen": {
+   "tal": "upp till 50 000 kr",
+   "stopp": null,
+   "not": null,
+   "etikett": "Ditt grön teknik-avdrag 2026",
+   "bock": false
+  },
+  "overflowX": false,
+  "fel": []
+ },
+ "reducedMotion": {
+  "tickKlass": false,
+  "animation": "none"
+ },
+ "krav": {
+  "ingaFel": true,
+  "ingenOverflowX": true,
+  "kortDesktopMax460": true,
+  "kortMobilMax640": true,
+  "ingenOmladdningVidEnter": true,
+  "kontrollerStillaVidFemarsnot": true,
+  "panelHojdKonstantDesktop": true,
+  "domOrdningStammer": true,
+  "panelSynligMedTangentbord": true,
+  "labelHojd44Mobil": true,
+  "enLiveBatch": true,
+  "ingenCa0MedanHonSkriver": true,
+  "ingenBock": true,
+  "gtUtanFemarsfraga": true,
+  "gronTeknikObruten": true,
+  "underradEnRadDesktop": true,
+  "faltRymmerMiljon": true,
+  "alla": true
  }
 }

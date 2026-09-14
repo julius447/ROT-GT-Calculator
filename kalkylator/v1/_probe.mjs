@@ -1,9 +1,11 @@
-/* Tillståndsprob för v1 "Två spalter". Serverar repo-roten, renderar 1440 + 390, mäter rytm/typografi/
-   kontroller, klickar igenom de fyra tillstånden och sparar PNG i kalkylator/v1/skarmdumpar/.
-   Kör: node kalkylator/v1/_probe.mjs   (från repo-roten eller varifrån som helst) */
+/* Tillståndsprob för v1 "Två spalter". Serverar repo-roten, renderar 1440 (fin pekare) + 390 (touch, pointer:
+   coarse), mäter rytm/typografi/kontroller, klickar igenom tillstånden, kör fixrundans kontroller (Enter i
+   fältet, skift i stoppläget, tryckyta, live-regionen, femårsfrågan i gt, spårbredd vid viktbyte) och sparar
+   PNG + probe.json i kalkylator/v1/skarmdumpar/.
+   Kör: node kalkylator/v1/_probe.mjs   (från repo-roten eller varifrån som helst). Avslutar med kod 1 om ett krav faller. */
 import { chromium } from '../../tools/node_modules/playwright/index.mjs';
 import { createServer } from 'http';
-import { readFile, stat, mkdir } from 'fs/promises';
+import { readFile, stat, mkdir, writeFile } from 'fs/promises';
 import { join, extname, resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -27,9 +29,10 @@ const url = (q = '?m=rot') => `http://localhost:${port}/kalkylator/v1/index.html
 
 const browser = await chromium.launch();
 const out = { desktop: {}, mobile: {} };
+const krav = [];                                    /* [namn, ok, värde] */
+const kontrollera = (namn, ok, varde) => krav.push({ krav: namn, ok: !!ok, varde });
 
-const r2 = (n) => Math.round(n * 10) / 10;
-const rect = (el) => { const b = el.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height, bottom: b.bottom }; };
+const lab = (name, value) => `label:has(input[name="${name}"][value="${value}"])`;
 
 async function matt(page) {
   return page.evaluate(() => {
@@ -39,36 +42,49 @@ async function matt(page) {
     const fs = (el) => getComputedStyle(el).fontSize;
     const fw = (el) => getComputedStyle(el).fontWeight;
     const lh = (el) => getComputedStyle(el).lineHeight;
+    const synlig = (el) => !!el && el.getClientRects().length > 0;
+    const round = (n) => Math.round(n * 10) / 10;
     const kort = q('#avdragskollen');
     const h2 = q('#rk-rubrik');
-    const etiketter = qa('.rk__etikett');
+    const fragor = qa('.rk__fraga').filter(synlig);
+    const etiketter = fragor.map((f) => f.querySelector('.rk__etikett'));
+    const seg = fragor.map((f) => f.querySelector('.rk__segment'));
+    const segOpt = qa('.rk__segment > label').filter(synlig);
     const under = q('.rk__under');
-    const seg = qa('.rk__segment');
-    const segOpt = qa('.rk__segment > label');
     const input = q('#rk-inkomst');
     const panel = q('.rk__panel');
     const eyebrow = q('#rk-eyebrow');
+    const huvud = q('.rk__huvud');
     const tal = q('#rk-tal');
+    const prefix = q('#rk-prefix');
+    const enhet = q('#rk-talenhet');
     const per = q('#rk-per');
     const talrad = q('#rk-talrad');
+    const stopp = q('#rk-stopp');
+    const stopptext = q('#rk-stopptext');
+    const not = q('#rk-not');
     const res = q('#rk-resultat');
     const spalt = q('.rk-spalt');
-    const round = (n) => Math.round(n * 10) / 10;
+    const sista = fragor[fragor.length - 1];
+    const typSeg = q('[data-q="typ"]');
+    const r = (el) => ({ top: round(b(el).top + scrollY), h: round(b(el).height), w: round(b(el).width) });
     return {
+      status: res.dataset.status,
       kortHojd: round(b(kort).height), kortBredd: round(b(kort).width), spaltBredd: round(b(spalt).width),
       fragorBredd: round(b(q('.rk__fragor')).width), panelBredd: round(b(panel).width),
+      antalFragorSynliga: fragor.length, femarSynlig: synlig(q('.rk__fraga--aldre')),
       avstand: {
-        h2_till_fraga1: round(b(etiketter[0]).top - b(h2).bottom),
+        h2_till_kort: round(b(kort).top - b(h2).bottom),
+        kortkant_till_fraga1: round(b(etiketter[0]).top - b(kort).top),
         fraga1_till_underrad: round(b(under).top - b(etiketter[0]).bottom),
         underrad_till_kontroll: round(b(seg[0]).top - b(under).bottom),
-        kontroll1_till_fraga2: round(b(etiketter[1]).top - b(seg[0]).bottom),
-        fraga2_till_kontroll: round(b(seg[1]).top - b(etiketter[1]).bottom),
-        kontroll2_till_fraga3: round(b(etiketter[2]).top - b(seg[1]).bottom),
-        fraga3_till_kontroll: round(b(seg[2]).top - b(etiketter[2]).bottom),
-        kortkant_till_h2: round(b(h2).top - b(kort).top),
-        sista_kontroll_till_kortkant: round(b(kort).bottom - Math.max(b(seg[2]).bottom, b(input).bottom)),
-        eyebrow_till_tal: round(b(talrad).top - b(eyebrow).bottom),
-        tal_till_per: round(b(per).top - b(talrad).bottom),
+        kontroll_till_nasta_fraga: fragor.length > 1 ? round(b(etiketter[1]).top - b(seg[0]).bottom) : null,
+        fraga2_till_kontroll: fragor.length > 2 ? round(b(seg[1]).top - b(etiketter[1]).bottom) : null,
+        sista_fraga_till_kontroll: round(b(sista.querySelector('.rk__segment')).top - b(sista.querySelector('.rk__etikett')).bottom),
+        sista_kontroll_till_kortkant: round(b(kort).bottom - Math.max(b(sista.querySelector('.rk__segment')).bottom, b(input).bottom)),
+        eyebrow_till_tal: synlig(talrad) ? round(b(talrad).top - b(eyebrow).bottom) : null,
+        eyebrow_till_stopp: synlig(stopp) ? round(b(stopp).top - b(eyebrow).bottom) : null,
+        tal_till_per: synlig(per) ? round(b(per).top - b(talrad).bottom) : null,
         panel_topp_till_innehall: round(b(res).top - b(panel).top),
         innehall_till_panel_botten: round(b(panel).bottom - b(res).bottom),
       },
@@ -77,113 +93,217 @@ async function matt(page) {
         fraga: `${fs(etiketter[0])} / ${fw(etiketter[0])} / lh ${lh(etiketter[0])}`,
         underrad: `${fs(under)} / ${fw(under)}`,
         eyebrow: `${fs(eyebrow)} / ${fw(eyebrow)} / ls ${getComputedStyle(eyebrow).letterSpacing}`,
-        tal: `${fs(tal)} / ${fw(tal)} / ${getComputedStyle(tal).fontVariantNumeric}`,
-        per: `${fs(per)} / ${fw(per)}`,
+        prefix: fs(prefix), enhet: fs(enhet), tal: `${fs(tal)} / ${fw(tal)} / ${getComputedStyle(tal).fontVariantNumeric}`,
+        per: `${fs(per)} / ${fw(per)}`, not: `${fs(not)} / ${fw(not)}`,
+        stopptext: `${fs(stopptext)} / ${fw(stopptext)} / lh ${lh(stopptext)}`,
         segment: `${fs(segOpt[0])} / vald ${fw(segOpt[0])} / ovald ${fw(segOpt[1])}`,
         input: `${fs(input)} / ${fw(input)}`,
       },
+      px: { prefix: parseFloat(fs(prefix)), enhet: parseFloat(fs(enhet)), tal: parseFloat(fs(tal)), stopptext: parseFloat(fs(stopptext)), not: parseFloat(fs(not)) },
       kontroller: {
         segmentSpar: seg.map((s) => `${round(b(s).width)} x ${round(b(s).height)}`),
         alternativ: segOpt.map((o) => `${o.textContent.trim()} ${round(b(o).width)} x ${round(b(o).height)}`),
+        sparHojd: round(b(seg[0]).height), labelHojd: round(b(segOpt[0]).height), typSparBredd: round(b(typSeg).width),
         input: `${round(b(input).width)} x ${round(b(input).height)}`,
+        pointerCoarse: matchMedia('(pointer: coarse)').matches,
       },
-      talradBredd: round(b(talrad).width), panelInnerBredd: round(b(res).width), talradTopp: round(b(talrad).top + window.scrollY),
+      lage: {
+        eyebrow: r(eyebrow), huvud: r(huvud), talrad: synlig(talrad) ? r(talrad) : null, stopp: synlig(stopp) ? r(stopp) : null,
+        stoppMinH: parseFloat(getComputedStyle(stopp).minHeight) || null, stopptextH: synlig(stopptext) ? round(b(stopptext).height) : null,
+        forstaKontroll: r(segOpt[0]), input: r(input), kort: r(kort), panel: r(panel), not: synlig(not) ? r(not) : null,
+      },
       overflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     };
   });
 }
 
 async function bild(page, namn) {
-  const box = await page.evaluate(() => { const b = document.querySelector('#avdragskollen').getBoundingClientRect(); return { x: b.x, y: b.y + window.scrollY, w: b.width, h: b.height }; });
-  const m = 32;
+  /* klipper från rubriken till kortets nederkant, så H2:ns förhållande till kortet syns */
+  const box = await page.evaluate(() => {
+    const h = document.querySelector('#rk-rubrik').getBoundingClientRect(), k = document.querySelector('#avdragskollen').getBoundingClientRect();
+    return { x: k.x, y: h.y + scrollY, w: k.width, h: k.bottom - h.y };
+  });
+  const m = 24;
   await page.screenshot({ path: join(ut, `${namn}.png`), fullPage: true, clip: { x: Math.max(0, box.x - m), y: Math.max(0, box.y - m), width: box.w + 2 * m, height: box.h + 2 * m } });
 }
 
 async function las(page) {
   return page.evaluate(() => {
-    const t = (s) => { const el = document.querySelector(s); return el && !el.closest('[hidden]') ? el.textContent.replace(/\s+/g, ' ').trim() : null; };
+    const t = (s) => { const el = document.querySelector(s); return el && el.getClientRects().length ? el.textContent.replace(/\s+/g, ' ').trim() : null; };
     return { status: document.querySelector('#rk-resultat').dataset.status, prefix: t('#rk-prefix'), tal: t('#rk-tal'), enhet: t('#rk-talenhet'), per: t('#rk-per'), not: t('#rk-not'), stopp: t('#rk-stopptext') };
   });
 }
 
-for (const [namn, w, h] of [['desktop', 1440, 1000], ['mobile', 390, 844]]) {
-  const page = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: 2 });
+const skift = (a, b, nyckel) => ({ dy: Math.round((b.lage[nyckel].top - a.lage[nyckel].top) * 10) / 10, dh: Math.round((b.lage[nyckel].h - a.lage[nyckel].h) * 10) / 10 });
+
+for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 390, 844, true]]) {
+  const page = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: 2, hasTouch: touch, isMobile: touch });
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-  await page.goto(url('?m=rot'), { waitUntil: 'networkidle' });
-  await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(300);
+  const oppna = async (q) => { await page.goto(url(q), { waitUntil: 'networkidle' }); await page.evaluate(() => document.fonts.ready); await page.waitForTimeout(300); };
+  await oppna('?m=rot');
   const o = out[namn];
-  o.rot = { ...(await matt(page)), besked: await las(page) };
+  const start = await matt(page);
+  o.rot = { ...start, besked: await las(page) };
   await bild(page, `${namn}-1-utgangslage`);
+  kontrollera(`${namn}: pointer coarse = ${touch}`, start.kontroller.pointerCoarse === touch, start.kontroller.pointerCoarse);
+  kontrollera(`${namn}: kort <= ${touch ? 640 : 460} (rot)`, start.kortHojd <= (touch ? 640 : 460), start.kortHojd);
+  kontrollera(`${namn}: ingen horisontell scroll`, !start.overflowX, start.overflowX);
+  kontrollera(`${namn}: prefix = enhet = halva talet`, start.px.prefix === start.px.enhet && Math.abs(start.px.prefix - start.px.tal / 2) < 0.6, `${start.px.prefix} / ${start.px.enhet} / tal ${start.px.tal}`);
+  if (!touch) kontrollera('desktop: prefix och enhet 28 px vid 1440', start.px.prefix === 28 && start.px.enhet === 28, `${start.px.prefix} / ${start.px.enhet}`);
+  if (touch) kontrollera('mobil: talet 44 px', start.px.tal === 44, start.px.tal);
+  kontrollera(`${namn}: femårsraden 16 px`, start.px.not === 16, start.px.not);
+  kontrollera(`${namn}: stoppbeskedet 18 px`, start.px.stopptext === 18, start.px.stopptext);
+  kontrollera(`${namn}: spåret 48 hög`, start.kontroller.sparHojd === 48, start.kontroller.sparHojd);
+  kontrollera(`${namn}: alternativet ${touch ? 44 : 40} px`, start.kontroller.labelHojd === (touch ? 44 : 40), start.kontroller.labelHojd);
+  kontrollera(`${namn}: femårsfrågan visas i rot`, start.femarSynlig, start.femarSynlig);
 
-  // 1. Nej på ägande
-  await page.click('label:has(input[name="ager"][value="nej"])');
+  /* 1. Nej på ägande: talet bort, X + besked; etikett/huvud/kontroller/kort står stilla. Ja igen: talet tillbaka. */
+  await page.click(lab('ager', 'nej'));
   await page.waitForTimeout(350);
-  o.agerNej = { besked: await las(page), kortHojd: (await matt(page)).kortHojd };
+  const agerNej = await matt(page);
+  o.agerNej = { besked: await las(page), kortHojd: agerNej.kortHojd, stoppMinH: agerNej.lage.stoppMinH, stoppH: agerNej.lage.stopp?.h, stopptextH: agerNej.lage.stopptextH,
+    skift: { eyebrow: skift(start, agerNej, 'eyebrow'), huvud: skift(start, agerNej, 'huvud'), forstaKontroll: skift(start, agerNej, 'forstaKontroll'), input: skift(start, agerNej, 'input'), kort: skift(start, agerNej, 'kort'), panel: skift(start, agerNej, 'panel') },
+    talradTopp: start.lage.talrad?.top, stoppTopp: agerNej.lage.stopp?.top };
   await bild(page, `${namn}-2-ager-nej`);
-  await page.click('label:has(input[name="ager"][value="ja"])');
+  kontrollera(`${namn}: etiketten står stilla i stoppläget`, o.agerNej.skift.eyebrow.dy === 0, o.agerNej.skift.eyebrow.dy);
+  kontrollera(`${namn}: talblocket (huvud) byter varken plats eller höjd i stoppläget`, o.agerNej.skift.huvud.dy === 0 && o.agerNej.skift.huvud.dh === 0, o.agerNej.skift.huvud);
+  kontrollera(`${namn}: stoppblocket börjar där talraden börjar`, o.agerNej.talradTopp === o.agerNej.stoppTopp, `${o.agerNej.talradTopp} / ${o.agerNej.stoppTopp}`);
+  kontrollera(`${namn}: kortet byter inte höjd i stoppläget`, o.agerNej.skift.kort.dh === 0, o.agerNej.skift.kort.dh);
+  kontrollera(`${namn}: stopptexten ryms i talblockets höjd`, o.agerNej.stopptextH <= o.agerNej.stoppMinH, `${o.agerNej.stopptextH} <= ${o.agerNej.stoppMinH}`);
+  kontrollera(`${namn}: stoppbeskedet exakt`, o.agerNej.besked.stopp === 'Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.' && o.agerNej.besked.tal === null, o.agerNej.besked.stopp);
+  await page.click(lab('ager', 'ja'));
   await page.waitForTimeout(350);
-  o.agerJaIgen = await las(page);
+  const agerJa = await matt(page);
+  o.agerJaIgen = { besked: await las(page), skiftTal: skift(start, agerJa, 'talrad'), skiftEyebrow: skift(start, agerJa, 'eyebrow') };
+  kontrollera(`${namn}: Ja igen ger talet tillbaka på samma plats`, o.agerJaIgen.besked.tal === '50 000' && o.agerJaIgen.besked.prefix === 'upp till' && o.agerJaIgen.skiftTal.dy === 0, o.agerJaIgen);
 
-  // 2. Nej på fem år
-  await page.click('label:has(input[name="aldre"][value="nej"])');
+  /* 2. Nej på fem år: raden under talet, talet står stilla */
+  await page.click(lab('aldre', 'nej'));
   await page.waitForTimeout(350);
-  { const m = await matt(page); o.aldreNej = { besked: await las(page), kortHojd: m.kortHojd, talradTopp: m.talradTopp, talradToppUtgangslage: o.rot.talradTopp }; }
+  const aldreNej = await matt(page);
+  o.aldreNej = { besked: await las(page), kortHojd: aldreNej.kortHojd, kortDh: Math.round((aldreNej.kortHojd - start.kortHojd) * 10) / 10, skiftTal: skift(start, aldreNej, 'talrad'), skiftEyebrow: skift(start, aldreNej, 'eyebrow'), skiftForstaKontroll: skift(start, aldreNej, 'forstaKontroll'), skiftInput: skift(start, aldreNej, 'input') };
   await bild(page, `${namn}-3-femar-nej`);
-  await page.click('label:has(input[name="aldre"][value="ja"])');
+  kontrollera(`${namn}: femårsraden exakt, talet står stilla`, o.aldreNej.besked.not === 'Yngre än fem år: ROT gäller bara reparationer.' && o.aldreNej.skiftTal.dy === 0 && o.aldreNej.skiftForstaKontroll.dy === 0, o.aldreNej.besked.not);
+  if (!touch) kontrollera('desktop: kortet växer inte med femårsraden', o.aldreNej.kortDh === 0, o.aldreNej.kortDh);
+  await page.click(lab('aldre', 'ja'));
 
-  // 3. Inkomst 180 000 (lön)
-  await page.fill('#rk-inkomst', '180000');
-  await page.waitForTimeout(350);
-  o.lon180k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst'), kortHojd: (await matt(page)).kortHojd };
+  /* 3. Inkomst 180 000 (lön): live-regionen muterar EN gång, efter fördröjningen, aldrig "ca 0" */
+  await page.evaluate(() => {
+    const el = document.querySelector('#rk-talrad');
+    window.__live = [];
+    new MutationObserver(() => window.__live.push({ t: Math.round(performance.now()), text: el.textContent.replace(/\s+/g, ' ').trim() })).observe(el, { subtree: true, childList: true, characterData: true });
+    window.__t0 = Math.round(performance.now());
+  });
+  await page.focus('#rk-inkomst');
+  for (const ch of '180000') { await page.keyboard.type(ch); await page.waitForTimeout(80); }
+  const underSkrivning = await page.evaluate(() => window.__live.length);
+  const textUnderSkrivning = await las(page);
+  await page.waitForTimeout(700);
+  const live = await page.evaluate(() => ({ batchar: window.__live, t0: window.__t0 }));
+  o.lon180k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst'), kortHojd: (await matt(page)).kortHojd, live: { mutationerUnderSkrivning: underSkrivning, talUnderSkrivning: textUnderSkrivning.tal, batcharTotalt: live.batchar.length, texter: live.batchar.map((b) => b.text) } };
   await bild(page, `${namn}-4-lon-180000`);
+  kontrollera(`${namn}: 180 000 ger "ca 12 000 kr"`, o.lon180k.besked.prefix === 'ca' && o.lon180k.besked.tal === '12 000' && o.lon180k.falt === '180 000', `${o.lon180k.besked.prefix} ${o.lon180k.besked.tal} kr, fält "${o.lon180k.falt}"`);
+  kontrollera(`${namn}: ingen mutation i live-regionen medan hon skriver (talet står kvar på 50 000)`, underSkrivning === 0 && textUnderSkrivning.tal === '50 000', `${underSkrivning} mutationer, tal "${textUnderSkrivning.tal}"`);
+  kontrollera(`${namn}: exakt EN live-mutation efter fördröjningen, aldrig "ca 0"`, live.batchar.length === 1 && live.batchar[0].text === 'ca 12 000 kr', live.batchar);
 
-  // 4. Pension 240 000
-  await page.click('label:has(input[name="typ"][value="pension"])');
+  /* 4. Pension 240 000 */
+  await page.click(lab('typ', 'pension'));
   await page.fill('#rk-inkomst', '240000');
-  await page.waitForTimeout(350);
-  o.pension240k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst'), kortHojd: (await matt(page)).kortHojd };
+  await page.waitForTimeout(700);
+  const pension = await matt(page);
+  o.pension240k = { besked: await las(page), falt: await page.inputValue('#rk-inkomst'), kortHojd: pension.kortHojd, typSparBredd: pension.kontroller.typSparBredd, typSparBreddLon: start.kontroller.typSparBredd };
   await bild(page, `${namn}-5-pension-240000`);
+  kontrollera(`${namn}: pension 240 000 ger "ca 38 000 kr"`, o.pension240k.besked.prefix === 'ca' && o.pension240k.besked.tal === '38 000', `${o.pension240k.besked.prefix} ${o.pension240k.besked.tal}`);
+  kontrollera(`${namn}: Lön/Pension-spåret byter inte bredd när vikten byter (600 på vald)`, o.pension240k.typSparBredd === o.pension240k.typSparBreddLon, `${o.pension240k.typSparBreddLon} -> ${o.pension240k.typSparBredd}`);
 
-  // tillbaka till lön + 600 000 (taket) och tom
-  await page.click('label:has(input[name="typ"][value="lon"])');
+  /* tillbaka till lön + 600 000 (taket) och tom; blur ger direkt rendering */
+  await page.click(lab('typ', 'lon'));
   await page.fill('#rk-inkomst', '600000');
-  await page.waitForTimeout(200);
+  await page.waitForTimeout(700);
   o.lon600k = await las(page);
+  kontrollera(`${namn}: 600 000 ger "50 000 kr" utan prefix`, o.lon600k.tal === '50 000' && o.lon600k.prefix === null, o.lon600k);
   await page.fill('#rk-inkomst', '');
-  await page.waitForTimeout(200);
+  await page.dispatchEvent('#rk-inkomst', 'blur');
+  await page.waitForTimeout(50);
   o.tomIgen = await las(page);
+  kontrollera(`${namn}: blur renderar direkt: tomt fält ger "upp till 50 000 kr"`, o.tomIgen.prefix === 'upp till' && o.tomIgen.tal === '50 000', o.tomIgen);
 
-  // fokusring på ett alternativ (tangentbord)
+  /* 5. Enter / "Klar" i fältet: ingen omladdning, beloppet kvar, läget kvar */
+  await page.click('#rk-inkomst');
+  await page.keyboard.type('180000');
+  const urlFore = page.url();
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(600);
+  const enter = { urlFore, urlEfter: page.url(), faltVardeEfter: await page.inputValue('#rk-inkomst'), aktivtElement: await page.evaluate(() => document.activeElement?.id || document.activeElement?.tagName), besked: await las(page) };
+  enter.sidanLaddadesOm = enter.urlFore !== enter.urlEfter;
+  o.enter = enter;
+  kontrollera(`${namn}: Enter i fältet laddar inte om sidan`, !enter.sidanLaddadesOm && enter.faltVardeEfter === '180 000' && enter.besked.tal === '12 000', enter);
+  await page.fill('#rk-inkomst', '');
+  await page.dispatchEvent('#rk-inkomst', 'blur');
+
+  /* 6. Tryckyta (mobil): tryck i spårets överkant ovanför "Nej" */
+  if (touch) {
+    const tap = await page.evaluate(() => {
+      const seg = document.querySelector('[data-q="ager"]'), nej = seg.querySelector('label:has(input[value="nej"])');
+      const s = seg.getBoundingClientRect(), n = nej.getBoundingClientRect();
+      return { sparHojd: Math.round(s.height), labelHojd: Math.round(n.height), sparPadding: Math.round(n.top - s.top), x: Math.round(n.left + n.width / 2), y2: Math.round(s.top + 2), y1: Math.round(s.top + 1) };
+    });
+    await page.touchscreen.tap(tap.x, tap.y2); await page.waitForTimeout(150);
+    tap.valtEfterTryck2pxIn = await page.evaluate(() => document.querySelector('input[name="ager"]:checked').value);
+    await page.click(lab('ager', 'ja')); await page.waitForTimeout(100);
+    await page.touchscreen.tap(tap.x, tap.y1); await page.waitForTimeout(150);
+    tap.valtEfterTryck1pxIn = await page.evaluate(() => document.querySelector('input[name="ager"]:checked').value);
+    await page.click(lab('ager', 'ja')); await page.waitForTimeout(100);
+    o.tap = tap;
+    kontrollera('mobil: alternativet 44 px i 48 px-spåret (2 px kant)', tap.labelHojd === 44 && tap.sparHojd === 48 && tap.sparPadding === 2, tap);
+    kontrollera('mobil: tryck 2 px in i spåret träffar alternativet', tap.valtEfterTryck2pxIn === 'nej', tap.valtEfterTryck2pxIn);
+  }
+
+  /* 7. Tangentbord: fokusring på ett alternativ, pil höger byter */
   await page.focus('input[name="ager"][value="ja"]');
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(250);
   o.tangentbord = await las(page);
   await bild(page, `${namn}-8-tangentbordsfokus`);
+  kontrollera(`${namn}: pil höger i segmentet ger stoppläget`, o.tangentbord.status === 'stopp', o.tangentbord.status);
   await page.keyboard.press('ArrowLeft');
 
-  // gt-läget
-  await page.goto(url('?m=gt'), { waitUntil: 'networkidle' });
-  await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(300);
+  /* 8. gt-läget: strängarna, ingen femårsfråga, kortet, Enter */
+  await oppna('?m=gt');
   const g = await matt(page);
-  o.gt = { kortHojd: g.kortHojd, h2: await page.textContent('#rk-rubrik'), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX };
+  o.gt = { kortHojd: g.kortHojd, antalFragorSynliga: g.antalFragorSynliga, femarSynlig: g.femarSynlig, h2: await page.textContent('#rk-rubrik'), h2Ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-rubrik .rk__ihop')).whiteSpace), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX, avstand: g.avstand };
   await bild(page, `${namn}-6-gt-utgangslage`);
-  await page.click('label:has(input[name="ager"][value="nej"])');
+  kontrollera(`${namn}: gt visar ingen femårsfråga (två frågor)`, !g.femarSynlig && g.antalFragorSynliga === 2, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
+  kontrollera(`${namn}: gt-kort <= ${touch ? 640 : 460}`, g.kortHojd <= (touch ? 640 : 460), g.kortHojd);
+  kontrollera(`${namn}: gt-rubriken exakt, "grön teknik-avdrag" i nowrap-span`, o.gt.h2 === 'Räkna ut ditt grön teknik-avdrag' && o.gt.h2Ihop === 'nowrap', `${o.gt.h2} / ${o.gt.h2Ihop}`);
+  kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt grön teknik-avdrag 2026', o.gt.eyebrow);
+  await page.click(lab('ager', 'nej'));
   await page.waitForTimeout(350);
-  o.gtAgerNej = await las(page);
+  const gtNej = await matt(page);
+  o.gtAgerNej = { besked: await las(page), skiftEyebrow: skift(g, gtNej, 'eyebrow'), skiftKort: skift(g, gtNej, 'kort'), stopptextH: gtNej.lage.stopptextH, stoppMinH: gtNej.lage.stoppMinH, ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-stopptext .rk__ihop')).whiteSpace) };
   await bild(page, `${namn}-7-gt-ager-nej`);
-  await page.click('label:has(input[name="ager"][value="ja"])');
-  await page.click('label:has(input[name="aldre"][value="nej"])');
-  await page.waitForTimeout(250);
-  o.gtAldreNej = await las(page);
+  kontrollera(`${namn}: gt-stoppbeskedet exakt, ihop, ingenting hoppar`, o.gtAgerNej.besked.stopp === 'Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.' && o.gtAgerNej.ihop === 'nowrap' && o.gtAgerNej.skiftEyebrow.dy === 0 && o.gtAgerNej.skiftKort.dh === 0 && o.gtAgerNej.stopptextH <= o.gtAgerNej.stoppMinH, o.gtAgerNej);
+  await page.click(lab('ager', 'ja'));
+  await page.click('#rk-inkomst');
+  await page.keyboard.type('180000');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(600);
+  o.gtEnter = { modeEfter: await page.evaluate(() => new URLSearchParams(location.search).get('m')), falt: await page.inputValue('#rk-inkomst'), besked: await las(page) };
+  kontrollera(`${namn}: Enter i gt behåller läget och beloppet`, o.gtEnter.modeEfter === 'gt' && o.gtEnter.falt === '180 000' && o.gtEnter.besked.tal === '12 000', o.gtEnter);
 
   o.errors = errors;
+  kontrollera(`${namn}: inga konsolfel`, errors.length === 0, errors);
   await page.close();
 }
 
 await browser.close();
 server.close();
-console.log(JSON.stringify(out, null, 1));
+
+out.krav = krav;
+await writeFile(join(ut, 'probe.json'), JSON.stringify(out, null, 1));
+const fel = krav.filter((k) => !k.ok);
+for (const k of krav) console.log(`${k.ok ? 'OK ' : 'FEL'}  ${k.krav}  ->  ${typeof k.varde === 'object' ? JSON.stringify(k.varde) : k.varde}`);
+console.log(`\n${krav.length - fel.length}/${krav.length} krav OK. Mått: desktop kort ${out.desktop.rot.kortHojd} (gt ${out.desktop.gt.kortHojd}), mobil kort ${out.mobile.rot.kortHojd} (gt ${out.mobile.gt.kortHojd}). probe.json + PNG i ${ut}`);
+process.exit(fel.length ? 1 : 0);

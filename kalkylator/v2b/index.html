@@ -19,7 +19,7 @@
 
         <div class="rk__q">
           <p class="rk__fraga" id="rk-q1">Äger du din bostad?</p>
-          <p class="rk__under" id="rk-q1-under">Villa, radhus eller lägenhet. Helt eller delvis.</p>
+          <p class="rk__under" id="rk-q1-under"><span>Villa, radhus eller lägenhet.</span> <span>Helt eller delvis.</span></p>
           <div class="rk__kontroll">
             <div class="ampy-segment rk__seg" role="radiogroup" aria-labelledby="rk-q1" aria-describedby="rk-q1-under">
               <label><input type="radio" name="ager" value="ja" checked><span>Ja</span></label>
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="rk__q">
+        <div class="rk__q rk__q--femar" id="rk-q2-block">
           <p class="rk__fraga" id="rk-q2">Är bostaden äldre än fem år?</p>
           <div class="rk__kontroll">
             <div class="ampy-segment rk__seg" role="radiogroup" aria-labelledby="rk-q2">
@@ -59,7 +59,8 @@
         <div class="rk__varde" aria-live="polite" aria-atomic="true">
           <div class="rk__utfall" id="rk-utfall">
             <p class="rk__tal" id="rk-tal"><span class="rk__prefix" id="rk-prefix">upp till</span> <span class="rk__num" id="rk-num">50 000</span> <span class="rk__enhet" id="rk-enhet">kr</span></p>
-            <p class="rk__sub"><span id="rk-per">Per person och år.</span> <span class="rk__not" id="rk-not" hidden></span></p>
+            <p class="rk__sub" id="rk-per">Per person och år.</p>
+            <p class="rk__not" id="rk-not"></p>
           </div>
           <div class="rk__stopp is-dold" id="rk-stopp" aria-hidden="true">
             <svg class="rk__x" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" focusable="false">

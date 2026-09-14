@@ -1,25 +1,33 @@
-/* Avdragskollen v1 "Två spalter". Ett kort, två spalter: frågorna till vänster, beskedet till höger på en
-   sky mist-panel bakom en hårlinje. Bygger på designsystemet (../system/ampy.css); här ligger bara det som
-   är unikt för kalkylatorn. Alla mått ur --ampy-*; egna värden står som lokala variabler med kommentar. */
+/* Avdragskollen v1 "Två spalter". Artikelns H2 ovanför ett kort som delas i två spalter: frågorna till vänster,
+   beskedet till höger på en sky mist-panel bakom en hårlinje. Bygger på designsystemet (../system/ampy.css);
+   här ligger bara det som är unikt för kalkylatorn. Alla mått ur --ampy-*; egna värden står som lokala
+   variabler med kommentar (px vid 1440 / 390). */
 
 /* ---------- Sidan: artikelspalten (980 px) på vit artikelbakgrund ---------- */
-.rk-sida { background: var(--ampy-bg-surface); }                       /* artikelmallens brödyta är vit, inte sky mist */
+.rk-sida { background: var(--ampy-bg-surface); }                       /* artikelmallens brödyta är vit, inte sky mist; kortet bär hårlinje + kortskugga */
 .rk-spalt { max-width: 98rem; margin: 0 auto; padding: var(--ampy-space-xl) 0; }   /* kortet fyller spaltens 980 px */
 @media (max-width: 1040px) { .rk-spalt { padding-inline: var(--ampy-space-m); } }
 
+/* ---------- Rubriken: en riktig artikel-H2 ovanför kortet (.ampy-h2 36/500/1,2) ---------- */
+.rk__rubrik { margin: 0 0 var(--ampy-space-stack-lg); }                /* rubrik -> block 39,6 / 21,5, som LED-kalkylatorn */
+
 /* ---------- Kortet ---------- */
 .rk {
-  /* lokala rytmvariabler, alla ur skalan (px vid 1440 / 390 i kommentaren) */
-  --rk-pad-x: var(--ampy-space-l);        /* kortpadding sida 39,6 / 21,5 */
-  --rk-pad-y: 32px;                        /* kortpadding topp/botten: skalan har 28 (m) eller 39,6 (l); 32 = briefens golv, håller kortet nära 460 */
-  --rk-gap-h2: var(--ampy-space-s);       /* H2 -> första frågan 19,8 / 13,3 */
-  --rk-gap-q: var(--ampy-space-m);        /* fråga -> fråga 28 / 16,9 */
+  --rk-pad-x: var(--ampy-space-l);        /* kortpadding 39,6 / 21,5 (brief 32 till 40 / 20 till 24) */
+  --rk-pad-y: var(--ampy-space-l);
+  --rk-gap-q: var(--ampy-space-m);        /* fråga -> fråga 28 (mobil: se nedan) */
   --rk-gap-sub: var(--ampy-space-3xs);    /* fråga -> underrad 7 / 6,6 */
-  --rk-gap-ctl: var(--ampy-space-xs);     /* underrad -> kontroll 14 / 10,2 */
+  --rk-gap-ctl: max(12px, var(--ampy-space-xs));   /* underrad -> kontroll 14 / 12: xs faller till 10,5 på mobil, briefens golv är 12 */
   --rk-text-fraga: 20px;                   /* frågor 20/500 (h3-tokenen är 22 vid 1440, briefen säger 20) */
-  --rk-text-under: 16px;                   /* underrad 16/400 (small-tokenen faller till 14 på mobil) */
-  --rk-text-tal: var(--ampy-text-number); /* 56 vid 1440; på mobil höjs den till 42 nedan */
+  --rk-text-under: 16px;                   /* underrad, "Per person och år.", femårsraden: 16/400 (small-tokenen faller till 14 på mobil) */
+  --rk-text-tal: var(--ampy-text-number); /* 56 vid 1440; 44 på mobil (nedan) */
+  --rk-text-enhet: calc(var(--rk-text-tal) * .5);   /* "upp till"/"ca" och "kr": halva talet (28 / 22), som LED-kalkylatorns kr/år */
+  --rk-text-stopp: 18px;                   /* stoppbeskedet 18/500 på båda skärmar (briefen) */
   --rk-text-siffror: 18px;                 /* siffrorna i beloppsfältet */
+  --rk-seg-min: 88px;                      /* minsta bredd per alternativ (briefen); "Pension" i 600 + padding är 84,3 så spåret byter inte bredd när vikten byter */
+  /* Talblockets höjd: talraden + luft + "Per person och år." (56 + 9,9 + 22,4 = 88,3 / 44 + 8,3 + 22,4 = 74,7).
+     Stoppblocket får samma höjd så etiketten och panelen står stilla när talet byts mot X + besked. */
+  --rk-huvud-h: calc(var(--rk-text-tal) + var(--ampy-space-2xs) + var(--rk-text-under) * var(--ampy-lh-ui));
 
   display: grid;
   grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);              /* 55 / 45 */
@@ -27,12 +35,11 @@
   overflow: visible;
 }
 
-/* ---------- Vänster: rubrik + frågor ---------- */
-.rk__fragor { padding: var(--rk-pad-y) var(--rk-pad-x); min-width: 0; }
-.rk__rubrik { margin: 0 0 var(--rk-gap-h2); }
-.rk__form { display: flex; flex-direction: column; gap: var(--rk-gap-q); }
+/* ---------- Vänster: frågorna ---------- */
+.rk__fragor { display: flex; flex-direction: column; gap: var(--rk-gap-q); padding: var(--rk-pad-y) var(--rk-pad-x); min-width: 0; }
 
 .rk__fraga { border: 0; margin: 0; padding: 0; min-width: 0; min-inline-size: 0; }
+.rk[data-mode="gt"] .rk__fraga--aldre { display: none; }              /* fem år påverkar bara ROT: frågan visas inte i grön teknik-läget */
 .rk__etikett {
   display: block; padding: 0; margin: 0;
   font-family: var(--ampy-font); font-size: var(--rk-text-fraga); font-weight: var(--ampy-w-medium);
@@ -45,16 +52,22 @@
 }
 .rk__fraga > .rk__segment, .rk__fraga > .rk__inkomst { margin-top: var(--rk-gap-ctl); }
 
-/* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val */
+/* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val.
+   Valt läge = vit pill + teal-deep text (systemet) + vikt 600 mot 500: tre signaler, inte bara färg. */
 .rk__segment {
   display: inline-grid; grid-auto-columns: 1fr;                         /* lika breda val, bredden ur den längsta texten */
   container-type: normal;
 }
 .rk__segment > label {
-  min-width: 88px; min-height: 40px; padding-inline: var(--ampy-space-xs);
+  min-width: var(--rk-seg-min); min-height: 40px; padding-inline: var(--ampy-space-xs);
   font-size: var(--ampy-text-button); font-weight: var(--ampy-w-medium);
 }
 .rk__segment > label:has(input:checked) { font-weight: var(--ampy-w-strong); }
+/* Touch: tryckytan är hela alternativet, 44 px i det 48 px höga spåret (2 px spår runt i stället för 4) */
+@media (pointer: coarse) {
+  .rk__segment.ampy-segment { padding: 2px; }
+  .rk__segment > label { min-height: 44px; }
+}
 
 /* Inkomstraden: typ-väljare + belopp på samma rad */
 .rk__inkomst { display: flex; flex-wrap: wrap; gap: var(--ampy-space-xs); align-items: center; }
@@ -87,31 +100,39 @@
 
 .rk__talrad {
   display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--ampy-space-2xs);
-  margin-top: var(--ampy-space-xs);                                     /* etikett -> tal 14 / 10 */
+  margin-top: var(--ampy-space-xs);                                     /* etikett -> tal 14 / 10,5 */
 }
-.rk__prefix { font-size: var(--rk-text-fraga); font-weight: var(--ampy-w-medium); line-height: 1; color: var(--ampy-ink-muted); }
+.rk__prefix, .rk__talenhet {
+  font-size: var(--rk-text-enhet); font-weight: var(--ampy-w-medium); line-height: 1;
+  letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink-muted);
+}
 .rk__tal { font-size: var(--rk-text-tal); }
-.rk__talenhet { font-size: var(--ampy-text-mid); font-weight: var(--ampy-w-medium); line-height: 1; letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink-muted); }
 .rk__per {
-  margin: var(--ampy-space-2xs) 0 0;                                    /* tal -> underrad 9,9 / 8 */
+  margin: var(--ampy-space-2xs) 0 0;                                    /* tal -> underrad 9,9 / 8,3 */
   font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
 }
 .rk__not {
   grid-row: 3; align-self: start;
   margin: var(--ampy-space-s) 0 0; padding-top: var(--ampy-space-s);
   border-top: 1px solid var(--ampy-line);
-  font-size: var(--ampy-text-small); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-body);
+  font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-body);
   max-width: none;
 }
 
-/* Stoppläget: rött X + beskedet ersätter talet */
-.rk__stopp { display: flex; flex-direction: column; align-items: flex-start; gap: var(--ampy-space-s); margin-top: var(--ampy-space-s); }
+/* Stoppläget: rött X och beskedet på en rad, mitt för varandra, i talblockets höjd (ingenting hoppar) */
+.rk__stopp {
+  display: flex; align-items: center; gap: var(--ampy-space-s);
+  margin-top: var(--ampy-space-xs);                                     /* samma avstånd från etiketten som talraden */
+  min-height: var(--rk-huvud-h);
+}
 .rk__x { width: 44px; height: 44px; display: block; flex: 0 0 auto; }
 .rk__x circle { fill: var(--ampy-error-ink); }
 .rk__stopptext {
-  margin: 0; font-size: var(--ampy-text-body); font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-lead); color: var(--ampy-ink);
+  margin: 0; min-width: 0;
+  font-size: var(--rk-text-stopp); font-weight: var(--ampy-w-medium); line-height: 1.35; color: var(--ampy-ink);
   max-width: none; text-wrap: pretty;
 }
+.rk__ihop { white-space: nowrap; }                                       /* "grön teknik-avdrag" bryts aldrig, varken vid mellanslaget eller bindestrecket */
 .rk__resultat[data-status="stopp"] :is(.rk__talrad, .rk__per, .rk__not) { display: none; }
 
 /* Talet byts med en kort intoning; aldrig count-up. base.css nollar tiden vid reduced motion. */
@@ -122,13 +143,10 @@
 
 /* ---------- Mobil: frågorna först, beskedet som fullbreddsblock under ---------- */
 @media (max-width: 767px) {
-  .rk-spalt { padding: var(--ampy-space-m) var(--ampy-space-m); }
+  .rk-spalt { padding: var(--ampy-space-m); }                           /* rubrikens vänsterkant = kortets */
   .rk {
-    --rk-pad-x: var(--ampy-space-l);       /* 21,5 vid 390 */
-    --rk-pad-y: var(--ampy-space-l);
-    --rk-gap-h2: var(--ampy-space-m);      /* 16,9 vid 390 */
-    --rk-gap-q: var(--ampy-space-l);       /* 21,5: luft mellan frågorna utan att spränga 640 */
-    --rk-text-tal: 42px;                    /* number-tokenen ger 38 vid 390; briefen vill 40 till 44 */
+    --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
+    --rk-text-tal: 44px;                    /* number-tokenen ger 38 vid 390; briefen vill 44 till 56 */
     grid-template-columns: minmax(0, 1fr);
   }
   .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */

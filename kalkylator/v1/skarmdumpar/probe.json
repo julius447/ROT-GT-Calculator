@@ -1,35 +1,49 @@
 {
  "desktop": {
   "rot": {
-   "kortHojd": 475.4,
+   "status": "tak",
+   "kortHojd": 427.6,
    "kortBredd": 980,
    "spaltBredd": 980,
    "fragorBredd": 537.9,
    "panelBredd": 440.1,
+   "antalFragorSynliga": 3,
+   "femarSynlig": true,
    "avstand": {
-    "h2_till_fraga1": 19.8,
+    "h2_till_kort": 39.6,
+    "kortkant_till_fraga1": 40.6,
     "fraga1_till_underrad": 7,
     "underrad_till_kontroll": 14,
-    "kontroll1_till_fraga2": 28,
+    "kontroll_till_nasta_fraga": 28,
     "fraga2_till_kontroll": 14,
-    "kontroll2_till_fraga3": 28,
-    "fraga3_till_kontroll": 14,
-    "kortkant_till_h2": 33,
-    "sista_kontroll_till_kortkant": 33,
+    "sista_fraga_till_kontroll": 14,
+    "sista_kontroll_till_kortkant": 40.6,
     "eyebrow_till_tal": 14,
+    "eyebrow_till_stopp": null,
     "tal_till_per": 9.9,
-    "panel_topp_till_innehall": 32,
-    "innehall_till_panel_botten": 32
+    "panel_topp_till_innehall": 39.6,
+    "innehall_till_panel_botten": 39.6
    },
    "typografi": {
     "h2": "36px / 500 / lh 43.2px",
     "fraga": "20px / 500 / lh 25px",
     "underrad": "16px / 400",
     "eyebrow": "12px / 600 / ls 1.68px",
+    "prefix": "28px",
+    "enhet": "28px",
     "tal": "56px / 700 / lining-nums tabular-nums",
     "per": "16px / 400",
+    "not": "16px / 400",
+    "stopptext": "18px / 500 / lh 24.3px",
     "segment": "16px / vald 600 / ovald 500",
     "input": "18px / 500"
+   },
+   "px": {
+    "prefix": 28,
+    "enhet": 28,
+    "tal": 56,
+    "stopptext": 18,
+    "not": 16
    },
    "kontroller": {
     "segmentSpar": [
@@ -45,11 +59,53 @@
      "Lön 88 x 40",
      "Pension 88 x 40"
     ],
-    "input": "256.7 x 48"
+    "sparHojd": 48,
+    "labelHojd": 40,
+    "typSparBredd": 188,
+    "input": "256.7 x 48",
+    "pointerCoarse": false
    },
-   "talradBredd": 263.5,
-   "panelInnerBredd": 359.9,
-   "talradTopp": 265.5,
+   "lage": {
+    "eyebrow": {
+     "top": 292.4,
+     "h": 18,
+     "w": 171
+    },
+    "huvud": {
+     "top": 292.4,
+     "h": 120.3,
+     "w": 359.9
+    },
+    "talrad": {
+     "top": 324.4,
+     "h": 56,
+     "w": 291.2
+    },
+    "stopp": null,
+    "stoppMinH": 88.3,
+    "stopptextH": null,
+    "forstaKontroll": {
+     "top": 251.8,
+     "h": 40,
+     "w": 88
+    },
+    "input": {
+     "top": 477.8,
+     "h": 48,
+     "w": 256.7
+    },
+    "kort": {
+     "top": 138.8,
+     "h": 427.6,
+     "w": 980
+    },
+    "panel": {
+     "top": 139.8,
+     "h": 425.6,
+     "w": 440.1
+    },
+    "not": null
+   },
    "overflowX": false,
    "besked": {
     "status": "tak",
@@ -64,23 +120,64 @@
   "agerNej": {
    "besked": {
     "status": "stopp",
+    "prefix": null,
+    "tal": null,
+    "enhet": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+   },
+   "kortHojd": 427.6,
+   "stoppMinH": 88.3,
+   "stoppH": 88.3,
+   "stopptextH": 48.6,
+   "skift": {
+    "eyebrow": {
+     "dy": 0,
+     "dh": 0
+    },
+    "huvud": {
+     "dy": 0,
+     "dh": 0
+    },
+    "forstaKontroll": {
+     "dy": 0,
+     "dh": 0
+    },
+    "input": {
+     "dy": 0,
+     "dh": 0
+    },
+    "kort": {
+     "dy": 0,
+     "dh": 0
+    },
+    "panel": {
+     "dy": 0,
+     "dh": 0
+    }
+   },
+   "talradTopp": 324.4,
+   "stoppTopp": 324.4
+  },
+  "agerJaIgen": {
+   "besked": {
+    "status": "tak",
     "prefix": "upp till",
     "tal": "50 000",
     "enhet": "kr",
     "per": "Per person och år.",
     "not": null,
-    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+    "stopp": null
    },
-   "kortHojd": 475.4
-  },
-  "agerJaIgen": {
-   "status": "tak",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
+   "skiftTal": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftEyebrow": {
+    "dy": 0,
+    "dh": 0
+   }
   },
   "aldreNej": {
    "besked": {
@@ -92,9 +189,24 @@
     "not": "Yngre än fem år: ROT gäller bara reparationer.",
     "stopp": null
    },
-   "kortHojd": 475.4,
-   "talradTopp": 265.5,
-   "talradToppUtgangslage": 265.5
+   "kortHojd": 427.6,
+   "kortDh": 0,
+   "skiftTal": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftEyebrow": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftForstaKontroll": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftInput": {
+    "dy": 0,
+    "dh": 0
+   }
   },
   "lon180k": {
    "besked": {
@@ -107,7 +219,15 @@
     "stopp": null
    },
    "falt": "180 000",
-   "kortHojd": 475.4
+   "kortHojd": 427.6,
+   "live": {
+    "mutationerUnderSkrivning": 0,
+    "talUnderSkrivning": "50 000",
+    "batcharTotalt": 1,
+    "texter": [
+     "ca 12 000 kr"
+    ]
+   }
   },
   "pension240k": {
    "besked": {
@@ -120,7 +240,9 @@
     "stopp": null
    },
    "falt": "240 000",
-   "kortHojd": 475.4
+   "kortHojd": 427.6,
+   "typSparBredd": 188,
+   "typSparBreddLon": 188
   },
   "lon600k": {
    "status": "belopp",
@@ -140,18 +262,37 @@
    "not": null,
    "stopp": null
   },
+  "enter": {
+   "urlFore": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+   "faltVardeEfter": "180 000",
+   "aktivtElement": "BODY",
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "12 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "sidanLaddadesOm": false
+  },
   "tangentbord": {
    "status": "stopp",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
+   "prefix": null,
+   "tal": null,
+   "enhet": null,
+   "per": null,
    "not": null,
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
   },
   "gt": {
-   "kortHojd": 518.6,
-   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "kortHojd": 312.6,
+   "antalFragorSynliga": 2,
+   "femarSynlig": false,
+   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "h2Ihop": "nowrap",
    "eyebrow": "Ditt grön teknik-avdrag 2026",
    "besked": {
     "status": "tak",
@@ -162,46 +303,81 @@
     "not": null,
     "stopp": null
    },
-   "overflowX": false
+   "overflowX": false,
+   "avstand": {
+    "h2_till_kort": 39.6,
+    "kortkant_till_fraga1": 40.6,
+    "fraga1_till_underrad": 7,
+    "underrad_till_kontroll": 14,
+    "kontroll_till_nasta_fraga": 28,
+    "fraga2_till_kontroll": null,
+    "sista_fraga_till_kontroll": 14,
+    "sista_kontroll_till_kortkant": 40.6,
+    "eyebrow_till_tal": 14,
+    "eyebrow_till_stopp": null,
+    "tal_till_per": 9.9,
+    "panel_topp_till_innehall": 39.6,
+    "innehall_till_panel_botten": 39.6
+   }
   },
   "gtAgerNej": {
-   "status": "stopp",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+   "besked": {
+    "status": "stopp",
+    "prefix": null,
+    "tal": null,
+    "enhet": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+   },
+   "skiftEyebrow": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftKort": {
+    "dy": 0,
+    "dh": 0
+   },
+   "stopptextH": 48.6,
+   "stoppMinH": 88.3,
+   "ihop": "nowrap"
   },
-  "gtAldreNej": {
-   "status": "tak",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
+  "gtEnter": {
+   "modeEfter": "gt",
+   "falt": "180 000",
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "12 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
   },
   "errors": []
  },
  "mobile": {
   "rot": {
-   "kortHojd": 619.9,
+   "status": "tak",
+   "kortHojd": 590.5,
    "kortBredd": 356.3,
    "spaltBredd": 390,
    "fragorBredd": 354.3,
    "panelBredd": 354.3,
+   "antalFragorSynliga": 3,
+   "femarSynlig": true,
    "avstand": {
-    "h2_till_fraga1": 16.9,
+    "h2_till_kort": 21.5,
+    "kortkant_till_fraga1": 22.5,
     "fraga1_till_underrad": 6.6,
-    "underrad_till_kontroll": 10.5,
-    "kontroll1_till_fraga2": 21.5,
-    "fraga2_till_kontroll": 10.5,
-    "kontroll2_till_fraga3": 21.5,
-    "fraga3_till_kontroll": 10.5,
-    "kortkant_till_h2": 22.5,
-    "sista_kontroll_till_kortkant": 167.6,
+    "underrad_till_kontroll": 12,
+    "kontroll_till_nasta_fraga": 28,
+    "fraga2_till_kontroll": 12,
+    "sista_fraga_till_kontroll": 12,
+    "sista_kontroll_till_kortkant": 169.6,
     "eyebrow_till_tal": 10.5,
+    "eyebrow_till_stopp": null,
     "tal_till_per": 8.3,
     "panel_topp_till_innehall": 22.5,
     "innehall_till_panel_botten": 21.5
@@ -211,10 +387,21 @@
     "fraga": "20px / 500 / lh 25px",
     "underrad": "16px / 400",
     "eyebrow": "12px / 600 / ls 1.68px",
-    "tal": "42px / 700 / lining-nums tabular-nums",
+    "prefix": "22px",
+    "enhet": "22px",
+    "tal": "44px / 700 / lining-nums tabular-nums",
     "per": "16px / 400",
+    "not": "16px / 400",
+    "stopptext": "18px / 500 / lh 24.3px",
     "segment": "16px / vald 600 / ovald 500",
     "input": "18px / 500"
+   },
+   "px": {
+    "prefix": 22,
+    "enhet": 22,
+    "tal": 44,
+    "stopptext": 18,
+    "not": 16
    },
    "kontroller": {
     "segmentSpar": [
@@ -223,18 +410,60 @@
      "311.3 x 48"
     ],
     "alternativ": [
-     "Ja 149.7 x 40",
-     "Nej 149.7 x 40",
-     "Ja 149.7 x 40",
-     "Nej 149.7 x 40",
-     "Lön 149.7 x 40",
-     "Pension 149.7 x 40"
+     "Ja 151.7 x 44",
+     "Nej 151.7 x 44",
+     "Ja 151.7 x 44",
+     "Nej 151.7 x 44",
+     "Lön 151.7 x 44",
+     "Pension 151.7 x 44"
     ],
-    "input": "311.3 x 48"
+    "sparHojd": 48,
+    "labelHojd": 44,
+    "typSparBredd": 311.3,
+    "input": "311.3 x 48",
+    "pointerCoarse": true
    },
-   "talradBredd": 218.9,
-   "panelInnerBredd": 311.3,
-   "talradTopp": 541.7,
+   "lage": {
+    "eyebrow": {
+     "top": 535.3,
+     "h": 18,
+     "w": 171
+    },
+    "huvud": {
+     "top": 535.3,
+     "h": 103.2,
+     "w": 311.3
+    },
+    "talrad": {
+     "top": 563.8,
+     "h": 44,
+     "w": 229.9
+    },
+    "stopp": null,
+    "stoppMinH": 74.702,
+    "stopptextH": null,
+    "forstaKontroll": {
+     "top": 160.9,
+     "h": 44,
+     "w": 151.7
+    },
+    "input": {
+     "top": 443.4,
+     "h": 48,
+     "w": 311.3
+    },
+    "kort": {
+     "top": 70.4,
+     "h": 590.5,
+     "w": 356.3
+    },
+    "panel": {
+     "top": 512.8,
+     "h": 147.1,
+     "w": 354.3
+    },
+    "not": null
+   },
    "overflowX": false,
    "besked": {
     "status": "tak",
@@ -249,23 +478,64 @@
   "agerNej": {
    "besked": {
     "status": "stopp",
+    "prefix": null,
+    "tal": null,
+    "enhet": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+   },
+   "kortHojd": 590.5,
+   "stoppMinH": 74.702,
+   "stoppH": 74.7,
+   "stopptextH": 72.9,
+   "skift": {
+    "eyebrow": {
+     "dy": 0,
+     "dh": 0
+    },
+    "huvud": {
+     "dy": 0,
+     "dh": 0
+    },
+    "forstaKontroll": {
+     "dy": 0,
+     "dh": 0
+    },
+    "input": {
+     "dy": 0,
+     "dh": 0
+    },
+    "kort": {
+     "dy": 0,
+     "dh": 0
+    },
+    "panel": {
+     "dy": 0,
+     "dh": 0
+    }
+   },
+   "talradTopp": 563.8,
+   "stoppTopp": 563.8
+  },
+  "agerJaIgen": {
+   "besked": {
+    "status": "tak",
     "prefix": "upp till",
     "tal": "50 000",
     "enhet": "kr",
     "per": "Per person och år.",
     "not": null,
-    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+    "stopp": null
    },
-   "kortHojd": 658.4
-  },
-  "agerJaIgen": {
-   "status": "tak",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
+   "skiftTal": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftEyebrow": {
+    "dy": 0,
+    "dh": 0
+   }
   },
   "aldreNej": {
    "besked": {
@@ -277,9 +547,24 @@
     "not": "Yngre än fem år: ROT gäller bara reparationer.",
     "stopp": null
    },
-   "kortHojd": 667.4,
-   "talradTopp": 541.7,
-   "talradToppUtgangslage": 541.7
+   "kortHojd": 663,
+   "kortDh": 72.5,
+   "skiftTal": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftEyebrow": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftForstaKontroll": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftInput": {
+    "dy": 0,
+    "dh": 0
+   }
   },
   "lon180k": {
    "besked": {
@@ -292,7 +577,15 @@
     "stopp": null
    },
    "falt": "180 000",
-   "kortHojd": 619.9
+   "kortHojd": 590.5,
+   "live": {
+    "mutationerUnderSkrivning": 0,
+    "talUnderSkrivning": "50 000",
+    "batcharTotalt": 1,
+    "texter": [
+     "ca 12 000 kr"
+    ]
+   }
   },
   "pension240k": {
    "besked": {
@@ -305,7 +598,9 @@
     "stopp": null
    },
    "falt": "240 000",
-   "kortHojd": 619.9
+   "kortHojd": 590.5,
+   "typSparBredd": 311.3,
+   "typSparBreddLon": 311.3
   },
   "lon600k": {
    "status": "belopp",
@@ -325,18 +620,47 @@
    "not": null,
    "stopp": null
   },
+  "enter": {
+   "urlFore": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+   "faltVardeEfter": "180 000",
+   "aktivtElement": "BODY",
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "12 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   },
+   "sidanLaddadesOm": false
+  },
+  "tap": {
+   "sparHojd": 48,
+   "labelHojd": 44,
+   "sparPadding": 2,
+   "x": 273,
+   "y2": 161,
+   "y1": 160,
+   "valtEfterTryck2pxIn": "nej",
+   "valtEfterTryck1pxIn": "nej"
+  },
   "tangentbord": {
    "status": "stopp",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
+   "prefix": null,
+   "tal": null,
+   "enhet": null,
+   "per": null,
    "not": null,
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
   },
   "gt": {
-   "kortHojd": 652,
-   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "kortHojd": 477.5,
+   "antalFragorSynliga": 2,
+   "femarSynlig": false,
+   "h2": "Räkna ut ditt grön teknik-avdrag",
+   "h2Ihop": "nowrap",
    "eyebrow": "Ditt grön teknik-avdrag 2026",
    "besked": {
     "status": "tak",
@@ -347,26 +671,604 @@
     "not": null,
     "stopp": null
    },
-   "overflowX": false
+   "overflowX": false,
+   "avstand": {
+    "h2_till_kort": 21.5,
+    "kortkant_till_fraga1": 22.5,
+    "fraga1_till_underrad": 6.6,
+    "underrad_till_kontroll": 12,
+    "kontroll_till_nasta_fraga": 28,
+    "fraga2_till_kontroll": null,
+    "sista_fraga_till_kontroll": 12,
+    "sista_kontroll_till_kortkant": 169.6,
+    "eyebrow_till_tal": 10.5,
+    "eyebrow_till_stopp": null,
+    "tal_till_per": 8.3,
+    "panel_topp_till_innehall": 22.5,
+    "innehall_till_panel_botten": 21.5
+   }
   },
   "gtAgerNej": {
-   "status": "stopp",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+   "besked": {
+    "status": "stopp",
+    "prefix": null,
+    "tal": null,
+    "enhet": null,
+    "per": null,
+    "not": null,
+    "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+   },
+   "skiftEyebrow": {
+    "dy": 0,
+    "dh": 0
+   },
+   "skiftKort": {
+    "dy": 0,
+    "dh": 0
+   },
+   "stopptextH": 72.9,
+   "stoppMinH": 74.702,
+   "ihop": "nowrap"
   },
-  "gtAldreNej": {
-   "status": "tak",
-   "prefix": "upp till",
-   "tal": "50 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
+  "gtEnter": {
+   "modeEfter": "gt",
+   "falt": "180 000",
+   "besked": {
+    "status": "belopp",
+    "prefix": "ca",
+    "tal": "12 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
   },
   "errors": []
- }
+ },
+ "krav": [
+  {
+   "krav": "desktop: pointer coarse = false",
+   "ok": true,
+   "varde": false
+  },
+  {
+   "krav": "desktop: kort <= 460 (rot)",
+   "ok": true,
+   "varde": 427.6
+  },
+  {
+   "krav": "desktop: ingen horisontell scroll",
+   "ok": true,
+   "varde": false
+  },
+  {
+   "krav": "desktop: prefix = enhet = halva talet",
+   "ok": true,
+   "varde": "28 / 28 / tal 56"
+  },
+  {
+   "krav": "desktop: prefix och enhet 28 px vid 1440",
+   "ok": true,
+   "varde": "28 / 28"
+  },
+  {
+   "krav": "desktop: femårsraden 16 px",
+   "ok": true,
+   "varde": 16
+  },
+  {
+   "krav": "desktop: stoppbeskedet 18 px",
+   "ok": true,
+   "varde": 18
+  },
+  {
+   "krav": "desktop: spåret 48 hög",
+   "ok": true,
+   "varde": 48
+  },
+  {
+   "krav": "desktop: alternativet 40 px",
+   "ok": true,
+   "varde": 40
+  },
+  {
+   "krav": "desktop: femårsfrågan visas i rot",
+   "ok": true,
+   "varde": true
+  },
+  {
+   "krav": "desktop: etiketten står stilla i stoppläget",
+   "ok": true,
+   "varde": 0
+  },
+  {
+   "krav": "desktop: talblocket (huvud) byter varken plats eller höjd i stoppläget",
+   "ok": true,
+   "varde": {
+    "dy": 0,
+    "dh": 0
+   }
+  },
+  {
+   "krav": "desktop: stoppblocket börjar där talraden börjar",
+   "ok": true,
+   "varde": "324.4 / 324.4"
+  },
+  {
+   "krav": "desktop: kortet byter inte höjd i stoppläget",
+   "ok": true,
+   "varde": 0
+  },
+  {
+   "krav": "desktop: stopptexten ryms i talblockets höjd",
+   "ok": true,
+   "varde": "48.6 <= 88.3"
+  },
+  {
+   "krav": "desktop: stoppbeskedet exakt",
+   "ok": true,
+   "varde": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+  },
+  {
+   "krav": "desktop: Ja igen ger talet tillbaka på samma plats",
+   "ok": true,
+   "varde": {
+    "besked": {
+     "status": "tak",
+     "prefix": "upp till",
+     "tal": "50 000",
+     "enhet": "kr",
+     "per": "Per person och år.",
+     "not": null,
+     "stopp": null
+    },
+    "skiftTal": {
+     "dy": 0,
+     "dh": 0
+    },
+    "skiftEyebrow": {
+     "dy": 0,
+     "dh": 0
+    }
+   }
+  },
+  {
+   "krav": "desktop: femårsraden exakt, talet står stilla",
+   "ok": true,
+   "varde": "Yngre än fem år: ROT gäller bara reparationer."
+  },
+  {
+   "krav": "desktop: kortet växer inte med femårsraden",
+   "ok": true,
+   "varde": 0
+  },
+  {
+   "krav": "desktop: 180 000 ger \"ca 12 000 kr\"",
+   "ok": true,
+   "varde": "ca 12 000 kr, fält \"180 000\""
+  },
+  {
+   "krav": "desktop: ingen mutation i live-regionen medan hon skriver (talet står kvar på 50 000)",
+   "ok": true,
+   "varde": "0 mutationer, tal \"50 000\""
+  },
+  {
+   "krav": "desktop: exakt EN live-mutation efter fördröjningen, aldrig \"ca 0\"",
+   "ok": true,
+   "varde": [
+    {
+     "t": 3309,
+     "text": "ca 12 000 kr"
+    }
+   ]
+  },
+  {
+   "krav": "desktop: pension 240 000 ger \"ca 38 000 kr\"",
+   "ok": true,
+   "varde": "ca 38 000"
+  },
+  {
+   "krav": "desktop: Lön/Pension-spåret byter inte bredd när vikten byter (600 på vald)",
+   "ok": true,
+   "varde": "188 -> 188"
+  },
+  {
+   "krav": "desktop: 600 000 ger \"50 000 kr\" utan prefix",
+   "ok": true,
+   "varde": {
+    "status": "belopp",
+    "prefix": null,
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
+  },
+  {
+   "krav": "desktop: blur renderar direkt: tomt fält ger \"upp till 50 000 kr\"",
+   "ok": true,
+   "varde": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
+  },
+  {
+   "krav": "desktop: Enter i fältet laddar inte om sidan",
+   "ok": true,
+   "varde": {
+    "urlFore": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+    "faltVardeEfter": "180 000",
+    "aktivtElement": "BODY",
+    "besked": {
+     "status": "belopp",
+     "prefix": "ca",
+     "tal": "12 000",
+     "enhet": "kr",
+     "per": "Per person och år.",
+     "not": null,
+     "stopp": null
+    },
+    "sidanLaddadesOm": false
+   }
+  },
+  {
+   "krav": "desktop: pil höger i segmentet ger stoppläget",
+   "ok": true,
+   "varde": "stopp"
+  },
+  {
+   "krav": "desktop: gt visar ingen femårsfråga (två frågor)",
+   "ok": true,
+   "varde": "2 frågor, femår synlig false"
+  },
+  {
+   "krav": "desktop: gt-kort <= 460",
+   "ok": true,
+   "varde": 312.6
+  },
+  {
+   "krav": "desktop: gt-rubriken exakt, \"grön teknik-avdrag\" i nowrap-span",
+   "ok": true,
+   "varde": "Räkna ut ditt grön teknik-avdrag / nowrap"
+  },
+  {
+   "krav": "desktop: gt-etiketten exakt",
+   "ok": true,
+   "varde": "Ditt grön teknik-avdrag 2026"
+  },
+  {
+   "krav": "desktop: gt-stoppbeskedet exakt, ihop, ingenting hoppar",
+   "ok": true,
+   "varde": {
+    "besked": {
+     "status": "stopp",
+     "prefix": null,
+     "tal": null,
+     "enhet": null,
+     "per": null,
+     "not": null,
+     "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+    },
+    "skiftEyebrow": {
+     "dy": 0,
+     "dh": 0
+    },
+    "skiftKort": {
+     "dy": 0,
+     "dh": 0
+    },
+    "stopptextH": 48.6,
+    "stoppMinH": 88.3,
+    "ihop": "nowrap"
+   }
+  },
+  {
+   "krav": "desktop: Enter i gt behåller läget och beloppet",
+   "ok": true,
+   "varde": {
+    "modeEfter": "gt",
+    "falt": "180 000",
+    "besked": {
+     "status": "belopp",
+     "prefix": "ca",
+     "tal": "12 000",
+     "enhet": "kr",
+     "per": "Per person och år.",
+     "not": null,
+     "stopp": null
+    }
+   }
+  },
+  {
+   "krav": "desktop: inga konsolfel",
+   "ok": true,
+   "varde": []
+  },
+  {
+   "krav": "mobile: pointer coarse = true",
+   "ok": true,
+   "varde": true
+  },
+  {
+   "krav": "mobile: kort <= 640 (rot)",
+   "ok": true,
+   "varde": 590.5
+  },
+  {
+   "krav": "mobile: ingen horisontell scroll",
+   "ok": true,
+   "varde": false
+  },
+  {
+   "krav": "mobile: prefix = enhet = halva talet",
+   "ok": true,
+   "varde": "22 / 22 / tal 44"
+  },
+  {
+   "krav": "mobil: talet 44 px",
+   "ok": true,
+   "varde": 44
+  },
+  {
+   "krav": "mobile: femårsraden 16 px",
+   "ok": true,
+   "varde": 16
+  },
+  {
+   "krav": "mobile: stoppbeskedet 18 px",
+   "ok": true,
+   "varde": 18
+  },
+  {
+   "krav": "mobile: spåret 48 hög",
+   "ok": true,
+   "varde": 48
+  },
+  {
+   "krav": "mobile: alternativet 44 px",
+   "ok": true,
+   "varde": 44
+  },
+  {
+   "krav": "mobile: femårsfrågan visas i rot",
+   "ok": true,
+   "varde": true
+  },
+  {
+   "krav": "mobile: etiketten står stilla i stoppläget",
+   "ok": true,
+   "varde": 0
+  },
+  {
+   "krav": "mobile: talblocket (huvud) byter varken plats eller höjd i stoppläget",
+   "ok": true,
+   "varde": {
+    "dy": 0,
+    "dh": 0
+   }
+  },
+  {
+   "krav": "mobile: stoppblocket börjar där talraden börjar",
+   "ok": true,
+   "varde": "563.8 / 563.8"
+  },
+  {
+   "krav": "mobile: kortet byter inte höjd i stoppläget",
+   "ok": true,
+   "varde": 0
+  },
+  {
+   "krav": "mobile: stopptexten ryms i talblockets höjd",
+   "ok": true,
+   "varde": "72.9 <= 74.702"
+  },
+  {
+   "krav": "mobile: stoppbeskedet exakt",
+   "ok": true,
+   "varde": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
+  },
+  {
+   "krav": "mobile: Ja igen ger talet tillbaka på samma plats",
+   "ok": true,
+   "varde": {
+    "besked": {
+     "status": "tak",
+     "prefix": "upp till",
+     "tal": "50 000",
+     "enhet": "kr",
+     "per": "Per person och år.",
+     "not": null,
+     "stopp": null
+    },
+    "skiftTal": {
+     "dy": 0,
+     "dh": 0
+    },
+    "skiftEyebrow": {
+     "dy": 0,
+     "dh": 0
+    }
+   }
+  },
+  {
+   "krav": "mobile: femårsraden exakt, talet står stilla",
+   "ok": true,
+   "varde": "Yngre än fem år: ROT gäller bara reparationer."
+  },
+  {
+   "krav": "mobile: 180 000 ger \"ca 12 000 kr\"",
+   "ok": true,
+   "varde": "ca 12 000 kr, fält \"180 000\""
+  },
+  {
+   "krav": "mobile: ingen mutation i live-regionen medan hon skriver (talet står kvar på 50 000)",
+   "ok": true,
+   "varde": "0 mutationer, tal \"50 000\""
+  },
+  {
+   "krav": "mobile: exakt EN live-mutation efter fördröjningen, aldrig \"ca 0\"",
+   "ok": true,
+   "varde": [
+    {
+     "t": 3153,
+     "text": "ca 12 000 kr"
+    }
+   ]
+  },
+  {
+   "krav": "mobile: pension 240 000 ger \"ca 38 000 kr\"",
+   "ok": true,
+   "varde": "ca 38 000"
+  },
+  {
+   "krav": "mobile: Lön/Pension-spåret byter inte bredd när vikten byter (600 på vald)",
+   "ok": true,
+   "varde": "311.3 -> 311.3"
+  },
+  {
+   "krav": "mobile: 600 000 ger \"50 000 kr\" utan prefix",
+   "ok": true,
+   "varde": {
+    "status": "belopp",
+    "prefix": null,
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
+  },
+  {
+   "krav": "mobile: blur renderar direkt: tomt fält ger \"upp till 50 000 kr\"",
+   "ok": true,
+   "varde": {
+    "status": "tak",
+    "prefix": "upp till",
+    "tal": "50 000",
+    "enhet": "kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null
+   }
+  },
+  {
+   "krav": "mobile: Enter i fältet laddar inte om sidan",
+   "ok": true,
+   "varde": {
+    "urlFore": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8281/kalkylator/v1/index.html?m=rot",
+    "faltVardeEfter": "180 000",
+    "aktivtElement": "BODY",
+    "besked": {
+     "status": "belopp",
+     "prefix": "ca",
+     "tal": "12 000",
+     "enhet": "kr",
+     "per": "Per person och år.",
+     "not": null,
+     "stopp": null
+    },
+    "sidanLaddadesOm": false
+   }
+  },
+  {
+   "krav": "mobil: alternativet 44 px i 48 px-spåret (2 px kant)",
+   "ok": true,
+   "varde": {
+    "sparHojd": 48,
+    "labelHojd": 44,
+    "sparPadding": 2,
+    "x": 273,
+    "y2": 161,
+    "y1": 160,
+    "valtEfterTryck2pxIn": "nej",
+    "valtEfterTryck1pxIn": "nej"
+   }
+  },
+  {
+   "krav": "mobil: tryck 2 px in i spåret träffar alternativet",
+   "ok": true,
+   "varde": "nej"
+  },
+  {
+   "krav": "mobile: pil höger i segmentet ger stoppläget",
+   "ok": true,
+   "varde": "stopp"
+  },
+  {
+   "krav": "mobile: gt visar ingen femårsfråga (två frågor)",
+   "ok": true,
+   "varde": "2 frågor, femår synlig false"
+  },
+  {
+   "krav": "mobile: gt-kort <= 640",
+   "ok": true,
+   "varde": 477.5
+  },
+  {
+   "krav": "mobile: gt-rubriken exakt, \"grön teknik-avdrag\" i nowrap-span",
+   "ok": true,
+   "varde": "Räkna ut ditt grön teknik-avdrag / nowrap"
+  },
+  {
+   "krav": "mobile: gt-etiketten exakt",
+   "ok": true,
+   "varde": "Ditt grön teknik-avdrag 2026"
+  },
+  {
+   "krav": "mobile: gt-stoppbeskedet exakt, ihop, ingenting hoppar",
+   "ok": true,
+   "varde": {
+    "besked": {
+     "status": "stopp",
+     "prefix": null,
+     "tal": null,
+     "enhet": null,
+     "per": null,
+     "not": null,
+     "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag."
+    },
+    "skiftEyebrow": {
+     "dy": 0,
+     "dh": 0
+    },
+    "skiftKort": {
+     "dy": 0,
+     "dh": 0
+    },
+    "stopptextH": 72.9,
+    "stoppMinH": 74.702,
+    "ihop": "nowrap"
+   }
+  },
+  {
+   "krav": "mobile: Enter i gt behåller läget och beloppet",
+   "ok": true,
+   "varde": {
+    "modeEfter": "gt",
+    "falt": "180 000",
+    "besked": {
+     "status": "belopp",
+     "prefix": "ca",
+     "tal": "12 000",
+     "enhet": "kr",
+     "per": "Per person och år.",
+     "not": null,
+     "stopp": null
+    }
+   }
+  },
+  {
+   "krav": "mobile: inga konsolfel",
+   "ok": true,
+   "varde": []
+  }
+ ]
 }

@@ -1,59 +1,104 @@
 {
  "errors": [],
+ "krav": {
+  "inga fel": true,
+  "ingen horisontell scroll": true,
+  "fråga -> kontroll 14 i alla spalter (desktop)": true,
+  "\"1 200 000\" klipps inte": true,
+  "alternativets höjd 44 på touch (mobil)": true,
+  "en aria-live-batch efter \"180000\"": true,
+  "inget \"ca 0 kr\" medan hon skriver": true,
+  "?m=gt utan femårsfrågan": true,
+  "kortet <= 460 desktop": true,
+  "kortet <= 640 mobil (utgångsläget)": true,
+  "stoppbeskedet helt ovanför 664 (mobil)": true,
+  "kortet byter aldrig höjd (desktop, alla tillstånd)": true,
+  "talet flyttar aldrig (desktop)": true,
+  "femårsraden på egen rad": true,
+  "\"grön teknik-avdrag\" obrutet (H2 + stopptext, mobil)": true,
+  "Enter laddar inte om": true,
+  "sidan vit, bandet sky mist": true
+ },
  "desktop": {
   "viewport": "1440x1000",
   "typografi": {
    "h2": "36px / 500 / lh 43.2px",
    "fraga": "20px / 500",
    "under": "16px / 400",
-   "segmentText": "18px / 500",
+   "segmentText": "18px / 600",
+   "segmentTextVald": "600 / ovald 600",
    "input": "18px / 500",
+   "kr": "18px",
+   "placeholderVikt": "400",
    "etikett": "12px / 600 / ls 1.68px",
    "tal": "56px / 700 / lining-nums tabular-nums",
    "prefix": "28px / 500",
    "per": "16px / 400",
-   "stoppText": "18px",
-   "q2Rader": 1,
+   "not": "16px / 400",
+   "stoppText": "18px / 500",
+   "pointerCoarse": false,
+   "subgrid": true,
+   "sidbakgrund": "rgb(255, 255, 255)",
+   "bandBakgrund": "rgb(245, 249, 255)",
+   "kortKant": "rgba(9, 11, 50, 0.14) / skugga rgba(9, 11, 50, 0.07) 0px 10px 30px 0px",
    "q1UnderRader": 2,
-   "textbredd": {
-    "Q2 en rad": 261,
-    "Q1 underrad en rad": 306,
-    "femårsraden": 333
-   }
+   "q2Rader": 1
   },
   "rytm": {
    "H2 -> kort": 39.6,
    "kortpadding topp (kort -> fråga)": 40.6,
    "fråga -> underrad (Q1)": 7,
    "underrad -> kontroll (Q1)": 14,
-   "fråga -> kontroll (Q2)": 69,
-   "fråga -> kontroll (Q3)": 69,
-   "kontroll -> band (hårlinje)": 39.6,
+   "fråga -> kontroll (Q2)": 14,
+   "fråga -> kontroll (Q3)": 14,
+   "kontroll -> hårlinje (Q1 / Q2 / Q3)": [
+    39.6,
+    94.6,
+    94.6
+   ],
    "band: hårlinje -> etikett": 20.8,
-   "etikett -> tal": 14,
-   "tal -> per person": 9.9,
-   "per person -> kortets kant": 28,
+   "etikett -> per person (samma spalt)": 7.9,
+   "etikett -> tal": "kvittorad: talets överkant 0 från etikettens, talets högerkant 39.6 från kortets inre kant (fältets 39.6)",
+   "tal -> per person": null,
+   "per person -> femårsrad (reserverad)": 7,
+   "femårsradens reserverade höjd": 24,
+   "femårsrad -> kortets kant": 19.8,
+   "per person -> kortets kant (mobil)": null,
    "fråga -> fråga (mobil, Q1-kontroll -> Q2-fråga)": null
   },
   "matt": {
    "kortBredd": 980,
-   "kortHojd": 393.9,
+   "kortHojd": 350.8,
    "fragorHojd": 221.2,
-   "bandHojd": 170.7,
-   "segmentHojd": 48,
+   "bandHojd": 127.6,
+   "spårHojd": 48,
    "segmentBredd": 188,
    "optionHojd": 40,
    "optionBredd": 88,
    "inputHojd": 48,
-   "inputBredd": 133.8,
-   "typSegmentBredd": 190,
-   "kolumnbredder": [
-    213,
-    266.8,
-    337.8
+   "inputBredd": 150,
+   "typSegmentBredd": 191.3,
+   "spalter": [
+    {
+     "bredd": 221,
+     "hojd": 142,
+     "tomtUnderKontroll": 0
+    },
+    {
+     "bredd": 301,
+     "hojd": 142,
+     "tomtUnderKontroll": 55
+    },
+    {
+     "bredd": 376,
+     "hojd": 142,
+     "tomtUnderKontroll": 55
+    }
    ],
    "talHojd": 56,
-   "talBredd": 898.8
+   "talBredd": 291.2,
+   "bandTomtHoger": 39.6,
+   "bandTomtMellan": 28
   },
   "overflowX": false,
   "tillstand": {
@@ -64,7 +109,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8
    },
    "nejAgande": {
     "status": "stopp",
@@ -73,7 +119,13 @@
     "per": null,
     "not": null,
     "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8,
+    "stoppRad": {
+     "xStorlek": 44,
+     "textRader": 1,
+     "xMittMinusTextMitt": 0
+    }
    },
    "jaIgen": {
     "status": "tak",
@@ -82,7 +134,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8
    },
    "nejFemAr": {
     "status": "tak",
@@ -91,7 +144,10 @@
     "per": "Per person och år.",
     "not": "Yngre än fem år: ROT gäller bara reparationer.",
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8,
+    "notRader": 1,
+    "notEgenRad": true
    },
    "lon180k": {
     "status": "belopp",
@@ -100,7 +156,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9,
+    "kortHojd": 350.8,
+    "talY": 381.8,
     "falt": "180 000"
    },
    "pension240k": {
@@ -110,7 +167,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9,
+    "kortHojd": 350.8,
+    "talY": 381.8,
     "falt": "240 000"
    },
    "tillbakaLon240k": {
@@ -120,7 +178,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8
    },
    "lon600k": {
     "status": "belopp",
@@ -129,7 +188,24 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8
+   },
+   "lon1200k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 350.8,
+    "talY": 381.8,
+    "falt": {
+     "varde": "1 200 000",
+     "clientWidth": 148,
+     "scrollWidth": 148,
+     "klipps": false
+    }
    },
    "aterstalld": {
     "status": "tak",
@@ -138,19 +214,63 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 350.8,
+    "talY": 381.8
    }
   },
+  "kortHojdKonstant": [
+   350.8
+  ],
+  "talFlyttarAldrig": [
+   381.8
+  ],
   "overflowXEfter": false,
+  "live": {
+   "batcharMedanHonSkriver": 0,
+   "talMedanHonSkriver": "upp till 50 000 kr",
+   "batchar": 1,
+   "mutationer": 4,
+   "upplast": [
+    "ca 12 000 kr Per person och år."
+   ],
+   "ariaLive": "polite",
+   "atomic": "true"
+  },
+  "enter": {
+   "url": "/v2b/index.html?m=rot",
+   "tal": "ca 41 000 kr",
+   "falt": "360 000"
+  },
   "gt": {
    "h2": "Räkna ut ditt grön teknik-avdrag",
+   "titel": "Räkna ut ditt grön teknik-avdrag: Ampy",
+   "fraga2Dold": true,
+   "fraga2Fokuserbar": false,
    "status": "tak",
    "etikett": "Ditt grön teknik-avdrag 2026",
    "tal": "upp till 50 000 kr",
    "per": "Per person och år.",
    "not": null,
    "stopp": null,
-   "kortHojd": 393.9,
+   "kortHojd": 326.8,
+   "talY": 357.8,
+   "spalter": [
+    {
+     "bredd": 523,
+     "fragaTillKontroll": 14,
+     "underradRader": 1
+    },
+    {
+     "bredd": 376,
+     "fragaTillKontroll": 14,
+     "underradRader": null
+    }
+   ],
+   "h2Rader": 1,
+   "h2RadTexter": [
+    812
+   ],
+   "nobrHel": true,
    "nejAgande": {
     "status": "stopp",
     "etikett": "Ditt grön teknik-avdrag 2026",
@@ -158,16 +278,19 @@
     "per": null,
     "not": null,
     "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
-    "kortHojd": 393.9
+    "kortHojd": 326.8,
+    "talY": 357.8,
+    "stopptextNobrHel": true
    },
-   "nejFemAr": {
+   "jaIgen": {
     "status": "tak",
     "etikett": "Ditt grön teknik-avdrag 2026",
     "tal": "upp till 50 000 kr",
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 393.9
+    "kortHojd": 326.8,
+    "talY": 357.8
    }
   },
   "tangentbord": {
@@ -176,59 +299,81 @@
   }
  },
  "mobil": {
-  "viewport": "390x844",
+  "viewport": "390x844 (touch, pointer: coarse)",
   "typografi": {
    "h2": "26.756px / 500 / lh 32.1072px",
    "fraga": "20px / 500",
    "under": "16px / 400",
-   "segmentText": "16.119px / 500",
-   "input": "16.119px / 500",
+   "segmentText": "16.119px / 600",
+   "segmentTextVald": "600 / ovald 600",
+   "input": "18px / 500",
+   "kr": "18px",
+   "placeholderVikt": "400",
    "etikett": "12px / 600 / ls 1.68px",
    "tal": "44px / 700 / lining-nums tabular-nums",
    "prefix": "22px / 500",
    "per": "16px / 400",
-   "stoppText": "16.119px",
-   "q2Rader": 1,
+   "not": "16px / 400",
+   "stoppText": "18px / 500",
+   "pointerCoarse": true,
+   "subgrid": true,
+   "sidbakgrund": "rgb(255, 255, 255)",
+   "bandBakgrund": "rgb(245, 249, 255)",
+   "kortKant": "rgba(9, 11, 50, 0.14) / skugga rgba(9, 11, 50, 0.07) 0px 10px 30px 0px",
    "q1UnderRader": 2,
-   "textbredd": {
-    "Q2 en rad": 261,
-    "Q1 underrad en rad": 306,
-    "femårsraden": 333
-   }
+   "q2Rader": 1
   },
   "rytm": {
-   "H2 -> kort": 21.5,
+   "H2 -> kort": 13.3,
    "kortpadding topp (kort -> fråga)": 22.6,
    "fråga -> underrad (Q1)": 6.6,
    "underrad -> kontroll (Q1)": 12,
    "fråga -> kontroll (Q2)": 12,
    "fråga -> kontroll (Q3)": 12,
-   "kontroll -> band (hårlinje)": 317.4,
-   "band: hårlinje -> etikett": 17.9,
+   "kontroll -> hårlinje (Q1 / Q2 / Q3)": 21.6,
+   "band: hårlinje -> etikett": 14.3,
+   "etikett -> per person (samma spalt)": null,
    "etikett -> tal": 10.5,
    "tal -> per person": 8.3,
-   "per person -> kortets kant": 21.5,
-   "fråga -> fråga (mobil, Q1-kontroll -> Q2-fråga)": 34.8
+   "per person -> femårsrad (reserverad)": null,
+   "femårsradens reserverade höjd": "reserveras inte på mobil (display: none när tom), se NOTES",
+   "femårsrad -> kortets kant": null,
+   "per person -> kortets kant (mobil)": 21.5,
+   "fråga -> fråga (mobil, Q1-kontroll -> Q2-fråga)": 28
   },
   "matt": {
    "kortBredd": 347.1,
-   "kortHojd": 624.8,
-   "fragorHojd": 478.7,
-   "bandHojd": 144.1,
-   "segmentHojd": 48,
+   "kortHojd": 607.8,
+   "fragorHojd": 465.2,
+   "bandHojd": 140.6,
+   "spårHojd": 48,
    "segmentBredd": 302.2,
-   "optionHojd": 40,
-   "optionBredd": 145.1,
+   "optionHojd": 44,
+   "optionBredd": 147.1,
    "inputHojd": 48,
    "inputBredd": 302.2,
    "typSegmentBredd": 302.2,
-   "kolumnbredder": [
-    302.2,
-    302.2,
-    302.2
+   "spalter": [
+    {
+     "bredd": 302,
+     "hojd": 161.4,
+     "tomtUnderKontroll": 13.5
+    },
+    {
+     "bredd": 302,
+     "hojd": 113,
+     "tomtUnderKontroll": 13.5
+    },
+    {
+     "bredd": 302,
+     "hojd": 164.1,
+     "tomtUnderKontroll": 8.3
+    }
    ],
    "talHojd": 44,
-   "talBredd": 302.2
+   "talBredd": 302.2,
+   "bandTomtHoger": 21.5,
+   "bandTomtMellan": null
   },
   "overflowX": false,
   "tillstand": {
@@ -239,7 +384,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8
+    "kortHojd": 607.8,
+    "talY": 571.3
    },
    "nejAgande": {
     "status": "stopp",
@@ -248,7 +394,13 @@
     "per": null,
     "not": null,
     "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
-    "kortHojd": 624.8
+    "kortHojd": 607.8,
+    "talY": 571.3,
+    "stoppRad": {
+     "xStorlek": 40,
+     "textRader": 3,
+     "xMittMinusTextMitt": 0
+    }
    },
    "jaIgen": {
     "status": "tak",
@@ -257,7 +409,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8
+    "kortHojd": 607.8,
+    "talY": 571.3
    },
    "nejFemAr": {
     "status": "tak",
@@ -266,7 +419,10 @@
     "per": "Per person och år.",
     "not": "Yngre än fem år: ROT gäller bara reparationer.",
     "stopp": null,
-    "kortHojd": 672.8
+    "kortHojd": 662.4,
+    "talY": 571.3,
+    "notRader": 2,
+    "notEgenRad": true
    },
    "lon180k": {
     "status": "belopp",
@@ -275,7 +431,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8,
+    "kortHojd": 607.8,
+    "talY": 571.3,
     "falt": "180 000"
    },
    "pension240k": {
@@ -285,7 +442,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8,
+    "kortHojd": 607.8,
+    "talY": 571.3,
     "falt": "240 000"
    },
    "tillbakaLon240k": {
@@ -295,7 +453,8 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8
+    "kortHojd": 607.8,
+    "talY": 571.3
    },
    "lon600k": {
     "status": "belopp",
@@ -304,7 +463,24 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8
+    "kortHojd": 607.8,
+    "talY": 571.3
+   },
+   "lon1200k": {
+    "status": "belopp",
+    "etikett": "Ditt ROT-avdrag 2026",
+    "tal": "50 000 kr",
+    "per": "Per person och år.",
+    "not": null,
+    "stopp": null,
+    "kortHojd": 607.8,
+    "talY": 571.3,
+    "falt": {
+     "varde": "1 200 000",
+     "clientWidth": 300,
+     "scrollWidth": 300,
+     "klipps": false
+    }
    },
    "aterstalld": {
     "status": "tak",
@@ -313,19 +489,65 @@
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8
+    "kortHojd": 607.8,
+    "talY": 571.3
    }
   },
+  "kortHojdKonstant": [
+   607.8,
+   662.4
+  ],
+  "talFlyttarAldrig": [
+   571.3
+  ],
   "overflowXEfter": false,
+  "live": {
+   "batcharMedanHonSkriver": 0,
+   "talMedanHonSkriver": "upp till 50 000 kr",
+   "batchar": 1,
+   "mutationer": 4,
+   "upplast": [
+    "ca 12 000 kr Per person och år."
+   ],
+   "ariaLive": "polite",
+   "atomic": "true"
+  },
+  "enter": {
+   "url": "/v2b/index.html?m=rot",
+   "tal": "ca 41 000 kr",
+   "falt": "360 000"
+  },
   "gt": {
    "h2": "Räkna ut ditt grön teknik-avdrag",
+   "titel": "Räkna ut ditt grön teknik-avdrag: Ampy",
+   "fraga2Dold": true,
+   "fraga2Fokuserbar": false,
    "status": "tak",
    "etikett": "Ditt grön teknik-avdrag 2026",
    "tal": "upp till 50 000 kr",
    "per": "Per person och år.",
    "not": null,
    "stopp": null,
-   "kortHojd": 624.8,
+   "kortHojd": 494.8,
+   "talY": 490.4,
+   "spalter": [
+    {
+     "bredd": 302,
+     "fragaTillKontroll": 12,
+     "underradRader": 2
+    },
+    {
+     "bredd": 302,
+     "fragaTillKontroll": 12,
+     "underradRader": null
+    }
+   ],
+   "h2Rader": 2,
+   "h2RadTexter": [
+    148,
+    450
+   ],
+   "nobrHel": true,
    "nejAgande": {
     "status": "stopp",
     "etikett": "Ditt grön teknik-avdrag 2026",
@@ -333,21 +555,96 @@
     "per": null,
     "not": null,
     "stopp": "Eftersom du inte äger din bostad har du inte rätt till grön teknik-avdrag.",
-    "kortHojd": 624.8
+    "kortHojd": 494.8,
+    "talY": 490.4,
+    "stopptextNobrHel": true
    },
-   "nejFemAr": {
+   "jaIgen": {
     "status": "tak",
     "etikett": "Ditt grön teknik-avdrag 2026",
     "tal": "upp till 50 000 kr",
     "per": "Per person och år.",
     "not": null,
     "stopp": null,
-    "kortHojd": 624.8
+    "kortHojd": 494.8,
+    "talY": 490.4
    }
   },
   "tangentbord": {
    "efterPilHoger": "stopp",
    "fokusRing": "rgba(0, 122, 105, 0.9) 0px 0px 0px 3px"
+  },
+  "fonster664": {
+   "tal": {
+    "top": 571,
+    "bottom": 615
+   },
+   "falt": {
+    "top": 459,
+    "bottom": 507
+   },
+   "kort": {
+    "top": 62,
+    "bottom": 670
+   },
+   "stopp": {
+    "top": 571,
+    "bottom": 648,
+    "textBottom": 647
+   },
+   "stoppHeltSynligt": true,
+   "talHeltSynligt": true
+  },
+  "tangentbord370": {
+   "tal": {
+    "top": 273,
+    "bottom": 317
+   },
+   "falt": {
+    "top": 161,
+    "bottom": 209
+   },
+   "talSynligt": true,
+   "faltSynligt": true,
+   "talText": "ca 12 000 kr"
+  }
+ },
+ "jamforelse": {
+  "tva-spalter-R1": {
+   "kortHojd": 470.8,
+   "fragaTillKontroll": [
+    14,
+    14,
+    14
+   ],
+   "tomtUnderKontroll": [
+    0,
+    0,
+    175
+   ],
+   "spaltHojd": [
+    118,
+    116,
+    262
+   ]
+  },
+  "tva-spalter-28": {
+   "kortHojd": 441.8,
+   "fragaTillKontroll": [
+    14,
+    14,
+    14
+   ],
+   "tomtUnderKontroll": [
+    0,
+    0,
+    146
+   ],
+   "spaltHojd": [
+    118,
+    87,
+    233
+   ]
   }
  }
 }
