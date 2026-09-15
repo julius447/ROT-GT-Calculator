@@ -1,0 +1,90 @@
+/* ============================================================================
+   AMPY DESIGNSYSTEM, base.css i INBÄDDAD form (kalkylator/artikel/bas-inbaddad.css): genererad ur system/base.css
+   av tools/artikel-klon-bas.py-steget nedan; skillnaden = inga globala element-regler, fontsökvägen.
+   Ursprung: system/base.css
+   Reset + rot + Outfit + body-typografi + rubrikroller (klasser OCH element-standard
+   inom .ampy) + fokus + reduced-motion + container/sektion. Kräver system/tokens.css.
+
+   ROTSTORLEK: sajten kör html{font-size:62.5%} (1 rem = 10 px; theme-style.css +
+   frontend.css + core-framework-inline på live). Regeln behålls här så att lager 1
+   (--ap*, rem-clamp) räknar rätt när filen används fristående. Lager 2 (--ampy-*) är
+   px-baserat och fungerar oavsett rot; i en 16 px-värd (FluentSnippets, CRM-sidor,
+   artikelmallen) tar man bort html-regeln nedan och använder bara --ampy-*.
+   (hero-2-alternatives: "html{62.5%} är en värdsideregel som inte kan levereras".)
+   Beslut B8 (62.5 % vs 16 px) ligger hos Julius.
+   ============================================================================ */
+
+/* ---------- Outfit, self-hostad variabel (100-900) ----------
+   Källa: brandbook s.13 (enda typsnittet), live theme-style (@font-face Outfit 100-900
+   från wp-content/uploads/core-framework/fonts/), energycalc/booking (self-host, GDPR).
+   Filen: system/fonts/Outfit-VariableFont_wght.woff2 (kopierad från kallor/Hero-1/assets/fonts). */
+@font-face {
+  font-family: "Outfit";
+  src: url("../system/fonts/Outfit-VariableFont_wght.woff2") format("woff2-variations"),
+       url("../system/fonts/Outfit-VariableFont_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Reset (minimal, som blocken själva gör: box-sizing + margin 0) ---------- */
+/* Inbäddad i en värdsida (artikelmallen/Bricks): inga globala regler. Rot (html 62.5 %) ägs av värden, som redan
+   kör 62.5 %; lager 2 (--ampy-*) är px-baserat och oberoende av roten. Allt nedan är scopat till .ampy. */
+.ampy, .ampy *, .ampy *::before, .ampy *::after { box-sizing: border-box; }
+.ampy { margin: 0; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+.ampy img, .ampy video { max-width: 100%; height: auto; display: block; }
+.ampy svg { max-width: 100%; display: inline-block; vertical-align: -0.15em; }
+.ampy button, .ampy input, .ampy select, .ampy textarea { font: inherit; color: inherit; }
+.ampy h1, .ampy h2, .ampy h3, .ampy h4, .ampy p, .ampy ul, .ampy ol, .ampy figure { margin: 0; }
+
+/* ---------- Rubrikroller som klasser (fungerar utan .ampy-skopet) ---------- */
+.ampy-display { font-family: var(--ampy-font); font-size: var(--ampy-text-display); font-weight: var(--ampy-w-display); line-height: var(--ampy-lh-display); letter-spacing: var(--ampy-ls-display); color: var(--ampy-ink); text-wrap: balance; }
+.ampy-h1      { font-family: var(--ampy-font); font-size: var(--ampy-text-h1);      font-weight: var(--ampy-w-display); line-height: var(--ampy-lh-display); letter-spacing: -0.015em; color: var(--ampy-ink); text-wrap: balance; }
+.ampy-h2      { font-family: var(--ampy-font); font-size: var(--ampy-text-h2);      font-weight: var(--ampy-w-heading); line-height: var(--ampy-lh-heading); letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink); text-wrap: balance; }
+.ampy-h3      { font-family: var(--ampy-font); font-size: var(--ampy-text-h3);      font-weight: var(--ampy-w-strong);  line-height: var(--ampy-lh-h3);      letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink); }
+.ampy-lead    { font-family: var(--ampy-font); font-size: var(--ampy-text-lead);    font-weight: var(--ampy-w-ui);      line-height: var(--ampy-lh-lead);    color: var(--ampy-ink-body); max-width: var(--ampy-measure-lead); text-wrap: pretty; }
+.ampy-body    { font-family: var(--ampy-font); font-size: var(--ampy-text-body);    font-weight: var(--ampy-w-body);    line-height: var(--ampy-lh-body);    color: var(--ampy-ink-body); max-width: var(--ampy-measure); }
+.ampy-small   { font-family: var(--ampy-font); font-size: var(--ampy-text-small);   font-weight: var(--ampy-w-ui);      line-height: var(--ampy-lh-body);    color: var(--ampy-ink-muted); }
+.ampy-eyebrow { font-family: var(--ampy-font); font-size: var(--ampy-text-eyebrow); font-weight: var(--ampy-w-strong);  line-height: var(--ampy-lh-body);    letter-spacing: var(--ampy-ls-eyebrow); text-transform: uppercase; color: var(--ampy-ink-muted); }
+.ampy-number  { font-family: var(--ampy-font); font-size: var(--ampy-text-number);  font-weight: var(--ampy-w-display); line-height: var(--ampy-lh-tight);   letter-spacing: var(--ampy-ls-number); color: var(--ampy-ink); font-variant-numeric: tabular-nums lining-nums; }
+.ampy-label   { font-family: var(--ampy-font); font-size: var(--ampy-text-label);   font-weight: var(--ampy-w-strong);  line-height: var(--ampy-lh-ui);      color: var(--ampy-ink); }
+.ampy-button-text { font-family: var(--ampy-font); font-size: var(--ampy-text-button); font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-tight); letter-spacing: var(--ampy-ls-button); }
+
+/* ---------- Element-standard inom .ampy (så systemet kan ligga bredvid Bricks) ----------
+   :where() nollar specificiteten (0,0,1) så att rollklasser (.ampy-display m.fl.) och
+   komponentklasser (.btn) alltid vinner över element-standarden. */
+:where(.ampy) { font-family: var(--ampy-font); font-size: var(--ampy-text-body); font-weight: var(--ampy-w-body); line-height: var(--ampy-lh-body); color: var(--ampy-ink-body); }
+:where(.ampy) h1 { font-size: var(--ampy-text-h1); font-weight: var(--ampy-w-display); line-height: var(--ampy-lh-display); letter-spacing: -0.015em; color: var(--ampy-ink); text-wrap: balance; }
+:where(.ampy) h2 { font-size: var(--ampy-text-h2); font-weight: var(--ampy-w-heading); line-height: var(--ampy-lh-heading); letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink); text-wrap: balance; }
+:where(.ampy) h3 { font-size: var(--ampy-text-h3); font-weight: var(--ampy-w-strong);  line-height: var(--ampy-lh-h3);      letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink); }
+:where(.ampy) h4 { font-size: var(--ampy-text-body); font-weight: var(--ampy-w-strong); line-height: var(--ampy-lh-ui); color: var(--ampy-ink); }
+:where(.ampy) p  { max-width: var(--ampy-measure); }
+:where(.ampy) small { font-size: var(--ampy-text-small); color: var(--ampy-ink-muted); }
+:where(.ampy) strong, :where(.ampy) b { font-weight: var(--ampy-w-strong); color: var(--ampy-ink); }
+:where(.ampy) a { color: var(--ampy-action-strong); text-decoration: underline; text-underline-offset: 0.15em; text-decoration-thickness: 1px; }
+:where(.ampy) a:hover { color: var(--ampy-ink); }
+:where(.ampy) hr { border: 0; border-top: 1px solid var(--ampy-line); margin: var(--ampy-space-stack) 0; }
+:where(.ampy) ::selection { background: rgba(0,169,145,.22); color: var(--ampy-ink); }   /* källa: mini-menu ::selection .22 */
+
+/* ---------- Fokus (CTA-website: 3 px solid navy, offset 3; på mörkt: neon-mint) ---------- */
+:where(.ampy) :focus-visible, .ampy-focus:focus-visible {
+  outline: 3px solid var(--ampy-focus); outline-offset: 3px; border-radius: var(--ampy-radius-small);
+}
+:where(.ampy--dark, .ampy-on-dark) :focus-visible { outline-color: var(--ampy-focus-on-dark); }
+.ampy-on-dark { color: var(--ampy-on-dark); }
+.ampy-on-dark p { color: var(--ampy-on-dark-soft); }
+.ampy-on-dark small { color: var(--ampy-on-dark-muted); }
+
+/* ---------- Layout: container + sektion ---------- */
+.ampy-container { width: 100%; max-width: var(--ampy-container); margin-inline: auto; padding-inline: var(--ampy-gutter); }
+.ampy-container--text { max-width: var(--ampy-container-text); }
+.ampy-section { padding-block: var(--ampy-space-section-y); }
+.ampy-section--full { padding-inline: 0; }                   /* fullbreddsblock tillåtna (ägardirektiv 2026-08-14) */
+.ampy-section--dark { background: var(--ampy-bg-dark); color: var(--ampy-on-dark); }
+.ampy-section--dark h1, .ampy-section--dark h2, .ampy-section--dark h3 { color: var(--ampy-on-dark); }
+.ampy-section--dark p { color: var(--ampy-on-dark-soft); }
+
+/* ---------- Rörelse: respekterar reduced-motion (alla auktoritet 1-källor gör det) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ampy *, .ampy *::before, .ampy *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}

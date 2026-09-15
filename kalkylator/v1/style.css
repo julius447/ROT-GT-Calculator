@@ -72,9 +72,9 @@
 
 /* "Redan använt i år": en rad under inkomsten, etiketten till vänster om ett kort fält (bankblankettens mönster;
    på mobil etikett ovanför fullbreddsfält). Fältet 150 px rymmer "50 000" med marginal. */
-.rk__fraga--anvant { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-s); }   /* fältet i höger kant, i linje med inkomstfältet */
+.rk__fraga--anvant { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }   /* fältet i höger kant, i linje med inkomstfältet; gap xs (14) så etikett 215 + fält 150 ryms i 378 */
 .rk__fraga--anvant > .rk__etikett { flex: 0 1 auto; }
-.rk__fraga--anvant > .rk__belopp { flex: 0 0 15rem; margin-top: 0; }
+.rk__fraga--anvant > .rk__belopp { flex: 0 0 14rem; margin-top: 0; }   /* 140: etikett 216 + gap 14 + 140 = 370 ryms i artikelspaltens 377 (wrap-behållare krymper inte, den bryter) */
 
 /* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val.
    Valt läge = vit pill + teal-deep text (systemet) + vikt 600 mot 500: tre signaler, inte bara färg. */
@@ -95,7 +95,7 @@
 
 /* Inkomstraden: typ-väljare + belopp på samma rad */
 .rk__inkomst { display: flex; flex-wrap: wrap; gap: var(--ampy-space-xs); align-items: center; }
-.rk__belopp { position: relative; flex: 1 1 200px; min-width: 0; }
+.rk__belopp { position: relative; flex: 1 1 150px; min-width: 0; }   /* basis 150: i artikelspalten (832 -> vänsterspalt 378) ryms segment + fält på en rad; "1 200 000" behöver 148 */
 .rk__input {
   width: 100%; padding-right: calc(var(--ampy-space-xs) + var(--ampy-space-2xs) + 1.1em); text-align: right;   /* plats för kr-suffixet */
   font-size: var(--rk-text-siffror); font-weight: var(--ampy-w-medium); color: var(--ampy-ink);
@@ -166,9 +166,13 @@
 
 [hidden] { display: none !important; }
 
-/* ---------- Mobil: frågorna först, beskedet som fullbreddsblock under ---------- */
-@media (max-width: 767px) {
-  .rk-spalt { padding: var(--ampy-space-m); }                           /* rubrikens vänsterkant = kortets */
+/* ---------- Staplat läge: frågorna först, beskedet som fullbreddsblock under ----------
+   Styrs av BEHÅLLARENS bredd (container query), inte skärmens: samma kort ligger i artikelspalten (832 px -> två
+   spalter), i högerspalten (384 px -> staplat) och på en telefon (356 px -> staplat). Behållaren är .rk-behallare
+   (demosidan: main.rk-spalt). Reglerna står två gånger: en gång som @container, en gång som @media-reserv för
+   webbläsare utan container queries (Safari < 16). Ändra båda. */
+.rk-behallare, .rk-spalt { container-type: inline-size; container-name: rk; }
+@container rk (max-width: 719px) {
   .rk {
     --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
     --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
@@ -187,4 +191,29 @@
   }
   .rk__talrad, .rk__stopp { margin-top: 14px; }                          /* etikett -> tal 14 som på desktop (xs-steget är 10,5 vid 390); tal -> underrad 8,3 som förut (ingår i --rk-huvud-h) */
   .rk__resultat { display: flex; flex-direction: column; }             /* auto-höjd: 1fr-raderna skulle annars ärva femårsradens höjd */
+}
+@supports not (container-type: inline-size) {
+  @media (max-width: 767px) {
+    .rk {
+      --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
+      --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
+      --rk-panel-pad-y: 28px;                 /* panelen får mer luft upptill och nedtill än frågorna (21,5) */
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
+    .rk__inkomst { flex-direction: column; align-items: stretch; }
+    .rk__belopp { flex: 1 1 auto; }
+    .rk__fraga--anvant { flex-direction: column; align-items: stretch; }
+    .rk__fraga--anvant > .rk__belopp { flex: 0 0 auto; }
+    .rk__panel {
+      padding-block: var(--rk-panel-pad-y);
+      border-left: 0; border-top: 1px solid var(--ampy-line);
+      border-radius: 0 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px);
+    }
+    .rk__talrad, .rk__stopp { margin-top: 14px; }                          /* etikett -> tal 14 som på desktop (xs-steget är 10,5 vid 390); tal -> underrad 8,3 som förut (ingår i --rk-huvud-h) */
+    .rk__resultat { display: flex; flex-direction: column; }             /* auto-höjd: 1fr-raderna skulle annars ärva femårsradens höjd */
+  }
+}
+@media (max-width: 767px) {
+  .rk-spalt { padding: var(--ampy-space-m); }                           /* demosidan: rubrikens vänsterkant = kortets */
 }

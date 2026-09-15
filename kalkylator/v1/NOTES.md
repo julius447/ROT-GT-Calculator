@@ -219,3 +219,17 @@ frågas per person eftersom taket är per person.
   vid 375) bryter som "upp till" / "200 000 kr", aldrig "kr" ensamt på sista raden. Vid 390+ på en rad.
 - `text-wrap: pretty` på underraden: ingen ensam "delvis." vid 375.
 - Probe 96/96 (mobiltak 920/820 efter panelen).
+
+## I artikelmallen (2026-09-15)
+
+`kalkylator/artikel/` = statisk klon av ampy.se/elcentral-guide-2026/ (renderad DOM via `tools/klona-artikel.mjs`,
+byggd med `tools/artikel-klon.py`: skript borta, cookie-rutan borta, Bricks "dold tills animation" borta, absoluta
+URL:er, `<meta referrer=no-referrer>` eftersom ampy.se hotlink-skyddar bilder). Kalkylatorn injiceras i två lägen:
+`?p=hoger` (högerspalten, 30 % = 384 px, TOC-kortet under; på mobil hamnar spalten först = kalkylatorn direkt efter
+författarraden) och `?p=topp` (överst i artikelspalten, 65 % = 832 px, före Snabbt svar). Kortet byter layout på
+BEHÅLLARENS bredd (container query `rk`, gräns 720 px) i stället för skärmens, så samma CSS ger två spalter i
+artikelspalten och staplat i högerspalten/mobilen; @media-reserv för webbläsare utan container queries.
+Inbäddning: `artikel/bas-inbaddad.css` = base.css utan globala element-regler (scopat till .ampy), `artikel.css` =
+kolumnen, rubrikstorlek per läge (artikel-H2 aptext-xl/700 i topp, kortrubrik aptext-ml/700 i höger), skydd mot
+Bricks' fieldset/legend/input-regler. Justeringar i style.css för 378 px-spalten: inkomstfältets basis 150, använt-
+fältet 140 + gap xs så raderna håller.
