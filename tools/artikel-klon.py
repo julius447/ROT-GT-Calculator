@@ -36,6 +36,11 @@ s = s.replace('flying-press-lazy-bg', '')
 s = s.replace('data-lazy-src=', 'src=')
 s = re.sub(r'style="([^"]*)content-visibility:[^;"]*;?([^"]*)"', r'style="\1\2"', s)
 
+# 3b. preload-länkar bort (de skickas före referrer-metan och cachar 403 från hotlink-skyddet; logotypen försvann)
+s = re.sub(r'<link rel="preload"[^>]*>', '', s)
+# referrer-policyn först i head så ingen begäran hinner gå med Referer
+s = s.replace('<head>', '<head><meta name="referrer" content="no-referrer">', 1)
+
 # 4. relativa URL:er -> ampy.se
 s = re.sub(r'(href|src|action)="/(?!/)', r'\1="https://ampy.se/', s)
 s = re.sub(r'srcset="([^"]*)"', lambda m: 'srcset="' + re.sub(r'(^|,\s*)/(?!/)', r'\1https://ampy.se/', m.group(1)) + '"', s)
@@ -73,7 +78,7 @@ s = s[:k] + '<div id="ampy-hoger" class="brxe-block">' + kalkylator + toc + '</d
 
 # 7. head: kalkylatorns CSS + inbäddningsregler; body-slut: placeringsskript + förhandsvisningsrad + app.js
 head_extra = '''
-<meta name="referrer" content="no-referrer">   <!-- ampy.se hotlink-skyddar bilder (403 med främmande Referer); utan Referer svarar den 200 -->
+<!-- referrer-policyn ligger först i head (steg 3b): ampy.se hotlink-skyddar bilder, 403 med främmande Referer, 200 utan -->
 <link rel="stylesheet" href="../system/tokens.css">
 <link rel="stylesheet" href="bas-inbaddad.css">
 <link rel="stylesheet" href="../system/components/text.css">
