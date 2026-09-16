@@ -276,4 +276,4 @@ för lön, regional reduktion, pensionärers 4 %-spärr (bara med villa). Kortm�
   är skatten på lön så låg att inget blir kvar att dra ROT-avdraget från. Har du också pension, välj Båda."
   Kontroll: 200 000 lön + 200 000 pension (66+) ger ca 33 000 (Skatteverket Stockholm: 28 132 vid 30,55 %).
 - Design/spacing: detaljraderna (ränta, använt, ålder, pension) 18 px etikett och 19,8 px mellan raderna, frågorna
-  20 px och 28 px; fältet i höger kant i linje med inkomstfältet. Kort 781 desktop (gt 666), mobil 1 085 (gt 990).
+  20 px och 28 px; fältet i höger kant i linje med inkomstfältet. Kort 764 desktop (gt 649), mobil 1 050 (gt 955).
