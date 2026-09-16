@@ -1,0 +1,313 @@
+<title>Så räknar Avdragskollen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap">
+<style>
+  :root {
+    --ink: #090b32;
+    --ink-body: #2a2d4a;
+    --ink-muted: #5f6480;
+    --line: rgba(9, 11, 50, .14);
+    --line-strong: rgba(9, 11, 50, .32);
+    --surface: #ffffff;
+    --subtle: #f5f9ff;
+    --subtle-2: #edf3fc;
+    --teal: #007a69;
+    --teal-soft: #e3f4f0;
+    --red: #7a1623;
+    --red-soft: #fbeaec;
+    --amber-soft: #fff4dc;
+    --amber-ink: #6b4a00;
+    --shadow: 0 8px 24px rgba(9, 11, 50, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eef0f8; --ink-body: #d6d9e6; --ink-muted: #9ea3bd;
+      --line: rgba(238, 240, 248, .16); --line-strong: rgba(238, 240, 248, .36);
+      --surface: #12142e; --subtle: #181b3a; --subtle-2: #1f2347;
+      --teal: #3fc9ae; --teal-soft: #163a35; --red: #ff8f9b; --red-soft: #3a1a20;
+      --amber-soft: #3a2f12; --amber-ink: #ffd98a; --shadow: 0 8px 24px rgba(0, 0, 0, .35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eef0f8; --ink-body: #d6d9e6; --ink-muted: #9ea3bd;
+    --line: rgba(238, 240, 248, .16); --line-strong: rgba(238, 240, 248, .36);
+    --surface: #12142e; --subtle: #181b3a; --subtle-2: #1f2347;
+    --teal: #3fc9ae; --teal-soft: #163a35; --red: #ff8f9b; --red-soft: #3a1a20;
+    --amber-soft: #3a2f12; --amber-ink: #ffd98a; --shadow: 0 8px 24px rgba(0, 0, 0, .35);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface); color: var(--ink-body); font-family: "Outfit", "Helvetica Neue", Arial, sans-serif; font-size: 17px; line-height: 1.6; font-weight: 400; -webkit-font-smoothing: antialiased; }
+  .sida { max-width: 760px; margin: 0 auto; padding: 48px 24px 96px; }
+  h1, h2, h3 { color: var(--ink); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; text-wrap: balance; margin: 0; }
+  h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; }
+  h2 { font-size: 26px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
+  h3 { font-size: 19px; margin-top: 28px; }
+  p { margin: 14px 0 0; max-width: 66ch; }
+  h2 + p, h3 + p { margin-top: 12px; }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+  ul, ol { margin: 12px 0 0; padding-left: 22px; max-width: 66ch; }
+  li { margin-top: 6px; }
+  li::marker { color: var(--ink-muted); }
+
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); margin: 0 0 14px; }
+  .ingress { font-size: 20px; line-height: 1.5; color: var(--ink-body); font-weight: 300; margin-top: 18px; max-width: 60ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 22px; font-size: 14px; color: var(--ink-muted); }
+  .meta span b { color: var(--ink); font-weight: 500; }
+
+  .innehall { margin-top: 36px; padding: 20px 24px; background: var(--subtle); border-radius: 14px; }
+  .innehall p { margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); }
+  .innehall ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 32px; font-size: 15px; }
+  .innehall li { break-inside: avoid; margin-top: 4px; }
+  .innehall a { color: var(--ink); text-decoration: none; }
+  .innehall a:hover { color: var(--teal); text-decoration: underline; }
+
+  /* Formeln */
+  .formel { margin-top: 20px; padding: 22px 24px; background: var(--subtle); border-radius: 14px; overflow-x: auto; }
+  .formel ol { list-style: none; padding: 0; margin: 0; max-width: none; font-variant-numeric: tabular-nums; }
+  .formel li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); margin: 0; }
+  .formel li:first-child { border-top: 0; }
+  .formel .n { font-size: 13px; font-weight: 600; color: var(--ink-muted); }
+  .formel .v { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .formel .sum { background: var(--surface); margin: 8px -12px -8px; padding: 12px; border-radius: 10px; border-top: 0; }
+  .formel .sum .v { color: var(--teal); font-size: 19px; }
+  .formel small { display: block; color: var(--ink-muted); font-size: 14px; }
+
+  /* Tabeller */
+  .tabell { margin-top: 18px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 10px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+  thead th { border-top: 0; background: var(--subtle); font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+  td.tal, th.tal { text-align: right; white-space: nowrap; }
+  td b { color: var(--ink); font-weight: 600; }
+  .ok { color: var(--teal); font-weight: 600; }
+  .nej { color: var(--red); font-weight: 600; }
+
+  /* Rutor */
+  .ruta { margin-top: 20px; padding: 18px 22px; border-radius: 12px; background: var(--teal-soft); }
+  .ruta--varning { background: var(--amber-soft); }
+  .ruta--stopp { background: var(--red-soft); }
+  .ruta p { margin-top: 6px; }
+  .ruta p:first-child { margin-top: 0; }
+  .ruta .rubrik { font-weight: 600; color: var(--ink); }
+
+  /* Frågorna */
+  .fragor { list-style: none; padding: 0; margin: 18px 0 0; max-width: none; display: grid; gap: 12px; }
+  .fragor li { margin: 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 4px; }
+  .fragor .q { font-weight: 600; color: var(--ink); }
+  .fragor .why { color: var(--ink-body); }
+  .fragor .why em { font-style: normal; color: var(--ink-muted); }
+
+  /* Checklista */
+  .check { list-style: none; padding: 0; margin: 18px 0 0; max-width: none; }
+  .check li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); margin: 0; }
+  .check li:first-child { border-top: 0; }
+  .check .box { width: 20px; height: 20px; margin-top: 3px; border: 1.5px solid var(--line-strong); border-radius: 5px; }
+  .check b { display: block; color: var(--ink); font-weight: 600; }
+
+  .kallor { font-size: 15px; }
+  .kallor li { margin-top: 8px; }
+  .fot { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-muted); }
+
+  @media (max-width: 640px) {
+    .sida { padding: 32px 18px 72px; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 23px; margin-top: 44px; }
+    .innehall ol { columns: 1; }
+    body { font-size: 16px; }
+  }
+  @media print {
+    body { background: #fff; color: #111; }
+    .sida { max-width: none; padding: 0; }
+    h2 { break-after: avoid; }
+    .tabell, .formel, .ruta, .fragor li { break-inside: avoid; }
+  }
+</style>
+
+<main class="sida">
+  <p class="eyebrow">Ampy, Avdragskollen, kvalitetssäkring</p>
+  <h1>Så räknar Avdragskollen</h1>
+  <p class="ingress">Verktyget på ampy.se svarar på en fråga: hur mycket ROT-avdrag eller grön teknik-avdrag kan den här kunden få i år utan att det kommer tillbaka som kvarskatt? Här är hela resonemanget bakom siffran, så att du kan bedöma om det stämmer med hur det ser ut hos kunderna i verkligheten.</p>
+  <div class="meta">
+    <span><b>Inkomstår</b> 2026</span>
+    <span><b>Version</b> 2026-09-16</span>
+    <span><b>Verifierat mot</b> Skatteverkets e-tjänst, 75 körningar</span>
+  </div>
+
+  <nav class="innehall" aria-label="Innehåll">
+    <p>Innehåll</p>
+    <ol>
+      <li><a href="#tva-granser">Två gränser styr avdraget</a></li>
+      <li><a href="#potten">Så räknas skattepotten</a></li>
+      <li><a href="#exempel">Exempel som verktyget ger</a></li>
+      <li><a href="#fragorna">Frågorna och varför de finns</a></li>
+      <li><a href="#praktiken">Vad som händer i praktiken</a></li>
+      <li><a href="#kontrollerar">Vad verktyget kontrollerar och inte</a></li>
+      <li><a href="#forenklingar">Kända förenklingar</a></li>
+      <li><a href="#kontrollfall">Kontrollfall mot Skatteverket</a></li>
+      <li><a href="#checklista">Checklista för dig</a></li>
+      <li><a href="#kallor">Källor</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="tva-granser">1. Två gränser styr avdraget</h2>
+  <p>ROT och grön teknik är inte pengar kunden får. De är en rabatt på kundens egen skatt. Skatteverket sätter därför två gränser, och den lägsta av dem gäller.</p>
+  <h3>Gräns 1: taket per person och år</h3>
+  <ul>
+    <li><strong>ROT: 50 000 kr.</strong> ROT och RUT tillsammans högst 75 000 kr. Avdraget är 30 procent av arbetskostnaden.</li>
+    <li><strong>Grön teknik: 50 000 kr</strong>, ett eget tak vid sidan av ROT. Avdraget är 50 procent för laddbox och batteri, 15 procent för solceller, räknat på arbete och material.</li>
+    <li>Taket är <strong>per person</strong>, inte per bostad. Två ägare har två tak.</li>
+  </ul>
+  <h3>Gräns 2: kundens skattepott</h3>
+  <p>Rabatten kan bara dras från skatt kunden faktiskt betalar under året: kommunalskatt, statlig inkomstskatt och fastighetsavgift. Innan ROT får dra något har andra rabatter redan tagit sitt ur samma pott, i en ordning som lagen bestämmer (inkomstskattelagen 67 kap. 2 §): pensionsavgiften, jobbskatteavdraget, en liten reduktion för förvärvsinkomst och ränteavdraget på bolånet. Det som blir kvar är kundens <strong>utrymme</strong>. Grön teknik ligger ännu längre bak i kön, efter ROT och RUT.</p>
+  <div class="ruta">
+    <p class="rubrik">Verktygets svar</p>
+    <p>Tillgängligt avdrag = det lägsta av taket och utrymmet, minus det kunden redan använt av samma avdrag i år. Har kunden inte fyllt i någon inkomst visar verktyget taket med orden "upp till".</p>
+  </div>
+
+  <h2 id="potten">2. Så räknas skattepotten</h2>
+  <p>Steg för steg för en löntagare under 66 år med 300 000 kr i lön, snittkommunalskatt 32,38 procent, inga bolåneräntor. Alla steg följer inkomstskattelagen och stämmer på kronan med Skatteverkets egen räknare.</p>
+  <div class="formel">
+    <ol>
+      <li><span class="n">1</span><span>Lön<small>Det kunden skriver in.</small></span><span class="v">300 000 kr</span></li>
+      <li><span class="n">2</span><span>Grundavdrag<small>Den del av inkomsten ingen betalar skatt på (63 kap. 3 §). Större från 66 år.</small></span><span class="v">−34 000 kr</span></li>
+      <li><span class="n">3</span><span>Beskattningsbar inkomst</span><span class="v">266 000 kr</span></li>
+      <li><span class="n">4</span><span>Kommunalskatt 32,38 %<small>Det här är hela potten. Statlig skatt tillkommer först över 643 000 kr.</small></span><span class="v">86 130 kr</span></li>
+      <li><span class="n">5</span><span>Allmän pensionsavgift, 7 % av lönen<small>Dras alltid först. Betalas inte på pension.</small></span><span class="v">−21 000 kr</span></li>
+      <li><span class="n">6</span><span>Jobbskatteavdrag<small>Rabatten alla löntagare får (67 kap. 7 §). Finns inte på pension.</small></span><span class="v">−32 537 kr</span></li>
+      <li><span class="n">7</span><span>Reduktion för förvärvsinkomst<small>Liten fast rabatt (67 kap. 46 §).</small></span><span class="v">−1 500 kr</span></li>
+      <li><span class="n">8</span><span>Ränteavdrag, 30 % av bolåneräntan<small>Här 0. Med 50 000 kr i ränta: −15 000 kr.</small></span><span class="v">−0 kr</span></li>
+      <li class="sum"><span class="n">=</span><span>Utrymme kvar för ROT och RUT<small>Verktyget visar "ca 31 000 kr". Det motsvarar ROT på arbete för ungefär 103 000 kr.</small></span><span class="v">31 093 kr</span></li>
+    </ol>
+  </div>
+  <p>Samma person i Stockholm (30,55 procent): 28 065 kr. I Dorotea, landets högsta kommunalskatt: 36 506 kr. Med 100 000 kr i bolåneränta: ungefär 1 000 kr. Därför står det "ca" framför talet och en rad under om att Skatteverket kan landa på ett annat belopp.</p>
+
+  <h2 id="exempel">3. Exempel som verktyget ger</h2>
+  <p>Snittkommunalskatt, inga räntor, inget använt tidigare i år. Utrymmet är det räknade beloppet, svaret är det verktyget visar (avrundat till tusental med "ca"; "50 000 kr" utan "ca" bara när det håller även i den kommun som har lägst skatt).</p>
+  <div class="tabell">
+    <table>
+      <thead><tr><th>Person</th><th class="tal">Inkomst/år</th><th class="tal">Utrymme</th><th class="tal">Verktyget visar</th></tr></thead>
+      <tbody>
+        <tr><td>Lön, 18 till 65</td><td class="tal">180 000</td><td class="tal">11 711</td><td class="tal"><b>ca 12 000 kr</b></td></tr>
+        <tr><td>Lön, 18 till 65</td><td class="tal">240 000</td><td class="tal">21 041</td><td class="tal"><b>ca 21 000 kr</b></td></tr>
+        <tr><td>Lön, 18 till 65</td><td class="tal">300 000</td><td class="tal">31 093</td><td class="tal"><b>ca 31 000 kr</b></td></tr>
+        <tr><td>Lön, 18 till 65</td><td class="tal">360 000</td><td class="tal">41 445</td><td class="tal"><b>ca 41 000 kr</b></td></tr>
+        <tr><td>Lön, 18 till 65</td><td class="tal">420 000</td><td class="tal">51 797</td><td class="tal"><b>ca 50 000 kr</b></td></tr>
+        <tr><td>Lön, 18 till 65</td><td class="tal">480 000</td><td class="tal">62 299</td><td class="tal"><b>50 000 kr</b></td></tr>
+        <tr><td>Pension, över 65</td><td class="tal">180 000</td><td class="tal">24 276</td><td class="tal"><b>ca 24 000 kr</b></td></tr>
+        <tr><td>Pension, över 65</td><td class="tal">240 000</td><td class="tal">37 876</td><td class="tal"><b>ca 38 000 kr</b></td></tr>
+        <tr><td>Pension, över 65</td><td class="tal">300 000</td><td class="tal">52 015</td><td class="tal"><b>ca 50 000 kr</b></td></tr>
+        <tr><td>Lön, över 65</td><td class="tal">300 000</td><td class="tal">0</td><td class="tal"><b>0 kr</b></td></tr>
+        <tr><td>Lön, över 65</td><td class="tal">400 000</td><td class="tal">10 863</td><td class="tal"><b>ca 11 000 kr</b></td></tr>
+        <tr><td>Lön 200 000 + pension 200 000, över 65</td><td class="tal">400 000</td><td class="tal">32 518</td><td class="tal"><b>ca 33 000 kr</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Tre saker i tabellen förvånar de flesta, och alla tre är riktiga:</p>
+  <ul>
+    <li><strong>En pensionär har ofta mer utrymme än en löntagare med samma inkomst.</strong> Pension bär varken pensionsavgift eller jobbskatteavdrag, så nästan hela kommunalskatten finns kvar att dra ROT från.</li>
+    <li><strong>En person över 65 som bara har lön har nästan inget utrymme.</strong> Förhöjt grundavdrag och pensionärernas jobbskatteavdrag gör att en lön på 300 000 kr ger 0 kr. Skatteverkets egen räknare ger samma sak (född 1955, lön 348 000 kr i Stockholm: 0 kr). De flesta som jobbar efter 66 tar också ut pension, och då blir bilden en annan. Därför finns valet "Båda" i verktyget.</li>
+    <li><strong>Bolåneräntan äter utrymmet.</strong> Varje 10 000 kr i ränta tar 3 000 kr. Det är den vanligaste orsaken till att en villaägare med bra lön ändå inte får fullt ROT.</li>
+  </ul>
+
+  <h2 id="fragorna">4. Frågorna och varför de finns</h2>
+  <ul class="fragor">
+    <li><span class="q">Äger du din bostad? Villa, radhus eller lägenhet. Helt eller delvis.</span><span class="why">Bara den som äger bostaden, helt eller delvis, och bor där kan få avdraget (67 kap. 13 a §). Nej ger ett stopp med rött kryss. <em>Hyresrätt, uthyrd bostad eller föräldrarnas hus utan delägande ger inget avdrag.</em></span></li>
+    <li><span class="q">Är bostaden äldre än fem år?</span><span class="why">Femårsregeln stoppar bara om- och tillbyggnad i nya hus. Reparationer och underhåll ger ROT oavsett ålder, och bostadsrätter har ingen femårsregel alls. Verktyget ändrar därför inte beloppet utan visar raden "Yngre än fem år: ROT gäller bara reparationer." <em>Visas inte i grön teknik-läget, där regeln inte finns.</em></span></li>
+    <li><span class="q">Hur gammal är du? Under 18, 18 till 65, Över 65.</span><span class="why">Under 18 ger stopp (man ska ha fyllt 18 senast vid årets slut). Över 65 betyder fyllt 66 vid årets ingång, alltså född 1959 eller tidigare: då gäller förhöjt grundavdrag och ett annat jobbskatteavdrag, och det ändrar potten kraftigt. <em>Åldern frågas för att den inte kan gissas ur om personen har lön eller pension.</em></span></li>
+    <li><span class="q">Din inkomst förra året. Lön, Pension eller Båda.</span><span class="why">Avdraget dras mot skatten för det år arbetet betalas, alltså 2026, men de flesta vet bara förra årets inkomst, så den får stå som uppskattning. Lön och pension beskattas olika (pensionsavgift och jobbskatteavdrag finns bara på lön). Väljer kunden Båda dyker raden "Varav pension" upp.</span></li>
+    <li><span class="q">Bolåneränta förra året</span><span class="why">Ränteavdraget (30 procent av räntan) dras ur samma pott före ROT. Tomt fält räknas som noll. <em>Delar två personer lånet ska var och en skriva sin halva.</em></span></li>
+    <li><span class="q">ROT och RUT du redan använt i år</span><span class="why">Det som redan betalats ut i år tar av både taket och potten. Kunden ser sitt belopp i Skatteverkets tjänst "Mina skattereduktioner för rot, rut och grön teknik". I grön teknik-läget heter fältet i stället "Grön teknik du redan använt i år"; de två posterna hålls isär. <em>Det är avdraget som ska skrivas, inte hela fakturan.</em></span></li>
+    <li><span class="q">Lägg till en person</span><span class="why">Varje ägare har sitt eget tak och sin egen pott, så hushållets belopp är summan. Den som läggs till antas äga bostaden och bo där, därav raden "Bara för den som också äger bostaden". <em>En sambo som inte står på lagfarten eller i föreningen kan inte få ROT, hur många fakturor som än skrivs.</em></span></li>
+  </ul>
+
+  <h2 id="praktiken">5. Vad som händer i praktiken</h2>
+  <p>Det här är den del som gör verktyget viktigt för oss som utför jobbet.</p>
+  <ol>
+    <li><strong>Vi drar avdraget på fakturan</strong> (30 procent av arbetet för ROT, 50 eller 15 procent för grön teknik) och begär resten från Skatteverket. Det kallas fakturamodellen.</li>
+    <li><strong>Skatteverket kontrollerar bara taket</strong> när de betalar ut till oss: att kunden inte redan fått 50 000 kr ROT (75 000 med RUT) eller 50 000 kr grön teknik i år. De kontrollerar inte om kundens skatt räcker. Vi får alltså pengarna även om potten inte räcker.</li>
+    <li><strong>Kunden får en preliminär skattereduktion.</strong> Först i deklarationen året efter räknas det slutliga avdraget mot kundens verkliga skattepott.</li>
+    <li><strong>Räcker potten inte blir mellanskillnaden kvarskatt.</strong> Kunden fick rabatten på fakturan men betalar tillbaka den delen till Skatteverket. Det är den situationen verktyget ska förebygga.</li>
+  </ol>
+  <div class="ruta ruta--varning">
+    <p class="rubrik">Det här kan du säga till kunden</p>
+    <p>"Avdraget på fakturan är preliminärt. Räcker din skatt inte till hela beloppet kan Skatteverket kräva tillbaka resten i deklarationen. Verktyget på vår sajt ger en uppskattning av hur mycket din skatt räcker till."</p>
+  </div>
+
+  <h2 id="kontrollerar">6. Vad verktyget kontrollerar och inte</h2>
+  <h3>Kontrollerar</h3>
+  <ul>
+    <li>Ägande (stopp vid nej), ålder under 18 (stopp), femårsregeln (bara en upplysning), taket per person, kundens utrymme utifrån inkomst, ålder, inkomsttyp och bolåneränta, redan använt avdrag i år, och hushållets summa.</li>
+  </ul>
+  <h3>Kontrollerar inte</h3>
+  <ul>
+    <li>Om bostaden är uthyrd, ett dödsbo, en förälders bostad utan delägande, eller ligger utanför Sverige. Det får vi fråga om vid bokningen.</li>
+    <li>Om arbetet i sig ger ROT eller grön teknik (vilka moment, material mot arbete, schablonen 97 procent vid fast pris för grön teknik). Verktyget svarar bara på hur mycket kunden kan få, inte om jobbet kvalar in.</li>
+    <li>Våra egna krav för att kunna begära utbetalning: F-skatt, elektronisk betalning, korrekt märkt faktura.</li>
+  </ul>
+
+  <h2 id="forenklingar">7. Kända förenklingar</h2>
+  <p>Verktyget är en uppskattning. Det säger det själv under talet. Här är vad det inte vet, och åt vilket håll felet går.</p>
+  <div class="tabell">
+    <table>
+      <thead><tr><th>Förenkling</th><th>Effekt</th><th>Riktning</th></tr></thead>
+      <tbody>
+        <tr><td><b>Kommunalskatten</b> räknas med snittet 32,38 %</td><td>Stockholm 30,55 %: 2 200 till 5 500 kr mindre utrymme än verktyget visar. Dorotea 35,65 %: 4 000 till 9 800 kr mer.</td><td class="nej">Kan slå åt båda håll</td></tr>
+        <tr><td><b>Fastighetsavgiften</b> räknas som 0</td><td>Villa färdig före 2012 ger upp till 10 425 kr mer i potten, delat på ägarna.</td><td class="ok">Kunden får mer än vi säger</td></tr>
+        <tr><td><b>Kapitalinkomster</b> frågas inte</td><td>Året kunden sålt en bostad med vinst är potten större.</td><td class="ok">Kunden får mer</td></tr>
+        <tr><td><b>A-kassa eller sjukpenning</b> i stället för lön</td><td>Ger inget jobbskatteavdrag, så potten är större än för samma belopp i lön.</td><td class="ok">Kunden får mer</td></tr>
+        <tr><td><b>Regional skattereduktion</b> 1 675 kr i 76 glesbygdskommuner</td><td>Dras före ROT. Verktyget vet inte kommunen.</td><td class="nej">Kunden får 1 675 kr mindre</td></tr>
+        <tr><td><b>ROT och RUT före grön teknik</b></td><td>Enligt lagen tar ROT och RUT av potten innan grön teknik. Verktyget håller posterna isär och frågar bara om samma avdrag. Den som gjort stort ROT-jobb i vår och laddbox i höst kan få för högt grön teknik-svar.</td><td class="nej">Kan ge för högt svar</td></tr>
+        <tr><td><b>RUT i taket</b></td><td>RUT och ROT räknas ihop i ett fält och dras från 50 000-taket. Har kunden stort utrymme och använt RUT blir svaret något för lågt.</td><td class="ok">Aldrig för högt</td></tr>
+        <tr><td><b>Förra årets inkomst</b> som mått på årets</td><td>Normal löneökning flyttar svaret med några tusenlappar.</td><td class="nej">Kan slå åt båda håll</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="kontrollfall">8. Kontrollfall mot Skatteverket</h2>
+  <p>Skatteverket har en egen räknare, <a href="https://www7.skatteverket.se/portal/rot-rut">Räkna ut rot- och rutavdrag</a>. Den frågar efter födelseår och kommun, så den ger exakt siffra för en kommun medan vårt verktyg ger snittet. Alla rader nedan kommer från körningar i den räknaren 2026-09-16, och vår modell ger samma tal när den matas med samma kommunalskatt. Du kan mata in dem själv för att se att det stämmer.</p>
+  <div class="tabell">
+    <table>
+      <thead><tr><th>Fall i Skatteverkets räknare</th><th class="tal">Skatteverket</th><th class="tal">Vår modell</th></tr></thead>
+      <tbody>
+        <tr><td>Född 1985, Stockholm, lön 360 000</td><td class="tal">37 594 kr</td><td class="tal">37 594 kr</td></tr>
+        <tr><td>Född 1955, Stockholm, pension 240 000</td><td class="tal">35 702 kr</td><td class="tal">35 702 kr</td></tr>
+        <tr><td>Född 1990, Göteborg, lön 180 000</td><td class="tal">11 881 kr</td><td class="tal">11 881 kr</td></tr>
+        <tr><td>Född 1985, Stockholm, lön 348 000</td><td class="tal">35 648 kr</td><td class="tal">35 648 kr</td></tr>
+        <tr><td>Född 1955, Stockholm, lön 348 000 (ingen pension)</td><td class="tal">0 kr</td><td class="tal">0 kr</td></tr>
+        <tr><td>Född 1955, Stockholm, lön 400 000 (ingen pension)</td><td class="tal">6 477 kr</td><td class="tal">6 477 kr</td></tr>
+        <tr><td>Född 1955, Stockholm, lön 200 000 + pension 200 000</td><td class="tal">28 132 kr</td><td class="tal">28 132 kr</td></tr>
+        <tr><td>Född 1985, Stockholm, lön 720 000, ränta 60 000, villa med max fastighetsavgift</td><td class="tal">120 960 kr</td><td class="tal">120 960 kr</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Totalt 75 körningar. Modellen träffar Skatteverket på kronan i alla fall utom de i kommuner med regional skattereduktion (skillnad exakt 1 675 kr, se förenklingarna). Ett oberoende program, skrivet direkt ur lagtexten utan att titta på vår kod, ger samma tal som Skatteverket i 74 av 74 jämförbara fall.</p>
+
+  <h2 id="checklista">9. Checklista för dig</h2>
+  <p>Det här är vad vi vill att du bedömer utifrån hur det ser ut hos kunderna. Kryssa, kommentera, skicka tillbaka.</p>
+  <ul class="check">
+    <li><span class="box"></span><span><b>Frågorna</b>Är de sju frågorna de rätta? Saknas något som ofta avgör hos kunden? Är någon onödig?</span></li>
+    <li><span class="box"></span><span><b>Kvarskatten</b>Stämmer beskrivningen av vad som händer när kundens skatt inte räcker med det ni ser i praktiken? Har vi haft sådana fall?</span></li>
+    <li><span class="box"></span><span><b>Pensionärer</b>Känns det rimligt att en pensionär med 300 000 kr får fullt ROT medan en löntagare med samma inkomst får ungefär 31 000 kr? Har ni sett det slå så?</span></li>
+    <li><span class="box"></span><span><b>Över 65 med lön</b>Vet ni kunder som jobbar efter 66 utan att ta ut pension? Blir valet "Båda" begripligt för dem?</span></li>
+    <li><span class="box"></span><span><b>Redan använt</b>Förstår kunderna vad "ROT och RUT du redan använt i år" betyder, och hittar de beloppet hos Skatteverket?</span></li>
+    <li><span class="box"></span><span><b>Grön teknik</b>Stämmer 50 procent för laddbox och batteri och 15 procent för solceller med det ni fakturerar i dag? Ska något mer stå om schablonen vid fast pris?</span></li>
+    <li><span class="box"></span><span><b>Två ägare</b>Är det rätt att räkna två tak när båda står på lagfarten, och att varna för sambon som inte gör det?</span></li>
+    <li><span class="box"></span><span><b>Orden</b>Är något ord fel eller ovant jämfört med hur ni pratar med kunderna?</span></li>
+  </ul>
+
+  <h2 id="kallor">10. Källor</h2>
+  <ul class="kallor">
+    <li>Inkomstskattelagen (1999:1229), 63 kap. 2 till 3 a §§ (grundavdrag), 65 kap. (skattesatser), 67 kap. 2 § (ordningen), 7 och 8 §§ (jobbskatteavdrag), 11 till 19 §§ (ROT och RUT), 36 till 45 §§ (grön teknik), 46 till 47 §§ (förvärvsinkomst). <a href="https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/inkomstskattelag-19991229_sfs-1999-1229/">riksdagen.se</a></li>
+    <li>Lag (2009:194) om förfarandet vid skattereduktion för hushållsarbete, 7 och 17 §§ (fakturamodellen, utbetalning bara mot taket, preliminär reduktion). Lag (2020:1066) för grön teknik.</li>
+    <li>Lag (1994:1744) om allmän pensionsavgift, 3 § (avrundning till närmaste hundratal).</li>
+    <li>Skatteverket, <a href="https://www.skatteverket.se/privat/skatter/beloppochprocent/2026.4.1522bf3f19aea8075ba21.html">Belopp och procent inkomstår 2026</a>: prisbasbelopp 59 200 kr, skiktgräns 643 000 kr, pensionsavgift max 47 100 kr, fastighetsavgift max 10 425 kr, snittkommunalskatt 32,38 procent.</li>
+    <li>Skatteverket, e-tjänsten <a href="https://www7.skatteverket.se/portal/rot-rut">Räkna ut rot- och rutavdrag</a>, 75 körningar 2026-09-16.</li>
+    <li>SCB, kommunalskatterna 2026: lägst Österåker 28,93 procent, högst Dorotea 35,65 procent.</li>
+    <li>Ampys underlag: research/07 (lagtext och ordning), 08 (parametrar), 09 (verifiering), 10 (formel, känslighet) i repot ROT-GT-Calculator.</li>
+  </ul>
+
+  <p class="fot">Avdragskollen, Ampy Nordic AB. Verktyget säger "kan" och "uppskattning" eftersom Skatteverket avgör i slutskattebeskedet. Frågor om resonemanget: julius@ampy.se.</p>
+</main>
