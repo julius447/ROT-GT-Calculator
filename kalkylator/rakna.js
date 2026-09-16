@@ -55,8 +55,8 @@ export const MAX_PERSONER = 4;
 /** Utrymmet för en person vid en given kommunalskatt (delad med ålder från frågan, inte från inkomsttypen: research/10 F1) */
 function utrymmeFor(p, ks) {
   const r = skatteutrymme({
-    lon_ar: p.typ === 'pension' ? 0 : p.inkomst,
-    pension_ar: p.typ === 'pension' ? p.inkomst : 0,
+    lon_ar: p.typ === 'pension' ? 0 : p.inkomst,                  /* 'lon' och 'bada': fältet är lön */
+    pension_ar: p.typ === 'pension' ? p.inkomst : (p.typ === 'bada' ? Math.max(0, p.pension || 0) : 0),
     ar_66_plus: p.alder === '66+',
     ks, taxeringsvarde: 0,
     ranteutgifter: Math.max(0, p.ranta || 0),        /* underskott av kapital ligger före ROT i 67 kap. 2 § (research/10 F2) */
@@ -68,9 +68,10 @@ function utrymmeFor(p, ks) {
  * beraknaHushall({ mode, ager, aldre, personer: [{ typ, inkomst, alder: 'u18'|'18-65'|'66+', ranta, anvant, gtAnvant }] })
  * -> { status: 'stopp'|'tak'|'belopp', belopp, prefix, text, not, per, antal }
  *   ager/aldre som i berakna(); person 1:s ålder 'u18' = fyller 18 först nästa år -> stopp (67 kap. 11 §).
- *   Per person (67 kap. 19 § tak + 67 kap. 2 § pott):
- *     ROT-läget:  rest = min(50 000, utrymme) − (ROT och RUT redan använt)      [RUT tar av samma pott; ett fält, konservativt när taket binder]
- *     GT-läget:   rest = min(50 000 − GT använt, utrymme − ROT/RUT använt − GT använt)   [ROT/RUT ligger före grön teknik i 67 kap. 2 §]
+ *   Per person (67 kap. 19 § tak + 67 kap. 2 § pott): rest = min(50 000, utrymme) − det som redan använts i år av
+ *   SAMMA post (ROT och RUT i ROT-läget, grön teknik i grön teknik-läget). Ägarbeslut 2026-09-16: posterna hålls isär
+ *   och syns inte i varandra; att ROT/RUT ligger före grön teknik i 67 kap. 2 § är därför en känd förenkling
+ *   (uppskattning, research/10 F3).
  *   Summan är hushållets. "upp till" så snart någon inkomst saknas, "ca" så snart någon är räknad under taket eller när
  *   "50 000" inte håller vid landets lägsta kommunalskatt (research/10 F6), annars exakt.
  */
@@ -86,15 +87,15 @@ export function beraknaHushall({ mode = 'rot', ager = true, aldre = true, myndig
   const noter = [];
   if (mode === 'rot' && !aldre) noter.push('Yngre än fem år: ROT gäller bara reparationer.');
 
-  let summa = 0, nagonTak = false, nagonCa = false, anvantTot = 0, forMycket = 0, nagonInkomst = false;
+  let summa = 0, nagonTak = false, nagonCa = false, anvantTot = 0, forMycket = 0, nagonInkomst = false, lon66 = false;
   for (const p of personer) {
-    const rotRut = Math.max(0, p.anvant || 0);
-    const gt = mode === 'gt' ? Math.max(0, p.gtAnvant || 0) : 0;
-    anvantTot += rotRut + gt;
-    const restVid = (u) => mode === 'gt' ? Math.min(TAK - gt, u - rotRut - gt) : Math.min(TAK, u) - rotRut;
+    const anvant = Math.max(0, (mode === 'gt' ? p.gtAnvant : p.anvant) || 0);
+    anvantTot += anvant;
+    const restVid = (u) => Math.min(TAK, u) - anvant;
     if (!p.inkomst) { summa += Math.max(0, restVid(Infinity)); nagonTak = true; continue; }
     nagonInkomst = true;
     const u = utrymmeFor(p, P.KS_SNITT);
+    if (u === 0 && p.alder === '66+' && p.typ === 'lon') lon66 = true;   /* 66+ med bara lön: förhöjt grundavdrag + jobbskatteavdrag 66+ äter hela kommunalskatten (verifierat: SKV-72) */
     let rest = restVid(u);
     if (rest < 0) forMycket += -rest;                 /* använt mer än skatten räcker till: kvarskatt */
     rest = Math.max(0, rest);
@@ -105,7 +106,9 @@ export function beraknaHushall({ mode = 'rot', ager = true, aldre = true, myndig
 
   const ni = antal > 1;
   if (summa === 0 && anvantTot > 0) noter.push(`${ni ? 'Ni' : 'Du'} har redan använt hela årets ${namn}.`);
-  else if (summa === 0 && nagonInkomst) noter.push(`${ni ? 'Er' : 'Din'} skatt räcker inte till något ${namn} i år.`);
+  else if (summa === 0 && nagonInkomst) noter.push(lon66
+    ? `Från 66 år är skatten på lön så låg att inget blir kvar att dra ${namn}et från. Har du också pension, välj Båda.`
+    : `${ni ? 'Er' : 'Din'} skatt räcker inte till något ${namn} i år.`);
   if (forMycket > 0) {
     const fm = Math.max(1000, Math.round(forMycket / 1000) * 1000);
     noter.push(`${ni ? 'Ni' : 'Du'} har ${summa === 0 && anvantTot > 0 ? 'dessutom ' : ''}använt ca ${kr(fm)} mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.`);

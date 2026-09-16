@@ -263,3 +263,17 @@ hittade sju saker som gjorde kalkylatorn för generös. Alla rättade:
 Kvar som kända förenklingar (alla åt det snälla hållet eller under 2 000 kr): kommunen (snitt 32,38 %, täcks av
 "ca" och disclaimern), fastighetsavgiften (0, ger bara mer utrymme), kapitalinkomster, a-kassa/sjukpenning i stället
 för lön, regional reduktion, pensionärers 4 %-spärr (bara med villa). Kortmått: desktop 781 (gt 742), mobil 1 085.
+
+## Ägarbeslut 2026-09-16 (efter researchrundan)
+
+- "ROT/RUT och grön teknik är två separata poster, ska ej synas i varandra": ett använt-fält per läge. ROT-läget
+  frågar "ROT och RUT du redan använt i år", grön teknik-läget bara "Grön teknik du redan använt i år". Att ROT/RUT
+  ligger före grön teknik i 67 kap. 2 § är därmed en känd förenkling (ägaren: "en uppskattning").
+- "Över 65 + Lön känns fel": det är Skatteverkets egen siffra (SKV-72: född 1955, lön 348 000, Stockholm: utrymme
+  0 kr; SKV-61: lön 400 000: 6 477 kr). Förhöjt grundavdrag + jobbskatteavdrag 66+ äter hela kommunalskatten. Men
+  de flesta som jobbar efter 66 har också pension, och pension beskattas annorlunda. Därför: inkomsttypen har nu tre
+  lägen, Lön / Pension / Båda; "Båda" visar raden "Varav pension". Noten vid 0 kr för 66+ med bara lön: "Från 66 år
+  är skatten på lön så låg att inget blir kvar att dra ROT-avdraget från. Har du också pension, välj Båda."
+  Kontroll: 200 000 lön + 200 000 pension (66+) ger ca 33 000 (Skatteverket Stockholm: 28 132 vid 30,55 %).
+- Design/spacing: detaljraderna (ränta, använt, ålder, pension) 18 px etikett och 19,8 px mellan raderna, frågorna
+  20 px och 28 px; fältet i höger kant i linje med inkomstfältet. Kort 781 desktop (gt 666), mobil 1 085 (gt 990).

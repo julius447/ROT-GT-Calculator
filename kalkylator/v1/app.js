@@ -95,10 +95,13 @@ function lasPersoner() {
   return block().map((b) => {
     const n = b.querySelector('input[name^="typ-"]').name.split('-')[1];
     const falt = (namn) => siffra((b.querySelector(`[data-falt="${namn}"]`) || {}).value);
+    const typ = val(`typ-${n}`, b);
+    if (b.dataset.typ !== typ) b.dataset.typ = typ;      /* styr pensionsraden ("Båda") i CSS */
     return {
-      typ: val(`typ-${n}`, b),
+      typ,
       alder: val(`alder-${n}`) || '18-65',
       inkomst: falt('inkomst'),
+      pension: falt('pension'),
       ranta: falt('ranta'),
       anvant: falt('anvant'),
       gtAnvant: falt('gtanvant'),

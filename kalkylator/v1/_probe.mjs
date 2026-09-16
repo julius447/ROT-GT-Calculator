@@ -287,7 +287,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   const g = await matt(page);
   o.gt = { kortHojd: g.kortHojd, antalFragorSynliga: g.antalFragorSynliga, femarSynlig: g.femarSynlig, h2: await page.textContent('#rk-rubrik'), h2Ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-rubrik .rk__ihop')).whiteSpace), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX, avstand: g.avstand };
   await bild(page, `${namn}-6-gt-utgangslage`);
-  kontrollera(`${namn}: gt visar ingen femårsfråga (sex rader: äger, ålder, inkomst, ränta, ROT/RUT använt, grön teknik använt)`, !g.femarSynlig && g.antalFragorSynliga === 6, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
+  kontrollera(`${namn}: gt visar varken femårsfrågan eller ROT/RUT-fältet (fem rader: äger, ålder, inkomst, ränta, grön teknik använt)`, !g.femarSynlig && g.antalFragorSynliga === 5, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
   kontrollera(`${namn}: gt-kort <= ${touch ? 1200 : 820}`, g.kortHojd <= (touch ? 1200 : 820), g.kortHojd);
   kontrollera(`${namn}: gt-rubriken exakt, "grön teknik-avdrag" i nowrap-span`, o.gt.h2 === 'Räkna ut ditt grön teknik-avdrag' && o.gt.h2Ihop === 'nowrap', `${o.gt.h2} / ${o.gt.h2Ihop}`);
   kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt tillgängliga grön teknik-avdrag', o.gt.eyebrow);

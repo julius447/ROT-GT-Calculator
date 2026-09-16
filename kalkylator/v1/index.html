@@ -58,6 +58,7 @@
               <div class="ampy-segment rk__segment" data-q="typ">
                 <label><input type="radio" name="typ-1" value="lon" checked><span>Lön</span></label>
                 <label><input type="radio" name="typ-1" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="typ-1" value="bada"><span>Båda</span></label>
               </div>
               <div class="rk__belopp">
                 <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-1" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett-1" aria-describedby="rk-enhet-1">
@@ -65,6 +66,14 @@
               </div>
             </div>
           </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="rk-pension-1">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-pension-1" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-pension-1">
+              <span class="rk__enhet" id="rk-enhet-pension-1" aria-label="kronor">kr</span>
+            </div>
+          </div>
           <div class="rk__fraga rk__rad rk__fraga--ranta">
             <label class="rk__etikett" for="rk-ranta-1">Bolåneränta förra året</label>
             <div class="rk__belopp rk__belopp--kort">
@@ -109,6 +118,7 @@
               <div class="ampy-segment rk__segment" data-q="typ">
                 <label><input type="radio" name="typ-N" value="lon" checked><span>Lön</span></label>
                 <label><input type="radio" name="typ-N" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="typ-N" value="bada"><span>Båda</span></label>
               </div>
               <div class="rk__belopp">
                 <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-N" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett-N" aria-describedby="rk-enhet-N">
@@ -116,6 +126,14 @@
               </div>
             </div>
           </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="rk-pension-N">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-pension-N" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-pension-N">
+              <span class="rk__enhet" id="rk-enhet-pension-N" aria-label="kronor">kr</span>
+            </div>
+          </div>
           <!-- div + radiogroup i stället för fieldset: fieldset kan inte vara flex-rad i Chrome (legend hamnar utanför) -->
           <div class="rk__fraga rk__rad rk__fraga--alder" role="radiogroup" aria-labelledby="rk-alder-etikett-N">
             <span class="rk__etikett" id="rk-alder-etikett-N">Ålder</span>
