@@ -24,6 +24,7 @@
   --rk-text-enhet: calc(var(--rk-text-tal) * .5);   /* "upp till"/"ca" och "kr": halva talet (28 / 22), som LED-kalkylatorns kr/år */
   --rk-text-stopp: 18px;                   /* stoppbeskedet 18/500 på båda skärmar (briefen) */
   --rk-text-siffror: 18px;                 /* siffrorna i beloppsfältet */
+  --rk-text-fin: 14px;                     /* disclaimern under talet (research/10 §4.4): en rad, dämpad */
   --rk-seg-min: 88px;                      /* minsta bredd per alternativ (briefen); "Pension" i 600 + padding är 84,3 så spåret byter inte bredd när vikten byter */
   /* Talblockets höjd: talraden + luft + "Per person och år." (56 + 9,9 + 22,4 = 88,3 / 44 + 8,3 + 22,4 = 74,7).
      Stoppblocket får samma höjd så etiketten och panelen står stilla när talet byts mot X + besked. */
@@ -70,11 +71,17 @@
 .rk__tabort { min-height: 0; }
 @media (pointer: coarse) { .rk__tabort { min-height: 44px; margin-block: -10px; } }
 
-/* "Redan använt i år": en rad under inkomsten, etiketten till vänster om ett kort fält (bankblankettens mönster;
-   på mobil etikett ovanför fullbreddsfält). Fältet 150 px rymmer "50 000" med marginal. */
-.rk__fraga--anvant { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }   /* fältet i höger kant, i linje med inkomstfältet; gap xs (14) så etikett 215 + fält 150 ryms i 378 */
-.rk__fraga--anvant > .rk__etikett { flex: 0 1 auto; }
-.rk__fraga--anvant > .rk__belopp { flex: 0 0 14rem; margin-top: 0; }   /* 140: etikett 216 + gap 14 + 140 = 370 ryms i artikelspaltens 377 (wrap-behållare krymper inte, den bryter) */
+/* Inline-rader (bolåneränta, ROT och RUT använt, grön teknik använt, ålder för person 2+): etiketten till vänster,
+   ett kort fält eller ett segment i höger kant, i linje med inkomstfältet (bankblankettens mönster; på mobil etikett
+   ovanför fullbreddskontroll). Fältet 140 px rymmer "50 000" med marginal och raden håller i artikelspaltens 377 px
+   (etikett 216 + gap 14 + 140; en wrap-behållare krymper inte, den bryter). */
+.rk__rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }
+.rk__rad > .rk__etikett { flex: 0 1 auto; }
+.rk__rad > .rk__belopp { flex: 0 0 14rem; margin-top: 0; }
+.rk__rad > .rk__segment { margin-top: 0; }
+.rk[data-mode="rot"] .rk__fraga--gtanvant { display: none; }           /* grön teknik-fältet bara i grön teknik-läget; ROT/RUT-fältet i båda (ligger före i 67 kap. 2 §) */
+.rk__segment--tre { grid-auto-columns: 1fr; }                            /* tre lika breda val: Under 18 / 18 till 65 / Över 65 */
+.rk__under--lagg { margin-top: 0; }                                      /* raden under "Lägg till en person": bara ägare får avdraget */
 
 /* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val.
    Valt läge = vit pill + teal-deep text (systemet) + vikt 600 mot 500: tre signaler, inte bara färg. */
@@ -136,6 +143,11 @@
   margin: var(--ampy-space-2xs) 0 0;                                    /* tal -> underrad 9,9 / 8,3 */
   font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
 }
+.rk__fin {
+  margin: var(--ampy-space-2xs) 0 0;
+  font-size: var(--rk-text-fin); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
+  max-width: none; text-wrap: pretty;
+}
 .rk__not {
   grid-row: 3; align-self: start;
   margin: var(--ampy-space-s) 0 0; padding-top: var(--ampy-space-s);
@@ -159,6 +171,7 @@
 }
 .rk__ihop { white-space: nowrap; display: inline-block; }                /* "grön teknik-avdrag" bryts aldrig: nowrap stoppar mellanslaget, inline-block stoppar bindestrecket (Chrome bryter annars efter "-" även i nowrap, sett i probens gt-skärmdump) */
 .rk__resultat[data-status="stopp"] :is(.rk__talrad, .rk__per, .rk__not) { display: none; }
+.rk__resultat[data-status="stopp"] .rk__fin { visibility: hidden; }     /* disclaimern behåller sin plats (kan radbrytas olika på olika bredder) så stoppläget inte flyttar något */
 
 /* Talet byts med en kort intoning; aldrig count-up. base.css nollar tiden vid reduced motion. */
 @keyframes rk-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
@@ -182,8 +195,8 @@
   .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
   .rk__inkomst { flex-direction: column; align-items: stretch; }
   .rk__belopp { flex: 1 1 auto; }
-  .rk__fraga--anvant { flex-direction: column; align-items: stretch; }
-  .rk__fraga--anvant > .rk__belopp { flex: 0 0 auto; }
+  .rk__rad { flex-direction: column; align-items: stretch; }
+  .rk__rad > .rk__belopp { flex: 0 0 auto; }
   .rk__panel {
     padding-block: var(--rk-panel-pad-y);
     border-left: 0; border-top: 1px solid var(--ampy-line);
@@ -203,8 +216,8 @@
     .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
     .rk__inkomst { flex-direction: column; align-items: stretch; }
     .rk__belopp { flex: 1 1 auto; }
-    .rk__fraga--anvant { flex-direction: column; align-items: stretch; }
-    .rk__fraga--anvant > .rk__belopp { flex: 0 0 auto; }
+    .rk__rad { flex-direction: column; align-items: stretch; }
+    .rk__rad > .rk__belopp { flex: 0 0 auto; }
     .rk__panel {
       padding-block: var(--rk-panel-pad-y);
       border-left: 0; border-top: 1px solid var(--ampy-line);

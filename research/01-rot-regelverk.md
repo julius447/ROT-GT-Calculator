@@ -218,7 +218,7 @@ Två läsningar som ska bära copyn:
    kalkylatorn fråga om ränteutgifter (valfritt), annars ljuger den för unga villaägare.
 
 ### E5. Felband
-- Modell mot Skatteverkets tjänst med samma inputs: ±1 kr (avrundning). [BERÄKNAT]
+- Modell mot Skatteverkets tjänst med samma inputs: 0 kr i 56 av 75 körningar efter rättningen 2026-09-16 (öretal kapas, pensionsavgift till närmaste hundratal); kvar: regional skattereduktion 1 675 kr i 76 kommuner som inte frågas (research/09). [BERÄKNAT]
 - Kommunalskattens spridning (29 % vs 35 %) flyttar utrymmet ±3 500 kr vid 20 000 kr/mån, ±6 300 vid 30 000, ±9 000
   vid 40 000, ±12 600 vid 50 000. [BERÄKNAT] Sveriges lägsta/högsta sats 2026: [GAP], kommunlista ej hämtad (GRIND 7).
 - Varje 10 000 kr ränteutgifter = −3 000 kr. Sjukpenning/a-kassa (ingen JSA) ger mer utrymme än lön. Kapitalinkomster

@@ -4,7 +4,8 @@
  * Shared calculation engine for Ampy's ROT-kalkylator and Grön Teknik-kalkylator, tax year 2026.
  *
  *  - skatteutrymme(person)  : JS port of logik/skatteutrymme_2026.py (validated against Skatteverket's
- *                             e-service "Räkna ut rot- och rutavdrag", 4 runs 2026-09-11, ±1 kr).
+ *                             e-service "Räkna ut rot- och rutavdrag": 4 runs 2026-09-11, 75 runs 2026-09-16,
+ *                             research/09; öretal kapas och pensionsavgiften rundas till närmaste hundratal sedan 2026-09-16).
  *  - beraknaRot(input)      : port of logik/rot_logik_ref.py (rot-spec.md §2–4). Passes rot-testfall.json (41).
  *  - beraknaGt(input)       : implementation of gt-spec.md §3–4. Passes gt-testfall.json (36).
  *
@@ -25,7 +26,7 @@ export const PARAMS_2026 = Object.freeze({
   // Skatteverket "Belopp och procent inkomstår 2026" [FACT]
   PBB: 59_200,                       // prisbasbelopp
   KS_SNITT: 0.3238,                  // genomsnittlig kommunal skattesats
-  KS_BAND: Object.freeze([0.29, 0.35]), // honest band for the tax estimate (01-rot-regelverk §E5, GRIND 7)
+  KS_BAND: Object.freeze([0.2893, 0.3565]), // lägsta/högsta kommunalskatt 2026: Österåker 28,93 / Dorotea 35,65 (SCB, research/08 §9)
   SKIKTGRANS: 643_000,               // statlig inkomstskatt 20 % above this
   STATLIG: 0.20,
   PENSIONSAVGIFT: 0.07,
@@ -68,6 +69,20 @@ export function rundUpp100(x) { return Math.ceil(x / 100.0) * 100; }
 
 /** int(math.floor(x / 100.0) * 100) */
 export function rundNed100(x) { return Math.floor(x / 100.0) * 100; }
+
+/** Öretal faller bort (SFF 22 kap. 1 §, IL 67 kap. 1 § 2 st): skatter och skattereduktioner i hela kronor, kapade.
+    Verifierat mot Skatteverkets e-tjänst 2026-09-16 (research/09, SKV-61: 37 254,56 -> 37 254). */
+export function kapa(x) { return Math.max(0, Math.floor(x)); }
+
+/** Allmän pensionsavgift: 7 % av lönen, "avrundas till närmast hela hundratal kronor. Avgift som slutar på 50 kronor
+    avrundas till närmast lägre hundratal" (Lag 1994:1744 3 §). Heltalsräkning: lon*7 = avgiften i hundradels kronor.
+    Verifierat mot e-tjänsten (research/09 SKV-66: lön 348 000 -> 24 400, inte 24 300). */
+export function pensionsavgiftKr(lonAr) {
+  const enheter = lonAr * 7;                       // avgift * 100
+  const bas = Math.floor(enheter / 10_000) * 10_000;
+  const rest = enheter - bas;
+  return (rest > 5_000 ? bas + 10_000 : bas) / 100;
+}
 
 /** Python int(): truncation toward zero; undefined/null/NaN -> 0. */
 export function toInt(v) {
@@ -120,24 +135,24 @@ export function jobbskatteavdrag(arbetsinkomst, ga, ks, ar66Plus) {
     else if (ai <= 3.24 * p) u = 0.91 * p + 0.3874 * (ai - 0.91 * p) - ga;
     else if (ai <= 8.08 * p) u = 1.813 * p + 0.251 * (ai - 3.24 * p) - ga;
     else u = 3.027 * p - ga;
-    return Math.max(0, pyRound(u * ks));
+    return kapa(u * ks);
   }
-  if (ai <= 1.75 * p) return pyRound(0.22 * ai);
-  if (ai <= 5.24 * p) return pyRound(0.2635 * p + 0.07 * ai);
-  return pyRound(0.6293 * p);
+  if (ai <= 1.75 * p) return kapa(0.22 * ai);
+  if (ai <= 5.24 * p) return kapa(0.2635 * p + 0.07 * ai);
+  return kapa(0.6293 * p);
 }
 
 /** IL 67 kap. 46–47 §§: 1 500 kr, or 0,75 % of (BFI - 40 000) in the 40 000–240 000 interval. */
 export function redForvarvsinkomst(bfi) {
   if (bfi <= 40_000) return 0;
-  if (bfi <= 240_000) return pyRound(0.0075 * (bfi - 40_000));
+  if (bfi <= 240_000) return kapa(0.0075 * (bfi - 40_000));
   return 1_500;
 }
 
 /** IL 67 kap. 10 §: 30 % up to 100 000, 21 % above. */
 export function redUnderskottKapital(underskott) {
   if (underskott <= 0) return 0;
-  return pyRound(0.30 * Math.min(underskott, 100_000) + 0.21 * Math.max(0, underskott - 100_000));
+  return kapa(0.30 * Math.min(underskott, 100_000) + 0.21 * Math.max(0, underskott - 100_000));
 }
 
 /**
@@ -163,14 +178,15 @@ export function skatteutrymme(person = {}) {
   const fi = rundNed100(lonAr + pensionAr);             // fastställd förvärvsinkomst (rounded down)
   const ga = grundavdrag(fi, ar66);
   const bfi = Math.max(0, fi - ga);                     // beskattningsbar förvärvsinkomst
-  const kommunal = pyRound(bfi * ks);
-  const statlig = pyRound(P.STATLIG * Math.max(0, bfi - P.SKIKTGRANS));
+  const kommunal = kapa(bfi * ks);
+  const statlig = kapa(P.STATLIG * Math.max(0, bfi - P.SKIKTGRANS));
   const fastighetsavgift = taxeringsvarde > 0
-    ? pyRound(Math.min(P.FASTIGHETSAVGIFT_MAX, P.FASTIGHETSAVGIFT_SATS * taxeringsvarde))
+    ? kapa(Math.min(P.FASTIGHETSAVGIFT_MAX, P.FASTIGHETSAVGIFT_SATS * taxeringsvarde))
     : 0;
   const pool = kommunal + statlig + fastighetsavgift;   // 67:2 2 st: the taxes reductions may be set against
 
-  let pensionsavgift = lonAr > 0 ? Math.min(P.PENSIONSAVGIFT_MAX, rundNed100(P.PENSIONSAVGIFT * lonAr)) : 0;
+  /* Allmän pensionsavgift tas inte ut när inkomsten understiger 0,423 pbb (SFB 59 kap. 13 §, research/08 §4) */
+  let pensionsavgift = lonAr >= 0.423 * P.PBB ? Math.min(P.PENSIONSAVGIFT_MAX, pensionsavgiftKr(lonAr)) : 0;
   pensionsavgift = Math.min(pensionsavgift, pool);
   const jsa = Math.min(jobbskatteavdrag(lonAr, ga, ks, ar66), Math.max(0, kommunal)); // only vs kommunal
   let forv = redForvarvsinkomst(bfi);

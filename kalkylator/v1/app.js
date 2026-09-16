@@ -40,13 +40,9 @@ const gom = (el, dolj) => { if (el.hidden !== dolj) el.hidden = dolj; };
 const mode = new URLSearchParams(location.search).get('m') === 'gt' ? 'gt' : 'rot';
 kort.dataset.mode = mode;
 const NAMN = mode === 'gt' ? 'grön teknik-avdrag' : 'ROT-avdrag';
-const ANVANT = mode === 'gt'
-  ? { forsta: 'Grön teknik du redan använt i år', ovriga: 'Grön teknik använt i år' }
-  : { forsta: 'ROT du redan använt i år', ovriga: 'ROT använt i år' };
 if (mode === 'gt') {
   skriv(rubrik, 'Räkna ut ditt grön teknik-avdrag');
   document.title = 'Räkna ut ditt grön teknik-avdrag: Ampy';
-  personer.querySelector('[data-etikett="anvant"]').textContent = ANVANT.forsta;
 }
 
 const val = (name, rot = document) => (rot.querySelector(`input[name="${name}"]:checked`) || {}).value;
@@ -79,7 +75,6 @@ function laggTill() {
   const tmp = document.createElement('div');
   tmp.innerHTML = html;
   const b = tmp.firstElementChild;
-  b.querySelector('[data-etikett="anvant"]').textContent = ANVANT.ovriga;
   koppla(b);
   personer.append(b);
   numrera();
@@ -95,12 +90,20 @@ function taBort(b) {
 }
 lagg.addEventListener('click', laggTill);
 
+/* Person 1:s ålder är frågan ovanför blocken (alder-1), övrigas ligger i blocket (alder-N). Tomma fält = 0. */
 function lasPersoner() {
-  return block().map((b) => ({
-    typ: val(`typ-${b.querySelector('input[type="radio"]').name.split('-')[1]}`, b),
-    inkomst: siffra(b.querySelector('[data-falt="inkomst"]').value),
-    anvant: siffra(b.querySelector('[data-falt="anvant"]').value),
-  }));
+  return block().map((b) => {
+    const n = b.querySelector('input[name^="typ-"]').name.split('-')[1];
+    const falt = (namn) => siffra((b.querySelector(`[data-falt="${namn}"]`) || {}).value);
+    return {
+      typ: val(`typ-${n}`, b),
+      alder: val(`alder-${n}`) || '18-65',
+      inkomst: falt('inkomst'),
+      ranta: falt('ranta'),
+      anvant: falt('anvant'),
+      gtAnvant: falt('gtanvant'),
+    };
+  });
 }
 
 function rendera() {
@@ -108,7 +111,6 @@ function rendera() {
     mode,
     ager: val('ager') === 'ja',
     aldre: val('aldre') === 'ja',
-    myndig: val('myndig') === 'ja',
     personer: lasPersoner(),
   });
 

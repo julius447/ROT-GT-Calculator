@@ -34,11 +34,14 @@
         </div>
       </fieldset>
 
-      <fieldset class="rk__fraga rk__fraga--myndig">
-        <legend class="rk__etikett">Har du fyllt 18 år?</legend>
-        <div class="ampy-segment rk__segment" data-q="myndig">
-          <label><input type="radio" name="myndig" value="ja" checked><span>Ja</span></label>
-          <label><input type="radio" name="myndig" value="nej"><span>Nej</span></label>
+      <!-- Åldern styr både 18-årsgränsen (67 kap. 11 §) och skatten: den som fyllt 66 vid årets ingång har förhöjt
+           grundavdrag och ett annat jobbskatteavdrag (63 kap. 3 a §, 67 kap. 8 §). Frågas därför, gissas inte ur inkomsttypen. -->
+      <fieldset class="rk__fraga rk__fraga--alder">
+        <legend class="rk__etikett">Hur gammal är du?</legend>
+        <div class="ampy-segment rk__segment rk__segment--tre" data-q="alder">
+          <label><input type="radio" name="alder-1" value="u18"><span>Under 18</span></label>
+          <label><input type="radio" name="alder-1" value="18-65" checked><span>18 till 65</span></label>
+          <label><input type="radio" name="alder-1" value="66+"><span>Över 65</span></label>
         </div>
       </fieldset>
 
@@ -62,11 +65,25 @@
               </div>
             </div>
           </fieldset>
-          <div class="rk__fraga rk__fraga--anvant">
-            <label class="rk__etikett" for="rk-anvant-1" data-etikett="anvant">ROT du redan använt i år</label>
-            <div class="rk__belopp rk__belopp--anvant">
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="rk-ranta-1">Bolåneränta förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-1" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-1">
+              <span class="rk__enhet" id="rk-enhet-ranta-1" aria-label="kronor">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--anvant">
+            <label class="rk__etikett" for="rk-anvant-1">ROT och RUT du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
               <input class="ampy-input ampy-input--tabular rk__input" id="rk-anvant-1" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-anvant-1">
               <span class="rk__enhet" id="rk-enhet-anvant-1" aria-label="kronor">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
+            <label class="rk__etikett" for="rk-gtanvant-1">Grön teknik du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-gtanvant-1" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-gtanvant-1">
+              <span class="rk__enhet" id="rk-enhet-gtanvant-1" aria-label="kronor">kr</span>
             </div>
           </div>
         </div>
@@ -77,6 +94,7 @@
           <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
           Lägg till en person
         </button>
+        <p class="rk__under rk__under--lagg">Bara för den som också äger bostaden.</p>
       </div>
 
       <template id="rk-personmall">
@@ -98,11 +116,33 @@
               </div>
             </div>
           </fieldset>
-          <div class="rk__fraga rk__fraga--anvant">
-            <label class="rk__etikett" for="rk-anvant-N" data-etikett="anvant">ROT använt i år</label>
-            <div class="rk__belopp rk__belopp--anvant">
+          <!-- div + radiogroup i stället för fieldset: fieldset kan inte vara flex-rad i Chrome (legend hamnar utanför) -->
+          <div class="rk__fraga rk__rad rk__fraga--alder" role="radiogroup" aria-labelledby="rk-alder-etikett-N">
+            <span class="rk__etikett" id="rk-alder-etikett-N">Ålder</span>
+            <div class="ampy-segment rk__segment" data-q="alder">
+              <label><input type="radio" name="alder-N" value="18-65" checked><span>18 till 65</span></label>
+              <label><input type="radio" name="alder-N" value="66+"><span>Över 65</span></label>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="rk-ranta-N">Bolåneränta förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-N" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-N">
+              <span class="rk__enhet" id="rk-enhet-ranta-N" aria-label="kronor">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--anvant">
+            <label class="rk__etikett" for="rk-anvant-N">ROT och RUT använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
               <input class="ampy-input ampy-input--tabular rk__input" id="rk-anvant-N" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-anvant-N">
               <span class="rk__enhet" id="rk-enhet-anvant-N" aria-label="kronor">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
+            <label class="rk__etikett" for="rk-gtanvant-N">Grön teknik använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-gtanvant-N" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-gtanvant-N">
+              <span class="rk__enhet" id="rk-enhet-gtanvant-N" aria-label="kronor">kr</span>
             </div>
           </div>
         </div>
@@ -129,6 +169,7 @@
             </svg>
             <p class="rk__stopptext" id="rk-stopptext"></p>
           </div>
+          <p class="rk__fin" id="rk-fin">Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.</p>
         </div>
 
         <p class="rk__not" id="rk-not" aria-live="polite" hidden></p>

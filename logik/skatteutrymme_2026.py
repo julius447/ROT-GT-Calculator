@@ -3,7 +3,9 @@ Skatteutrymme för ROT/RUT/grön teknik, inkomstår 2026.
 
 Reproducerar Skatteverkets e-tjänst "Räkna ut rot- och rutavdrag" (www7.skatteverket.se/portal/rot-rut)
 utifrån lagtext + Skatteverkets publicerade 2026-parametrar. Validerad 2026-09-11 mot fyra körningar i
-e-tjänsten (se rot-testfall.json, id SKV-KAL-01..04) - exakt träff i tre fall, 3 kr avvikelse i ett.
+e-tjänsten (se rot-testfall.json, id SKV-KAL-01..04) och 2026-09-16 mot 75 körningar (research/09): med kapning av
+öretal och pensionsavgift till närmaste hundratal träffar modellen tjänsten på kronan utom regional reduktion (1 675 kr
+i 76 kommuner, frågas inte).
 
 Källor (alla [FACT]):
 - IL 63 kap. 3 § och 3 a § (grundavdrag, förhöjt grundavdrag 66+), IL 67 kap. 2 § (avräkningsordning),
@@ -38,6 +40,20 @@ def rund_upp_100(x):
 
 def rund_ned_100(x):
     return int(math.floor(x / 100.0) * 100)
+
+
+def kapa(x):
+    """Öretal faller bort (SFF 22 kap. 1 §, IL 67 kap. 1 § 2 st): hela kronor, kapade. Verifierat mot e-tjänsten
+    2026-09-16 (research/09, SKV-61)."""
+    return max(0, int(math.floor(x)))
+
+
+def pensionsavgift_kr(lon_ar):
+    """Lag (1994:1744) 3 §: närmaste hela hundratal, 50 kr nedåt. Heltalsräkning i hundradels kronor."""
+    enheter = lon_ar * 7
+    bas = (enheter // 10_000) * 10_000
+    rest = enheter - bas
+    return (bas + 10_000 if rest > 5_000 else bas) // 100
 
 
 def grundavdrag(fi, ar_66_plus):
@@ -99,14 +115,14 @@ def jobbskatteavdrag(arbetsinkomst, ga, ks, ar_66_plus):
             u = 1.813 * p + 0.251 * (ai - 3.24 * p) - ga
         else:
             u = 3.027 * p - ga
-        return max(0, int(round(u * ks)))
+        return kapa(u * ks)
     else:
         if ai <= 1.75 * p:
-            return int(round(0.22 * ai))
+            return kapa(0.22 * ai)
         elif ai <= 5.24 * p:
-            return int(round(0.2635 * p + 0.07 * ai))
+            return kapa(0.2635 * p + 0.07 * ai)
         else:
-            return int(round(0.6293 * p))
+            return kapa(0.6293 * p)
 
 
 def red_forvarvsinkomst(bfi):
@@ -114,7 +130,7 @@ def red_forvarvsinkomst(bfi):
     if bfi <= 40_000:
         return 0
     if bfi <= 240_000:
-        return int(round(0.0075 * (bfi - 40_000)))
+        return kapa(0.0075 * (bfi - 40_000))
     return 1_500
 
 
@@ -122,7 +138,7 @@ def red_underskott_kapital(underskott):
     """IL 67 kap. 10 §: 30 % upp till 100 000, 21 % därutöver."""
     if underskott <= 0:
         return 0
-    return int(round(0.30 * min(underskott, 100_000) + 0.21 * max(0, underskott - 100_000)))
+    return kapa(0.30 * min(underskott, 100_000) + 0.21 * max(0, underskott - 100_000))
 
 
 def skatteutrymme(lon_ar=0, pension_ar=0, ar_66_plus=False, ks=KS_SNITT,
@@ -136,12 +152,12 @@ def skatteutrymme(lon_ar=0, pension_ar=0, ar_66_plus=False, ks=KS_SNITT,
     fi = rund_ned_100(lon_ar + pension_ar)          # fastställd förvärvsinkomst (avrundad nedåt, förenkling)
     ga = grundavdrag(fi, ar_66_plus)
     bfi = max(0, fi - ga)                            # beskattningsbar förvärvsinkomst
-    kommunal = int(round(bfi * ks))
-    statlig = int(round(STATLIG * max(0, bfi - SKIKTGRANS)))
-    fastighetsavgift = int(round(min(FASTIGHETSAVGIFT_MAX, 0.0075 * taxeringsvarde))) if taxeringsvarde > 0 else 0
+    kommunal = kapa(bfi * ks)
+    statlig = kapa(STATLIG * max(0, bfi - SKIKTGRANS))
+    fastighetsavgift = kapa(min(FASTIGHETSAVGIFT_MAX, 0.0075 * taxeringsvarde)) if taxeringsvarde > 0 else 0
     pool = kommunal + statlig + fastighetsavgift     # de skatter reduktionerna får räknas av mot (67:2 2 st)
 
-    pensionsavgift = min(PENSIONSAVGIFT_MAX, rund_ned_100(PENSIONSAVGIFT * lon_ar)) if lon_ar > 0 else 0
+    pensionsavgift = min(PENSIONSAVGIFT_MAX, pensionsavgift_kr(lon_ar)) if lon_ar >= 0.423 * PBB else 0   # golv SFB 59:13
     # OBS: avgiften avrundas till helt hundratal i Skatteverkets beräkning (25 200 på 360 000)
     pensionsavgift = min(pensionsavgift, pool)
     jsa = min(jobbskatteavdrag(lon_ar, ga, ks, ar_66_plus), max(0, kommunal - 0))  # endast mot kommunal

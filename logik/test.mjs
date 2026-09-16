@@ -59,11 +59,11 @@ const sortedSet = (arr) => [...new Set(arr)].sort();
   // E4 table (01-rot-regelverk §E4): [månadsbrutto, löntagare utan, löntagare villa, pensionär utan, pensionär villa]
   const e4 = [
     [15_000, 11_711, 22_136, 24_276, 34_701],
-    [20_000, 21_042, 31_467, 37_876, 48_301],
-    [30_000, 41_445, 51_870, 66_501, 76_926],
-    [45_000, 77_528, 87_953, 115_359, 125_784],
-    [60_000, 138_432, 148_857, 185_559, 195_984],
-    [80_000, 264_144, 274_569, 311_202, 321_627],
+    [20_000, 21_041, 31_466, 37_876, 48_301],
+    [30_000, 41_445, 51_870, 66_502, 76_927],
+    [45_000, 77_527, 87_952, 115_359, 125_784],
+    [60_000, 138_431, 148_856, 185_559, 195_984],
+    [80_000, 264_143, 274_568, 311_201, 321_626],   /* kapning av öretal 2026-09-16 (research/09) */
   ];
   for (const [man, a, b, c, d] of e4) {
     const ar = man * 12;
@@ -214,7 +214,7 @@ const sortedSet = (arr) => [...new Set(arr)].sort();
   {
     const r = evaluate('rot', { boende: 'brf', skatt: 'pension', skatt_djup: true, manadsinkomst: 30_000 }, ['boende', 'skatt', 'plats']);
     g.eq(r.skatt.status, 'ryms', '8 pensionär 30 000 -> ryms');
-    g.eq(r.skatt.utrymme_kr, 66_501, '8 utrymme 66 501 (E4 pensionär utan villa)');
+    g.eq(r.skatt.utrymme_kr, 66_502, '8 utrymme 66 502 (E4 pensionär utan villa, kapning 2026-09-16)');
     g.eq(toEngineInput('rot', { skatt: 'pension', skatt_djup: true }).agare[0].fyllt_66_vid_arets_ingang, true, '8 pension chip auto-sets 66+');
     const rg = evaluate('gt', { skatt: 'pension', skatt_djup: true, manadsinkomst: 30_000 }, ['boende', 'skatt']);
     g.eq(rg.skatt.status, 'ryms', '8b GT pensionär 30 000 -> ryms');

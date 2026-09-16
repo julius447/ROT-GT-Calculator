@@ -65,7 +65,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 87953,
+            "utrymme_kr": 87952,
             "behov_rot_rut_kr": 12000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -118,7 +118,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 87953,
+            "utrymme_kr": 87952,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -127,7 +127,7 @@
             "gt_aterbetalningsrisk_kr": 0
           },
           {
-            "utrymme_kr": 72725,
+            "utrymme_kr": 72724,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -171,7 +171,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 51796,
+            "utrymme_kr": 51797,
             "behov_rot_rut_kr": 6000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -215,7 +215,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 51796,
+            "utrymme_kr": 51797,
             "behov_rot_rut_kr": 0,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -300,7 +300,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -343,7 +343,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -386,7 +386,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -474,7 +474,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 72725,
+            "utrymme_kr": 72724,
             "behov_rot_rut_kr": 7500,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -599,13 +599,13 @@
         "fordelning_kr": [
           30000
         ],
-        "aterbetalningsrisk_kr": 8958,
+        "aterbetalningsrisk_kr": 8959,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 21042,
+            "utrymme_kr": 21041,
             "behov_rot_rut_kr": 30000,
             "status": "ryms_delvis",
-            "aterbetalningsrisk_kr": 8958,
+            "aterbetalningsrisk_kr": 8959,
             "gt_planerad_kr": 0,
             "gt_ryms_kr": 0,
             "gt_aterbetalningsrisk_kr": 0
@@ -646,7 +646,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 87953,
+            "utrymme_kr": 87952,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -692,7 +692,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 87953,
+            "utrymme_kr": 87952,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -741,7 +741,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 103181,
+            "utrymme_kr": 103180,
             "behov_rot_rut_kr": 80000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -787,7 +787,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 103181,
+            "utrymme_kr": 103180,
             "behov_rot_rut_kr": 75000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -867,7 +867,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 72725,
+            "utrymme_kr": 72724,
             "behov_rot_rut_kr": 2400,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -913,13 +913,13 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 72725,
+            "utrymme_kr": 72724,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
             "gt_planerad_kr": 50000,
-            "gt_ryms_kr": 22725,
-            "gt_aterbetalningsrisk_kr": 27275
+            "gt_ryms_kr": 22724,
+            "gt_aterbetalningsrisk_kr": 27276
           }
         ]
       }
@@ -956,7 +956,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -999,7 +999,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1041,7 +1041,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 72725,
+            "utrymme_kr": 72724,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1084,7 +1084,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 77528,
+            "utrymme_kr": 77527,
             "behov_rot_rut_kr": 9000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1127,7 +1127,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 77528,
+            "utrymme_kr": 77527,
             "behov_rot_rut_kr": 0,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1171,7 +1171,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 77528,
+            "utrymme_kr": 77527,
             "behov_rot_rut_kr": 0,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1214,7 +1214,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 0,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1324,7 +1324,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 62300,
+            "utrymme_kr": 62299,
             "behov_rot_rut_kr": 6000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1374,7 +1374,7 @@
         "aterbetalningsrisk_kr": 28289,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 103181,
+            "utrymme_kr": 103180,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1428,7 +1428,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 274569,
+            "utrymme_kr": 274568,
             "behov_rot_rut_kr": 50000,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,
@@ -1810,7 +1810,7 @@
         "aterbetalningsrisk_kr": 0,
         "skatt_per_agare": [
           {
-            "utrymme_kr": 11880,
+            "utrymme_kr": 11881,
             "behov_rot_rut_kr": 0,
             "status": "ryms",
             "aterbetalningsrisk_kr": 0,

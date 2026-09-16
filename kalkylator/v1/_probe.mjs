@@ -158,7 +158,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   o.rot = { ...start, besked: await las(page) };
   await bild(page, `${namn}-1-utgangslage`);
   kontrollera(`${namn}: pointer coarse = ${touch}`, start.kontroller.pointerCoarse === touch, start.kontroller.pointerCoarse);
-  kontrollera(`${namn}: kort <= ${touch ? 920 : 700} (rot, fem frågor + använt-rad + länk)`, start.kortHojd <= (touch ? 920 : 700), start.kortHojd);
+  kontrollera(`${namn}: kort <= ${touch ? 1200 : 820} (rot: sex rader + länk + ägarrad)`, start.kortHojd <= (touch ? 1200 : 820), start.kortHojd);
   kontrollera(`${namn}: ingen horisontell scroll`, !start.overflowX, start.overflowX);
   kontrollera(`${namn}: prefix = enhet = halva talet`, start.px.prefix === start.px.enhet && Math.abs(start.px.prefix - start.px.tal / 2) < 0.6, `${start.px.prefix} / ${start.px.enhet} / tal ${start.px.tal}`);
   if (!touch) kontrollera('desktop: prefix och enhet 28 px vid 1440', start.px.prefix === 28 && start.px.enhet === 28, `${start.px.prefix} / ${start.px.enhet}`);
@@ -219,6 +219,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   kontrollera(`${namn}: exakt EN live-mutation efter fördröjningen, aldrig "ca 0"`, live.batchar.length === 1 && live.batchar[0].text === 'ca 12 000 kr', live.batchar);
 
   /* 4. Pension 240 000 */
+  await page.click(lab('alder-1', '66+'));   /* pension 66+: förhöjt grundavdrag; åldern frågas sedan 2026-09-16 */
   await page.click(lab('typ-1', 'pension'));
   await page.fill('#rk-inkomst-1', '240000');
   await page.waitForTimeout(700);
@@ -229,6 +230,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   kontrollera(`${namn}: Lön/Pension-spåret byter inte bredd när vikten byter (600 på vald)`, o.pension240k.typSparBredd === o.pension240k.typSparBreddLon, `${o.pension240k.typSparBreddLon} -> ${o.pension240k.typSparBredd}`);
 
   /* tillbaka till lön + 600 000 (taket) och tom; blur ger direkt rendering */
+  await page.click(lab('alder-1', '18-65'));
   await page.click(lab('typ-1', 'lon'));
   await page.fill('#rk-inkomst-1', '600000');
   await page.waitForTimeout(700);
@@ -285,8 +287,8 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   const g = await matt(page);
   o.gt = { kortHojd: g.kortHojd, antalFragorSynliga: g.antalFragorSynliga, femarSynlig: g.femarSynlig, h2: await page.textContent('#rk-rubrik'), h2Ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-rubrik .rk__ihop')).whiteSpace), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX, avstand: g.avstand };
   await bild(page, `${namn}-6-gt-utgangslage`);
-  kontrollera(`${namn}: gt visar ingen femårsfråga (fyra frågor: äger, 18 år, inkomst, använt)`, !g.femarSynlig && g.antalFragorSynliga === 4, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
-  kontrollera(`${namn}: gt-kort <= ${touch ? 820 : 600}`, g.kortHojd <= (touch ? 820 : 600), g.kortHojd);
+  kontrollera(`${namn}: gt visar ingen femårsfråga (sex rader: äger, ålder, inkomst, ränta, ROT/RUT använt, grön teknik använt)`, !g.femarSynlig && g.antalFragorSynliga === 6, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
+  kontrollera(`${namn}: gt-kort <= ${touch ? 1200 : 820}`, g.kortHojd <= (touch ? 1200 : 820), g.kortHojd);
   kontrollera(`${namn}: gt-rubriken exakt, "grön teknik-avdrag" i nowrap-span`, o.gt.h2 === 'Räkna ut ditt grön teknik-avdrag' && o.gt.h2Ihop === 'nowrap', `${o.gt.h2} / ${o.gt.h2Ihop}`);
   kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt tillgängliga grön teknik-avdrag', o.gt.eyebrow);
   await page.click(lab('ager', 'nej'));
@@ -306,13 +308,13 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   /* 9. Hushållet (ägarbeslut 2026-09-14): 18 år, redan använt, fler personer */
   await oppna('?m=rot');
   const h0 = await matt(page);
-  await page.click(lab('myndig', 'nej')); await page.waitForTimeout(350);
+  await page.click(lab('alder-1', 'u18')); await page.waitForTimeout(350);
   const h18 = await matt(page);
   o.arton = { besked: await las(page), skiftEyebrow: skift(h0, h18, 'eyebrow'), skiftKort: skift(h0, h18, 'kort') };
   await bild(page, `${namn}-9-arton-nej`);
-  kontrollera(`${namn}: Nej på 18 år ger stoppbeskedet, ingenting hoppar`, o.arton.besked.status === 'stopp' && o.arton.besked.stopp === 'Du behöver ha fyllt 18 år senast vid årets slut för att få ROT-avdrag.' && o.arton.skiftEyebrow.dy === 0 && o.arton.skiftKort.dh === 0, o.arton);
-  await page.click(lab('myndig', 'ja')); await page.waitForTimeout(350);
-  kontrollera(`${namn}: Ja på 18 år ger talet tillbaka`, (await las(page)).tal === '50 000', await las(page));
+  kontrollera(`${namn}: Under 18 ger stoppbeskedet, ingenting hoppar`, o.arton.besked.status === 'stopp' && o.arton.besked.stopp === 'Du behöver ha fyllt 18 år senast vid årets slut för att få ROT-avdrag.' && o.arton.skiftEyebrow.dy === 0 && o.arton.skiftKort.dh === 0, o.arton);
+  await page.click(lab('alder-1', '18-65')); await page.waitForTimeout(350);
+  kontrollera(`${namn}: 18 till 65 ger talet tillbaka`, (await las(page)).tal === '50 000', await las(page));
 
   await page.fill('#rk-anvant-1', '20000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
   o.anvant20 = await las(page);
@@ -323,7 +325,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   await page.fill('#rk-anvant-1', '50000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
   o.anvantAllt = await las(page);
   await bild(page, `${namn}-10-allt-anvant`);
-  kontrollera(`${namn}: 50 000 använt ger "0 kr" + raden om årets tak`, o.anvantAllt.tal === '0' && o.anvantAllt.prefix === null && o.anvantAllt.not === 'Du har redan använt hela årets ROT-avdrag.', o.anvantAllt);
+  kontrollera(`${namn}: 50 000 använt ger "0 kr" + raden om årets tak + kvarskattevarning`, o.anvantAllt.tal === '0' && o.anvantAllt.prefix === null && o.anvantAllt.not.startsWith('Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 38 000 kr mer än skatten räcker till.'), o.anvantAllt);
   await page.click('#rk-anvant-1'); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
   kontrollera(`${namn}: Enter i använt-fältet laddar inte om`, page.url().endsWith('?m=rot') && (await las(page)).tal === '0', page.url());
   await page.fill('#rk-anvant-1', ''); await page.fill('#rk-inkomst-1', '600000'); await page.dispatchEvent('#rk-inkomst-1', 'blur'); await page.waitForTimeout(200);
@@ -333,12 +335,12 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
     const b = document.querySelectorAll('.rk__person');
     const r = (el) => el.getBoundingClientRect();
     const bort = document.querySelector('.rk__tabort');
-    return { antal: b.length, dataAntal: document.querySelector('#rk-personer').dataset.antal, etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), huvudSynligt: r(document.querySelector('.rk__personhuvud')).height > 0, fokus: document.activeElement.id, inkomstEtikett2: b[1].querySelector('legend').textContent, anvantEtikett2: b[1].querySelector('[data-etikett="anvant"]').textContent, taBortHojd: Math.round(r(bort).height), eyebrow: document.querySelector('#rk-eyebrow').textContent };
+    return { antal: b.length, dataAntal: document.querySelector('#rk-personer').dataset.antal, etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), huvudSynligt: r(document.querySelector('.rk__personhuvud')).height > 0, fokus: document.activeElement.id, inkomstEtikett2: b[1].querySelector('legend').textContent, anvantEtikett2: b[1].querySelector('label[for^="rk-anvant-"]').textContent, taBortHojd: Math.round(r(bort).height), eyebrow: document.querySelector('#rk-eyebrow').textContent };
   });
   o.person2 = p2;
-  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.anvantEtikett2 === 'ROT använt i år' && p2.eyebrow === 'Ert tillgängliga ROT-avdrag', p2);
+  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.anvantEtikett2 === 'ROT och RUT använt i år' && p2.eyebrow === 'Ert tillgängliga ROT-avdrag', p2);
   if (touch) kontrollera('mobil: Ta bort har 44 px träffyta', p2.taBortHojd >= 44, p2.taBortHojd);
-  await page.click(lab('typ-2', 'pension')); await page.fill('#rk-inkomst-2', '240000'); await page.dispatchEvent('#rk-inkomst-2', 'blur'); await page.waitForTimeout(200);
+  await page.click(lab('alder-2', '66+')); await page.click(lab('typ-2', 'pension')); await page.fill('#rk-inkomst-2', '240000'); await page.dispatchEvent('#rk-inkomst-2', 'blur'); await page.waitForTimeout(200);
   o.tvaPersoner = await las(page);
   await bild(page, `${namn}-11-tva-personer`);
   kontrollera(`${namn}: 600 000 lön + 240 000 pension ger "ca 88 000 kr", "Ni två tillsammans, per år."`, o.tvaPersoner.prefix === 'ca' && o.tvaPersoner.tal === '88 000' && o.tvaPersoner.per === 'Ni två tillsammans, per år.', o.tvaPersoner);
@@ -353,10 +355,10 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   kontrollera(`${namn}: tillbaka till en person: "Ditt", "Per person och år.", inget personhuvud`, o.enIgen.eyebrow === 'Ditt tillgängliga ROT-avdrag' && o.enIgen.per === 'Per person och år.' && !o.enIgen.huvudSynligt && o.enIgen.tal === '50 000', o.enIgen);
 
   await oppna('?m=gt');
-  o.gtAnvant = await page.evaluate(() => [...document.querySelectorAll('[data-etikett="anvant"]')].map((e) => e.textContent));
+  o.gtAnvant = await page.evaluate(() => [...document.querySelectorAll('label[for^="rk-gtanvant-"]')].filter((e) => e.getClientRects().length).map((e) => e.textContent));
   await page.click('#rk-lagg'); await page.waitForTimeout(200);
-  o.gtAnvant2 = await page.evaluate(() => [...document.querySelectorAll('[data-etikett="anvant"]')].map((e) => e.textContent));
-  kontrollera(`${namn}: gt: använt-etiketterna "Grön teknik du redan använt i år" / "Grön teknik använt i år"`, o.gtAnvant.join('|') === 'Grön teknik du redan använt i år' && o.gtAnvant2.join('|') === 'Grön teknik du redan använt i år|Grön teknik använt i år', o.gtAnvant2);
+  o.gtAnvant2 = await page.evaluate(() => [...document.querySelectorAll('label[for^="rk-gtanvant-"]')].filter((e) => e.getClientRects().length).map((e) => e.textContent));
+  kontrollera(`${namn}: gt: grön teknik-fälten "Grön teknik du redan använt i år" / "Grön teknik använt i år" synliga (dolda i rot)`, o.gtAnvant.join('|') === 'Grön teknik du redan använt i år' && o.gtAnvant2.join('|') === 'Grön teknik du redan använt i år|Grön teknik använt i år', o.gtAnvant2);
 
   o.errors = errors;
   kontrollera(`${namn}: inga konsolfel`, errors.length === 0, errors);

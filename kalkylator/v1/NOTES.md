@@ -233,3 +233,33 @@ Inbäddning: `artikel/bas-inbaddad.css` = base.css utan globala element-regler (
 kolumnen, rubrikstorlek per läge (artikel-H2 aptext-xl/700 i topp, kortrubrik aptext-ml/700 i höger), skydd mot
 Bricks' fieldset/legend/input-regler. Justeringar i style.css för 378 px-spalten: inkomstfältets basis 150, använt-
 fältet 140 + gap xs så raderna håller.
+
+## Räknar rätt: researchrunda 2026-09-16 (research/07-10) och vad som ändrades
+
+Fyra agenter (lagtext, parametrar, 75 körningar i Skatteverkets e-tjänst, känslighet) bekräftade motorn i grunden och
+hittade sju saker som gjorde kalkylatorn för generös. Alla rättade:
+
+1. **Åldern frågas** ("Hur gammal är du?": Under 18 / 18 till 65 / Över 65) i stället för att gissas ur inkomsttypen.
+   En 66+ som jobbar fick förut "ca 31 000 kr" vid lön 300 000; rätt är 0 kr (förhöjt grundavdrag + jobbskatteavdrag
+   66+ äter hela kommunalskatten). Person 2+ får raden "Ålder" (18 till 65 / Över 65). Under 18 ger stoppet.
+2. **Bolåneränta förra året** (valfritt fält per person): ränteavdraget ligger före ROT i 67 kap. 2 §. 100 000 kr
+   ränta = 30 000 kr mindre utrymme. Var det största felet åt det farliga hållet för villaägare med bolån.
+3. **"ROT och RUT du redan använt i år"** i stället för bara ROT: RUT tar av samma pott. Ett fält, konservativ
+   formel (min(50 000, utrymme) − summan): aldrig för högt, men när taket binder och RUT använts kan svaret bli
+   upp till RUT-beloppet för lågt.
+4. **Grön teknik-läget** frågar både "ROT och RUT du redan använt i år" och "Grön teknik du redan använt i år":
+   ROT/RUT ligger före grön teknik i avräkningen. Lön 480 000 med ROT 50 000 använt: förut 50 000, nu ca 12 000.
+5. **"50 000 kr" utan "ca" bara när det håller i landets lägsta kommunalskatt** (Österåker 28,93 %); annars
+   "ca 50 000 kr". Bandet 409 000 till 468 000 kr i lön är kommunberoende.
+6. **Motorn:** öretal kapas (SFF 22:1) i stället för att avrundas, allmän pensionsavgift till närmaste hundratal
+   (50 nedåt, Lag 1994:1744 3 §) i stället för nedåt, inkomstgolv 0,423 pbb. Träffar e-tjänsten på kronan i 56 av
+   75 fall; de 17 som skiljer är regional skattereduktion 1 675 kr i 76 glesbygdskommuner (frågas inte), två är
+   utanför modellen (kapitalinkomst, okapat taxeringsvärde). rot-testfall.json regenererat (±1 kr), 3 043 tester gröna.
+7. **Noter:** "Din skatt räcker inte till något ROT-avdrag i år." vid 0 kr, och "Du har använt ca X kr mer än
+   skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen." när använt överstiger utrymmet.
+   Disclaimer under talet: "Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp."
+   Under "Lägg till en person": "Bara för den som också äger bostaden." (bara ägare får avdrag, 67 kap. 13 a §).
+
+Kvar som kända förenklingar (alla åt det snälla hållet eller under 2 000 kr): kommunen (snitt 32,38 %, täcks av
+"ca" och disclaimern), fastighetsavgiften (0, ger bara mer utrymme), kapitalinkomster, a-kassa/sjukpenning i stället
+för lön, regional reduktion, pensionärers 4 %-spärr (bara med villa). Kortmått: desktop 781 (gt 742), mobil 1 085.
