@@ -1,0 +1,1986 @@
+{
+  "rot-1280": {
+    "errors": [],
+    "external": [],
+    "requests": [
+      "/kalkylator/v1/index.html?m=rot",
+      "/kalkylator/system/ampy.css",
+      "/kalkylator/v1/style.css",
+      "/kalkylator/v1/app.js",
+      "/kalkylator/rakna.js",
+      "/kalkylator/system/tokens.css",
+      "/kalkylator/system/base.css",
+      "/kalkylator/system/components/text.css",
+      "/kalkylator/system/components/ytor.css",
+      "/kalkylator/system/components/falt.css",
+      "/kalkylator/system/components/knappar.css",
+      "/logik/engine.js",
+      "/kalkylator/system/fonts/Outfit-VariableFont_wght.woff2"
+    ],
+    "dom0": {
+      "dup": [],
+      "refs": [],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 4,
+      "tabbableCount": 14,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "ampy rk-sida"
+    },
+    "style": {
+      "kort": {
+        "rect": [
+          980,
+          823
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "300",
+        "fontSize": "17.988px",
+        "lineHeight": "26.982px",
+        "color": "rgb(9, 11, 50)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "20px",
+        "boxShadow": "rgba(9, 11, 50, 0.07) 0px 10px 30px 0px",
+        "gridTemplateColumns": "537.891px 440.109px",
+        "padding": "0px",
+        "border": "1px solid rgba(9, 11, 50, 0.14)"
+      },
+      "rubrik": {
+        "rect": [
+          980,
+          43
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "36px",
+        "lineHeight": "43.2px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.36px",
+        "padding": "0px",
+        "margin": "0px 0px 39.6px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "980px"
+      },
+      "etikett": {
+        "rect": [
+          174,
+          25
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "20px",
+        "lineHeight": "25px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.2px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "173.672px"
+      },
+      "under": {
+        "rect": [
+          459,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "7px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "458.703px"
+      },
+      "segLabel": {
+        "rect": [
+          88,
+          40
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "7px 13.992px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "7.988px",
+        "minHeight": "40px",
+        "width": "88px"
+      },
+      "segChecked": {
+        "rect": [
+          88,
+          40
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "7px 13.992px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "7.988px",
+        "minHeight": "40px",
+        "width": "88px"
+      },
+      "input": {
+        "rect": [
+          165,
+          48
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "23.4px",
+        "color": "rgb(9, 11, 50)",
+        "padding": "0px 43.692px 0px 13.992px",
+        "minHeight": "48px",
+        "borderColor": "rgba(9, 11, 50, 0.48)",
+        "borderRadius": "11.988px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "textAlign": "right"
+      },
+      "enhet": {
+        "rect": [
+          14,
+          24
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "24px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "14.4219px"
+      },
+      "lagg": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "44px",
+        "width": "152.281px"
+      },
+      "panel": {
+        "rect": [
+          440,
+          821
+        ],
+        "padding": "39.6px",
+        "backgroundColor": "rgb(245, 249, 255)",
+        "borderLeft": "1px solid rgba(9, 11, 50, 0.14)",
+        "borderTop": "0px none rgb(9, 11, 50)",
+        "borderRadius": "0px 19px 19px 0px"
+      },
+      "eyebrow": {
+        "rect": [
+          243,
+          18
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "lineHeight": "18px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "1.68px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "242.719px"
+      },
+      "tal": {
+        "rect": [
+          166,
+          56
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "700",
+        "fontSize": "55.9992px",
+        "lineHeight": "55.9992px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-1.67998px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "165.734px"
+      },
+      "prefix": {
+        "rect": [
+          80,
+          28
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "27.9996px",
+        "lineHeight": "27.9996px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "-0.279996px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "80.4219px"
+      },
+      "per": {
+        "rect": [
+          128,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "9.9px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "128.359px"
+      },
+      "fin": {
+        "rect": [
+          360,
+          39
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "14px",
+        "lineHeight": "19.6px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "9.9px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "359.922px"
+      },
+      "stopptext": {
+        "rect": [
+          0,
+          0
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "24.3px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "auto"
+      },
+      "talrad": {
+        "rect": [
+          291,
+          56
+        ],
+        "marginTop": "13.992px"
+      },
+      "ihop": null
+    },
+    "title": "Räkna ut ditt ROT-avdrag: Ampy",
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "dom3": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-3\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-3\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-3": 3,
+        "alder-3": 2,
+        "typ-4": 3,
+        "alder-4": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 40,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-4"
+    },
+    "laggHidden": true,
+    "focusAfterAdd": "rk-inkomst-4",
+    "focusAfterRemove": "rk-lagg",
+    "labelsAfterRemove": [
+      "Person 1#1:typ-1",
+      "Person 2#2:typ-2",
+      "Person 3#3:typ-4"
+    ],
+    "dom4": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-5\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-5\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-4": 3,
+        "alder-4": 2,
+        "typ-5": 3,
+        "alder-5": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 40,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-5"
+    },
+    "namesAfterReadd": [
+      "typ-1/rk-inkomst-etikett-1,rk-inkomst-1,rk-enhet-1,rk-pension-1,rk-enhet-pension-1,rk-ranta-1,rk-enhet-ranta-1,rk-anvant-1,rk-enhet-anvant-1,rk-under-anvant-1,rk-gtanvant-1,rk-enhet-gtanvant-1,rk-under-gtanvant-1",
+      "typ-2/rk-inkomst-etikett-2,rk-inkomst-2,rk-enhet-2,rk-pension-2,rk-enhet-pension-2,rk-alder-etikett-2,rk-ranta-2,rk-enhet-ranta-2,rk-anvant-2,rk-enhet-anvant-2,rk-under-anvant-2,rk-gtanvant-2,rk-enhet-gtanvant-2,rk-under-gtanvant-2",
+      "typ-4/rk-inkomst-etikett-4,rk-inkomst-4,rk-enhet-4,rk-pension-4,rk-enhet-pension-4,rk-alder-etikett-4,rk-ranta-4,rk-enhet-ranta-4,rk-anvant-4,rk-enhet-anvant-4,rk-under-anvant-4,rk-gtanvant-4,rk-enhet-gtanvant-4,rk-under-gtanvant-4",
+      "typ-5/rk-inkomst-etikett-5,rk-inkomst-5,rk-enhet-5,rk-pension-5,rk-enhet-pension-5,rk-alder-etikett-5,rk-ranta-5,rk-enhet-ranta-5,rk-anvant-5,rk-enhet-anvant-5,rk-under-anvant-5,rk-gtanvant-5,rk-enhet-gtanvant-5,rk-under-gtanvant-5"
+    ],
+    "fill1": {
+      "v": "300 000",
+      "tal": "181 000",
+      "prefix": "upp till",
+      "hiddenPrefix": false
+    },
+    "fillLong": {
+      "v": "123 456 789",
+      "len": 11,
+      "tal": "200 000"
+    },
+    "stopp": {
+      "status": "stopp",
+      "stoppHidden": false,
+      "text": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
+      "finVis": "hidden",
+      "anim": "rk-in"
+    }
+  },
+  "rot-390": {
+    "errors": [],
+    "external": [],
+    "requests": [
+      "/kalkylator/v1/index.html?m=rot",
+      "/kalkylator/system/ampy.css",
+      "/kalkylator/v1/style.css",
+      "/kalkylator/v1/app.js",
+      "/kalkylator/system/tokens.css",
+      "/kalkylator/system/base.css",
+      "/kalkylator/system/components/text.css",
+      "/kalkylator/system/components/ytor.css",
+      "/kalkylator/system/components/falt.css",
+      "/kalkylator/system/components/knappar.css",
+      "/kalkylator/rakna.js",
+      "/kalkylator/system/fonts/Outfit-VariableFont_wght.woff2",
+      "/logik/engine.js"
+    ],
+    "dom0": {
+      "dup": [],
+      "refs": [],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 4,
+      "tabbableCount": 14,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "ampy rk-sida"
+    },
+    "style": {
+      "kort": {
+        "rect": [
+          356,
+          1108
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "300",
+        "fontSize": "16.119px",
+        "lineHeight": "24.1785px",
+        "color": "rgb(9, 11, 50)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "16.338px",
+        "boxShadow": "rgba(9, 11, 50, 0.07) 0px 10px 30px 0px",
+        "gridTemplateColumns": "354.25px",
+        "padding": "0px",
+        "border": "1px solid rgba(9, 11, 50, 0.14)"
+      },
+      "rubrik": {
+        "rect": [
+          356,
+          32
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "26.756px",
+        "lineHeight": "32.1072px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.26756px",
+        "padding": "0px",
+        "margin": "0px 0px 21.456px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "356.25px"
+      },
+      "etikett": {
+        "rect": [
+          174,
+          25
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "20px",
+        "lineHeight": "25px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.2px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "173.672px"
+      },
+      "under": {
+        "rect": [
+          311,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "6.6px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "311.344px"
+      },
+      "segLabel": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "6.6px 10.521px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "6.119px",
+        "minHeight": "44px",
+        "width": "151.672px"
+      },
+      "segChecked": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "6.6px 10.521px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "6.119px",
+        "minHeight": "44px",
+        "width": "151.672px"
+      },
+      "input": {
+        "rect": [
+          311,
+          48
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "23.4px",
+        "color": "rgb(9, 11, 50)",
+        "padding": "0px 38.623px 0px 10.521px",
+        "minHeight": "48px",
+        "borderColor": "rgba(9, 11, 50, 0.48)",
+        "borderRadius": "10.119px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "textAlign": "right"
+      },
+      "enhet": {
+        "rect": [
+          14,
+          24
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "24px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "14.4219px"
+      },
+      "lagg": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "44px",
+        "width": "151.875px"
+      },
+      "panel": {
+        "rect": [
+          354,
+          219
+        ],
+        "padding": "28px 21.456px",
+        "backgroundColor": "rgb(245, 249, 255)",
+        "borderLeft": "0px none rgb(9, 11, 50)",
+        "borderTop": "1px solid rgba(9, 11, 50, 0.14)",
+        "borderRadius": "0px 0px 15.338px 15.338px"
+      },
+      "eyebrow": {
+        "rect": [
+          243,
+          18
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "lineHeight": "18px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "1.68px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "242.719px"
+      },
+      "tal": {
+        "rect": [
+          154,
+          52
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "700",
+        "fontSize": "52px",
+        "lineHeight": "52px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-1.56px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "153.922px"
+      },
+      "prefix": {
+        "rect": [
+          75,
+          26
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "26px",
+        "lineHeight": "26px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "-0.26px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "74.7031px"
+      },
+      "per": {
+        "rect": [
+          128,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "8.302px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "128.359px"
+      },
+      "fin": {
+        "rect": [
+          311,
+          39
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "14px",
+        "lineHeight": "19.6px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "8.302px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "311.344px"
+      },
+      "stopptext": {
+        "rect": [
+          0,
+          0
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "24.3px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "auto"
+      },
+      "talrad": {
+        "rect": [
+          269,
+          52
+        ],
+        "marginTop": "14px"
+      },
+      "ihop": null
+    },
+    "title": "Räkna ut ditt ROT-avdrag: Ampy",
+    "h2": "Räkna ut ditt ROT-avdrag",
+    "dom3": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-3\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-3\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-3": 3,
+        "alder-3": 2,
+        "typ-4": 3,
+        "alder-4": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 40,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-4"
+    },
+    "laggHidden": true,
+    "focusAfterAdd": "rk-inkomst-4",
+    "focusAfterRemove": "rk-lagg",
+    "labelsAfterRemove": [
+      "Person 1#1:typ-1",
+      "Person 2#2:typ-2",
+      "Person 3#3:typ-4"
+    ],
+    "dom4": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-5\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-5\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-4": 3,
+        "alder-4": 2,
+        "typ-5": 3,
+        "alder-5": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 40,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-5"
+    },
+    "namesAfterReadd": [
+      "typ-1/rk-inkomst-etikett-1,rk-inkomst-1,rk-enhet-1,rk-pension-1,rk-enhet-pension-1,rk-ranta-1,rk-enhet-ranta-1,rk-anvant-1,rk-enhet-anvant-1,rk-under-anvant-1,rk-gtanvant-1,rk-enhet-gtanvant-1,rk-under-gtanvant-1",
+      "typ-2/rk-inkomst-etikett-2,rk-inkomst-2,rk-enhet-2,rk-pension-2,rk-enhet-pension-2,rk-alder-etikett-2,rk-ranta-2,rk-enhet-ranta-2,rk-anvant-2,rk-enhet-anvant-2,rk-under-anvant-2,rk-gtanvant-2,rk-enhet-gtanvant-2,rk-under-gtanvant-2",
+      "typ-4/rk-inkomst-etikett-4,rk-inkomst-4,rk-enhet-4,rk-pension-4,rk-enhet-pension-4,rk-alder-etikett-4,rk-ranta-4,rk-enhet-ranta-4,rk-anvant-4,rk-enhet-anvant-4,rk-under-anvant-4,rk-gtanvant-4,rk-enhet-gtanvant-4,rk-under-gtanvant-4",
+      "typ-5/rk-inkomst-etikett-5,rk-inkomst-5,rk-enhet-5,rk-pension-5,rk-enhet-pension-5,rk-alder-etikett-5,rk-ranta-5,rk-enhet-ranta-5,rk-anvant-5,rk-enhet-anvant-5,rk-under-anvant-5,rk-gtanvant-5,rk-enhet-gtanvant-5,rk-under-gtanvant-5"
+    ],
+    "fill1": {
+      "v": "300 000",
+      "tal": "181 000",
+      "prefix": "upp till",
+      "hiddenPrefix": false
+    },
+    "fillLong": {
+      "v": "123 456 789",
+      "len": 11,
+      "tal": "200 000"
+    },
+    "stopp": {
+      "status": "stopp",
+      "stoppHidden": false,
+      "text": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag.",
+      "finVis": "hidden",
+      "anim": "rk-in"
+    }
+  },
+  "gt-1280": {
+    "errors": [],
+    "external": [],
+    "requests": [
+      "/kalkylator/v1/index.html?m=gt",
+      "/kalkylator/system/ampy.css",
+      "/kalkylator/v1/style.css",
+      "/kalkylator/v1/app.js",
+      "/kalkylator/system/tokens.css",
+      "/kalkylator/system/base.css",
+      "/kalkylator/system/components/text.css",
+      "/kalkylator/system/components/ytor.css",
+      "/kalkylator/system/components/falt.css",
+      "/kalkylator/system/components/knappar.css",
+      "/kalkylator/rakna.js",
+      "/kalkylator/system/fonts/Outfit-VariableFont_wght.woff2",
+      "/logik/engine.js"
+    ],
+    "dom0": {
+      "dup": [],
+      "refs": [],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 4,
+      "tabbableCount": 12,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "ampy rk-sida"
+    },
+    "style": {
+      "kort": {
+        "rect": [
+          980,
+          708
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "300",
+        "fontSize": "17.988px",
+        "lineHeight": "26.982px",
+        "color": "rgb(9, 11, 50)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "20px",
+        "boxShadow": "rgba(9, 11, 50, 0.07) 0px 10px 30px 0px",
+        "gridTemplateColumns": "537.891px 440.109px",
+        "padding": "0px",
+        "border": "1px solid rgba(9, 11, 50, 0.14)"
+      },
+      "rubrik": {
+        "rect": [
+          980,
+          43
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "36px",
+        "lineHeight": "43.2px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.36px",
+        "padding": "0px",
+        "margin": "0px 0px 39.6px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "980px"
+      },
+      "etikett": {
+        "rect": [
+          174,
+          25
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "20px",
+        "lineHeight": "25px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.2px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "173.672px"
+      },
+      "under": {
+        "rect": [
+          459,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "7px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "458.703px"
+      },
+      "segLabel": {
+        "rect": [
+          88,
+          40
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "7px 13.992px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "7.988px",
+        "minHeight": "40px",
+        "width": "88px"
+      },
+      "segChecked": {
+        "rect": [
+          88,
+          40
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "7px 13.992px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "7.988px",
+        "minHeight": "40px",
+        "width": "88px"
+      },
+      "input": {
+        "rect": [
+          165,
+          48
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "23.4px",
+        "color": "rgb(9, 11, 50)",
+        "padding": "0px 43.692px 0px 13.992px",
+        "minHeight": "48px",
+        "borderColor": "rgba(9, 11, 50, 0.48)",
+        "borderRadius": "11.988px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "textAlign": "right"
+      },
+      "enhet": {
+        "rect": [
+          14,
+          24
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "24px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "14.4219px"
+      },
+      "lagg": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "44px",
+        "width": "152.281px"
+      },
+      "panel": {
+        "rect": [
+          440,
+          706
+        ],
+        "padding": "39.6px",
+        "backgroundColor": "rgb(245, 249, 255)",
+        "borderLeft": "1px solid rgba(9, 11, 50, 0.14)",
+        "borderTop": "0px none rgb(9, 11, 50)",
+        "borderRadius": "0px 19px 19px 0px"
+      },
+      "eyebrow": {
+        "rect": [
+          312,
+          18
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "lineHeight": "18px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "1.68px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "312.484px"
+      },
+      "tal": {
+        "rect": [
+          166,
+          56
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "700",
+        "fontSize": "55.9992px",
+        "lineHeight": "55.9992px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-1.67998px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "165.734px"
+      },
+      "prefix": {
+        "rect": [
+          80,
+          28
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "27.9996px",
+        "lineHeight": "27.9996px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "-0.279996px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "80.4219px"
+      },
+      "per": {
+        "rect": [
+          128,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "9.9px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "128.359px"
+      },
+      "fin": {
+        "rect": [
+          360,
+          39
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "14px",
+        "lineHeight": "19.6px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "9.9px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "359.922px"
+      },
+      "stopptext": {
+        "rect": [
+          0,
+          0
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "24.3px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "auto"
+      },
+      "talrad": {
+        "rect": [
+          291,
+          56
+        ],
+        "marginTop": "13.992px"
+      },
+      "ihop": {
+        "text": "grön teknik-avdrag",
+        "ws": "nowrap",
+        "display": "inline-block",
+        "count": 2
+      }
+    },
+    "title": "Räkna ut ditt grön teknik-avdrag: Ampy",
+    "h2": "Räkna ut ditt <span class=\"rk__ihop\">grön teknik-avdrag</span>",
+    "dom3": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-3\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-3\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-3": 3,
+        "alder-3": 2,
+        "typ-4": 3,
+        "alder-4": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 38,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-4"
+    },
+    "laggHidden": true,
+    "focusAfterAdd": "rk-inkomst-4",
+    "focusAfterRemove": "rk-lagg",
+    "labelsAfterRemove": [
+      "Person 1#1:typ-1",
+      "Person 2#2:typ-2",
+      "Person 3#3:typ-4"
+    ],
+    "dom4": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-5\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-5\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-4": 3,
+        "alder-4": 2,
+        "typ-5": 3,
+        "alder-5": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 38,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-5"
+    },
+    "namesAfterReadd": [
+      "typ-1/rk-inkomst-etikett-1,rk-inkomst-1,rk-enhet-1,rk-pension-1,rk-enhet-pension-1,rk-ranta-1,rk-enhet-ranta-1,rk-anvant-1,rk-enhet-anvant-1,rk-under-anvant-1,rk-gtanvant-1,rk-enhet-gtanvant-1,rk-under-gtanvant-1",
+      "typ-2/rk-inkomst-etikett-2,rk-inkomst-2,rk-enhet-2,rk-pension-2,rk-enhet-pension-2,rk-alder-etikett-2,rk-ranta-2,rk-enhet-ranta-2,rk-anvant-2,rk-enhet-anvant-2,rk-under-anvant-2,rk-gtanvant-2,rk-enhet-gtanvant-2,rk-under-gtanvant-2",
+      "typ-4/rk-inkomst-etikett-4,rk-inkomst-4,rk-enhet-4,rk-pension-4,rk-enhet-pension-4,rk-alder-etikett-4,rk-ranta-4,rk-enhet-ranta-4,rk-anvant-4,rk-enhet-anvant-4,rk-under-anvant-4,rk-gtanvant-4,rk-enhet-gtanvant-4,rk-under-gtanvant-4",
+      "typ-5/rk-inkomst-etikett-5,rk-inkomst-5,rk-enhet-5,rk-pension-5,rk-enhet-pension-5,rk-alder-etikett-5,rk-ranta-5,rk-enhet-ranta-5,rk-anvant-5,rk-enhet-anvant-5,rk-under-anvant-5,rk-gtanvant-5,rk-enhet-gtanvant-5,rk-under-gtanvant-5"
+    ],
+    "fill1": {
+      "v": "300 000",
+      "tal": "181 000",
+      "prefix": "upp till",
+      "hiddenPrefix": false
+    },
+    "fillLong": {
+      "v": "123 456 789",
+      "len": 11,
+      "tal": "200 000"
+    },
+    "stopp": {
+      "status": "stopp",
+      "stoppHidden": false,
+      "text": "Eftersom du inte äger din bostad har du inte rätt till <span class=\"rk__ihop\">grön teknik-avdrag</span>.",
+      "finVis": "hidden",
+      "anim": "rk-in"
+    }
+  },
+  "gt-390": {
+    "errors": [],
+    "external": [],
+    "requests": [
+      "/kalkylator/v1/index.html?m=gt",
+      "/kalkylator/system/ampy.css",
+      "/kalkylator/v1/style.css",
+      "/kalkylator/v1/app.js",
+      "/kalkylator/system/tokens.css",
+      "/kalkylator/system/base.css",
+      "/kalkylator/system/components/text.css",
+      "/kalkylator/system/components/ytor.css",
+      "/kalkylator/system/components/falt.css",
+      "/kalkylator/system/components/knappar.css",
+      "/kalkylator/rakna.js",
+      "/kalkylator/system/fonts/Outfit-VariableFont_wght.woff2",
+      "/logik/engine.js"
+    ],
+    "dom0": {
+      "dup": [],
+      "refs": [],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 4,
+      "tabbableCount": 12,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "ampy rk-sida"
+    },
+    "style": {
+      "kort": {
+        "rect": [
+          356,
+          1013
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "300",
+        "fontSize": "16.119px",
+        "lineHeight": "24.1785px",
+        "color": "rgb(9, 11, 50)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "16.338px",
+        "boxShadow": "rgba(9, 11, 50, 0.07) 0px 10px 30px 0px",
+        "gridTemplateColumns": "354.25px",
+        "padding": "0px",
+        "border": "1px solid rgba(9, 11, 50, 0.14)"
+      },
+      "rubrik": {
+        "rect": [
+          356,
+          64
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "26.756px",
+        "lineHeight": "32.1072px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.26756px",
+        "padding": "0px",
+        "margin": "0px 0px 21.456px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "356.25px"
+      },
+      "etikett": {
+        "rect": [
+          174,
+          25
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "20px",
+        "lineHeight": "25px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-0.2px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "173.672px"
+      },
+      "under": {
+        "rect": [
+          311,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "6.6px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "311.344px"
+      },
+      "segLabel": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "6.6px 10.521px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "6.119px",
+        "minHeight": "44px",
+        "width": "151.672px"
+      },
+      "segChecked": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "16px",
+        "lineHeight": "19.2px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "6.6px 10.521px",
+        "margin": "0px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderRadius": "6.119px",
+        "minHeight": "44px",
+        "width": "151.672px"
+      },
+      "input": {
+        "rect": [
+          311,
+          48
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "23.4px",
+        "color": "rgb(9, 11, 50)",
+        "padding": "0px 38.623px 0px 10.521px",
+        "minHeight": "48px",
+        "borderColor": "rgba(9, 11, 50, 0.48)",
+        "borderRadius": "10.119px",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "textAlign": "right"
+      },
+      "enhet": {
+        "rect": [
+          14,
+          24
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "24px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "14.4219px"
+      },
+      "lagg": {
+        "rect": [
+          152,
+          44
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(0, 122, 105)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "44px",
+        "width": "151.875px"
+      },
+      "panel": {
+        "rect": [
+          354,
+          237
+        ],
+        "padding": "28px 21.456px",
+        "backgroundColor": "rgb(245, 249, 255)",
+        "borderLeft": "0px none rgb(9, 11, 50)",
+        "borderTop": "1px solid rgba(9, 11, 50, 0.14)",
+        "borderRadius": "0px 0px 15.338px 15.338px"
+      },
+      "eyebrow": {
+        "rect": [
+          311,
+          36
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "600",
+        "fontSize": "12px",
+        "lineHeight": "18px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "1.68px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "311.344px"
+      },
+      "tal": {
+        "rect": [
+          154,
+          52
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "700",
+        "fontSize": "52px",
+        "lineHeight": "52px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "-1.56px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "153.922px"
+      },
+      "prefix": {
+        "rect": [
+          75,
+          26
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "26px",
+        "lineHeight": "26px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "-0.26px",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "74.7031px"
+      },
+      "per": {
+        "rect": [
+          128,
+          22
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "16px",
+        "lineHeight": "22.4px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "8.302px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "128.359px"
+      },
+      "fin": {
+        "rect": [
+          311,
+          39
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "400",
+        "fontSize": "14px",
+        "lineHeight": "19.6px",
+        "color": "rgb(86, 94, 130)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "8.302px 0px 0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "auto",
+        "width": "311.344px"
+      },
+      "stopptext": {
+        "rect": [
+          0,
+          0
+        ],
+        "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "fontWeight": "500",
+        "fontSize": "18px",
+        "lineHeight": "24.3px",
+        "color": "rgb(9, 11, 50)",
+        "letterSpacing": "normal",
+        "padding": "0px",
+        "margin": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "0px",
+        "minHeight": "0px",
+        "width": "auto"
+      },
+      "talrad": {
+        "rect": [
+          269,
+          52
+        ],
+        "marginTop": "14px"
+      },
+      "ihop": {
+        "text": "grön teknik-avdrag",
+        "ws": "nowrap",
+        "display": "inline-block",
+        "count": 2
+      }
+    },
+    "title": "Räkna ut ditt grön teknik-avdrag: Ampy",
+    "h2": "Räkna ut ditt <span class=\"rk__ihop\">grön teknik-avdrag</span>",
+    "dom3": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-3\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-3\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-3": 3,
+        "alder-3": 2,
+        "typ-4": 3,
+        "alder-4": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 38,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-4"
+    },
+    "laggHidden": true,
+    "focusAfterAdd": "rk-inkomst-4",
+    "focusAfterRemove": "rk-lagg",
+    "labelsAfterRemove": [
+      "Person 1#1:typ-1",
+      "Person 2#2:typ-2",
+      "Person 3#3:typ-4"
+    ],
+    "dom4": {
+      "dup": [],
+      "refs": [
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-2\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-2\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-4\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-4\" data-"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-anvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-anvant-5\" data-fa"
+        },
+        {
+          "attr": "aria-describedby",
+          "id": "rk-enhet-gtanvant-N",
+          "el": "<input class=\"ampy-input ampy-input--tabular rk__input\" id=\"rk-gtanvant-5\" data-"
+        }
+      ],
+      "inputsNoName": [],
+      "radioGroups": {
+        "ager": 2,
+        "aldre": 2,
+        "alder-1": 3,
+        "typ-1": 3,
+        "typ-2": 3,
+        "alder-2": 2,
+        "typ-4": 3,
+        "alder-4": 2,
+        "typ-5": 3,
+        "alder-5": 2
+      },
+      "templates": [
+        {
+          "id": "rk-personmall",
+          "kids": 1
+        }
+      ],
+      "badLegend": [],
+      "legendCount": 7,
+      "tabbableCount": 38,
+      "textWrapPretty": true,
+      "container": true,
+      "has": true,
+      "rootFontSize": "10px",
+      "activeId": "rk-inkomst-5"
+    },
+    "namesAfterReadd": [
+      "typ-1/rk-inkomst-etikett-1,rk-inkomst-1,rk-enhet-1,rk-pension-1,rk-enhet-pension-1,rk-ranta-1,rk-enhet-ranta-1,rk-anvant-1,rk-enhet-anvant-1,rk-under-anvant-1,rk-gtanvant-1,rk-enhet-gtanvant-1,rk-under-gtanvant-1",
+      "typ-2/rk-inkomst-etikett-2,rk-inkomst-2,rk-enhet-2,rk-pension-2,rk-enhet-pension-2,rk-alder-etikett-2,rk-ranta-2,rk-enhet-ranta-2,rk-anvant-2,rk-enhet-anvant-2,rk-under-anvant-2,rk-gtanvant-2,rk-enhet-gtanvant-2,rk-under-gtanvant-2",
+      "typ-4/rk-inkomst-etikett-4,rk-inkomst-4,rk-enhet-4,rk-pension-4,rk-enhet-pension-4,rk-alder-etikett-4,rk-ranta-4,rk-enhet-ranta-4,rk-anvant-4,rk-enhet-anvant-4,rk-under-anvant-4,rk-gtanvant-4,rk-enhet-gtanvant-4,rk-under-gtanvant-4",
+      "typ-5/rk-inkomst-etikett-5,rk-inkomst-5,rk-enhet-5,rk-pension-5,rk-enhet-pension-5,rk-alder-etikett-5,rk-ranta-5,rk-enhet-ranta-5,rk-anvant-5,rk-enhet-anvant-5,rk-under-anvant-5,rk-gtanvant-5,rk-enhet-gtanvant-5,rk-under-gtanvant-5"
+    ],
+    "fill1": {
+      "v": "300 000",
+      "tal": "181 000",
+      "prefix": "upp till",
+      "hiddenPrefix": false
+    },
+    "fillLong": {
+      "v": "123 456 789",
+      "len": 11,
+      "tal": "200 000"
+    },
+    "stopp": {
+      "status": "stopp",
+      "stoppHidden": false,
+      "text": "Eftersom du inte äger din bostad har du inte rätt till <span class=\"rk__ihop\">grön teknik-avdrag</span>.",
+      "finVis": "hidden",
+      "anim": "rk-in"
+    }
+  },
+  "reducedMotion": {
+    "animationName": "rk-in",
+    "animationDuration": "1e-06s",
+    "cls": "rk__talrad is-swap"
+  },
+  "print": {
+    "bg": "rgb(255, 255, 255)",
+    "panelBg": "rgb(245, 249, 255)",
+    "cols": "537.891px 440.109px"
+  }
+}

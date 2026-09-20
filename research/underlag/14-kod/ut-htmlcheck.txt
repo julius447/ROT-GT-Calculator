@@ -1,0 +1,11 @@
+L66: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L75: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L82: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L89: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L97: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L128: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L137: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L152: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L159: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+L167: aria-label on <span> without role (prohibited on generic, ARIA 1.2)
+tags: 164 ids: 46

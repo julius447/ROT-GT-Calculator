@@ -1,0 +1,20 @@
+PASS    6.33 (krav 4.5) --ampy-ink-muted #565e82 på vit (rk__under 16/400, rk__enhet "kr" 16/400, segment ovald 16/500)
+PASS    5.99 (krav 4.5) --ampy-ink-muted på sky mist #f5f9ff (eyebrow 12/600, rk__per 16/400, rk__fin 14/400)
+PASS    5.99 (krav 3) --ampy-ink-muted på sky mist, STOR text (rk__prefix/rk__talenhet 28 resp 26 px /500)
+PASS    5.46 (krav 4.5) --ampy-ink-muted på segmentspåret (ink .07 på vit)
+PASS   19.00 (krav 4.5) --ampy-ink #090b32 på vit (frågor, fältsiffror)
+PASS   17.98 (krav 4.5) --ampy-ink #090b32 på sky mist (talet 56/700, stopptext 18/500, rk__not)
+PASS    5.27 (krav 4.5) --ampy-action-strong #007a69 på vit (länkar 16/500, vald segmentpill 16/600)
+PASS    4.98 (krav 4.5) --ampy-action-strong #007a69 på sky mist
+FAIL    2.96 (krav 4.5) teal-core #00a991 på vit (får ALDRIG vara text, kontroll)
+PASS    4.80 (krav 4.5) --ampy-ink-faint #6a7190 placeholder "300 000" 18/400 på vit
+PASS    4.54 (krav 4.5) --ampy-ink-faint på sky mist
+PASS   10.68 (krav 3) vit X på --ampy-error-ink #7a1623 (stoppikonen, grafik 3:1)
+PASS   10.11 (krav 3) --ampy-error-ink #7a1623 mot sky mist (ikonens kant mot panelen, 3:1)
+PASS    6.54 (krav 4.5) --ampy-error #b3261e på vit (felkant, 3:1) och som text 4,5:1
+PASS    3.39 (krav 3) fältkant --ampy-line-strong (ink .48) mot vit, icke-text 3:1
+FAIL    1.35 (krav 3) hårlinje --ampy-line (ink .14) mot vit (dekorativ)
+PASS    4.40 (krav 3) fokusring rgba(0,122,105,.9) mot vit, 3:1
+FAIL    1.16 (krav 3) segmentspår (ink .07) mot vit pill (kontrollgräns 1.4.11, 3:1)
+FAIL    1.20 (krav 3) vald pilltext #007a69 mot ovald text #565e82 (skillnad mellan lägena)
+PASS    5.99 (krav 4.5) disabled input: muted på sky mist (används ej i kalkylatorn)

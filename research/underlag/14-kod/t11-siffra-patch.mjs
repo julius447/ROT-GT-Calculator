@@ -1,0 +1,4 @@
+function siffra(str) { return Number(String(str ?? '').replace(/[,.]\d{1,2}(?!\d)\s*(kr)?\s*$/i, '').replace(/[^\d]/g, '').slice(0, 9)) || 0; }
+const cases = { '300.000': 300000, '300 000 kr': 300000, '300 000,50': 300000, '300 000,50 kr': 300000, '12,50 kr': 12, '1,2 miljoner': 12, '1e15': 115, '12345678901234567890': 123456789, '99999999999999999999999': 999999999, '2.5': 2, '3,5': 3, '1.000': 1000, '25 000,00': 25000, '-5': 5, 'abc': 0, '': 0, '  42  ': 42, '1 200 000': 1200000, '0': 0, '300000': 300000, '180000': 180000, '1000000000000000': 100000000 };
+let ok = true; for (const [c, want] of Object.entries(cases)) { const got = siffra(c); const p = got === want; ok = ok && p; console.log((p ? 'ok  ' : 'FEL ') + JSON.stringify(c).padEnd(28) + ' -> ' + got + (p ? '' : ' (väntat ' + want + ')')); }
+console.log(ok ? 'ALLA OK' : 'NÅGOT FEL');

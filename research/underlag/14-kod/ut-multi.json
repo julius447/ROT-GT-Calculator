@@ -1,0 +1,47 @@
+{
+ "errors": [],
+ "r": {
+  "instances": 2,
+  "dupIds": 32,
+  "sample": [
+   "rk-rubrik",
+   "avdragskollen",
+   "rk-form",
+   "rk-under-1",
+   "rk-under-alder",
+   "rk-personer"
+  ],
+  "modes": [
+   "rot",
+   "gt"
+  ],
+  "tal": [
+   "50 000",
+   "50 000"
+  ]
+ },
+ "afterNejInstance2": [
+  {
+   "status": "tak",
+   "stoppHidden": true
+  },
+  {
+   "status": "tak",
+   "stoppHidden": true
+  }
+ ],
+ "afterIncomeInstance2": [
+  {
+   "status": "tak",
+   "tal": "50 000",
+   "prefix": "upp till",
+   "personerLasta": 1
+  },
+  {
+   "status": "tak",
+   "tal": "50 000",
+   "prefix": "upp till",
+   "personerLasta": 1
+  }
+ ]
+}

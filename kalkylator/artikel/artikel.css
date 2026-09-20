@@ -35,7 +35,9 @@
 .ampy-kalkylator fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
 .ampy-kalkylator legend { padding: 0; }
 .ampy-kalkylator label { margin: 0; }
-.ampy-kalkylator input[type="text"] { box-shadow: none; }
+/* Värdsidans snippet "14-global-css" sätter input:focus{border-color:#5EB1BF!important}: motregel så fokuskanten
+   förblir systemets teal-deep (research/14 M1). Ingen box-shadow-nollning: den dödade fokusringen (M2). */
+.ampy-kalkylator .rk__input:focus, .ampy-kalkylator .rk__input:focus-visible { border-color: var(--ampy-action-strong) !important; }
 .ampy-kalkylator button { text-transform: none; letter-spacing: 0; }
 
 /* ---------- Mobil (mallens brytpunkt 780: kolumnerna staplas, högerspalten först) ---------- */

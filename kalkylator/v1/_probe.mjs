@@ -158,7 +158,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   o.rot = { ...start, besked: await las(page) };
   await bild(page, `${namn}-1-utgangslage`);
   kontrollera(`${namn}: pointer coarse = ${touch}`, start.kontroller.pointerCoarse === touch, start.kontroller.pointerCoarse);
-  kontrollera(`${namn}: kort <= ${touch ? 1200 : 820} (rot: sex rader + länk + ägarrad)`, start.kortHojd <= (touch ? 1200 : 820), start.kortHojd);
+  kontrollera(`${namn}: kort <= ${touch ? 1200 : 860} (rot: sex rader + undertexter + länk + ägarrad)`, start.kortHojd <= (touch ? 1200 : 860), start.kortHojd);
   kontrollera(`${namn}: ingen horisontell scroll`, !start.overflowX, start.overflowX);
   kontrollera(`${namn}: prefix = enhet = halva talet`, start.px.prefix === start.px.enhet && Math.abs(start.px.prefix - start.px.tal / 2) < 0.6, `${start.px.prefix} / ${start.px.enhet} / tal ${start.px.tal}`);
   if (!touch) kontrollera('desktop: prefix och enhet 28 px vid 1440', start.px.prefix === 28 && start.px.enhet === 28, `${start.px.prefix} / ${start.px.enhet}`);
@@ -195,7 +195,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   const aldreNej = await matt(page);
   o.aldreNej = { besked: await las(page), kortHojd: aldreNej.kortHojd, kortDh: Math.round((aldreNej.kortHojd - start.kortHojd) * 10) / 10, skiftTal: skift(start, aldreNej, 'talrad'), skiftEyebrow: skift(start, aldreNej, 'eyebrow'), skiftForstaKontroll: skift(start, aldreNej, 'forstaKontroll'), skiftInput: skift(start, aldreNej, 'input') };
   await bild(page, `${namn}-3-femar-nej`);
-  kontrollera(`${namn}: femårsraden exakt, talet står stilla`, o.aldreNej.besked.not === 'Yngre än fem år: ROT gäller bara reparationer.' && o.aldreNej.skiftTal.dy === 0 && o.aldreNej.skiftForstaKontroll.dy === 0, o.aldreNej.besked.not);
+  kontrollera(`${namn}: femårsraden exakt, talet står stilla`, o.aldreNej.besked.not === 'Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad.' && o.aldreNej.skiftTal.dy === 0 && o.aldreNej.skiftForstaKontroll.dy === 0, o.aldreNej.besked.not);
   if (!touch) kontrollera('desktop: kortet växer inte med femårsraden', o.aldreNej.kortDh === 0, o.aldreNej.kortDh);
   await page.click(lab('aldre', 'ja'));
 

@@ -1,0 +1,23 @@
+import { chromium } from '/Users/juliuscallahan/Desktop/Claude Code/rot-gt-calculator/tools/node_modules/playwright/index.mjs';
+import { createServer } from 'node:http';
+import { readFile, stat } from 'node:fs/promises';
+import { join, extname } from 'node:path';
+const root = '/Users/juliuscallahan/Desktop/Claude Code/rot-gt-calculator';
+const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2' };
+const server = createServer(async (req, res) => { try { let p = join(root, decodeURIComponent(new URL(req.url, 'http://x').pathname)); if ((await stat(p)).isDirectory()) p = join(p, 'index.html'); res.writeHead(200, { 'content-type': mime[extname(p)] || 'application/octet-stream' }); res.end(await readFile(p)); } catch { res.writeHead(404); res.end(); } });
+await new Promise((r) => server.listen(0, r)); const port = server.address().port;
+const browser = await chromium.launch(); const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+await page.goto(`http://localhost:${port}/kalkylator/v1/index.html?m=rot`, { waitUntil: 'networkidle' });
+const f = page.locator('#rk-inkomst-1');
+await f.click(); await page.keyboard.type('12000000'); await page.waitForTimeout(600);
+const typed = await page.evaluate(() => ({ v: document.querySelector('#rk-inkomst-1').value.replace(/ /g, ' '), tal: document.querySelector('#rk-tal').textContent.replace(/ /g, ' '), maxlength: document.querySelector('#rk-inkomst-1').maxLength }));
+await f.fill(''); await page.waitForTimeout(600);
+// paste "12 000 000" (with spaces) via clipboard-like insertText
+await f.click(); await page.keyboard.insertText('12 000 000'); await page.waitForTimeout(600);
+const pasted = await page.evaluate(() => ({ v: document.querySelector('#rk-inkomst-1').value.replace(/ /g, ' '), tal: document.querySelector('#rk-tal').textContent.replace(/ /g, ' ') }));
+await f.fill(''); await f.click(); await page.keyboard.insertText('300 000,50'); await page.waitForTimeout(600);
+const dec = await page.evaluate(() => ({ v: document.querySelector('#rk-inkomst-1').value.replace(/ /g, ' '), tal: document.querySelector('#rk-tal').textContent.replace(/ /g, ' ') }));
+await f.fill(''); await f.click(); await page.keyboard.insertText('300.50'); await page.waitForTimeout(600);
+const dot = await page.evaluate(() => ({ v: document.querySelector('#rk-inkomst-1').value.replace(/ /g, ' ') }));
+console.log(JSON.stringify({ typed12000000: typed, pasted12_000_000: pasted, pasted300000_50: dec, pasted300_50: dot }));
+await browser.close(); server.close();

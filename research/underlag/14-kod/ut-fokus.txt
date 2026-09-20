@@ -1,0 +1,2 @@
+v1 {"active":"rk-inkomst-1","fv":true,"boxShadow":"rgba(0, 122, 105, 0.9) 0px 0px 0px 3px","border":"rgb(0, 122, 105)","outline":"none 0px"}
+artikel {"active":"rk-inkomst-1","fv":true,"boxShadow":"none","border":"rgb(94, 177, 191)","outline":"none 0px"}

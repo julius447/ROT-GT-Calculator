@@ -10,7 +10,10 @@ export function kr(n) {
 }
 
 /** Plockar siffrorna ur ett fält: "300 000" -> 300000 */
-export function siffra(str) { return Number(String(str ?? '').replace(/[^\d]/g, '')) || 0; }
+/* "300 000,50 kr" -> 300000 (öretal med komma eller punkt stryks, "300.000" behålls som tusental), högst nio siffror */
+export function siffra(str) {
+  return Number(String(str ?? '').replace(/[,.]\d{1,2}(?!\d)\s*(kr)?\s*$/i, '').replace(/[^\d]/g, '').slice(0, 9)) || 0;
+}
 
 /** Formaterar fältets värde med mellanslag medan man skriver */
 export function formatFalt(str) {
@@ -31,7 +34,7 @@ export function berakna({ mode = 'rot', ager = true, aldre = true, typ = 'lon', 
   if (!ager) {
     return { status: 'stopp', belopp: null, prefix: '', text: `Eftersom du inte äger din bostad har du inte rätt till ${namn}.`, not: null };
   }
-  const not = (mode === 'rot' && !aldre) ? 'Yngre än fem år: ROT gäller bara reparationer.' : null;
+  const not = (mode === 'rot' && !aldre) ? 'Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad.' : null;
   if (!inkomst) {
     return { status: 'tak', belopp: TAK, prefix: 'upp till', text: kr(TAK), not };
   }
@@ -52,11 +55,23 @@ export function berakna({ mode = 'rot', ager = true, aldre = true, typ = 'lon', 
 const ANTAL_ORD = { 2: 'två', 3: 'tre', 4: 'fyra' };
 export const MAX_PERSONER = 4;
 
+/** Lön och pension ur svaren. "Båda": fältet är hela inkomsten och "Varav pension" är pensionsdelen (research/12 Major 2). */
+function inkomstDelar(p) {
+  const inkomst = Math.max(0, p.inkomst || 0);
+  if (p.typ === 'pension') return { lon: 0, pension: inkomst };
+  if (p.typ === 'bada') {
+    const pension = Math.min(inkomst || Math.max(0, p.pension || 0), Math.max(0, p.pension || 0));
+    return inkomst ? { lon: inkomst - pension, pension } : { lon: 0, pension };   /* bara pensionen ifylld: räkna på den (research/12 Minor 1) */
+  }
+  return { lon: inkomst, pension: 0 };
+}
+
 /** Utrymmet för en person vid en given kommunalskatt (delad med ålder från frågan, inte från inkomsttypen: research/10 F1) */
 function utrymmeFor(p, ks) {
+  const delar = inkomstDelar(p);
   const r = skatteutrymme({
-    lon_ar: p.typ === 'pension' ? 0 : p.inkomst,                  /* 'lon' och 'bada': fältet är lön */
-    pension_ar: p.typ === 'pension' ? p.inkomst : (p.typ === 'bada' ? Math.max(0, p.pension || 0) : 0),
+    lon_ar: delar.lon,
+    pension_ar: delar.pension,
     ar_66_plus: p.alder === '66+',
     ks, taxeringsvarde: 0,
     ranteutgifter: Math.max(0, p.ranta || 0),        /* underskott av kapital ligger före ROT i 67 kap. 2 § (research/10 F2) */
@@ -85,19 +100,20 @@ export function beraknaHushall({ mode = 'rot', ager = true, aldre = true, myndig
   if (under18) return stopp(`Du behöver ha fyllt 18 år senast vid årets slut för att få ${namn}.`);
 
   const noter = [];
-  if (mode === 'rot' && !aldre) noter.push('Yngre än fem år: ROT gäller bara reparationer.');
+  if (mode === 'rot' && !aldre) noter.push('Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad.');
 
   let summa = 0, nagonTak = false, nagonCa = false, anvantTot = 0, forMycket = 0, nagonInkomst = false, lon66 = false;
   for (const p of personer) {
     const anvant = Math.max(0, (mode === 'gt' ? p.gtAnvant : p.anvant) || 0);
     anvantTot += anvant;
     const restVid = (u) => Math.min(TAK, u) - anvant;
-    if (!p.inkomst) { summa += Math.max(0, restVid(Infinity)); nagonTak = true; continue; }
+    const delar = inkomstDelar(p);
+    if (delar.lon + delar.pension === 0) { summa += Math.max(0, restVid(Infinity)); nagonTak = true; continue; }
     nagonInkomst = true;
     const u = utrymmeFor(p, P.KS_SNITT);
     if (u === 0 && p.alder === '66+' && p.typ === 'lon') lon66 = true;   /* 66+ med bara lön: förhöjt grundavdrag + jobbskatteavdrag 66+ äter hela kommunalskatten (verifierat: SKV-72) */
     let rest = restVid(u);
-    if (rest < 0) forMycket += -rest;                 /* använt mer än skatten räcker till: kvarskatt */
+    if (anvant > u) forMycket += anvant - u;         /* kvarskatt bara när skatten inte räcker; ROT och RUT får passera 50 000 (75 000 tillsammans, 67 kap. 19 §) (research/12 Major 1) */
     rest = Math.max(0, rest);
     const exakt = rest >= TAK && restVid(utrymmeFor(p, P.KS_BAND[0])) >= TAK;   /* "50 000 kr" bara om det håller i Österåker (28,93 %) */
     if (!exakt) { rest = Math.round(rest / 1000) * 1000; nagonCa = true; }
@@ -107,8 +123,8 @@ export function beraknaHushall({ mode = 'rot', ager = true, aldre = true, myndig
   const ni = antal > 1;
   if (summa === 0 && anvantTot > 0) noter.push(`${ni ? 'Ni' : 'Du'} har redan använt hela årets ${namn}.`);
   else if (summa === 0 && nagonInkomst) noter.push(lon66
-    ? `Från 66 år är skatten på lön så låg att inget blir kvar att dra ${namn}et från. Har du också pension, välj Båda.`
-    : `${ni ? 'Er' : 'Din'} skatt räcker inte till något ${namn} i år.`);
+    ? `Från 66 år är skatten på en lön som din så låg att inget blir kvar att dra ${namn}et från. Har du också pension, välj Båda.`
+    : `${ni ? 'Er' : 'Din'} skatt ser inte ut att räcka till något ${namn} i år.`);
   if (forMycket > 0) {
     const fm = Math.max(1000, Math.round(forMycket / 1000) * 1000);
     noter.push(`${ni ? 'Ni' : 'Du'} har ${summa === 0 && anvantTot > 0 ? 'dessutom ' : ''}använt ca ${kr(fm)} mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.`);

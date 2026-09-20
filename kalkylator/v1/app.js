@@ -71,10 +71,15 @@ function numrera() {
 }
 function laggTill() {
   const n = ++lopnummer;
-  const html = mall.innerHTML.replaceAll('-N"', `-${n}"`).replaceAll('typ-N', `typ-${n}`);
-  const tmp = document.createElement('div');
-  tmp.innerHTML = html;
-  const b = tmp.firstElementChild;
+  /* Klona mallen och byt varje "-N" i id/for/name/aria-* mot löpnumret, även när ett attribut bär två id:n
+     (aria-describedby="rk-enhet-anvant-N rk-under-anvant-N"). Strängbyte på innerHTML täckte inte det (research/14 M4). */
+  const b = mall.content.firstElementChild.cloneNode(true);
+  for (const el of [b, ...b.querySelectorAll('*')]) {
+    for (const a of ['id', 'for', 'name', 'aria-labelledby', 'aria-describedby']) {
+      const v = el.getAttribute(a);
+      if (v && /-N(\s|$)/.test(v)) el.setAttribute(a, v.replace(/-N(?=\s|$)/g, `-${n}`));
+    }
+  }
   koppla(b);
   personer.append(b);
   numrera();

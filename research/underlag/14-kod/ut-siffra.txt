@@ -1,0 +1,31 @@
+"300.000"                    -> 300000                     formatFalt: "300 000" kr(): "300 000 kr"
+"300 000 kr"                 -> 300000                     formatFalt: "300 000" kr(): "300 000 kr"
+"1,2 miljoner"               -> 1                          formatFalt: "1" kr(): "1 kr"
+"1e15"                       -> 115                        formatFalt: "115" kr(): "115 kr"
+"1000000000000000"           -> 1000000000000000           formatFalt: "1 000 000 000 000 000" kr(): "1 000 000 000 000 000 kr"
+"12345678901234567890"       -> 12345678901234567000       formatFalt: "12 345 678 901 234 567 000" kr(): "12 345 678 901 234 567 000 kr"
+"٣٠٠"                        -> 0                          formatFalt: "" kr(): "0 kr"
+"３００"                        -> 0                          formatFalt: "" kr(): "0 kr"
+"-5000"                      -> 5000                       formatFalt: "5 000" kr(): "5 000 kr"
+"300,50"                     -> 300                        formatFalt: "300" kr(): "300 kr"
+"0"                          -> 0                          formatFalt: "" kr(): "0 kr"
+""                           -> 0                          formatFalt: "" kr(): "0 kr"
+null                         -> 0                          formatFalt: "" kr(): "0 kr"
+undefined                    -> 0                          formatFalt: "" kr(): "0 kr"
+"  42  "                     -> 42                         formatFalt: "42" kr(): "42 kr"
+"1 200 000"                  -> 1200000                    formatFalt: "1 200 000" kr(): "1 200 000 kr"
+"2.5"                        -> 25                         formatFalt: "25" kr(): "25 kr"
+"99999999999999999999999"    -> 1e+23                      formatFalt: "100 000 000 000 000 000 000 000" kr(): "100 000 000 000 000 000 000 000 kr"
+
+--- hushåll edge cases ---
+{"status":"belopp","belopp":50000,"prefix":"","text":"50 000 kr","not":null,"per":"Per person och år.","antal":1}
+{"status":"belopp","belopp":50000,"prefix":"","text":"50 000 kr","not":null,"per":"Per person och år.","antal":1}
+{"status":"belopp","belopp":0,"prefix":"","text":"0 kr","not":"Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 999 999 999 969 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.","per":"Per person och år.","antal":1}
+{"status":"belopp","belopp":0,"prefix":"","text":"0 kr","not":"Din skatt ser inte ut att räcka till något ROT-avdrag i år.","per":"Per person och år.","antal":1}
+{"status":"belopp","belopp":0,"prefix":"","text":"0 kr","not":"Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 12 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.","per":"Per person och år.","antal":1}
+{"status":"belopp","belopp":0,"prefix":"","text":"0 kr","not":null,"per":"Per person och år.","antal":1}
+{"status":"stopp","belopp":null,"prefix":"","text":"Du behöver ha fyllt 18 år senast vid årets slut för att få ROT-avdrag.","not":null,"per":"Per person och år.","antal":1}
+{"status":"tak","belopp":100000,"prefix":"upp till","text":"100 000 kr","not":null,"per":"Ni två tillsammans, per år.","antal":2}
+{"status":"belopp","belopp":0,"prefix":"","text":"0 kr","not":"Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad. Du har redan använt hela årets ROT-avdrag.","per":"Per person och år.","antal":1}
+MAX_PERSONER 4 TAK 50000
+kr(0) "0 kr" kr(50000) codepoints 35 30 a0 30 30 30 a0 6b 72

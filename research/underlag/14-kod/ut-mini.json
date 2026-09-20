@@ -1,0 +1,117 @@
+{
+ "person2Typing": {
+  "tal": "62 000",
+  "prefix": "upp till",
+  "per": "Ni två tillsammans, per år."
+ },
+ "caret": {
+  "value": "3 050 000",
+  "caret": 9,
+  "len": 9
+ },
+ "enter": {
+  "tal": "24 000",
+  "active": "rk-inkomst-1",
+  "url": "x.html?m=rot"
+ },
+ "seg360": {
+  "fontSize": "16px",
+  "paddingInline": "10.404px",
+  "containerW": 360,
+  "cardW": 325,
+  "cols": "325px",
+  "scrollW": 360
+ },
+ "artikel-hoger-1440": {
+  "cardW": 427,
+  "behW": 427,
+  "cols": 1,
+  "h2": [
+   "22px",
+   "700",
+   "28.6px",
+   "-0.22px"
+  ],
+  "rootFs": "10px",
+  "beloppW": 0,
+  "segLabelFs": "16px",
+  "segLabelFw": "600",
+  "inputFs": "18px",
+  "inputBorder": "rgba(9, 11, 50, 0.48)",
+  "legendFs": "20px",
+  "legendPad": "0px",
+  "btnTT": "none",
+  "hostFieldset": "0px none rgb(9, 11, 50)",
+  "hostInputShadow": "none",
+  "errors": []
+ },
+ "artikel-hoger-390": {
+  "cardW": 374,
+  "behW": 374,
+  "cols": 1,
+  "h2": [
+   "22.457px",
+   "700",
+   "29.1941px",
+   "-0.22457px"
+  ],
+  "rootFs": "10px",
+  "beloppW": 0,
+  "segLabelFs": "16px",
+  "segLabelFw": "600",
+  "inputFs": "16.119px",
+  "inputBorder": "rgba(9, 11, 50, 0.48)",
+  "legendFs": "20px",
+  "legendPad": "0px",
+  "btnTT": "none",
+  "hostFieldset": "0px none rgb(9, 11, 50)",
+  "hostInputShadow": "none",
+  "errors": []
+ },
+ "artikel-topp-1440": {
+  "cardW": 1424,
+  "behW": 1424,
+  "cols": 2,
+  "h2": [
+   "32px",
+   "700",
+   "40px",
+   "-0.8px"
+  ],
+  "rootFs": "10px",
+  "beloppW": 0,
+  "segLabelFs": "16px",
+  "segLabelFw": "600",
+  "inputFs": "18px",
+  "inputBorder": "rgba(9, 11, 50, 0.48)",
+  "legendFs": "20px",
+  "legendPad": "0px",
+  "btnTT": "none",
+  "hostFieldset": "0px none rgb(9, 11, 50)",
+  "hostInputShadow": "none",
+  "errors": []
+ },
+ "artikel-topp-390": {
+  "cardW": 374,
+  "behW": 374,
+  "cols": 1,
+  "h2": [
+   "24.537px",
+   "700",
+   "30.6712px",
+   "-0.613425px"
+  ],
+  "rootFs": "10px",
+  "beloppW": 0,
+  "segLabelFs": "16px",
+  "segLabelFw": "600",
+  "inputFs": "16.119px",
+  "inputBorder": "rgba(9, 11, 50, 0.48)",
+  "legendFs": "20px",
+  "legendPad": "0px",
+  "btnTT": "none",
+  "hostFieldset": "0px none rgb(9, 11, 50)",
+  "hostInputShadow": "none",
+  "errors": []
+ }
+}

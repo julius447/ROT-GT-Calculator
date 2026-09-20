@@ -79,8 +79,9 @@
 .rk__rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }
 .rk__rad > .rk__etikett { flex: 0 1 auto; font-size: var(--rk-text-rad); }   /* detaljrader ett steg under frågorna: 18 mot 20 */
 .rk__person > .rk__rad { margin-top: var(--ampy-space-s); }               /* detaljraderna hänger ihop med inkomsten: 19,8 mellan raderna, 28 mellan frågorna */
-.rk__rad > .rk__belopp { flex: 0 0 14rem; margin-top: 0; }
+.rk__rad > .rk__belopp { flex: 0 0 140px; margin-top: 0; }
 .rk__rad > .rk__segment { margin-top: 0; }
+.rk__under--rad { flex-basis: 100%; margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
 .rk[data-mode="rot"] .rk__fraga--gtanvant { display: none; }           /* ett använt-fält per läge: posterna hålls isär (ägarbeslut 2026-09-16) */
 .rk[data-mode="gt"] .rk__fraga--anvant { display: none; }
 .rk__person:not([data-typ="bada"]) .rk__fraga--pension { display: none; }   /* pensionsraden bara när "Båda" är valt */
@@ -181,7 +182,7 @@
 @keyframes rk-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 .rk__talrad.is-swap, .rk__stopp.is-swap { animation: rk-in var(--ampy-dur-base) var(--ampy-ease-out); }
 
-[hidden] { display: none !important; }
+.rk [hidden], .rk[hidden] { display: none !important; }              /* scopat: ingen global regel får skeppas (research/14 B2) */
 
 /* ---------- Staplat läge: frågorna först, beskedet som fullbreddsblock under ----------
    Styrs av BEHÅLLARENS bredd (container query), inte skärmens: samma kort ligger i artikelspalten (832 px -> två

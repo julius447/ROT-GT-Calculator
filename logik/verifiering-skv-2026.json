@@ -47,7 +47,8 @@
    "kapitalinkomst": "SKV-63: tjänsten lägger 30 % statlig skatt på kapitalinkomst i poolen (+15 000 vid 50 000 kr); motorn utelämnar (konservativt, dokumenterat)",
    "fastighetsavgift_ravarde": "SKV-48: 3 000 000 inmatat rakt av ger 22 500 kr avgift i tjänsten (ingen kapning); rätt inmatning enligt hjälptexten är 1 390 000 -> 10 425, vilket motorn gör själv",
    "oberoende_vs_skatteverket": "0 kr avvikelse i alla 74 jämförbara fall (SKV-48 undantaget, där den oberoende räknaren kapar underlaget enligt hjälptexten)"
-  }
+  },
+  "motorn_omkord": "2026-09-20: motorn-blocket omräknat med motorn efter 16/9-fixen; diff efter regional reduktion: 73 x 0 kr, 0 x 1-2 kr, 2 övriga (SKV-48:12075, SKV-63:15000)"
  },
  "korningar": [
   {
@@ -114,7 +115,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 120000,
@@ -124,7 +125,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 3656,
+    "utrymme_rot_rut_gt": 3657,
     "mellanled": {
      "fastställd_förvärvsinkomst": 120000,
      "grundavdrag": 37400,
@@ -134,17 +135,17 @@
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 8400,
      "red_jobbskatteavdrag": 12858,
-     "red_förvärvsinkomst": 320,
+     "red_förvärvsinkomst": 319,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 3656,
+     "utrymme_rot_rut_gt": 3657,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -235,7 +236,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 180000,
@@ -356,7 +357,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 240000,
@@ -366,7 +367,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 18835,
+    "utrymme_rot_rut_gt": 18836,
     "mellanled": {
      "fastställd_förvärvsinkomst": 240000,
      "grundavdrag": 40000,
@@ -375,18 +376,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 16800,
-     "red_jobbskatteavdrag": 24265,
+     "red_jobbskatteavdrag": 24264,
      "red_förvärvsinkomst": 1200,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 18835,
+     "utrymme_rot_rut_gt": 18836,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -477,7 +478,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 300000,
@@ -598,7 +599,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -719,7 +720,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 420000,
@@ -840,7 +841,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 480000,
@@ -961,7 +962,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 600000,
@@ -1086,7 +1087,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 720000,
@@ -1211,7 +1212,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 900000,
@@ -1336,7 +1337,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 120000,
@@ -1351,12 +1352,12 @@
      "fastställd_förvärvsinkomst": 120000,
      "grundavdrag": 37400,
      "beskattningsbar_förvärvsinkomst": 82600,
-     "kommunal_inkomstskatt": 29447,
+     "kommunal_inkomstskatt": 29446,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 8400,
      "red_jobbskatteavdrag": 15005,
-     "red_förvärvsinkomst": 320,
+     "red_förvärvsinkomst": 319,
      "red_underskott_kapital": 0,
      "utrymme_rot_rut_gt": 5722,
      "räcker_rot_50k": false,
@@ -1461,7 +1462,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 180000,
@@ -1471,27 +1472,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 14238,
+    "utrymme_rot_rut_gt": 14237,
     "mellanled": {
      "fastställd_förvärvsinkomst": 180000,
      "grundavdrag": 45600,
      "beskattningsbar_förvärvsinkomst": 134400,
-     "kommunal_inkomstskatt": 47914,
+     "kommunal_inkomstskatt": 47913,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 12600,
      "red_jobbskatteavdrag": 20368,
      "red_förvärvsinkomst": 708,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 14238,
+     "utrymme_rot_rut_gt": 14237,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -1586,7 +1587,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 240000,
@@ -1711,7 +1712,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 300000,
@@ -1836,7 +1837,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 360000,
@@ -1961,7 +1962,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 420000,
@@ -1971,7 +1972,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 60148,
+    "utrymme_rot_rut_gt": 60149,
     "mellanled": {
      "fastställd_förvärvsinkomst": 420000,
      "grundavdrag": 22000,
@@ -1980,18 +1981,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 29400,
-     "red_jobbskatteavdrag": 50839,
+     "red_jobbskatteavdrag": 50838,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 60148,
+     "utrymme_rot_rut_gt": 60149,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1674,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2086,7 +2087,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 480000,
@@ -2096,27 +2097,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 72136,
+    "utrymme_rot_rut_gt": 72135,
     "mellanled": {
      "fastställd_förvärvsinkomst": 480000,
      "grundavdrag": 17400,
      "beskattningsbar_förvärvsinkomst": 462600,
-     "kommunal_inkomstskatt": 164917,
+     "kommunal_inkomstskatt": 164916,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 33600,
      "red_jobbskatteavdrag": 57681,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 72136,
+     "utrymme_rot_rut_gt": 72135,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2211,7 +2212,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 600000,
@@ -2221,27 +2222,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 106516,
+    "utrymme_rot_rut_gt": 106515,
     "mellanled": {
      "fastställd_förvärvsinkomst": 600000,
      "grundavdrag": 17400,
      "beskattningsbar_förvärvsinkomst": 582600,
-     "kommunal_inkomstskatt": 207697,
+     "kommunal_inkomstskatt": 207696,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 42000,
      "red_jobbskatteavdrag": 57681,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 106516,
+     "utrymme_rot_rut_gt": 106515,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": true,
      "räcker_rot_50k_plus_gt_50k": true
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2340,7 +2341,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 720000,
@@ -2350,27 +2351,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 156116,
+    "utrymme_rot_rut_gt": 156115,
     "mellanled": {
      "fastställd_förvärvsinkomst": 720000,
      "grundavdrag": 17400,
      "beskattningsbar_förvärvsinkomst": 702600,
-     "kommunal_inkomstskatt": 250477,
+     "kommunal_inkomstskatt": 250476,
      "statlig_inkomstskatt": 11920,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 47100,
      "red_jobbskatteavdrag": 57681,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 156116,
+     "utrymme_rot_rut_gt": 156115,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": true,
      "räcker_rot_50k_plus_gt_50k": true
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2469,7 +2470,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 900000,
@@ -2479,27 +2480,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 256286,
+    "utrymme_rot_rut_gt": 256285,
     "mellanled": {
      "fastställd_förvärvsinkomst": 900000,
      "grundavdrag": 17400,
      "beskattningsbar_förvärvsinkomst": 882600,
-     "kommunal_inkomstskatt": 314647,
+     "kommunal_inkomstskatt": 314646,
      "statlig_inkomstskatt": 47920,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 47100,
      "red_jobbskatteavdrag": 57681,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 256286,
+     "utrymme_rot_rut_gt": 256285,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": true,
      "räcker_rot_50k_plus_gt_50k": true
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2582,7 +2583,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -2592,7 +2593,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 17494,
+    "utrymme_rot_rut_gt": 17495,
     "mellanled": {
      "fastställd_förvärvsinkomst": 150000,
      "grundavdrag": 92300,
@@ -2602,17 +2603,17 @@
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
-     "red_förvärvsinkomst": 133,
+     "red_förvärvsinkomst": 132,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 17494,
+     "utrymme_rot_rut_gt": 17495,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2695,7 +2696,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -2705,27 +2706,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 22889,
+    "utrymme_rot_rut_gt": 22888,
     "mellanled": {
      "fastställd_förvärvsinkomst": 180000,
      "grundavdrag": 104200,
      "beskattningsbar_förvärvsinkomst": 75800,
-     "kommunal_inkomstskatt": 23157,
+     "kommunal_inkomstskatt": 23156,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 268,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 22889,
+     "utrymme_rot_rut_gt": 22888,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -2808,7 +2809,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -2921,7 +2922,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -3034,7 +3035,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -3044,7 +3045,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 62671,
+    "utrymme_rot_rut_gt": 62672,
     "mellanled": {
      "fastställd_förvärvsinkomst": 360000,
      "grundavdrag": 150700,
@@ -3054,17 +3055,17 @@
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
-     "red_förvärvsinkomst": 1270,
+     "red_förvärvsinkomst": 1269,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 62671,
+     "utrymme_rot_rut_gt": 62672,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3147,7 +3148,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -3157,27 +3158,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 90425,
+    "utrymme_rot_rut_gt": 90424,
     "mellanled": {
      "fastställd_förvärvsinkomst": 480000,
      "grundavdrag": 179100,
      "beskattningsbar_förvärvsinkomst": 300900,
-     "kommunal_inkomstskatt": 91925,
+     "kommunal_inkomstskatt": 91924,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 90425,
+     "utrymme_rot_rut_gt": 90424,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": true,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3264,7 +3265,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -3274,7 +3275,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 20437,
+    "utrymme_rot_rut_gt": 20438,
     "mellanled": {
      "fastställd_förvärvsinkomst": 150000,
      "grundavdrag": 92300,
@@ -3284,17 +3285,17 @@
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
-     "red_förvärvsinkomst": 133,
+     "red_förvärvsinkomst": 132,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 20437,
+     "utrymme_rot_rut_gt": 20438,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1674,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3381,7 +3382,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -3391,27 +3392,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 26755,
+    "utrymme_rot_rut_gt": 26754,
     "mellanled": {
      "fastställd_förvärvsinkomst": 180000,
      "grundavdrag": 104200,
      "beskattningsbar_förvärvsinkomst": 75800,
-     "kommunal_inkomstskatt": 27023,
+     "kommunal_inkomstskatt": 27022,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 268,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 26755,
+     "utrymme_rot_rut_gt": 26754,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3498,7 +3499,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -3615,7 +3616,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -3625,27 +3626,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 57362,
+    "utrymme_rot_rut_gt": 57361,
     "mellanled": {
      "fastställd_förvärvsinkomst": 300000,
      "grundavdrag": 136500,
      "beskattningsbar_förvärvsinkomst": 163500,
-     "kommunal_inkomstskatt": 58288,
+     "kommunal_inkomstskatt": 58287,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 926,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 57362,
+     "utrymme_rot_rut_gt": 57361,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3732,7 +3733,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -3742,7 +3743,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 73345,
+    "utrymme_rot_rut_gt": 73346,
     "mellanled": {
      "fastställd_förvärvsinkomst": 360000,
      "grundavdrag": 150700,
@@ -3752,17 +3753,17 @@
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
-     "red_förvärvsinkomst": 1270,
+     "red_förvärvsinkomst": 1269,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 73345,
+     "utrymme_rot_rut_gt": 73346,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1674,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3849,7 +3850,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -3859,27 +3860,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 105771,
+    "utrymme_rot_rut_gt": 105770,
     "mellanled": {
      "fastställd_förvärvsinkomst": 480000,
      "grundavdrag": 179100,
      "beskattningsbar_förvärvsinkomst": 300900,
-     "kommunal_inkomstskatt": 107271,
+     "kommunal_inkomstskatt": 107270,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 105771,
+     "utrymme_rot_rut_gt": 105770,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": true,
      "räcker_rot_50k_plus_gt_50k": true
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -3970,7 +3971,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 32.6,
     "indata": {
      "lon_ar": 180000,
@@ -3980,7 +3981,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 11880,
+    "utrymme_rot_rut_gt": 11881,
     "mellanled": {
      "fastställd_förvärvsinkomst": 180000,
      "grundavdrag": 45600,
@@ -3989,18 +3990,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 12600,
-     "red_jobbskatteavdrag": 18626,
+     "red_jobbskatteavdrag": 18625,
      "red_förvärvsinkomst": 708,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 11880,
+     "utrymme_rot_rut_gt": 11881,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4091,7 +4092,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 32.6,
     "indata": {
      "lon_ar": 360000,
@@ -4101,7 +4102,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 41908,
+    "utrymme_rot_rut_gt": 41909,
     "mellanled": {
      "fastställd_förvärvsinkomst": 360000,
      "grundavdrag": 28000,
@@ -4110,18 +4111,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 25200,
-     "red_jobbskatteavdrag": 39624,
+     "red_jobbskatteavdrag": 39623,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 41908,
+     "utrymme_rot_rut_gt": 41909,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4212,7 +4213,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 32.6,
     "indata": {
      "lon_ar": 600000,
@@ -4222,27 +4223,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 93682,
+    "utrymme_rot_rut_gt": 93681,
     "mellanled": {
      "fastställd_förvärvsinkomst": 600000,
      "grundavdrag": 17400,
      "beskattningsbar_förvärvsinkomst": 582600,
-     "kommunal_inkomstskatt": 189928,
+     "kommunal_inkomstskatt": 189927,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 42000,
      "red_jobbskatteavdrag": 52746,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 93682,
+     "utrymme_rot_rut_gt": 93681,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": true,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4325,7 +4326,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 32.6,
     "indata": {
      "lon_ar": 0,
@@ -4335,27 +4336,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 38138,
+    "utrymme_rot_rut_gt": 38137,
     "mellanled": {
      "fastställd_förvärvsinkomst": 240000,
      "grundavdrag": 121200,
      "beskattningsbar_förvärvsinkomst": 118800,
-     "kommunal_inkomstskatt": 38729,
+     "kommunal_inkomstskatt": 38728,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 591,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 38138,
+     "utrymme_rot_rut_gt": 38137,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4446,7 +4447,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 34.86,
     "indata": {
      "lon_ar": 240000,
@@ -4456,7 +4457,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 24032,
+    "utrymme_rot_rut_gt": 24033,
     "mellanled": {
      "fastställd_förvärvsinkomst": 240000,
      "grundavdrag": 40000,
@@ -4465,18 +4466,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 16800,
-     "red_jobbskatteavdrag": 27688,
+     "red_jobbskatteavdrag": 27687,
      "red_förvärvsinkomst": 1200,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 24032,
+     "utrymme_rot_rut_gt": 24033,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4567,7 +4568,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 34.86,
     "indata": {
      "lon_ar": 480000,
@@ -4577,7 +4578,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 69759,
+    "utrymme_rot_rut_gt": 69760,
     "mellanled": {
      "fastställd_förvärvsinkomst": 480000,
      "grundavdrag": 17400,
@@ -4586,18 +4587,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 33600,
-     "red_jobbskatteavdrag": 56403,
+     "red_jobbskatteavdrag": 56402,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 69759,
+     "utrymme_rot_rut_gt": 69760,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4680,7 +4681,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 34.86,
     "indata": {
      "lon_ar": 0,
@@ -4690,27 +4691,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 40823,
+    "utrymme_rot_rut_gt": 40822,
     "mellanled": {
      "fastställd_förvärvsinkomst": 240000,
      "grundavdrag": 121200,
      "beskattningsbar_förvärvsinkomst": 118800,
-     "kommunal_inkomstskatt": 41414,
+     "kommunal_inkomstskatt": 41413,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 591,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 40823,
+     "utrymme_rot_rut_gt": 40822,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -4809,7 +4810,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -4938,7 +4939,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -5071,7 +5072,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 720000,
@@ -5200,7 +5201,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 240000,
@@ -5219,7 +5220,7 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 16800,
-     "red_jobbskatteavdrag": 24265,
+     "red_jobbskatteavdrag": 24264,
      "red_förvärvsinkomst": 1200,
      "red_underskott_kapital": 30000,
      "utrymme_rot_rut_gt": 0,
@@ -5321,7 +5322,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -5446,7 +5447,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -5571,7 +5572,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 600000,
@@ -5688,7 +5689,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -5813,7 +5814,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -5938,7 +5939,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -6071,7 +6072,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 480000,
@@ -6196,7 +6197,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -6325,7 +6326,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 35.65,
     "indata": {
      "lon_ar": 0,
@@ -6335,27 +6336,27 @@
      "taxeringsvarde": 1390000,
      "ranteutgifter": 50000
     },
-    "utrymme_rot_rut_gt": 52787,
+    "utrymme_rot_rut_gt": 52786,
     "mellanled": {
      "fastställd_förvärvsinkomst": 300000,
      "grundavdrag": 136500,
      "beskattningsbar_förvärvsinkomst": 163500,
-     "kommunal_inkomstskatt": 58288,
+     "kommunal_inkomstskatt": 58287,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 10425,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 926,
      "red_underskott_kapital": 15000,
-     "utrymme_rot_rut_gt": 52787,
+     "utrymme_rot_rut_gt": 52786,
      "räcker_rot_50k": true,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1676,
+   "diff_skv_minus_motorn_kr": -1675,
    "regional_reduktion_i_tjansten_kr": 1675,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -6446,7 +6447,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 200000,
@@ -6456,7 +6457,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 28131,
+    "utrymme_rot_rut_gt": 28132,
     "mellanled": {
      "fastställd_förvärvsinkomst": 400000,
      "grundavdrag": 160300,
@@ -6466,17 +6467,17 @@
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 14000,
      "red_jobbskatteavdrag": 29599,
-     "red_förvärvsinkomst": 1498,
+     "red_förvärvsinkomst": 1497,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 28131,
+     "utrymme_rot_rut_gt": 28132,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -6567,7 +6568,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 240000,
@@ -6577,7 +6578,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 36865,
+    "utrymme_rot_rut_gt": 36866,
     "mellanled": {
      "fastställd_förvärvsinkomst": 300000,
      "grundavdrag": 34000,
@@ -6586,18 +6587,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 16800,
-     "red_jobbskatteavdrag": 26098,
+     "red_jobbskatteavdrag": 26097,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 36865,
+     "utrymme_rot_rut_gt": 36866,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -6680,7 +6681,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -6793,7 +6794,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -6902,7 +6903,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -6912,27 +6913,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 7760,
+    "utrymme_rot_rut_gt": 7759,
     "mellanled": {
      "fastställd_förvärvsinkomst": 100000,
      "grundavdrag": 74600,
      "beskattningsbar_förvärvsinkomst": 25400,
-     "kommunal_inkomstskatt": 7760,
+     "kommunal_inkomstskatt": 7759,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
      "red_förvärvsinkomst": 0,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 7760,
+     "utrymme_rot_rut_gt": 7759,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -7019,7 +7020,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 60000,
@@ -7144,7 +7145,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 1200000,
@@ -7262,7 +7263,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 100000,
@@ -7277,11 +7278,11 @@
      "fastställd_förvärvsinkomst": 100000,
      "grundavdrag": 74600,
      "beskattningsbar_förvärvsinkomst": 25400,
-     "kommunal_inkomstskatt": 7760,
+     "kommunal_inkomstskatt": 7759,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 7000,
-     "red_jobbskatteavdrag": 7760,
+     "red_jobbskatteavdrag": 7759,
      "red_förvärvsinkomst": 0,
      "red_underskott_kapital": 0,
      "utrymme_rot_rut_gt": 0,
@@ -7384,7 +7385,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 400000,
@@ -7394,7 +7395,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 6475,
+    "utrymme_rot_rut_gt": 6477,
     "mellanled": {
      "fastställd_förvärvsinkomst": 400000,
      "grundavdrag": 160300,
@@ -7403,18 +7404,18 @@
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 28000,
-     "red_jobbskatteavdrag": 37255,
-     "red_förvärvsinkomst": 1498,
+     "red_jobbskatteavdrag": 37254,
+     "red_förvärvsinkomst": 1497,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 6475,
+     "utrymme_rot_rut_gt": 6477,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 2,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 2,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -7510,7 +7511,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 900000,
@@ -7525,11 +7526,11 @@
      "fastställd_förvärvsinkomst": 900000,
      "grundavdrag": 117500,
      "beskattningsbar_förvärvsinkomst": 782500,
-     "kommunal_inkomstskatt": 239054,
+     "kommunal_inkomstskatt": 239053,
      "statlig_inkomstskatt": 27900,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 47100,
-     "red_jobbskatteavdrag": 37255,
+     "red_jobbskatteavdrag": 37254,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
      "utrymme_rot_rut_gt": 181099,
@@ -7640,7 +7641,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 360000,
@@ -7758,7 +7759,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -7768,7 +7769,7 @@
      "taxeringsvarde": 1390000,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 27919,
+    "utrymme_rot_rut_gt": 27920,
     "mellanled": {
      "fastställd_förvärvsinkomst": 150000,
      "grundavdrag": 92300,
@@ -7778,17 +7779,17 @@
      "fastighetsavgift": 10425,
      "red_allmän_pensionsavgift": 0,
      "red_jobbskatteavdrag": 0,
-     "red_förvärvsinkomst": 133,
+     "red_förvärvsinkomst": 132,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 27919,
+     "utrymme_rot_rut_gt": 27920,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -7860,7 +7861,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 0,
@@ -7982,7 +7983,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 348000,
@@ -7992,7 +7993,7 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 35748,
+    "utrymme_rot_rut_gt": 35648,
     "mellanled": {
      "fastställd_förvärvsinkomst": 348000,
      "grundavdrag": 29200,
@@ -8000,19 +8001,19 @@
      "kommunal_inkomstskatt": 97393,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
-     "red_allmän_pensionsavgift": 24300,
+     "red_allmän_pensionsavgift": 24400,
      "red_jobbskatteavdrag": 35845,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 35748,
+     "utrymme_rot_rut_gt": 35648,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -100,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -100,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -8104,7 +8105,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 378000,
@@ -8114,27 +8115,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 40513,
+    "utrymme_rot_rut_gt": 40412,
     "mellanled": {
      "fastställd_förvärvsinkomst": 378000,
      "grundavdrag": 26200,
      "beskattningsbar_förvärvsinkomst": 351800,
-     "kommunal_inkomstskatt": 107475,
+     "kommunal_inkomstskatt": 107474,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
-     "red_allmän_pensionsavgift": 26400,
+     "red_allmän_pensionsavgift": 26500,
      "red_jobbskatteavdrag": 39062,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 40513,
+     "utrymme_rot_rut_gt": 40412,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -101,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -101,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -8226,7 +8227,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 124000,
@@ -8236,27 +8237,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 4181,
+    "utrymme_rot_rut_gt": 4081,
     "mellanled": {
      "fastställd_förvärvsinkomst": 124000,
      "grundavdrag": 38200,
      "beskattningsbar_förvärvsinkomst": 85800,
-     "kommunal_inkomstskatt": 26212,
+     "kommunal_inkomstskatt": 26211,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
-     "red_allmän_pensionsavgift": 8600,
+     "red_allmän_pensionsavgift": 8700,
      "red_jobbskatteavdrag": 13087,
-     "red_förvärvsinkomst": 344,
+     "red_förvärvsinkomst": 343,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 4181,
+     "utrymme_rot_rut_gt": 4081,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -100,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -100,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -8348,7 +8349,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 355000,
@@ -8358,27 +8359,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 36850,
+    "utrymme_rot_rut_gt": 36849,
     "mellanled": {
      "fastställd_förvärvsinkomst": 355000,
      "grundavdrag": 28500,
      "beskattningsbar_förvärvsinkomst": 326500,
-     "kommunal_inkomstskatt": 99746,
+     "kommunal_inkomstskatt": 99745,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
      "red_allmän_pensionsavgift": 24800,
      "red_jobbskatteavdrag": 36596,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 36850,
+     "utrymme_rot_rut_gt": 36849,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -8470,7 +8471,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 352200,
@@ -8480,27 +8481,27 @@
      "taxeringsvarde": 0,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 36409,
+    "utrymme_rot_rut_gt": 36309,
     "mellanled": {
      "fastställd_förvärvsinkomst": 352200,
      "grundavdrag": 28800,
      "beskattningsbar_förvärvsinkomst": 323400,
-     "kommunal_inkomstskatt": 98799,
+     "kommunal_inkomstskatt": 98798,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
-     "red_allmän_pensionsavgift": 24600,
-     "red_jobbskatteavdrag": 36290,
+     "red_allmän_pensionsavgift": 24700,
+     "red_jobbskatteavdrag": 36289,
      "red_förvärvsinkomst": 1500,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 36409,
+     "utrymme_rot_rut_gt": 36309,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -100,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -100,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -8592,7 +8593,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 333333,
@@ -8710,7 +8711,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 348000,
@@ -8725,12 +8726,12 @@
      "fastställd_förvärvsinkomst": 348000,
      "grundavdrag": 147900,
      "beskattningsbar_förvärvsinkomst": 200100,
-     "kommunal_inkomstskatt": 61131,
+     "kommunal_inkomstskatt": 61130,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 0,
-     "red_allmän_pensionsavgift": 24300,
-     "red_jobbskatteavdrag": 37255,
-     "red_förvärvsinkomst": 1201,
+     "red_allmän_pensionsavgift": 24400,
+     "red_jobbskatteavdrag": 37254,
+     "red_förvärvsinkomst": 1200,
      "red_underskott_kapital": 0,
      "utrymme_rot_rut_gt": 0,
      "räcker_rot_50k": false,
@@ -8836,7 +8837,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 348000,
@@ -8846,27 +8847,27 @@
      "taxeringsvarde": 1390000,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 8800,
+    "utrymme_rot_rut_gt": 8701,
     "mellanled": {
      "fastställd_förvärvsinkomst": 348000,
      "grundavdrag": 147900,
      "beskattningsbar_förvärvsinkomst": 200100,
-     "kommunal_inkomstskatt": 61131,
+     "kommunal_inkomstskatt": 61130,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 10425,
-     "red_allmän_pensionsavgift": 24300,
-     "red_jobbskatteavdrag": 37255,
-     "red_förvärvsinkomst": 1201,
+     "red_allmän_pensionsavgift": 24400,
+     "red_jobbskatteavdrag": 37254,
+     "red_förvärvsinkomst": 1200,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 8800,
+     "utrymme_rot_rut_gt": 8701,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": -99,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": -99,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -8962,7 +8963,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 80000,
@@ -8972,7 +8973,7 @@
      "taxeringsvarde": 1390000,
      "ranteutgifter": 0
     },
-    "utrymme_rot_rut_gt": 9635,
+    "utrymme_rot_rut_gt": 9636,
     "mellanled": {
      "fastställd_förvärvsinkomst": 80000,
      "grundavdrag": 29400,
@@ -8982,17 +8983,17 @@
      "fastighetsavgift": 10425,
      "red_allmän_pensionsavgift": 5600,
      "red_jobbskatteavdrag": 10568,
-     "red_förvärvsinkomst": 80,
+     "red_förvärvsinkomst": 79,
      "red_underskott_kapital": 0,
-     "utrymme_rot_rut_gt": 9635,
+     "utrymme_rot_rut_gt": 9636,
      "räcker_rot_50k": false,
      "räcker_rot_rut_75k": false,
      "räcker_rot_50k_plus_gt_50k": false
     }
    },
-   "diff_skv_minus_motorn_kr": 1,
+   "diff_skv_minus_motorn_kr": 0,
    "regional_reduktion_i_tjansten_kr": 0,
-   "diff_efter_regional_reduktion_kr": 1,
+   "diff_efter_regional_reduktion_kr": 0,
    "skarmdump": null,
    "oberoende": {
     "funktion": "logik/verifiering_oberoende.py utrymme_rot_rut()",
@@ -9084,7 +9085,7 @@
     ]
    },
    "motorn": {
-    "funktion": "logik/engine.js skatteutrymme()",
+    "funktion": "logik/engine.js skatteutrymme() (motorn efter 2026-09-16: öretal kapas, pensionsavgift till närmaste hundratal)",
     "ks_anvand": 30.55,
     "indata": {
      "lon_ar": 40000,
@@ -9099,11 +9100,11 @@
      "fastställd_förvärvsinkomst": 40000,
      "grundavdrag": 25100,
      "beskattningsbar_förvärvsinkomst": 14900,
-     "kommunal_inkomstskatt": 4552,
+     "kommunal_inkomstskatt": 4551,
      "statlig_inkomstskatt": 0,
      "fastighetsavgift": 10425,
      "red_allmän_pensionsavgift": 2800,
-     "red_jobbskatteavdrag": 4552,
+     "red_jobbskatteavdrag": 4551,
      "red_förvärvsinkomst": 0,
      "red_underskott_kapital": 0,
      "utrymme_rot_rut_gt": 7625,

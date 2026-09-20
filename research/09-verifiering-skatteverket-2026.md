@@ -11,6 +11,12 @@ Taggar: `[FACT src]` = hämtat från namngiven källa · `[BERÄKNAT]` = räknat
 
 ## 0. Kort svar
 
+> **Efter motorfixen 2026-09-16 (öretal kapas, pensionsavgift till närmaste hundratal), omräknat 2026-09-20:** motorn ger
+> 0 kr diff mot Skatteverket i 73 av 75 körningar (de 17 Dorotea-fallen exakt efter regional reduktion 1 675 kr); de två
+> övriga är SKV-48 och SKV-63 utanför modellen, båda åt det försiktiga hållet. `motorn`-blocket i JSON-filen är omräknat
+> (`_meta.motorn_omkord`). Texten nedan beskriver läget före fixen (research/12 §2 har det nya läget).
+
+
 - **51 av 75 fall: motorn ligger inom ±2 kr från Skatteverket rakt av** (max 2 kr, SKV-61); ytterligare 17 (Dorotea)
   ligger inom ±1 kr så snart den regionala reduktionen räknas in. Avvikelsen ±1–2 kr beror på att Skatteverket
   **kapar öretal** på varje skatt och reduktion (skatteförfarandeförordningen 22 kap. 1 §, IL 67 kap. 1 §) medan motorn
