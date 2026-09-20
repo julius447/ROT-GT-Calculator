@@ -1,0 +1,645 @@
+# Byggrapport paketera.mjs (paket 1.0.0)
+
+Skrivs om vid varje bygge. Källor och sha256:
+- kalkylator/v1/index.html: f1b86b898a7c10805c9c1953d9d7990c6df7e97c2b8af0c3235150ab96578323
+- kalkylator/v1/style.css: b707a019d438a7cee62cad6439661bcd7d8b35d2ba0df39c7b4d6994dafae505
+- kalkylator/v1/app.js: ecd461de1ea6c4cf772a19aa2807ec236ebef19e7eb82e2326541a8951e920df
+- kalkylator/rakna.js: 12dd1cd63726df7a9ac4ac99273f477e7c86d878b0de22d28eece7cefee988ff
+- logik/engine.js: 46c03df1c981368160d41e83fd681871aad4e3f10348efd525e8037bdb41fd3f
+- kalkylator/system/tokens.css: 1f5299c26dbe001bb39d14ee0b4b4bafa0ffb9de40154c6347f995f22901691e
+- kalkylator/system/base.css: 54751da13353776c55e3ae895641189142e74f210deced246230149179ea7201
+- kalkylator/system/components/text.css: 503fd1160db167db5dff383be22ead97e018abdd1d735cb7788ae374eeacffac
+- kalkylator/system/components/ytor.css: 54577de06a627db171370d76986cdc929cb24434c6e29be0ed6650cb35c85fbb
+- kalkylator/system/components/falt.css: 8b8e5c52adb24a85a47653184d415fd7cb515e46774f15bd1ee178f583889c60
+- kalkylator/system/components/knappar.css: f1052791af292504a3982b14f278aed8fe31c259f8fe1863a80ffeeeb2c9f73b
+- kalkylator/artikel/bas-inbaddad.css: 0e7a22cfd988dcb132074d4aa44c1976f04d3a3176fb92c88dfc2a6353949a46
+- kalkylator/artikel/artikel.css: 5109beb3f4c94fb3054bc29e23df7b15d50bcaa9e0c6b76f6133332077f933ad
+- kalkylator/system/fonts/Outfit-VariableFont_wght.woff2: 99bd3f38d4854dbb296b53fb55c0956891e0111ccc86053966b7e99d6f99c162
+
+## Tokens på wrappern (59)
+- --ampy-action-strong: #007a69
+- --ampy-bg-subtle: #f5f9ff
+- --ampy-bg-surface: #ffffff
+- --ampy-dur-base: 200ms
+- --ampy-dur-fast: 160ms
+- --ampy-ease: cubic-bezier(.2,.6,.2,1)
+- --ampy-ease-out: cubic-bezier(.16,1,.3,1)
+- --ampy-error-ink: #7a1623
+- --ampy-field-fs: 16px
+- --ampy-field-h: 48px
+- --ampy-field-track: rgba(9,11,50,.07)
+- --ampy-focus: #090b32
+- --ampy-focus-ring: 0 0 0 3px rgba(0,122,105,.9)
+- --ampy-font: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif
+- --ampy-ink: #090b32
+- --ampy-ink-body: #090b32
+- --ampy-ink-faint: #6a7190
+- --ampy-ink-muted: #565e82
+- --ampy-lh-body: 1.5
+- --ampy-lh-h3: 1.25
+- --ampy-lh-heading: 1.2
+- --ampy-lh-tight: 1
+- --ampy-lh-ui: 1.4
+- --ampy-line: rgba(9,11,50,.14)
+- --ampy-line-strong: rgba(9,11,50,.48)
+- --ampy-ls-eyebrow: 0.14em
+- --ampy-ls-heading: -0.01em
+- --ampy-ls-number: -0.03em
+- --ampy-measure: 62ch
+- --ampy-radius-card: clamp(16px, 0.42vw + 14.7px, 20px)
+- --ampy-radius-field: clamp(10px, 0.21vw + 9.3px, 12px)
+- --ampy-radius-small: clamp(6px, 0.21vw + 5.3px, 8px)
+- --ampy-shadow-card: 0 10px 30px rgba(9,11,50,.07)
+- --ampy-shadow-subtle: 0 1px 2px rgba(9,11,50,.06)
+- --ampy-space-2xs: clamp(8.2px, 0.18vw + 7.6px, 9.9px)
+- --ampy-space-3xs: clamp(6.6px, 0.05vw + 6.4px, 7px)
+- --ampy-space-4xs: clamp(4.9px, 0.03vw + 4.8px, 5.2px)
+- --ampy-space-card: var(--ampy-space-m)
+- --ampy-space-inline-sm: var(--ampy-space-2xs)
+- --ampy-space-inline-xs: var(--ampy-space-3xs)
+- --ampy-space-l: clamp(20px, 2.04vw + 13.5px, 39.6px)
+- --ampy-space-m: clamp(16px, 1.25vw + 12px, 28px)
+- --ampy-space-s: clamp(12.8px, 0.73vw + 10.5px, 19.8px)
+- --ampy-space-stack-lg: var(--ampy-space-l)
+- --ampy-space-xs: clamp(10.2px, 0.39vw + 9px, 14px)
+- --ampy-text-body: clamp(16px, 0.21vw + 15.3px, 18px)
+- --ampy-text-button: 16px
+- --ampy-text-eyebrow: 12px
+- --ampy-text-fine: 13px
+- --ampy-text-h2: clamp(26px, 1.04vw + 22.7px, 36px)
+- --ampy-text-label: 14px
+- --ampy-text-number: clamp(38px, 1.989vw + 30.54px, 56px)
+- --ampy-text-small: clamp(14px, 0.21vw + 13.3px, 16px)
+- --ampy-w-body: 300
+- --ampy-w-display: 700
+- --ampy-w-heading: 500
+- --ampy-w-medium: 500
+- --ampy-w-strong: 600
+- --ampy-w-ui: 400
+
+## Systemregler som togs med (32)
+- [base] *, *::before, *::after
+- [base] svg
+- [base] button, input   (utan: select, textarea)
+- [base] h2, h3, p   (utan: h1, h4, ul, ol, figure)
+- [base] .ampy-h2
+- [base] .ampy-eyebrow
+- [base] .ampy-number
+- [base] :where(.ampy) p
+- [base] :where(.ampy) ::selection
+- [base] :where(.ampy) :focus-visible   (utan: .ampy-focus:focus-visible)
+- [base] @media (prefers-reduced-motion: reduce) { .ampy *, .ampy *::before, .ampy *::after
+- [text] .ampy-eyebrow
+- [ytor] .ampy-card
+- [ytor] .ampy-card > :first-child
+- [ytor] .ampy-card > :last-child
+- [falt] .ampy-input   (utan: .ampy-textarea, .ampy-select)
+- [falt] .ampy-input::placeholder   (utan: .ampy-textarea::placeholder)
+- [falt] .ampy-input:hover   (utan: .ampy-textarea:hover, .ampy-select:hover)
+- [falt] .ampy-input:focus-visible   (utan: .ampy-textarea:focus-visible, .ampy-select:focus-visible, .ampy-input.is-focus, .ampy-textarea.is-focus, .ampy-select.is-focus)
+- [falt] .ampy-input--tabular
+- [falt] .ampy-segment
+- [falt] .ampy-segment > label   (utan: .ampy-segment__option, .ampy-segment > button)
+- [falt] .ampy-segment > label input
+- [falt] .ampy-segment > label:hover   (utan: .ampy-segment__option:hover, .ampy-segment > button:hover)
+- [falt] .ampy-segment > label:has(input:checked)   (utan: .ampy-segment__option[aria-pressed="true"], .ampy-segment > button[aria-pressed="true"], .ampy-segment [aria-checked="true"], .ampy-segment .is-selected)
+- [falt] .ampy-segment > label:has(input:focus-visible)   (utan: .ampy-segment__option:focus-visible, .ampy-segment > button:focus-visible)
+- [falt] @container (max-width: 34rem) { .ampy-segment > label   (utan: .ampy-segment__option, .ampy-segment > button)
+- [falt] @media (prefers-reduced-motion: reduce) { .ampy-segment > *   (utan: .ampy-check input::before, .ampy-chip, .ampy-chip__check, .ampy-stepper__btn, .ampy-range::-webkit-slider-thumb)
+- [knappar] .ampy-link
+- [knappar] .ampy-link:hover   (utan: .ampy-link.is-hover)
+- [knappar] .ampy-link:focus-visible
+- [knappar] .ampy-link svg
+
+## Systemregler som slängdes, kan inte träffa markupen (427)
+- [base] html
+- [base] body
+- [base] img, video
+- [base] .ampy-display
+- [base] .ampy-h1
+- [base] .ampy-h3
+- [base] .ampy-lead
+- [base] .ampy-body
+- [base] .ampy-small
+- [base] .ampy-label
+- [base] .ampy-button-text
+- [base] :where(.ampy)
+- [base] :where(.ampy) h1
+- [base] :where(.ampy) h2
+- [base] :where(.ampy) h3
+- [base] :where(.ampy) h4
+- [base] :where(.ampy) small
+- [base] :where(.ampy) strong, :where(.ampy) b
+- [base] :where(.ampy) a
+- [base] :where(.ampy) a:hover
+- [base] :where(.ampy) hr
+- [base] :where(.ampy--dark, .ampy-on-dark) :focus-visible
+- [base] .ampy-on-dark
+- [base] .ampy-on-dark p
+- [base] .ampy-on-dark small
+- [base] .ampy-container
+- [base] .ampy-container--text
+- [base] .ampy-section
+- [base] .ampy-section--full
+- [base] .ampy-section--dark
+- [base] .ampy-section--dark h1, .ampy-section--dark h2, .ampy-section--dark h3
+- [base] .ampy-section--dark p
+- [text] .ampy-eyebrow--dash::before
+- [text] .ampy-eyebrow--action
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-eyebrow
+- [text] .ampy-tag
+- [text] .ampy-tag svg
+- [text] .ampy-tag--lg
+- [text] .ampy-tag--sm
+- [text] .ampy-tag--sm svg
+- [text] .ampy-tag--success
+- [text] .ampy-tag--warning
+- [text] .ampy-tag--error
+- [text] .ampy-tag--info
+- [text] .ampy-tag--neutral
+- [text] .ampy-tag--action
+- [text] a.ampy-tag:hover, button.ampy-tag:hover, .ampy-tag.is-hover
+- [text] a.ampy-tag, button.ampy-tag
+- [text] .ampy-tag--live
+- [text] .ampy-tag__pulse
+- [text] .ampy-tag__pulse::after
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag:not([class*="--success"]):not([class*="--warning"]):not([class*="--error"]):not([class*="--info"])
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--success
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--warning
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--error
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--info
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-tag--live
+- [text] .ampy-stat-trio
+- [text] .ampy-stat-trio--2
+- [text] .ampy-stat
+- [text] .ampy-stat__label
+- [text] .ampy-stat__value
+- [text] .ampy-stat__unit
+- [text] .ampy-stat__sub
+- [text] @media (max-width: 560px) { .ampy-stat-trio
+- [text] @media (max-width: 560px) { .ampy-stat:not(:first-child) .ampy-stat__label
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__label
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__value
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__unit
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stat__sub
+- [text] .ampy-readout
+- [text] .ampy-readout__value
+- [text] .ampy-readout__value .ampy-number
+- [text] .ampy-readout__unit
+- [text] .ampy-readout__sub
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-readout__value
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-readout__unit, :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-readout__sub
+- [text] .ampy-source
+- [text] .ampy-source--plain
+- [text] .ampy-source a
+- [text] .ampy-source a:hover, .ampy-source a.is-hover
+- [text] .ampy-source svg
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-source
+- [text] .ampy-proof
+- [text] .ampy-proof__row
+- [text] .ampy-proof__row:hover .ampy-proof__label, .ampy-proof__row.is-hover .ampy-proof__label
+- [text] .ampy-proof__icon
+- [text] .ampy-proof__label
+- [text] .ampy-proof strong
+- [text] .ampy-proof__stars
+- [text] .ampy-proof__stars svg
+- [text] .ampy-proof__sep
+- [text] .ampy-proof__vol
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-proof
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-proof__sep
+- [text] @media (max-width: 560px) { .ampy-proof
+- [text] @media (max-width: 560px) { .ampy-proof__sep
+- [text] @media (max-width: 560px) { .ampy-proof__vol
+- [text] .ampy-quote
+- [text] .ampy-quote__top
+- [text] .ampy-quote__mark
+- [text] .ampy-quote__google
+- [text] .ampy-quote__text
+- [text] .ampy-quote__foot
+- [text] .ampy-quote__name
+- [text] .ampy-quote__divider
+- [text] .ampy-quote__meta
+- [text] .ampy-quote__stars
+- [text] .ampy-quote__stars svg
+- [text] .ampy-quote__date
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__mark
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__text
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__name
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__divider
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-quote__date
+- [text] .ampy-list
+- [text] .ampy-list--check li
+- [text] .ampy-list--check li > svg, .ampy-list__icon
+- [text] .ampy-list--check a
+- [text] .ampy-list--check a:hover, .ampy-list--check a.is-hover
+- [text] .ampy-list--check.ampy-list--compact
+- [text] .ampy-list--check.ampy-list--compact li
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-list--check li
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-list--check.ampy-list--compact
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-list--check.ampy-list--compact li
+- [text] .ampy-list--steps
+- [text] .ampy-list--steps li
+- [text] .ampy-list--steps li::before
+- [text] .ampy-list--steps li:not(:last-child)::after
+- [text] .ampy-list--steps h3, .ampy-list--steps .ampy-list__title
+- [text] .ampy-list--steps p
+- [text] .ampy-list--steps li.is-done::before
+- [text] .ampy-code
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-code
+- [text] .ampy-price
+- [text] .ampy-price__label
+- [text] .ampy-price__amount
+- [text] .ampy-price__note
+- [text] .ampy-price--inline
+- [text] .ampy-price--inline .ampy-price__note
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price__label, :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price__amount
+- [text] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-price__note
+- [text] @media (prefers-reduced-motion: reduce) { .ampy-tag__pulse::after
+- [ytor] .ampy-card--flat
+- [ytor] .ampy-card--plain
+- [ytor] .ampy-card--raised
+- [ytor] .ampy-card--lg
+- [ytor] .ampy-card--tight
+- [ytor] .ampy-card--hover
+- [ytor] .ampy-card--hover:hover, .ampy-card--hover.is-hover
+- [ytor] .ampy-card--dark
+- [ytor] .ampy-card--dark.ampy-card--glow
+- [ytor] .ampy-card--dark h1, .ampy-card--dark h2, .ampy-card--dark h3, .ampy-card--dark h4
+- [ytor] .ampy-card--dark p
+- [ytor] .ampy-card--dark small
+- [ytor] .ampy-card--dark hr
+- [ytor] .ampy-card--dark a
+- [ytor] .ampy-card--dark ::selection
+- [ytor] @media (max-width: 600px) { .ampy-card--dark
+- [ytor] .ampy-card--glass
+- [ytor] @media (max-width: 520px) { .ampy-card--glass
+- [ytor] .ampy-card--center
+- [ytor] .ampy-card--center > *
+- [ytor] .ampy-card--glass-dark
+- [ytor] .ampy-card--glass-dark p
+- [ytor] .ampy-frame
+- [ytor] .ampy-frame--short
+- [ytor] .ampy-frame__media
+- [ytor] .ampy-frame__veil
+- [ytor] .ampy-frame__content
+- [ytor] .ampy-frame__content h1, .ampy-frame__content h2, .ampy-frame .ampy-display, .ampy-frame .ampy-h1
+- [ytor] .ampy-frame__content p, .ampy-frame .ampy-lead
+- [ytor] .ampy-frame__foot
+- [ytor] @media (max-width: 992px) { .ampy-frame
+- [ytor] @media (max-width: 560px) { .ampy-frame__media
+- [ytor] @media (max-width: 560px) { .ampy-frame__veil
+- [ytor] @media (max-width: 560px) { .ampy-frame__content
+- [ytor] @media (max-width: 560px) { .ampy-frame__foot
+- [ytor] .ampy-divider
+- [ytor] .ampy-divider--tight
+- [ytor] .ampy-divider--strong
+- [ytor] .ampy-divider--teal
+- [ytor] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-divider
+- [ytor] .ampy-band
+- [ytor] .ampy-band--white
+- [ytor] .ampy-band--fade
+- [ytor] .ampy-band--dark
+- [ytor] .ampy-band--dark h1, .ampy-band--dark h2, .ampy-band--dark h3
+- [ytor] .ampy-band--dark p
+- [ytor] .ampy-band--tight
+- [ytor] .ampy-band__inner
+- [ytor] .ampy-aurora
+- [falt] .ampy-field
+- [falt] .ampy-field__label, .ampy-field > label
+- [falt] .ampy-field__req
+- [falt] .ampy-field__opt
+- [falt] .ampy-field--inline
+- [falt] .ampy-fields
+- [falt] .ampy-fields > .ampy-field--full, .ampy-fields > .ampy-fields__full
+- [falt] .ampy-input[aria-invalid="true"], .ampy-textarea[aria-invalid="true"], .ampy-select[aria-invalid="true"], .ampy-input.is-invalid, .ampy-textarea.is-invalid, .ampy-select.is-invalid, .ampy-field.is-error :is(.ampy-input, .ampy-textarea, .ampy-select)
+- [falt] .ampy-field.is-error :is(.ampy-input, .ampy-textarea, .ampy-select):focus-visible
+- [falt] .ampy-input:disabled, .ampy-textarea:disabled, .ampy-select:disabled, .ampy-input[aria-disabled="true"], .ampy-input.is-disabled
+- [falt] .ampy-input--sm
+- [falt] .ampy-input--lg
+- [falt] .ampy-input[type="number"]
+- [falt] .ampy-input::-webkit-outer-spin-button, .ampy-input::-webkit-inner-spin-button
+- [falt] .ampy-input::-webkit-search-cancel-button, .ampy-input::-webkit-search-decoration
+- [falt] .ampy-search
+- [falt] .ampy-search__icon
+- [falt] .ampy-search .ampy-input
+- [falt] .ampy-search__list
+- [falt] .ampy-search__list--static
+- [falt] .ampy-search__opt
+- [falt] .ampy-search__opt:last-child
+- [falt] .ampy-search__opt:hover, .ampy-search__opt.is-active, .ampy-search__opt[aria-selected="true"]
+- [falt] .ampy-search__opt:focus-visible
+- [falt] .ampy-search__opt svg
+- [falt] .ampy-search__opt mark
+- [falt] .ampy-search__opt small
+- [falt] .ampy-select
+- [falt] .ampy-select:disabled
+- [falt] .ampy-select option
+- [falt] .ampy-textarea
+- [falt] .ampy-textarea--resize
+- [falt] .ampy-check
+- [falt] .ampy-check--center
+- [falt] .ampy-check input
+- [falt] .ampy-check input::before
+- [falt] .ampy-check input:checked
+- [falt] .ampy-check input:checked::before
+- [falt] .ampy-check input:hover
+- [falt] .ampy-check input:focus-visible
+- [falt] .ampy-check input:disabled
+- [falt] .ampy-check input:disabled + *
+- [falt] .ampy-check input.is-invalid, .ampy-check.is-error input, .ampy-check input[aria-invalid="true"]
+- [falt] .ampy-check__text
+- [falt] .ampy-check__text a
+- [falt] .ampy-check__text a:hover, .ampy-check__text a.is-hover
+- [falt] .ampy-check--strong
+- [falt] .ampy-consent
+- [falt] .ampy-consent a
+- [falt] .ampy-consent a:hover, .ampy-consent a.is-hover
+- [falt] .ampy-consent--left
+- [falt] .ampy-chips
+- [falt] .ampy-chips > legend
+- [falt] .ampy-chip
+- [falt] @container (min-width: 40rem) { .ampy-chip
+- [falt] .ampy-chip input
+- [falt] .ampy-chip__body
+- [falt] .ampy-chip__title
+- [falt] .ampy-chip__clarifier
+- [falt] @container (min-width: 40rem) { .ampy-chip__clarifier
+- [falt] .ampy-chip__arrow
+- [falt] @media (hover: hover) { .ampy-chip:hover, .ampy-chip.is-hover
+- [falt] .ampy-chip:active
+- [falt] .ampy-chip:focus-visible, .ampy-chip:has(input:focus-visible), .ampy-chip.is-focus
+- [falt] .ampy-chip.is-selected, .ampy-chip[aria-pressed="true"], .ampy-chip[aria-checked="true"], .ampy-chip:has(input:checked)
+- [falt] .ampy-chip[aria-disabled="true"], .ampy-chip:has(input:disabled)
+- [falt] .ampy-chip__check
+- [falt] .ampy-chip__check svg
+- [falt] .ampy-chip--multi
+- [falt] .ampy-chip--multi .ampy-chip__check
+- [falt] .ampy-chip.is-selected .ampy-chip__check, .ampy-chip[aria-pressed="true"] .ampy-chip__check, .ampy-chip[aria-checked="true"] .ampy-chip__check, .ampy-chip:has(input:checked) .ampy-chip__check
+- [falt] .ampy-chip.is-selected .ampy-chip__check svg, .ampy-chip[aria-pressed="true"] .ampy-chip__check svg, .ampy-chip[aria-checked="true"] .ampy-chip__check svg, .ampy-chip:has(input:checked) .ampy-chip__check svg
+- [falt] .ampy-chips--grid
+- [falt] .ampy-chips--grid .ampy-chip
+- [falt] .ampy-chips--grid .ampy-chip__title
+- [falt] .ampy-chip__icon
+- [falt] .ampy-chip__icon svg
+- [falt] .ampy-chip.is-selected .ampy-chip__icon, .ampy-chip[aria-pressed="true"] .ampy-chip__icon, .ampy-chip:has(input:checked) .ampy-chip__icon
+- [falt] .ampy-chips--grid .ampy-chip__check
+- [falt] .ampy-chips--grid .ampy-chip__check svg
+- [falt] .ampy-chips--grid .ampy-chip.is-selected .ampy-chip__check, .ampy-chips--grid .ampy-chip:has(input:checked) .ampy-chip__check
+- [falt] .ampy-chips--grid .ampy-chip--quiet
+- [falt] .ampy-chips--grid .ampy-chip--quiet:has(input:checked), .ampy-chips--grid .ampy-chip--quiet.is-selected
+- [falt] .ampy-chips--row
+- [falt] .ampy-chips--row .ampy-chip
+- [falt] .ampy-segment__option:disabled, .ampy-segment[aria-disabled="true"] > *, .ampy-segment.is-disabled > *
+- [falt] .ampy-segment--pill
+- [falt] .ampy-segment--pill > :is(label, button, .ampy-segment__option)
+- [falt] .ampy-segment--pill > [aria-pressed="true"], .ampy-segment--pill > label:has(input:checked), .ampy-segment--pill .is-selected
+- [falt] @media (pointer: coarse) { .ampy-segment--pill > :is(label, button, .ampy-segment__option)
+- [falt] .ampy-segment--line
+- [falt] .ampy-segment--line > :is(label, button, .ampy-segment__option)
+- [falt] .ampy-segment--line > :is(label, button, .ampy-segment__option):hover
+- [falt] .ampy-segment--line > [aria-pressed="true"], .ampy-segment--line > label:has(input:checked), .ampy-segment--line .is-selected
+- [falt] .ampy-range-wrap
+- [falt] .ampy-range
+- [falt] .ampy-range:focus
+- [falt] .ampy-range::-webkit-slider-runnable-track
+- [falt] .ampy-range::-moz-range-track
+- [falt] .ampy-range::-moz-range-progress
+- [falt] .ampy-range::-webkit-slider-thumb
+- [falt] .ampy-range::-moz-range-thumb
+- [falt] .ampy-range:active::-webkit-slider-thumb
+- [falt] .ampy-range:active::-moz-range-thumb
+- [falt] .ampy-range:focus-visible::-webkit-slider-thumb
+- [falt] .ampy-range:focus-visible::-moz-range-thumb
+- [falt] .ampy-range:disabled
+- [falt] .ampy-range__ticks
+- [falt] .ampy-range__tick
+- [falt] .ampy-range__tick:hover
+- [falt] .ampy-range__tick.is-active, .ampy-range__tick[aria-current="true"]
+- [falt] .ampy-range__tick:focus-visible
+- [falt] .ampy-range-value
+- [falt] .ampy-range-value__unit
+- [falt] .ampy-stepper
+- [falt] .ampy-stepper__btn
+- [falt] .ampy-stepper__btn svg
+- [falt] @media (hover: hover) and (pointer: fine) { .ampy-stepper__btn:hover:not(:disabled)
+- [falt] .ampy-stepper__btn:active:not(:disabled)
+- [falt] .ampy-stepper__btn:focus-visible
+- [falt] .ampy-stepper__btn:disabled
+- [falt] .ampy-stepper__value
+- [falt] .ampy-stepper__value input
+- [falt] .ampy-stepper__value input::-webkit-outer-spin-button, .ampy-stepper__value input::-webkit-inner-spin-button
+- [falt] .ampy-stepper__value input:focus-visible
+- [falt] .ampy-stepper__value.is-bump
+- [falt] .ampy-stepper--pill
+- [falt] .ampy-stepper--pill .ampy-stepper__btn
+- [falt] @media (hover: hover) and (pointer: fine) { .ampy-stepper--pill .ampy-stepper__btn:hover:not(:disabled)
+- [falt] .ampy-stepper--pill .ampy-stepper__value
+- [falt] .ampy-help
+- [falt] .ampy-error
+- [falt] .ampy-error svg
+- [falt] .ampy-error[hidden], .ampy-help[hidden]
+- [falt] .ampy-msg
+- [falt] .ampy-msg--ok
+- [falt] .ampy-msg--err
+- [falt] .ampy-msg--info
+- [falt] .ampy-msg--info svg, .ampy-msg--ok svg, .ampy-msg--err svg
+- [falt] .ampy-msg--row
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-field__label, .ampy-field > label)
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select)
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-select
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea)::placeholder
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select):hover
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select):focus-visible, :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select).is-focus
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-input, .ampy-textarea, .ampy-select):disabled
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check input
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check input:checked
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check input:focus-visible
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-check__text a
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) :is(.ampy-help, .ampy-consent)
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-consent a
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-error
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-msg--ok
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-msg--err
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-msg--info
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-segment > :is(label, button, .ampy-segment__option), :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range__tick
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-segment > :is(label, button, .ampy-segment__option):hover
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-segment > :is([aria-pressed="true"], [aria-checked="true"], label:has(input:checked), .is-selected)
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chips > legend
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range__tick.is-active
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range-value
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-range-value__unit
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip__clarifier
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip:has(input:checked), :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-chip.is-selected
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stepper
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stepper__btn
+- [falt] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-stepper__value
+- [falt] @media (prefers-reduced-motion: reduce) { .ampy-stepper__value.is-bump
+- [falt] @media (prefers-reduced-motion: reduce) { .ampy-chip:hover
+- [knappar] .ampy-btn
+- [knappar] .ampy-btn:hover, .ampy-btn.is-hover
+- [knappar] .ampy-btn:active
+- [knappar] .ampy-btn:focus-visible
+- [knappar] .ampy-btn__icon
+- [knappar] .ampy-btn:hover .ampy-btn__icon, .ampy-btn.is-hover .ampy-btn__icon
+- [knappar] .ampy-btn--primary
+- [knappar] .ampy-btn--block
+- [knappar] .ampy-btn--ring
+- [knappar] .ampy-btn--ring:hover, .ampy-btn--ring.is-hover
+- [knappar] .ampy-btn--ring:active
+- [knappar] .ampy-btn--ring.ampy-btn--block
+- [knappar] .ampy-btn__chip
+- [knappar] .ampy-btn__chip svg
+- [knappar] .ampy-btn__chip::after
+- [knappar] .ampy-btn--secondary
+- [knappar] .ampy-btn--secondary:hover, .ampy-btn--secondary.is-hover
+- [knappar] .ampy-btn--secondary:active
+- [knappar] .ampy-btn--secondary .ampy-btn__icon
+- [knappar] .ampy-btn--secondary:hover .ampy-btn__icon, .ampy-btn--secondary.is-hover .ampy-btn__icon
+- [knappar] .ampy-btn--ghost
+- [knappar] .ampy-btn--ghost:hover, .ampy-btn--ghost.is-hover
+- [knappar] .ampy-btn--ghost:active
+- [knappar] .ampy-btn--ghost .ampy-btn__icon
+- [knappar] .ampy-btn--ghost:hover .ampy-btn__icon, .ampy-btn--ghost.is-hover .ampy-btn__icon
+- [knappar] .ampy-btn--compact
+- [knappar] .ampy-btn--compact .ampy-btn__chip
+- [knappar] .ampy-btn--compact.ampy-btn--ring
+- [knappar] @media (max-width: 480px) { .ampy-btn--block-mobile
+- [knappar] .ampy-btn:disabled, .ampy-btn[aria-disabled="true"], .ampy-btn.is-disabled
+- [knappar] .ampy-btn:disabled .ampy-btn__icon, .ampy-btn[aria-disabled="true"] .ampy-btn__icon, .ampy-btn.is-disabled .ampy-btn__icon
+- [knappar] .ampy-btn.is-loading
+- [knappar] .ampy-btn.is-loading > :not(.ampy-btn__spin)
+- [knappar] .ampy-btn__spin
+- [knappar] .ampy-btn.is-loading .ampy-btn__spin
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn:focus-visible
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn--ghost
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn--ghost:hover, :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-btn--ghost.is-hover
+- [knappar] .ampy-link--quiet
+- [knappar] .ampy-link--quiet:hover, .ampy-link--quiet.is-hover
+- [knappar] .ampy-link--quiet svg
+- [knappar] .ampy-link--quiet:hover svg, .ampy-link--quiet.is-hover svg
+- [knappar] .ampy-link--ghost
+- [knappar] .ampy-link--ghost:hover, .ampy-link--ghost.is-hover
+- [knappar] .ampy-link--tel
+- [knappar] .ampy-link--tel svg
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link:hover, :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link.is-hover
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link:focus-visible
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link--ghost
+- [knappar] :where(.ampy-on-dark, .ampy--dark, .ampy-section--dark, .ampy-card--dark, .ampy-frame, .ampy-band--dark) .ampy-link--ghost:hover
+- [knappar] @media (prefers-reduced-motion: reduce) { .ampy-btn, .ampy-btn:hover, .ampy-btn.is-hover
+- [knappar] @media (prefers-reduced-motion: reduce) { .ampy-btn .ampy-btn__icon, .ampy-btn:hover .ampy-btn__icon
+- [knappar] @media (prefers-reduced-motion: reduce) { .ampy-btn__chip::after
+- [knappar] @media (prefers-reduced-motion: reduce) { .ampy-btn__spin
+- [style] .rk-sida
+- [style] .rk-spalt
+- [style] .rk-spalt
+- [style] .rk-behallare, .rk-spalt
+- [style] .rk-spalt
+
+## style.css-regler (90), demosidans utelämnade
+- .rk__rubrik
+- .rk
+- .rk
+- .rk__rad > .rk__belopp
+- .rk__tal--lang
+- .rk__fragor
+- .rk__fraga
+- .rk[data-mode="gt"] .rk__fraga--aldre
+- .rk__etikett
+- .rk__under
+- .rk__fraga > .rk__segment, .rk__fraga > .rk__inkomst, .rk__fraga > .rk__belopp
+- .rk__personer
+- .rk__person > * + *
+- .rk__person > .rk__personhuvud + *
+- .rk__person + .rk__person
+- .rk__personer[data-antal="1"] .rk__personhuvud
+- .rk__personhuvud
+- .rk__personetikett
+- .rk__lank
+- .rk__lank svg
+- .rk__lagg
+- .rk__tabort
+- .rk__tabort
+- .rk__rad
+- .rk__rad > .rk__etikett
+- .rk__person > .rk__rad
+- .rk__rad > .rk__belopp
+- .rk__rad > .rk__segment
+- .rk__under--rad
+- .rk[data-mode="rot"] .rk__fraga--gtanvant
+- .rk[data-mode="gt"] .rk__fraga--anvant
+- .rk__person:not([data-typ="bada"]) .rk__fraga--pension
+- .rk__segment--tre
+- .rk__under--lagg
+- .rk__segment
+- .rk__segment > label
+- .rk__segment > label:has(input:checked)
+- .rk__segment.ampy-segment
+- .rk__segment > label
+- .rk__inkomst
+- .rk__belopp
+- .rk__input
+- .rk__input::placeholder
+- .rk__enhet
+- .rk__panel
+- .rk__resultat
+- .rk__huvud
+- .rk__eyebrow
+- .rk__talrad
+- .rk__talpar
+- .rk__prefix, .rk__talenhet
+- .rk__tal
+- .rk__per
+- .rk__fin
+- .rk__not
+- .rk__stopp
+- .rk__x
+- .rk__x circle
+- .rk__stopptext
+- .rk__ihop
+- .rk__resultat[data-status="stopp"] :is(.rk__talrad, .rk__per, .rk__not)
+- .rk__resultat[data-status="stopp"] .rk__fin
+- .rk__talrad.is-swap, .rk__stopp.is-swap
+- .rk [hidden], .rk[hidden]
+- .rk__segment > label
+- .rk
+- .rk__segment
+- .rk__inkomst
+- .rk__belopp
+- .rk__rad
+- .rk__rad > .rk__belopp
+- .rk__panel
+- .rk__talrad, .rk__stopp
+- .rk__resultat
+- .rk__segment > label
+- .rk
+- .rk__segment
+- .rk__inkomst
+- .rk__belopp
+- .rk__rad
+- .rk__rad > .rk__belopp
+- .rk__panel
+- .rk__talrad, .rk__stopp
+- .rk__resultat
+- .rk__segment > label
+- .rk
+- .rk__segment > label
+- .rk__segment > label
+- .rk
+- .rk__segment > label
+
+## rem -> px
+- 34rem -> 340px
+
+## Logg
+- dist/styles.css: 31651 tecken, 59 tokens, 32 systemregler, rem->px: 34rem -> 340px
+- dist/engine.js: 24976 tecken (12 motordelar + 9 rakna-delar + init(root)), 19 numeriska avgränsare -> vanliga tal
+- dist/backend.php: 17133 tecken
+- dist/fonts/Outfit-VariableFont_wght.woff2: 44696 byte, sha256 99bd3f38d485… (= sajtens fil)
+- preview/index.html + preview/host-sim.html + _build/host-rules-2026-09-20.css skrivna
+- php -l: No syntax errors detected in /Users/juliuscallahan/Desktop/Claude Code/rot-gt-calculator/produktion/dist/backend.php
+- php: shortcode-utdata byte-lika med preview-markupen i 4 fall (rot, gt, heading="" + h3, egen rubrik)

@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avdragskollen, snippet-paketet inuti sajtens CSS (host-sim)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<!-- preview-typsnitt: dist-CSS:ens @font-face pekar på sajtens /wp-content/uploads/fonts/ (404 lokalt utom i paritetsservern som mappar den);
+     samma bytes ur dist/fonts/ deklareras här som reserv så sidan renderar rätt även från fil. Inte en del av leveransen. -->
+<style>@font-face{font-family:"Outfit";src:url("../dist/fonts/Outfit-VariableFont_wght.woff2") format("woff2-variations"),url("../dist/fonts/Outfit-VariableFont_wght.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}</style>
+<link rel="stylesheet" href="../_build/host-rules-2026-09-20.css">
+<link rel="stylesheet" href="../dist/styles.css">
+<style>
+/* värdsidans chrome, inte en del av leveransen: samma spalt som kalkylator/v1 (style.css .rk-sida/.rk-spalt) med
+   tokens utlösta, så pariteten mäter kortet i exakt samma bredd (980 / 356,25 px). Roten är 16 px: 0 rem i paketet. */
+body { margin: 0; background: #fff; }
+.spalt { max-width: 980px; margin: 0 auto; padding: clamp(25px, 3.23vw + 14.7px, 56px) 0; }
+@media (max-width: 1040px) { .spalt { padding-inline: clamp(16px, 1.25vw + 12px, 28px); } }
+@media (max-width: 767px) { .spalt { padding: clamp(16px, 1.25vw + 12px, 28px); } }
+.spalt > * + * { margin-top: 56px; }
+</style>
+</head>
+<body>
+<main class="spalt">
+<!-- = [ampy_avdragskollen mode="rot"] : shortcodens returvärde, instans ak1 -->
+<div class="ampy-avdragskollen-outer"><div class="ampy-avdragskollen" lang="sv" data-mode="rot">
+  <h2 class="ampy-h2 rk__rubrik" id="ak1-rk-rubrik">Räkna ut ditt <span class="rk__ihop">ROT-avdrag</span></h2>
+  <section class="ampy-card rk" id="ak1-avdragskollen" aria-labelledby="ak1-rk-rubrik" data-mode="rot">
+
+    <form class="rk__fragor" id="ak1-rk-form" novalidate autocomplete="off">
+      <fieldset class="rk__fraga rk__fraga--ager">
+        <legend class="rk__etikett">Äger du din bostad?</legend>
+        <p class="rk__under" id="ak1-rk-under-1">Villa, radhus eller lägenhet. Helt eller delvis.</p>
+        <div class="ampy-segment rk__segment" data-q="ager">
+          <label><input type="radio" name="ak1-ager" value="ja" checked aria-describedby="ak1-rk-under-1"><span>Ja</span></label>
+          <label><input type="radio" name="ak1-ager" value="nej" aria-describedby="ak1-rk-under-1"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="rk__fraga rk__fraga--aldre">
+        <legend class="rk__etikett">Är bostaden äldre än fem år?</legend>
+        <div class="ampy-segment rk__segment" data-q="aldre">
+          <label><input type="radio" name="ak1-aldre" value="ja" checked><span>Ja</span></label>
+          <label><input type="radio" name="ak1-aldre" value="nej"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Åldern styr både 18-årsgränsen (67 kap. 11 §) och skatten: den som fyllt 66 vid årets ingång har förhöjt
+           grundavdrag och ett annat jobbskatteavdrag (63 kap. 3 a §, 67 kap. 8 §). Frågas därför, gissas inte ur inkomsttypen. -->
+      <fieldset class="rk__fraga rk__fraga--alder">
+        <legend class="rk__etikett">Hur gammal är du?</legend>
+        <p class="rk__under" id="ak1-rk-under-alder">Fyllde du 66 i år, välj 18 till 65.</p>
+        <div class="ampy-segment rk__segment rk__segment--tre" data-q="alder">
+          <label><input type="radio" name="ak1-alder-1" value="u18" aria-describedby="ak1-rk-under-alder"><span>Under 18</span></label>
+          <label><input type="radio" name="ak1-alder-1" value="18-65" checked aria-describedby="ak1-rk-under-alder"><span>18 till 65</span></label>
+          <label><input type="radio" name="ak1-alder-1" value="66+" aria-describedby="ak1-rk-under-alder"><span>Över 65</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Personerna i hushållet. Person 1 är den som svarar; fler personer läggs till ur mallen nedan och antas
+           bo i bostaden och uppfylla frågorna ovan (ägarbeslut 2026-09-14). -->
+      <div class="rk__personer" id="ak1-rk-personer" data-antal="1">
+        <div class="rk__person" data-person="1">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett" id="ak1-rk-person-etikett-1">Person 1</p>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="ak1-rk-inkomst-etikett-1">Din inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="ak1-typ-1" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="ak1-typ-1" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="ak1-typ-1" value="bada"><span>Båda</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-inkomst-1" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="ak1-rk-inkomst-etikett-1" aria-describedby="ak1-rk-enhet-1">
+                <span class="rk__enhet" id="ak1-rk-enhet-1">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="ak1-rk-pension-1">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-pension-1" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-pension-1">
+              <span class="rk__enhet" id="ak1-rk-enhet-pension-1">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="ak1-rk-ranta-1">Låneräntor förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-ranta-1" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-ranta-1">
+              <span class="rk__enhet" id="ak1-rk-enhet-ranta-1">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--anvant">
+            <label class="rk__etikett" for="ak1-rk-anvant-1">ROT och RUT du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-anvant-1" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-anvant-1 ak1-rk-under-anvant-1">
+              <span class="rk__enhet" id="ak1-rk-enhet-anvant-1">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak1-rk-under-anvant-1">Själva avdraget, inte hela fakturan.</p>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
+            <label class="rk__etikett" for="ak1-rk-gtanvant-1">Grön teknik du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-gtanvant-1" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-gtanvant-1 ak1-rk-under-gtanvant-1">
+              <span class="rk__enhet" id="ak1-rk-enhet-gtanvant-1">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak1-rk-under-gtanvant-1">Själva avdraget, inte hela fakturan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rk__lagg">
+        <button type="button" class="ampy-link rk__lank" id="ak1-rk-lagg">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+          Lägg till en person
+        </button>
+        <p class="rk__under rk__under--lagg">Bara för den som också äger bostaden.</p>
+      </div>
+
+      <template id="ak1-rk-personmall">
+        <div class="rk__person">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett" id="ak1-rk-person-etikett-N">Person 2</p>
+            <button type="button" class="ampy-link rk__lank rk__tabort">Ta bort</button>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="ak1-rk-inkomst-etikett-N">Inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="ak1-typ-N" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="ak1-typ-N" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="ak1-typ-N" value="bada"><span>Båda</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-inkomst-N" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="ak1-rk-person-etikett-N ak1-rk-inkomst-etikett-N" aria-describedby="ak1-rk-enhet-N">
+                <span class="rk__enhet" id="ak1-rk-enhet-N">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="ak1-rk-pension-N">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-pension-N" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-pension-N">
+              <span class="rk__enhet" id="ak1-rk-enhet-pension-N">kr</span>
+            </div>
+          </div>
+          <!-- div + radiogroup i stället för fieldset: fieldset kan inte vara flex-rad i Chrome (legend hamnar utanför) -->
+          <div class="rk__fraga rk__rad rk__fraga--alder" role="radiogroup" aria-labelledby="ak1-rk-alder-etikett-N">
+            <span class="rk__etikett" id="ak1-rk-alder-etikett-N">Ålder</span>
+            <div class="ampy-segment rk__segment" data-q="alder">
+              <label><input type="radio" name="ak1-alder-N" value="18-65" checked><span>18 till 65</span></label>
+              <label><input type="radio" name="ak1-alder-N" value="66+"><span>Över 65</span></label>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="ak1-rk-ranta-N">Låneräntor förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-ranta-N" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-ranta-N">
+              <span class="rk__enhet" id="ak1-rk-enhet-ranta-N">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--anvant">
+            <label class="rk__etikett" for="ak1-rk-anvant-N">ROT och RUT använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-anvant-N" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-anvant-N ak1-rk-under-anvant-N">
+              <span class="rk__enhet" id="ak1-rk-enhet-anvant-N">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak1-rk-under-anvant-N">Själva avdraget, inte hela fakturan.</p>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
+            <label class="rk__etikett" for="ak1-rk-gtanvant-N">Grön teknik använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak1-rk-gtanvant-N" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak1-rk-enhet-gtanvant-N ak1-rk-under-gtanvant-N">
+              <span class="rk__enhet" id="ak1-rk-enhet-gtanvant-N">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak1-rk-under-gtanvant-N">Själva avdraget, inte hela fakturan.</p>
+          </div>
+        </div>
+      </template>
+    </form>
+
+    <div class="rk__panel">
+      <div class="rk__resultat" id="ak1-rk-resultat" data-status="tak">
+        <div class="rk__huvud">
+          <p class="ampy-eyebrow rk__eyebrow" id="ak1-rk-eyebrow">Ditt tillgängliga <span class="rk__ihop">ROT-avdrag</span></p>
+
+          <div class="rk__talrad" id="ak1-rk-talrad" aria-live="polite" aria-atomic="true">
+            <span class="rk__prefix" id="ak1-rk-prefix">upp till</span>
+            <span class="rk__talpar"><span class="ampy-number rk__tal" id="ak1-rk-tal">50 000</span> <span class="rk__talenhet" id="ak1-rk-talenhet">kr</span></span>
+          </div>
+          <p class="rk__per" id="ak1-rk-per">Per person och år.</p>
+
+          <div class="rk__stopp" id="ak1-rk-stopp" aria-live="polite" aria-atomic="true" hidden>
+            <svg class="rk__x" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" focusable="false">
+              <circle cx="22" cy="22" r="22"/>
+              <g fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" transform="translate(10 10)">
+                <path d="M5 5l14 14M19 5L5 19"/>
+              </g>
+            </svg>
+            <p class="rk__stopptext" id="ak1-rk-stopptext"></p>
+          </div>
+          <p class="rk__fin" id="ak1-rk-fin">Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.</p>
+        </div>
+
+        <p class="rk__not" id="ak1-rk-not" aria-live="polite" aria-atomic="true" hidden></p>
+      </div>
+    </div>
+
+  </section>
+  <noscript><p class="rk__under">Kalkylatorn räknar i din webbläsare och behöver JavaScript.</p></noscript>
+</div></div>
+<!-- = [ampy_avdragskollen mode="gt"] : instans ak2 -->
+<div class="ampy-avdragskollen-outer"><div class="ampy-avdragskollen" lang="sv" data-mode="gt">
+  <h2 class="ampy-h2 rk__rubrik" id="ak2-rk-rubrik">Räkna ut ditt <span class="rk__ihop">grön teknik-avdrag</span></h2>
+  <section class="ampy-card rk" id="ak2-avdragskollen" aria-labelledby="ak2-rk-rubrik" data-mode="gt">
+
+    <form class="rk__fragor" id="ak2-rk-form" novalidate autocomplete="off">
+      <fieldset class="rk__fraga rk__fraga--ager">
+        <legend class="rk__etikett">Äger du din bostad?</legend>
+        <p class="rk__under" id="ak2-rk-under-1">Villa, radhus eller lägenhet. Helt eller delvis.</p>
+        <div class="ampy-segment rk__segment" data-q="ager">
+          <label><input type="radio" name="ak2-ager" value="ja" checked aria-describedby="ak2-rk-under-1"><span>Ja</span></label>
+          <label><input type="radio" name="ak2-ager" value="nej" aria-describedby="ak2-rk-under-1"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="rk__fraga rk__fraga--aldre">
+        <legend class="rk__etikett">Är bostaden äldre än fem år?</legend>
+        <div class="ampy-segment rk__segment" data-q="aldre">
+          <label><input type="radio" name="ak2-aldre" value="ja" checked><span>Ja</span></label>
+          <label><input type="radio" name="ak2-aldre" value="nej"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Åldern styr både 18-årsgränsen (67 kap. 11 §) och skatten: den som fyllt 66 vid årets ingång har förhöjt
+           grundavdrag och ett annat jobbskatteavdrag (63 kap. 3 a §, 67 kap. 8 §). Frågas därför, gissas inte ur inkomsttypen. -->
+      <fieldset class="rk__fraga rk__fraga--alder">
+        <legend class="rk__etikett">Hur gammal är du?</legend>
+        <p class="rk__under" id="ak2-rk-under-alder">Fyllde du 66 i år, välj 18 till 65.</p>
+        <div class="ampy-segment rk__segment rk__segment--tre" data-q="alder">
+          <label><input type="radio" name="ak2-alder-1" value="u18" aria-describedby="ak2-rk-under-alder"><span>Under 18</span></label>
+          <label><input type="radio" name="ak2-alder-1" value="18-65" checked aria-describedby="ak2-rk-under-alder"><span>18 till 65</span></label>
+          <label><input type="radio" name="ak2-alder-1" value="66+" aria-describedby="ak2-rk-under-alder"><span>Över 65</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Personerna i hushållet. Person 1 är den som svarar; fler personer läggs till ur mallen nedan och antas
+           bo i bostaden och uppfylla frågorna ovan (ägarbeslut 2026-09-14). -->
+      <div class="rk__personer" id="ak2-rk-personer" data-antal="1">
+        <div class="rk__person" data-person="1">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett" id="ak2-rk-person-etikett-1">Person 1</p>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="ak2-rk-inkomst-etikett-1">Din inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="ak2-typ-1" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="ak2-typ-1" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="ak2-typ-1" value="bada"><span>Båda</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-inkomst-1" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="ak2-rk-inkomst-etikett-1" aria-describedby="ak2-rk-enhet-1">
+                <span class="rk__enhet" id="ak2-rk-enhet-1">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="ak2-rk-pension-1">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-pension-1" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-pension-1">
+              <span class="rk__enhet" id="ak2-rk-enhet-pension-1">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="ak2-rk-ranta-1">Låneräntor förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-ranta-1" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-ranta-1">
+              <span class="rk__enhet" id="ak2-rk-enhet-ranta-1">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--anvant">
+            <label class="rk__etikett" for="ak2-rk-anvant-1">ROT och RUT du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-anvant-1" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-anvant-1 ak2-rk-under-anvant-1">
+              <span class="rk__enhet" id="ak2-rk-enhet-anvant-1">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak2-rk-under-anvant-1">Själva avdraget, inte hela fakturan.</p>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
+            <label class="rk__etikett" for="ak2-rk-gtanvant-1">Grön teknik du redan använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-gtanvant-1" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-gtanvant-1 ak2-rk-under-gtanvant-1">
+              <span class="rk__enhet" id="ak2-rk-enhet-gtanvant-1">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak2-rk-under-gtanvant-1">Själva avdraget, inte hela fakturan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rk__lagg">
+        <button type="button" class="ampy-link rk__lank" id="ak2-rk-lagg">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+          Lägg till en person
+        </button>
+        <p class="rk__under rk__under--lagg">Bara för den som också äger bostaden.</p>
+      </div>
+
+      <template id="ak2-rk-personmall">
+        <div class="rk__person">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett" id="ak2-rk-person-etikett-N">Person 2</p>
+            <button type="button" class="ampy-link rk__lank rk__tabort">Ta bort</button>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="ak2-rk-inkomst-etikett-N">Inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="ak2-typ-N" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="ak2-typ-N" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="ak2-typ-N" value="bada"><span>Båda</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-inkomst-N" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="ak2-rk-person-etikett-N ak2-rk-inkomst-etikett-N" aria-describedby="ak2-rk-enhet-N">
+                <span class="rk__enhet" id="ak2-rk-enhet-N">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="ak2-rk-pension-N">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-pension-N" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-pension-N">
+              <span class="rk__enhet" id="ak2-rk-enhet-pension-N">kr</span>
+            </div>
+          </div>
+          <!-- div + radiogroup i stället för fieldset: fieldset kan inte vara flex-rad i Chrome (legend hamnar utanför) -->
+          <div class="rk__fraga rk__rad rk__fraga--alder" role="radiogroup" aria-labelledby="ak2-rk-alder-etikett-N">
+            <span class="rk__etikett" id="ak2-rk-alder-etikett-N">Ålder</span>
+            <div class="ampy-segment rk__segment" data-q="alder">
+              <label><input type="radio" name="ak2-alder-N" value="18-65" checked><span>18 till 65</span></label>
+              <label><input type="radio" name="ak2-alder-N" value="66+"><span>Över 65</span></label>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="ak2-rk-ranta-N">Låneräntor förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-ranta-N" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-ranta-N">
+              <span class="rk__enhet" id="ak2-rk-enhet-ranta-N">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--anvant">
+            <label class="rk__etikett" for="ak2-rk-anvant-N">ROT och RUT använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-anvant-N" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-anvant-N ak2-rk-under-anvant-N">
+              <span class="rk__enhet" id="ak2-rk-enhet-anvant-N">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak2-rk-under-anvant-N">Själva avdraget, inte hela fakturan.</p>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
+            <label class="rk__etikett" for="ak2-rk-gtanvant-N">Grön teknik använt i år</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="ak2-rk-gtanvant-N" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="ak2-rk-enhet-gtanvant-N ak2-rk-under-gtanvant-N">
+              <span class="rk__enhet" id="ak2-rk-enhet-gtanvant-N">kr</span>
+            </div>
+            <p class="rk__under rk__under--rad" id="ak2-rk-under-gtanvant-N">Själva avdraget, inte hela fakturan.</p>
+          </div>
+        </div>
+      </template>
+    </form>
+
+    <div class="rk__panel">
+      <div class="rk__resultat" id="ak2-rk-resultat" data-status="tak">
+        <div class="rk__huvud">
+          <p class="ampy-eyebrow rk__eyebrow" id="ak2-rk-eyebrow">Ditt tillgängliga <span class="rk__ihop">grön teknik-avdrag</span></p>
+
+          <div class="rk__talrad" id="ak2-rk-talrad" aria-live="polite" aria-atomic="true">
+            <span class="rk__prefix" id="ak2-rk-prefix">upp till</span>
+            <span class="rk__talpar"><span class="ampy-number rk__tal" id="ak2-rk-tal">50 000</span> <span class="rk__talenhet" id="ak2-rk-talenhet">kr</span></span>
+          </div>
+          <p class="rk__per" id="ak2-rk-per">Per person och år.</p>
+
+          <div class="rk__stopp" id="ak2-rk-stopp" aria-live="polite" aria-atomic="true" hidden>
+            <svg class="rk__x" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" focusable="false">
+              <circle cx="22" cy="22" r="22"/>
+              <g fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" transform="translate(10 10)">
+                <path d="M5 5l14 14M19 5L5 19"/>
+              </g>
+            </svg>
+            <p class="rk__stopptext" id="ak2-rk-stopptext"></p>
+          </div>
+          <p class="rk__fin" id="ak2-rk-fin">Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.</p>
+        </div>
+
+        <p class="rk__not" id="ak2-rk-not" aria-live="polite" aria-atomic="true" hidden></p>
+      </div>
+    </div>
+
+  </section>
+  <noscript><p class="rk__under">Kalkylatorn räknar i din webbläsare och behöver JavaScript.</p></noscript>
+</div></div>
+</main>
+<script src="../dist/engine.js"></script>
+</body>
+</html>

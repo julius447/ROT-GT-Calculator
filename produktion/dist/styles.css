@@ -1,0 +1,448 @@
+/* =====================================================================================================================
+   AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 1/3, typ "CSS". Kör: Frontend, wp_head. Paket 1.0.0.
+   FORMAT-ONLY: byggd ur kalkylator/v1/style.css + kalkylator/system av produktion/_build/paketera.mjs. Redigera aldrig
+   här: ändra källorna och kör "node produktion/_build/paketera.mjs" + "node produktion/_build/paritet.mjs".
+   Allt ligger under .ampy-avdragskollen (tokens på wrappern, inga :root/html/body, 0 rem, @container för layouten).
+   Typsnittet: sajtens egen Outfit-fil (/wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2, sha256 99bd3f38…), samma bytes som dist/fonts/.
+   ===================================================================================================================== */
+
+/* ---------- 1. Outfit (variabel 100-900), samma fil som temat redan laddar: ingen extra nedladdning ---------- */
+@font-face {
+  font-family: "Outfit";
+  src: url("/wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2") format("woff2-variations"),
+       url("/wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- 2. Behållare + wrapper: designsystemets tokens (lager 2, --ampy-*) utlösta till literaler, plus basen ---------- */
+.ampy-avdragskollen-outer { container-type: inline-size; container-name: rk; }   /* = style.css .rk-behallare: kortet frågar sin egen bredd */
+.ampy-avdragskollen {
+  /* ytor, bläck, linjer, skuggor */
+  --ampy-action-strong: #007a69;
+  --ampy-bg-subtle: #f5f9ff;
+  --ampy-bg-surface: #ffffff;
+  --ampy-error-ink: #7a1623;
+  --ampy-field-track: rgba(9,11,50,.07);
+  --ampy-focus: #090b32;
+  --ampy-focus-ring: 0 0 0 3px rgba(0,122,105,.9);
+  --ampy-ink: #090b32;
+  --ampy-ink-body: #090b32;
+  --ampy-ink-faint: #6a7190;
+  --ampy-ink-muted: #565e82;
+  --ampy-line: rgba(9,11,50,.14);
+  --ampy-line-strong: rgba(9,11,50,.48);
+  --ampy-shadow-card: 0 10px 30px rgba(9,11,50,.07);
+  --ampy-shadow-subtle: 0 1px 2px rgba(9,11,50,.06);
+  /* radier och fält */
+  --ampy-field-fs: 16px;
+  --ampy-field-h: 48px;
+  --ampy-radius-card: clamp(16px, 0.42vw + 14.7px, 20px);
+  --ampy-radius-field: clamp(10px, 0.21vw + 9.3px, 12px);
+  --ampy-radius-small: clamp(6px, 0.21vw + 5.3px, 8px);
+  /* rörelse */
+  --ampy-dur-base: 200ms;
+  --ampy-dur-fast: 160ms;
+  --ampy-ease: cubic-bezier(.2,.6,.2,1);
+  --ampy-ease-out: cubic-bezier(.16,1,.3,1);
+  /* typografi */
+  --ampy-font: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ampy-lh-body: 1.5;
+  --ampy-lh-h3: 1.25;
+  --ampy-lh-heading: 1.2;
+  --ampy-lh-tight: 1;
+  --ampy-lh-ui: 1.4;
+  --ampy-ls-eyebrow: 0.14em;
+  --ampy-ls-heading: -0.01em;
+  --ampy-ls-number: -0.03em;
+  --ampy-measure: 62ch;
+  --ampy-text-body: clamp(16px, 0.21vw + 15.3px, 18px);
+  --ampy-text-button: 16px;
+  --ampy-text-eyebrow: 12px;
+  --ampy-text-fine: 13px;
+  --ampy-text-h2: clamp(26px, 1.04vw + 22.7px, 36px);
+  --ampy-text-label: 14px;
+  --ampy-text-number: clamp(38px, 1.989vw + 30.54px, 56px);
+  --ampy-text-small: clamp(14px, 0.21vw + 13.3px, 16px);
+  --ampy-w-body: 300;
+  --ampy-w-display: 700;
+  --ampy-w-heading: 500;
+  --ampy-w-medium: 500;
+  --ampy-w-strong: 600;
+  --ampy-w-ui: 400;
+  /* avstånd */
+  --ampy-space-2xs: clamp(8.2px, 0.18vw + 7.6px, 9.9px);
+  --ampy-space-3xs: clamp(6.6px, 0.05vw + 6.4px, 7px);
+  --ampy-space-4xs: clamp(4.9px, 0.03vw + 4.8px, 5.2px);
+  --ampy-space-card: var(--ampy-space-m);
+  --ampy-space-inline-sm: var(--ampy-space-2xs);
+  --ampy-space-inline-xs: var(--ampy-space-3xs);
+  --ampy-space-l: clamp(20px, 2.04vw + 13.5px, 39.6px);
+  --ampy-space-m: clamp(16px, 1.25vw + 12px, 28px);
+  --ampy-space-s: clamp(12.8px, 0.73vw + 10.5px, 19.8px);
+  --ampy-space-stack-lg: var(--ampy-space-l);
+  --ampy-space-xs: clamp(10.2px, 0.39vw + 9px, 14px);
+  /* basen: = :where(.ampy) (base.css) + body:s font-smoothing/text-rendering */
+  font-family: var(--ampy-font); font-size: var(--ampy-text-body); font-weight: var(--ampy-w-body); line-height: var(--ampy-lh-body); color: var(--ampy-ink-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+
+/* ---------- 3-4. Scopad reset + rollklasser + fokus + reduced motion (base.css, bara elementen som finns i markupen) ---------- */
+.ampy-avdragskollen *, .ampy-avdragskollen *::before, .ampy-avdragskollen *::after { box-sizing: border-box; }
+.ampy-avdragskollen svg { max-width: 100%; display: inline-block; vertical-align: -0.15em; }
+.ampy-avdragskollen button, .ampy-avdragskollen input { font: inherit; color: inherit; }
+.ampy-avdragskollen h2, .ampy-avdragskollen h3, .ampy-avdragskollen p { margin: 0; }
+.ampy-avdragskollen .ampy-h2 { font-family: var(--ampy-font); font-size: var(--ampy-text-h2);      font-weight: var(--ampy-w-heading); line-height: var(--ampy-lh-heading); letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink); text-wrap: balance; }
+.ampy-avdragskollen .ampy-eyebrow { font-family: var(--ampy-font); font-size: var(--ampy-text-eyebrow); font-weight: var(--ampy-w-strong);  line-height: var(--ampy-lh-body);    letter-spacing: var(--ampy-ls-eyebrow); text-transform: uppercase; color: var(--ampy-ink-muted); }
+.ampy-avdragskollen .ampy-number { font-family: var(--ampy-font); font-size: var(--ampy-text-number);  font-weight: var(--ampy-w-display); line-height: var(--ampy-lh-tight);   letter-spacing: var(--ampy-ls-number); color: var(--ampy-ink); font-variant-numeric: tabular-nums lining-nums; }
+.ampy-avdragskollen p { max-width: var(--ampy-measure); }
+.ampy-avdragskollen ::selection { background: rgba(0,169,145,.22); color: var(--ampy-ink); }
+.ampy-avdragskollen :focus-visible {
+  outline: 3px solid var(--ampy-focus); outline-offset: 3px; border-radius: var(--ampy-radius-small);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ampy-avdragskollen *, .ampy-avdragskollen *::before, .ampy-avdragskollen *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- 5. Komponenter (text.css, ytor.css, falt.css, knappar.css): bara reglerna som träffar markupen ---------- */
+.ampy-avdragskollen .ampy-eyebrow { display: inline-flex; align-items: center; gap: var(--ampy-space-inline-sm); }
+.ampy-avdragskollen .ampy-card {
+  position: relative;
+  background: var(--ampy-bg-surface);
+  border: 1px solid var(--ampy-line);
+  border-radius: var(--ampy-radius-card);
+  box-shadow: var(--ampy-shadow-card);
+  padding: var(--ampy-space-card);
+  color: var(--ampy-ink-body);
+}
+.ampy-avdragskollen .ampy-card > :first-child { margin-top: 0; }
+.ampy-avdragskollen .ampy-card > :last-child { margin-bottom: 0; }
+.ampy-avdragskollen .ampy-input {
+  width: 100%; min-width: 0;
+  min-height: var(--_h, var(--ampy-field-h));
+  padding: 0 var(--ampy-space-xs);
+  font-family: var(--ampy-font); font-size: var(--ampy-field-fs); font-weight: var(--ampy-w-ui); line-height: 1.3;
+  color: var(--ampy-ink);
+  background: var(--ampy-bg-surface);
+  border: 1px solid var(--ampy-line-strong);
+  border-radius: var(--ampy-radius-field);
+  -webkit-appearance: none; appearance: none;
+  transition: border-color var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease), background-color var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-avdragskollen .ampy-input::placeholder { color: var(--ampy-ink-faint); opacity: 1; }
+.ampy-avdragskollen .ampy-input:hover { border-color: var(--ampy-ink-muted); }
+.ampy-avdragskollen .ampy-input:focus-visible {
+  outline: 0; border-color: var(--ampy-action-strong); box-shadow: var(--ampy-focus-ring);
+}
+.ampy-avdragskollen .ampy-input--tabular { font-variant-numeric: tabular-nums lining-nums; }
+.ampy-avdragskollen .ampy-segment {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px;
+  background: var(--ampy-field-track); border-radius: var(--ampy-radius-field);
+  min-width: 0; container-type: inline-size;
+}
+.ampy-avdragskollen .ampy-segment > label {
+  position: relative; min-height: 40px; min-width: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: var(--ampy-space-3xs) var(--ampy-space-4xs);
+  font-family: var(--ampy-font); font-size: var(--ampy-text-small); font-weight: var(--ampy-w-strong); line-height: 1.2;
+  color: var(--ampy-ink-muted); background: transparent; border: 0; border-radius: var(--ampy-radius-small);
+  text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+  transition: background-color var(--ampy-dur-fast) var(--ampy-ease), color var(--ampy-dur-fast) var(--ampy-ease), box-shadow var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-avdragskollen .ampy-segment > label input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.ampy-avdragskollen .ampy-segment > label:hover { color: var(--ampy-ink); }
+.ampy-avdragskollen .ampy-segment > label:has(input:checked) {
+  background: var(--ampy-bg-surface); color: var(--ampy-action-strong); box-shadow: var(--ampy-shadow-subtle);
+}
+.ampy-avdragskollen .ampy-segment > label:has(input:focus-visible) { outline: 0; box-shadow: var(--ampy-focus-ring); }
+@container (max-width: 340px) { .ampy-avdragskollen .ampy-segment > label { padding-inline: 3px; font-size: var(--ampy-text-fine); } }
+@media (prefers-reduced-motion: reduce) {
+  .ampy-avdragskollen .ampy-segment > * { transition: none; }
+}
+.ampy-avdragskollen .ampy-link {
+  display: inline-flex; align-items: center; gap: var(--ampy-space-inline-xs);
+  min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+  font-family: var(--ampy-font); font-size: var(--ampy-text-label); font-weight: var(--ampy-w-medium); line-height: var(--ampy-lh-ui);
+  color: var(--ampy-action-strong);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+  transition: color var(--ampy-dur-fast) var(--ampy-ease);
+}
+.ampy-avdragskollen .ampy-link:hover { color: var(--ampy-ink); text-decoration-thickness: 2px; }
+.ampy-avdragskollen .ampy-link:focus-visible { outline: 2px solid var(--ampy-focus); outline-offset: 3px; border-radius: var(--ampy-radius-small); }
+.ampy-avdragskollen .ampy-link svg { width: 15px; height: 15px; flex: 0 0 auto; }
+
+/* ---------- 6. Kalkylatorn (kalkylator/v1/style.css verbatim med prefix; demosidans .rk-sida/.rk-spalt utelämnade) ---------- */
+/* ---------- Rubriken: en riktig artikel-H2 ovanför kortet (.ampy-h2 36/500/1,2) ---------- */
+.ampy-avdragskollen .rk__rubrik { margin: 0 0 var(--ampy-space-stack-lg); }                /* rubrik -> block 39,6 / 21,5, som LED-kalkylatorn */
+
+/* ---------- Kortet ---------- */
+.ampy-avdragskollen .rk {
+  --rk-pad-x: var(--ampy-space-l);        /* kortpadding 39,6 / 21,5 (brief 32 till 40 / 20 till 24) */
+  --rk-pad-y: var(--ampy-space-l);
+  --rk-gap-q: var(--ampy-space-m);        /* fråga -> fråga 28 (mobil: se nedan) */
+  --rk-gap-sub: var(--ampy-space-3xs);    /* fråga -> underrad 7 / 6,6 */
+  --rk-gap-ctl: max(12px, var(--ampy-space-xs));   /* underrad -> kontroll 14 / 12: xs faller till 10,5 på mobil, briefens golv är 12 */
+  --rk-text-fraga: 20px;                   /* frågor 20/500 (h3-tokenen är 22 vid 1440, briefen säger 20) */
+  --rk-text-under: 16px;                   /* underrad, "Per person och år.", femårsraden: 16/400 (small-tokenen faller till 14 på mobil) */
+  --rk-text-tal: var(--ampy-text-number); /* 56 vid 1440; 44 på mobil (nedan) */
+  --rk-text-enhet: calc(var(--rk-text-tal) * .5);   /* "upp till"/"ca" och "kr": halva talet (28 / 22), som LED-kalkylatorns kr/år */
+  --rk-text-stopp: 18px;                   /* stoppbeskedet 18/500 på båda skärmar (briefen) */
+  --rk-text-siffror: 18px;                 /* siffrorna i beloppsfältet */
+  --rk-text-fin: 14px;                     /* disclaimern under talet (research/10 §4.4): en rad, dämpad */
+  --rk-text-rad: 18px;                     /* etiketter på detaljraderna (ränta, använt, ålder, pension) */
+  --rk-seg-min: 88px;                      /* minsta bredd per alternativ (briefen); "Pension" i 600 + padding är 84,3 så spåret byter inte bredd när vikten byter */
+  /* Talblockets höjd: talraden + luft + "Per person och år." (56 + 9,9 + 22,4 = 88,3 / 44 + 8,3 + 22,4 = 74,7).
+     Stoppblocket får samma höjd så etiketten och panelen står stilla när talet byts mot X + besked. */
+  --rk-huvud-h: calc(var(--rk-text-tal) + var(--ampy-space-2xs) + var(--rk-text-under) * var(--ampy-lh-ui));
+
+  display: grid;
+  grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);              /* 55 / 45 */
+  padding: 0;
+  overflow: visible;
+}
+
+/* Två spalter: talet får inte vara större än att "upp till 50 000 kr" ryms på en rad i panelen (45 % av behållaren
+   minus 2 x 39,6 px padding). Raden mäter 5,22 x talstorleken; faktorn 5,4 ger 3 % marginal (research/13 M4, P6).
+   Detaljradernas fält i höger kant även när etiketten är lång (research/13 m1, P7). */
+@container rk (min-width: 720px) {
+  .ampy-avdragskollen .rk { --rk-text-tal: clamp(40px, calc((45cqi - 80px) / 5.4), var(--ampy-text-number)); }
+  .ampy-avdragskollen .rk__rad > .rk__belopp { margin-left: auto; }
+}
+/* Sexsiffriga summor (hushåll, "upp till 200 000 kr") ett steg mindre så raden håller i artikelspalten (research/13 m4) */
+.ampy-avdragskollen .rk__tal--lang { font-size: calc(var(--rk-text-tal) * .86); }
+
+/* ---------- Vänster: frågorna ---------- */
+.ampy-avdragskollen .rk__fragor { display: flex; flex-direction: column; gap: var(--rk-gap-q); padding: var(--rk-pad-y) var(--rk-pad-x); min-width: 0; }
+
+.ampy-avdragskollen .rk__fraga { border: 0; margin: 0; padding: 0; min-width: 0; min-inline-size: 0; }
+.ampy-avdragskollen .rk[data-mode="gt"] .rk__fraga--aldre { display: none; }              /* fem år påverkar bara ROT: frågan visas inte i grön teknik-läget */
+.ampy-avdragskollen .rk__etikett {
+  display: block; padding: 0; margin: 0;
+  font-family: var(--ampy-font); font-size: var(--rk-text-fraga); font-weight: var(--ampy-w-medium);
+  line-height: var(--ampy-lh-h3); letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink);
+}
+.ampy-avdragskollen .rk__under {
+  margin: var(--rk-gap-sub) 0 0;
+  font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
+  max-width: none; text-wrap: pretty;                                    /* ingen ensam "delvis." på sista raden vid 375 */
+}
+.ampy-avdragskollen .rk__fraga > .rk__segment, .ampy-avdragskollen .rk__fraga > .rk__inkomst, .ampy-avdragskollen .rk__fraga > .rk__belopp { margin-top: var(--rk-gap-ctl); }
+
+/* Personerna i hushållet: person 1 utan huvud; från två personer visas "Person N" som eyebrow (+ Ta bort) och en
+   hårlinje mellan blocken. Fråga -> fråga inom blocket = samma rytm som resten av formuläret. */
+.ampy-avdragskollen .rk__personer { display: flex; flex-direction: column; gap: var(--rk-gap-q); }
+.ampy-avdragskollen .rk__person > * + * { margin-top: var(--rk-gap-q); }
+.ampy-avdragskollen .rk__person > .rk__personhuvud + * { margin-top: var(--ampy-space-2xs); }   /* eyebrow -> fråga 9,9 / 8,3 */
+.ampy-avdragskollen .rk__person + .rk__person { padding-top: var(--ampy-space-s); border-top: 1px solid var(--ampy-line); }
+.ampy-avdragskollen .rk__personer[data-antal="1"] .rk__personhuvud { display: none; }
+.ampy-avdragskollen .rk__personhuvud { display: flex; align-items: center; justify-content: space-between; gap: var(--ampy-space-s); min-height: 24px; }
+.ampy-avdragskollen .rk__personetikett { margin: 0; }
+
+/* Textlänkarna (systemets .ampy-link, 14 -> 16 px för en 55-åring); "Ta bort" utan 44-boxen på fin pekare så
+   eyebrow-raden håller sin höjd, 44 px träffyta på touch */
+.ampy-avdragskollen .rk__lank { font-size: var(--rk-text-under); }
+.ampy-avdragskollen .rk__lank svg { width: 16px; height: 16px; }
+.ampy-avdragskollen .rk__lagg { margin-top: calc(var(--ampy-space-2xs) - var(--rk-gap-q)); }   /* 44-boxen: textens överkant hamnar ~ 20 px under sista fältet */
+.ampy-avdragskollen .rk__tabort { min-height: 0; }
+@media (any-pointer: coarse) { .ampy-avdragskollen .rk__tabort { min-height: 44px; margin-block: -10px; } }
+
+/* Inline-rader (bolåneränta, ROT och RUT använt, grön teknik använt, ålder för person 2+): etiketten till vänster,
+   ett kort fält eller ett segment i höger kant, i linje med inkomstfältet (bankblankettens mönster; på mobil etikett
+   ovanför fullbreddskontroll). Fältet 140 px rymmer "50 000" med marginal och raden håller i artikelspaltens 377 px
+   (etikett 216 + gap 14 + 140; en wrap-behållare krymper inte, den bryter). */
+.ampy-avdragskollen .rk__rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }
+.ampy-avdragskollen .rk__rad > .rk__etikett { flex: 0 1 auto; font-size: var(--rk-text-rad); }   /* detaljrader ett steg under frågorna: 18 mot 20 */
+.ampy-avdragskollen .rk__person > .rk__rad { margin-top: var(--ampy-space-s); }               /* detaljraderna hänger ihop med inkomsten: 19,8 mellan raderna, 28 mellan frågorna */
+.ampy-avdragskollen .rk__rad > .rk__belopp { flex: 0 0 140px; margin-top: 0; }
+.ampy-avdragskollen .rk__rad > .rk__segment { margin-top: 0; }
+.ampy-avdragskollen .rk__under--rad { flex-basis: 100%; margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
+.ampy-avdragskollen .rk[data-mode="rot"] .rk__fraga--gtanvant { display: none; }           /* ett använt-fält per läge: posterna hålls isär (ägarbeslut 2026-09-16) */
+.ampy-avdragskollen .rk[data-mode="gt"] .rk__fraga--anvant { display: none; }
+.ampy-avdragskollen .rk__person:not([data-typ="bada"]) .rk__fraga--pension { display: none; }   /* pensionsraden bara när "Båda" är valt */
+.ampy-avdragskollen .rk__segment--tre { grid-auto-columns: 1fr; }                            /* tre lika breda val: Under 18 / 18 till 65 / Över 65 */
+.ampy-avdragskollen .rk__under--lagg { margin-top: 0; }                                      /* raden under "Lägg till en person": bara ägare får avdraget */
+
+/* Segment: 48 px spår (4 px padding, 40 px alternativ) som LED-kalkylatorn, bredd efter text, minst 88 px per val.
+   Valt läge = vit pill + teal-deep text (systemet) + vikt 600 mot 500: tre signaler, inte bara färg. */
+.ampy-avdragskollen .rk__segment {
+  display: inline-grid; grid-auto-columns: 1fr;                         /* lika breda val, bredden ur den längsta texten */
+  container-type: normal;
+}
+.ampy-avdragskollen .rk__segment > label {
+  min-width: var(--rk-seg-min); min-height: 40px; padding-inline: var(--ampy-space-xs);
+  font-size: var(--ampy-text-button); font-weight: var(--ampy-w-medium);
+}
+.ampy-avdragskollen .rk__segment > label:has(input:checked) { font-weight: var(--ampy-w-strong); }
+/* Touch: tryckytan är hela alternativet, 44 px i det 48 px höga spåret (2 px spår runt i stället för 4) */
+@media (any-pointer: coarse) {
+  .ampy-avdragskollen .rk__segment.ampy-segment { padding: 2px; }
+  .ampy-avdragskollen .rk__segment > label { min-height: 44px; }
+}
+
+/* Inkomstraden: typ-väljare + belopp på samma rad */
+.ampy-avdragskollen .rk__inkomst { display: flex; flex-wrap: wrap; gap: var(--ampy-space-xs); align-items: center; }
+.ampy-avdragskollen .rk__belopp { position: relative; flex: 1 1 150px; min-width: 0; }   /* basis 150: i artikelspalten (832 -> vänsterspalt 378) ryms segment + fält på en rad; "1 200 000" behöver 148 */
+.ampy-avdragskollen .rk__input {
+  width: 100%; padding-right: calc(var(--ampy-space-xs) + var(--ampy-space-2xs) + 1.1em); text-align: right;   /* plats för kr-suffixet */
+  font-size: var(--rk-text-siffror); font-weight: var(--ampy-w-medium); color: var(--ampy-ink);
+}
+.ampy-avdragskollen .rk__input::placeholder { font-weight: var(--ampy-w-ui); }
+.ampy-avdragskollen .rk__enhet {
+  position: absolute; right: var(--ampy-space-xs); top: 50%; transform: translateY(-50%);
+  font-size: var(--ampy-text-button); font-weight: var(--ampy-w-ui); color: var(--ampy-ink-muted); pointer-events: none;
+}
+
+/* ---------- Höger: beskedet ---------- */
+.ampy-avdragskollen .rk__panel {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--rk-pad-y) var(--rk-pad-x);
+  background: var(--ampy-bg-subtle);
+  border-left: 1px solid var(--ampy-line);
+  border-radius: 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px) 0;
+  min-width: 0;
+}
+/* Tre rader: luft / huvudbeskedet / luft. Huvudet (etikett, tal, underrad) ligger alltid mitt i panelen och
+   flyttar sig inte när femårsraden dyker upp; raden får plats i den nedre luften. På mobil (auto-höjd) blir
+   luften 0 och raden följer direkt under. */
+.ampy-avdragskollen .rk__resultat { flex: 1 1 auto; display: grid; grid-template-rows: 1fr auto 1fr; min-width: 0; }
+.ampy-avdragskollen .rk__huvud { grid-row: 2; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.ampy-avdragskollen .rk__eyebrow { display: block; margin: 0; }                              /* block i stället för systemets inline-flex: etiketten får radbrytas ("Ert tillgängliga grön teknik-avdrag"), med "grön teknik-avdrag" ihop */
+
+.ampy-avdragskollen .rk__talrad {
+  display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--ampy-space-2xs);
+  margin-top: var(--ampy-space-xs);                                     /* etikett -> tal 14 / 10,5 */
+}
+.ampy-avdragskollen .rk__talpar { display: inline-flex; align-items: baseline; column-gap: var(--ampy-space-2xs); white-space: nowrap; }   /* talet och kr hålls ihop: bryts raden hamnar "upp till" ensam på första raden, aldrig "kr" ensam på sista */
+.ampy-avdragskollen .rk__prefix, .ampy-avdragskollen .rk__talenhet {
+  font-size: var(--rk-text-enhet); font-weight: var(--ampy-w-medium); line-height: 1;
+  letter-spacing: var(--ampy-ls-heading); color: var(--ampy-ink-muted);
+}
+.ampy-avdragskollen .rk__tal { font-size: var(--rk-text-tal); }
+.ampy-avdragskollen .rk__per {
+  margin: var(--ampy-space-2xs) 0 0;                                    /* tal -> underrad 9,9 / 8,3 */
+  font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
+}
+.ampy-avdragskollen .rk__fin {
+  margin: var(--ampy-space-2xs) 0 0;
+  font-size: var(--rk-text-fin); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-muted);
+  max-width: none; text-wrap: pretty;
+}
+.ampy-avdragskollen .rk__not {
+  grid-row: 3; align-self: start;
+  margin: var(--ampy-space-s) 0 0; padding-top: var(--ampy-space-s);
+  border-top: 1px solid var(--ampy-line);
+  font-size: var(--rk-text-under); font-weight: var(--ampy-w-ui); line-height: var(--ampy-lh-ui); color: var(--ampy-ink-body);
+  max-width: none;
+}
+
+/* Stoppläget: rött X och beskedet på en rad, mitt för varandra, i talblockets höjd (ingenting hoppar) */
+.ampy-avdragskollen .rk__stopp {
+  display: flex; align-items: center; gap: var(--ampy-space-s);
+  margin-top: var(--ampy-space-xs);                                     /* samma avstånd från etiketten som talraden */
+  min-height: var(--rk-huvud-h);
+}
+.ampy-avdragskollen .rk__x { width: 44px; height: 44px; display: block; flex: 0 0 auto; }
+.ampy-avdragskollen .rk__x circle { fill: var(--ampy-error-ink); }
+.ampy-avdragskollen .rk__stopptext {
+  margin: 0; min-width: 0;
+  font-size: var(--rk-text-stopp); font-weight: var(--ampy-w-medium); line-height: 1.35; color: var(--ampy-ink);
+  max-width: none; text-wrap: pretty;
+}
+.ampy-avdragskollen .rk__ihop { white-space: nowrap; display: inline-block; }                /* "grön teknik-avdrag" bryts aldrig: nowrap stoppar mellanslaget, inline-block stoppar bindestrecket (Chrome bryter annars efter "-" även i nowrap, sett i probens gt-skärmdump) */
+.ampy-avdragskollen .rk__resultat[data-status="stopp"] :is(.rk__talrad, .rk__per, .rk__not) { display: none; }
+.ampy-avdragskollen .rk__resultat[data-status="stopp"] .rk__fin { visibility: hidden; }     /* disclaimern behåller sin plats (kan radbrytas olika på olika bredder) så stoppläget inte flyttar något */
+
+/* Talet byts med en kort intoning; aldrig count-up. base.css nollar tiden vid reduced motion. */
+@keyframes rk-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.ampy-avdragskollen .rk__talrad.is-swap, .ampy-avdragskollen .rk__stopp.is-swap { animation: rk-in var(--ampy-dur-base) var(--ampy-ease-out); }
+
+.ampy-avdragskollen .rk [hidden], .ampy-avdragskollen .rk[hidden] { display: none !important; }              /* scopat: ingen global regel får skeppas (research/14 B2) */
+
+/* ---------- Staplat läge: frågorna först, beskedet som fullbreddsblock under ----------
+   Styrs av BEHÅLLARENS bredd (container query), inte skärmens: samma kort ligger i artikelspalten (832 px -> två
+   spalter), i högerspalten (384 px -> staplat) och på en telefon (356 px -> staplat). Behållaren är .rk-behallare
+   (demosidan: main.rk-spalt). Reglerna står två gånger: en gång som @container, en gång som @media-reserv för
+   webbläsare utan container queries (Safari < 16). Ändra båda. */
+@container rk (max-width: 719px) {
+  .ampy-avdragskollen .rk__segment > label { min-width: 0; }                                /* 1fr-spåren delar bredden; 88-golvet gäller inline-grid på desktop (research/13 M3, P5) */
+  .ampy-avdragskollen .rk {
+    --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
+    --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
+    --rk-panel-pad-y: 28px;                 /* panelen får mer luft upptill och nedtill än frågorna (21,5) */
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ampy-avdragskollen .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
+  .ampy-avdragskollen .rk__inkomst { flex-direction: column; align-items: stretch; }
+  .ampy-avdragskollen .rk__belopp { flex: 1 1 auto; }
+  .ampy-avdragskollen .rk__rad { flex-direction: column; align-items: stretch; }
+  .ampy-avdragskollen .rk__rad > .rk__belopp { flex: 0 0 auto; }
+  .ampy-avdragskollen .rk__panel {
+    padding-block: var(--rk-panel-pad-y);
+    border-left: 0; border-top: 1px solid var(--ampy-line);
+    border-radius: 0 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px);
+  }
+  .ampy-avdragskollen .rk__talrad, .ampy-avdragskollen .rk__stopp { margin-top: 14px; }                          /* etikett -> tal 14 som på desktop (xs-steget är 10,5 vid 390); tal -> underrad 8,3 som förut (ingår i --rk-huvud-h) */
+  .ampy-avdragskollen .rk__resultat { display: flex; flex-direction: column; }             /* auto-höjd: 1fr-raderna skulle annars ärva femårsradens höjd */
+}
+@supports not (container-type: inline-size) {
+  @media (max-width: 767px) {
+    .ampy-avdragskollen .rk__segment > label { min-width: 0; }
+    .ampy-avdragskollen .rk {
+      --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
+      --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
+      --rk-panel-pad-y: 28px;                 /* panelen får mer luft upptill och nedtill än frågorna (21,5) */
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .ampy-avdragskollen .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
+    .ampy-avdragskollen .rk__inkomst { flex-direction: column; align-items: stretch; }
+    .ampy-avdragskollen .rk__belopp { flex: 1 1 auto; }
+    .ampy-avdragskollen .rk__rad { flex-direction: column; align-items: stretch; }
+    .ampy-avdragskollen .rk__rad > .rk__belopp { flex: 0 0 auto; }
+    .ampy-avdragskollen .rk__panel {
+      padding-block: var(--rk-panel-pad-y);
+      border-left: 0; border-top: 1px solid var(--ampy-line);
+      border-radius: 0 0 calc(var(--ampy-radius-card) - 1px) calc(var(--ampy-radius-card) - 1px);
+    }
+    .ampy-avdragskollen .rk__talrad, .ampy-avdragskollen .rk__stopp { margin-top: 14px; }                          /* etikett -> tal 14 som på desktop (xs-steget är 10,5 vid 390); tal -> underrad 8,3 som förut (ingår i --rk-huvud-h) */
+    .ampy-avdragskollen .rk__resultat { display: flex; flex-direction: column; }             /* auto-höjd: 1fr-raderna skulle annars ärva femårsradens höjd */
+  }
+}
+
+/* 320-telefoner (iPhone SE, Galaxy S9+): tre val i 78 px-spår och talet 44 så "upp till 50 000 kr" håller en rad
+   (research/13 M3 P5, m3 P9). Under 300 px behållare (320 i artikeln): 15 px i valen. */
+@container rk (max-width: 339px) {
+  .ampy-avdragskollen .rk__segment > label { padding-inline: 5px; }
+  .ampy-avdragskollen .rk { --rk-text-tal: 44px; }
+}
+@container rk (max-width: 299px) { .ampy-avdragskollen .rk__segment > label { font-size: 15px; } }
+@supports not (container-type: inline-size) {
+  @media (max-width: 372px) { .ampy-avdragskollen .rk__segment > label { padding-inline: 5px; } .ampy-avdragskollen .rk { --rk-text-tal: 44px; } }
+  @media (max-width: 332px) { .ampy-avdragskollen .rk__segment > label { font-size: 15px; } }
+}
+
+/* ---------- Skydd mot värdsidans element-regler ----------
+   Bricks frontend ligger i @layer bricks och förlorar mot allt ovan, men label{margin-bottom:5px} träffar en egenskap vi
+   inte sätter, och sajtens egen snippet "14-global-css" sätter input:focus{border-color:#5EB1BF!important} (olagrad,
+   !important). Bevis: research/14 §2.1 M1-M2, §3.2 block 7. Värdena = v1:s egna (falt.css:79), ingen pixel ändras. */
+.ampy-avdragskollen fieldset { min-width: 0; border: 0; padding: 0; margin: 0;  }
+.ampy-avdragskollen legend { padding: 0;  max-width: none; }
+.ampy-avdragskollen label { margin: 0;  }
+.ampy-avdragskollen button { text-transform: none; letter-spacing: normal;  text-align: center; appearance: auto; }
+.ampy-avdragskollen .rk__input:focus { border-color: var(--ampy-line-strong) !important; }              /* fokus utan tangentbord: samma kant som i vila (som i v1) */
+.ampy-avdragskollen .rk__input:focus-visible { border-color: var(--ampy-action-strong) !important; }     /* tangentbordsfokus: teal-deep (falt.css:79) */
+
+/* ---------- Manifest (skrivet av paketera.mjs) ----------
+   Källor (sha256):
+     kalkylator/v1/style.css  b707a019d438a7cee62cad6439661bcd7d8b35d2ba0df39c7b4d6994dafae505
+     kalkylator/system/tokens.css  1f5299c26dbe001bb39d14ee0b4b4bafa0ffb9de40154c6347f995f22901691e
+     kalkylator/system/base.css  54751da13353776c55e3ae895641189142e74f210deced246230149179ea7201
+     kalkylator/system/components/text.css  503fd1160db167db5dff383be22ead97e018abdd1d735cb7788ae374eeacffac
+     kalkylator/system/components/ytor.css  54577de06a627db171370d76986cdc929cb24434c6e29be0ed6650cb35c85fbb
+     kalkylator/system/components/falt.css  8b8e5c52adb24a85a47653184d415fd7cb515e46774f15bd1ee178f583889c60
+     kalkylator/system/components/knappar.css  f1052791af292504a3982b14f278aed8fe31c259f8fe1863a80ffeeeb2c9f73b
+     kalkylator/artikel/bas-inbaddad.css  0e7a22cfd988dcb132074d4aa44c1976f04d3a3176fb92c88dfc2a6353949a46
+     kalkylator/artikel/artikel.css  5109beb3f4c94fb3054bc29e23df7b15d50bcaa9e0c6b76f6133332077f933ad
+   rem -> px: 34rem -> 340px
+   Tokens på wrappern: 59 st
+   Systemregler som togs med: 32 st, slängda som inte kan träffa markupen: 427 st (listan skrivs av bygget)
+   ---------- */
