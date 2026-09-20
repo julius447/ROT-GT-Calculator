@@ -36,7 +36,7 @@ for (const r of j.resultat) {
     const tryckMin = touch ? Math.min(...s.tillstand.map((t) => Math.min(t.tryck.labelMinH, t.tryck.laggH ?? 99, ...(t.tryck.tabortH.length ? t.tryck.tabortH : [99])))) : null;
     const tryckTxt = touch ? `${coarse ? '' : '(ej coarse) '}min ${tryckMin} px (val ${Math.min(...s.tillstand.map((t) => t.tryck.labelMinH))} / lägg ${Math.min(...s.tillstand.map((t) => t.tryck.laggH ?? 99))} / ta bort ${Math.min(...s.tillstand.flatMap((t) => t.tryck.tabortH.length ? t.tryck.tabortH : [99]))})` : 'fin pekare';
     const inputFs = Math.min(...s.tillstand.map((t) => t.inputFsMin));
-    const skift = s.tillstand.filter((t) => t.skift && (Math.abs(t.skift.eyebrow || 0) > 0.5 || Math.abs(t.skift.panelT || 0) > 0.5 || Math.abs(t.skift.cardH || 0) > 0.5)).map((t) => `${t.tillstand}: eyebrow ${t.skift.eyebrow ?? '-'} / panel ${t.skift.panelT ?? '-'} / kort ${t.skift.cardH}`);
+    const skift = s.tillstand.filter((t) => t.skift && t.tillstand.startsWith('stopp') && (Math.abs(t.skift.eyebrow || 0) > 0.5 || Math.abs(t.skift.panelT || 0) > 0.5 || Math.abs(t.skift.cardH || 0) > 0.5)).map((t) => `${t.tillstand}: eyebrow ${t.skift.eyebrow ?? '-'} / panel ${t.skift.panelT ?? '-'} / kort ${t.skift.cardH}`);
     const fasta = s.tackning ? Object.entries(s.tackning).flatMap(([lage, v]) => v.ut.map((u) => `${lage}: ${u.el} ${u.w}×${u.h}`)) : [];
     const fel = s.fel.length ? s.fel.slice(0, 2) : [];
     const enter = s.enter ? (s.enter.url && s.enter.loads === 1 ? 'ok' : `FEL url=${s.enter.url} loads=${s.enter.loads}`) : '-';
@@ -48,29 +48,27 @@ for (const r of j.resultat) {
     const marg = t0.marginaler ? `marg per/fin ${t0.marginaler['#rk-per']}/${t0.marginaler['#rk-fin']}` : '';
 
     const not = [];
-    not.push(`${t0.contW} px -> ${t0.cols} kol${colsFel.length ? ' FEL ' + colsFel.join('; ') : ''}`);
+    not.push(`behållare ${Math.round(t0.contW)} px, ${t0.cols} kol${colsFel.length ? ' (FEL: ' + colsFel.join('; ') + ')' : ''}`);
     if (kr.length) not.push(`"kr" ensamt: ${kr.join(', ')}`);
-    if (prefixRad.length) not.push(`prefix egen rad: ${prefixRad.join(', ')}`);
-    if (talparUt.length) not.push(`tal utanför panel: ${talparUt.join(', ')}`);
-    if (fras.length) not.push(`fras: ${fras.join('; ')}`);
-    if (ihop.length) not.push(`ihop: ${ihop.join('; ')}`);
-    if (skift.length) not.push(`skift: ${skift.join('; ')}`);
-    if (fasta.length) not.push(`täcks av: ${[...new Set(fasta)].join('; ')}`);
+    if (prefixRad.length) not.push(`"upp till" ovanför talet (${prefixRad.map((x) => x.split(' ')[0]).join(', ')})`);
+    if (talparUt.length) not.push(`talet utanför panelen (${talparUt.length} tillstånd, upp till +${Math.max(...talparUt.map((x) => parseFloat(x.split('+')[1])))} px)`);
+    const frasKort = [...new Set(fras.map((f) => { const m = f.match(/^(\S+) (\S+): (.*?) \[/); return m ? `${m[2].replace('grön teknik-avdrag', 'GT-avdrag')} (${m[1]})` : f; }))];
+    if (frasKort.length) not.push(`bindestreck/ändelse bruten: ${frasKort.join(', ')}`);
+    if (skift.length) { const u = [...new Set(skift.map((x) => x.replace(/^\S+: eyebrow (\S+) \/ panel (\S+) \/ kort (\S+)/, 'etikett $1 px, kort $3 px')))]; not.push(`stoppläget flyttar (${u.join(' | ')})`); }
     if (inputFs < 16) not.push(`fält ${inputFs}px`);
-    if (lasFel.length) not.push(`läsbarhet: ${lasFel.join(', ')}`);
-    if (enter !== 'ok') not.push(`Enter: ${enter}`);
-    if (fokusUtan.length) not.push(`fokus utan ring (Tab): ${[...new Set(fokusUtan.map((f) => f.el))].join(', ')}`);
-    if (fokusAltUtan.length) not.push(`fokus utan ring (Alt+Tab): ${[...new Set(fokusAltUtan.map((f) => f.el))].join(', ')}`);
-    if (morkt) not.push(morkt);
-    if (marg) not.push(marg);
-    if (fel.length) not.push(`fel: ${fel.join(' | ')}`);
+    if (lasFel.filter((x) => !x.startsWith('eyebrow')).length) not.push(`läsbarhet: ${lasFel.filter((x) => !x.startsWith('eyebrow')).join(', ')}`);
+    not.push(enter === 'ok' ? 'Enter ok' : `Enter: ${enter}`);
+    if (fokusUtan.length && s.sida.startsWith('artikel')) not.push('fältens fokusring saknas (värd-CSS)');
+    else if (fokusUtan.length) not.push(`fokus utan ring: ${[...new Set(fokusUtan.map((f) => f.el))].join(', ')}`);
+    if (morkt) not.push('mörkt läge: identiskt med ljust');
+    if (t0.marginaler && parseFloat(t0.marginaler['#rk-per']) === 0) not.push('p-marginaler nollade (värd-CSS)');
+    if (fel.length) not.push(`konsolfel: ${fel.join(' | ')}`);
     if (faltKlipp.length) not.push(`fältklipp: ${faltKlipp.join('; ')}`);
-    if (utanfor.length) not.push(`utanför fönstret: ${utanfor.join(', ')}`);
 
     rader.push({
       enhet: r.namn, motor: r.motor, sida: kort[s.sida],
-      overflow: overflowKort.length ? `JA (kortet): ${overflowKort.join(', ')}` : overflowVard.length ? `värdsidan: ${overflowVard.join(', ')}` : breda.length ? `breda: ${breda.join('; ')}` : 'nej',
-      tryck: tryckTxt, klipp: klipp.length ? klipp.join('; ') : faltKlipp.length ? 'fält: ' + faltKlipp.join('; ') : 'nej', not: not.join(' · '),
+      overflow: overflowKort.length ? `JA, kortet ger sidscroll (${overflowKort.length} tillstånd)` : breda.length ? `element utanför kortet: ${[...new Set(breda.flatMap((x) => x.split(': ')[1].split(', ')))].map((x) => x.replace(/^label/, 'val').replace(/^span /, '').replace(/^input/, 'fält')).join(', ')} px` : overflowVard.length ? 'nej (klonens värdsida scrollar av egen orsak)' : 'nej',
+      tryck: tryckTxt, klipp: klipp.length ? [...new Set(klipp.map((k) => k.replace(/^\S+: /, '')))].join('; ') + ' (' + [...new Set(klipp.map((k) => k.split(':')[0]))].join(', ') + ')' : 'nej', not: not.join('; '),
     });
     /* defekter */
     for (const t of overflowKort) lagg('overflow-kort', r.namn, s.sida, t, (s.tillstand.find((x) => x.tillstand === t).overflowOrsak || []).map((x) => `${x.el} +${x.r}`).join(', '));

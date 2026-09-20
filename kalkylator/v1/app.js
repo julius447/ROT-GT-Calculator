@@ -23,15 +23,19 @@ const mall = $('#rk-personmall');
 /* "grön teknik-avdrag" hålls ihop på raden: samma text (textContent oförändrad), men orden ligger i en span
    med white-space: nowrap så varken mellanslaget eller bindestrecket blir en radbrytning. Skriver bara när
    texten faktiskt ändrats (ingen DOM-mutation, ingen uppläsning, i onödan). */
-const IHOP = 'grön teknik-avdrag';
+/* Avdragsnamnet med ändelse ("ROT-avdrag", "ROT-avdraget", "grön teknik-avdrag", "grön teknik-avdraget") hålls ihop
+   på raden: Chrome bryter annars efter bindestrecket (research/13 M2). */
+const IHOP = /(grön teknik-avdrag|ROT-avdrag)[a-zåäö]*/g;
 function skriv(el, text) {
   if (el.textContent === text) return false;
-  const delar = text.split(IHOP);
   el.replaceChildren();
-  delar.forEach((d, i) => {
-    if (i) { const s = document.createElement('span'); s.className = 'rk__ihop'; s.textContent = IHOP; el.append(s); }
-    if (d) el.append(d);
-  });
+  let i = 0;
+  for (const m of text.matchAll(IHOP)) {
+    if (m.index > i) el.append(text.slice(i, m.index));
+    const s = document.createElement('span'); s.className = 'rk__ihop'; s.textContent = m[0]; el.append(s);
+    i = m.index + m[0].length;
+  }
+  if (i < text.length) el.append(text.slice(i));
   return true;
 }
 const gom = (el, dolj) => { if (el.hidden !== dolj) el.hidden = dolj; };
@@ -139,6 +143,7 @@ function rendera() {
     const nyttTal = m ? m[1] : r.text;
     if (fran === 'stopp') tal.textContent = '';    /* tillbaka från stoppläget: talet skrivs om även om det är samma, så det läses upp igen */
     andrat = [skriv(prefix, r.prefix), skriv(tal, nyttTal), skriv(talenhet, m ? m[2] : ''), skriv(per, r.per), skriv(not, r.not || '')].some(Boolean);
+    tal.classList.toggle('rk__tal--lang', nyttTal.replace(/\D/g, '').length >= 6);   /* sexsiffriga summor (hushåll) i ett mindre steg så raden håller (research/13 m4) */
     gom(prefix, !r.prefix);
     gom(talenhet, !m);
     gom(not, !r.not);

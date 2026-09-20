@@ -46,6 +46,26 @@ s = re.sub(r'(href|src|action)="/(?!/)', r'\1="https://ampy.se/', s)
 s = re.sub(r'srcset="([^"]*)"', lambda m: 'srcset="' + re.sub(r'(^|,\s*)/(?!/)', r'\1https://ampy.se/', m.group(1)) + '"', s)
 s = re.sub(r'url\((["\']?)/(?!/)', r'url(\1https://ampy.se/', s)
 
+# 4b. sajtens stylesheets sparas lokalt (FlyingPress byter hashar vid cache-rens: länkarna 404:ar annars, research/13 M5).
+#     Relativa url() i CSS:en löses mot originaladressen så bilder fortfarande hämtas från ampy.se.
+import urllib.request, hashlib
+from urllib.parse import urljoin
+cssdir = ROT / 'kalkylator/artikel/css'; cssdir.mkdir(exist_ok=True)
+def spara_css(m):
+    url = m.group(1)
+    namn = url.rsplit('/', 1)[-1].split('?')[0]
+    mal = cssdir / namn
+    if not mal.exists():
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            css = urllib.request.urlopen(req, timeout=30).read().decode('utf-8', 'replace')
+        except Exception as e:
+            print('CSS kunde inte hämtas, länken behålls:', url, e); return m.group(0)
+        css = re.sub(r"url\((['\"]?)(?!data:|https?:|//)([^'\")]+)\1\)", lambda u: 'url(' + u.group(1) + urljoin(url, u.group(2)) + u.group(1) + ')', css)
+        mal.write_text(css, encoding='utf-8')
+    return m.group(0).replace(url, 'css/' + namn)
+s = re.sub(r'<link[^>]+rel="stylesheet"[^>]+href="(https://ampy\.se/[^"]+\.css[^"]*)"[^>]*>', spara_css, s)
+
 # 5. kalkylatorn: markup ur v1/index.html (H2 + section), inbäddad i .ampy-scope
 v1 = (ROT / 'kalkylator/v1/index.html').read_text(encoding='utf-8')
 h2 = re.search(r'<h2 class="ampy-h2 rk__rubrik"[^>]*>.*?</h2>', v1, flags=re.S).group(0)

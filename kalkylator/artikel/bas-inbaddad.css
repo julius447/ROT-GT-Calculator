@@ -35,7 +35,7 @@
 .ampy img, .ampy video { max-width: 100%; height: auto; display: block; }
 .ampy svg { max-width: 100%; display: inline-block; vertical-align: -0.15em; }
 .ampy button, .ampy input, .ampy select, .ampy textarea { font: inherit; color: inherit; }
-.ampy h1, .ampy h2, .ampy h3, .ampy h4, .ampy p, .ampy ul, .ampy ol, .ampy figure { margin: 0; }
+:where(.ampy) :is(h1, h2, h3, h4, p, ul, ol, figure) { margin: 0; }   /* (0,0,1) som base.css: komponenternas marginaler vinner (research/13 M1, P2) */
 
 /* ---------- Rubrikroller som klasser (fungerar utan .ampy-skopet) ---------- */
 .ampy-display { font-family: var(--ampy-font); font-size: var(--ampy-text-display); font-weight: var(--ampy-w-display); line-height: var(--ampy-lh-display); letter-spacing: var(--ampy-ls-display); color: var(--ampy-ink); text-wrap: balance; }

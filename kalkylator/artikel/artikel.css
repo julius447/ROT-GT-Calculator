@@ -40,6 +40,15 @@
 .ampy-kalkylator .rk__input:focus, .ampy-kalkylator .rk__input:focus-visible { border-color: var(--ampy-action-strong) !important; }
 .ampy-kalkylator button { text-transform: none; letter-spacing: 0; }
 
+/* Högerspalten är för smal för kalkylatorn under 1260 px (mätt 2026-09-20: valen utanför kortet < 1121 px,
+   "upp till 50 000 kr" på två rader < 1261 px, designbredden 384 px först vid 1361 px). Under 1260 staplas
+   kolumnerna som mallen gör vid 780, kalkylatorn först (research/13 B1, P1). */
+@media (max-width: 1259px) {
+  [data-plats="hoger"] #brxe-meojam { flex-direction: column-reverse; }
+  [data-plats="hoger"] #brxe-pfbtud, [data-plats="hoger"] #ampy-hoger { width: 100%; }
+  [data-plats="hoger"] #brxe-qopmij { position: static; }
+}
+
 /* ---------- Mobil (mallens brytpunkt 780: kolumnerna staplas, högerspalten först) ---------- */
 @media (max-width: 780px) {
   #ampy-hoger { width: 100%; }

@@ -37,6 +37,16 @@
   overflow: visible;
 }
 
+/* Två spalter: talet får inte vara större än att "upp till 50 000 kr" ryms på en rad i panelen (45 % av behållaren
+   minus 2 x 39,6 px padding). Raden mäter 5,22 x talstorleken; faktorn 5,4 ger 3 % marginal (research/13 M4, P6).
+   Detaljradernas fält i höger kant även när etiketten är lång (research/13 m1, P7). */
+@container rk (min-width: 720px) {
+  .rk { --rk-text-tal: clamp(40px, calc((45cqi - 80px) / 5.4), var(--ampy-text-number)); }
+  .rk__rad > .rk__belopp { margin-left: auto; }
+}
+/* Sexsiffriga summor (hushåll, "upp till 200 000 kr") ett steg mindre så raden håller i artikelspalten (research/13 m4) */
+.rk__tal--lang { font-size: calc(var(--rk-text-tal) * .86); }
+
 /* ---------- Vänster: frågorna ---------- */
 .rk__fragor { display: flex; flex-direction: column; gap: var(--rk-gap-q); padding: var(--rk-pad-y) var(--rk-pad-x); min-width: 0; }
 
@@ -70,7 +80,7 @@
 .rk__lank svg { width: 16px; height: 16px; }
 .rk__lagg { margin-top: calc(var(--ampy-space-2xs) - var(--rk-gap-q)); }   /* 44-boxen: textens överkant hamnar ~ 20 px under sista fältet */
 .rk__tabort { min-height: 0; }
-@media (pointer: coarse) { .rk__tabort { min-height: 44px; margin-block: -10px; } }
+@media (any-pointer: coarse) { .rk__tabort { min-height: 44px; margin-block: -10px; } }
 
 /* Inline-rader (bolåneränta, ROT och RUT använt, grön teknik använt, ålder för person 2+): etiketten till vänster,
    ett kort fält eller ett segment i höger kant, i linje med inkomstfältet (bankblankettens mönster; på mobil etikett
@@ -100,7 +110,7 @@
 }
 .rk__segment > label:has(input:checked) { font-weight: var(--ampy-w-strong); }
 /* Touch: tryckytan är hela alternativet, 44 px i det 48 px höga spåret (2 px spår runt i stället för 4) */
-@media (pointer: coarse) {
+@media (any-pointer: coarse) {
   .rk__segment.ampy-segment { padding: 2px; }
   .rk__segment > label { min-height: 44px; }
 }
@@ -191,6 +201,7 @@
    webbläsare utan container queries (Safari < 16). Ändra båda. */
 .rk-behallare, .rk-spalt { container-type: inline-size; container-name: rk; }
 @container rk (max-width: 719px) {
+  .rk__segment > label { min-width: 0; }                                /* 1fr-spåren delar bredden; 88-golvet gäller inline-grid på desktop (research/13 M3, P5) */
   .rk {
     --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
     --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
@@ -212,6 +223,7 @@
 }
 @supports not (container-type: inline-size) {
   @media (max-width: 767px) {
+    .rk__segment > label { min-width: 0; }
     .rk {
       --rk-gap-q: clamp(28px, var(--ampy-space-l), 40px);   /* fråga -> fråga 28: l-steget är 21,5 vid 390, under briefens golv */
       --rk-text-tal: 52px;                    /* ägaren 2026-09-14: resultatet på mobil var "lite litet" (44); 52 ryms med "upp till" och "kr" på en rad vid 360 */
@@ -234,4 +246,16 @@
 }
 @media (max-width: 767px) {
   .rk-spalt { padding: var(--ampy-space-m); }                           /* demosidan: rubrikens vänsterkant = kortets */
+}
+
+/* 320-telefoner (iPhone SE, Galaxy S9+): tre val i 78 px-spår och talet 44 så "upp till 50 000 kr" håller en rad
+   (research/13 M3 P5, m3 P9). Under 300 px behållare (320 i artikeln): 15 px i valen. */
+@container rk (max-width: 339px) {
+  .rk__segment > label { padding-inline: 5px; }
+  .rk { --rk-text-tal: 44px; }
+}
+@container rk (max-width: 299px) { .rk__segment > label { font-size: 15px; } }
+@supports not (container-type: inline-size) {
+  @media (max-width: 372px) { .rk__segment > label { padding-inline: 5px; } .rk { --rk-text-tal: 44px; } }
+  @media (max-width: 332px) { .rk__segment > label { font-size: 15px; } }
 }

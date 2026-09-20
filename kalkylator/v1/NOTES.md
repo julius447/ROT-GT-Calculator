@@ -277,3 +277,20 @@ för lön, regional reduktion, pensionärers 4 %-spärr (bara med villa). Kortm�
   Kontroll: 200 000 lön + 200 000 pension (66+) ger ca 33 000 (Skatteverket Stockholm: 28 132 vid 30,55 %).
 - Design/spacing: detaljraderna (ränta, använt, ålder, pension) 18 px etikett och 19,8 px mellan raderna, frågorna
   20 px och 28 px; fältet i höger kant i linje med inkomstfältet. Kort 764 desktop (gt 649), mobil 1 050 (gt 955).
+
+## Slutgranskning 2026-09-20 (research/12 logik, 13 responsivt, 14 kod) och vad som ändrades
+
+Logik (Fable): 150 tillstånd, 75 e-tjänstkörningar, copysvep. Rättat: kvarskattevarningen räknas mot utrymmet (inte
+mot min(50 000, u)); "Båda" = hela inkomsten i fältet, "Varav pension" = pensionsdelen; pension ensam räknas; noterna
+hedgade ("ser inte ut att räcka", "en lön som din"); femårsnoten nämner underhåll; siffra() stryker öretal och kapar
+vid nio siffror; galleriet visar bara v1; verifierings-JSON omräknad (73 av 75 på kronan).
+Kod: kloningen av personmallen byter "-N" attributvis (aria-describedby med två id:n); aria-atomic på noten;
+aria-label borta från kr-spannen; personetiketten ingår i fältnamnet; [hidden] scopad; 14rem -> 140px; fokus-motregel
+mot sajtens input:focus !important i artikeln; box-shadow-nollningen borttagen.
+Responsivt (26 profiler, Chromium/WebKit/Firefox, 1 404 mätningar): högerspalten staplas under 1260 px (för smal);
+värdsidans p-reset med :where; "ROT-avdrag"/"ROT-avdraget" i ihop-span (regex i skriv()); trevägsvalen utan 88-golv i
+staplat läge, 5 px padding under 340 px, 15 px text under 300; talet behållarstyrt i två spalter (clamp på cqi) och 44 px
+under 340 px behållare; detaljradens fält i höger kant i två spalter; any-pointer: coarse; sexsiffriga summor ett steg
+mindre; klonen sparar sajtens CSS lokalt (FlyingPress-hashar 404:ade).
+Ägarbeslut jag tog som expert (elektrikerna hade inga anmärkningar): räntefältet kvar, ingen kommunfråga,
+frågeuppsättningen låst, produktionsplacering = överst i artikelspalten (?p=topp), typsnitt = sajtens befintliga fil.
