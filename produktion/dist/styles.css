@@ -257,10 +257,6 @@
 .ampy-avdragskollen .rk__person > .rk__rad { margin-top: var(--ampy-space-s); }               /* detaljraderna hänger ihop med inkomsten: 19,8 mellan raderna, 28 mellan frågorna */
 .ampy-avdragskollen .rk__rad > .rk__belopp { width: 140px; margin-top: 0; }
 .ampy-avdragskollen .rk__rad > .rk__segment { margin-top: 0; }
-.ampy-avdragskollen .rk__rad > .rk__under--rad { grid-column: 1 / -1; }
-.ampy-avdragskollen .rk__under--rad { margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
-.ampy-avdragskollen .rk[data-mode="rot"] .rk__fraga--gtanvant { display: none; }           /* ett använt-fält per läge: posterna hålls isär (ägarbeslut 2026-09-16) */
-.ampy-avdragskollen .rk[data-mode="gt"] .rk__fraga--anvant { display: none; }
 .ampy-avdragskollen .rk__person:not([data-typ="bada"]) .rk__fraga--pension { display: none; }   /* pensionsraden bara när "Båda" är valt */
 .ampy-avdragskollen .rk__segment--tre { grid-auto-columns: 1fr; }                            /* tre lika breda val: Under 18 / 18 till 65 / Över 65 */
 .ampy-avdragskollen .rk__under--lagg { margin-top: 0; }                                      /* raden under "Lägg till en person": bara ägare får avdraget */
@@ -436,7 +432,7 @@
 
 /* ---------- Manifest (skrivet av paketera.mjs) ----------
    Källor (sha256):
-     kalkylator/v1/style.css  1f202b77337c1b9c486c63b3378f4c7ddb6b6269473e639111cd67532bcde4b0
+     kalkylator/v1/style.css  ee9046f6dcc76bbcd478ecc77f48e991b04abaab8db92f199110607f91d0ec47
      kalkylator/system/tokens.css  1f5299c26dbe001bb39d14ee0b4b4bafa0ffb9de40154c6347f995f22901691e
      kalkylator/system/base.css  54751da13353776c55e3ae895641189142e74f210deced246230149179ea7201
      kalkylator/system/components/text.css  503fd1160db167db5dff383be22ead97e018abdd1d735cb7788ae374eeacffac

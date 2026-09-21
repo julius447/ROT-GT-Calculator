@@ -5,7 +5,7 @@
  * En IIFE, 'use strict', inga globaler. Startar varje ".ampy-avdragskollen .rk[data-mode]" en gång (data-booted).
  * Syntax: ES2020 (mallsträngar, ??, spridning, replaceChildren). Talens avgränsare (59_200) är utskrivna som vanliga tal.
  * Inget lagras, inget skickas: ingen fetch, ingen REST, ingen webhook, ingen spårning.
- * Källor (sha256): engine.js 46c03df1c981, rakna.js 12dd1cd63726, app.js ecd461de1ea6
+ * Källor (sha256): engine.js 46c03df1c981, rakna.js 12dd1cd63726, app.js 10382653d70d
  */
 (function () {
   'use strict';
@@ -372,7 +372,7 @@
     function laggTill() {
       const n = ++lopnummer;
       /* Klona mallen och byt varje "-N" i id/for/name/aria-* mot löpnumret, även när ett attribut bär två id:n
-         (aria-describedby="rk-enhet-anvant-N rk-under-anvant-N"). Strängbyte på innerHTML täckte inte det (research/14 M4). */
+         (t.ex. aria-labelledby="rk-person-etikett-N rk-inkomst-etikett-N"). Strängbyte på innerHTML täckte inte det (research/14 M4). */
       const b = mall.content.firstElementChild.cloneNode(true);
       for (const el of [b, ...b.querySelectorAll('*')]) {
         for (const a of ['id', 'for', 'name', 'aria-labelledby', 'aria-describedby']) {
@@ -408,8 +408,6 @@
           inkomst: falt('inkomst'),
           pension: falt('pension'),
           ranta: falt('ranta'),
-          anvant: falt('anvant'),
-          gtAnvant: falt('gtanvant'),
         };
       });
     }

@@ -287,7 +287,7 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   const g = await matt(page);
   o.gt = { kortHojd: g.kortHojd, antalFragorSynliga: g.antalFragorSynliga, femarSynlig: g.femarSynlig, h2: await page.textContent('#rk-rubrik'), h2Ihop: await page.evaluate(() => getComputedStyle(document.querySelector('#rk-rubrik .rk__ihop')).whiteSpace), eyebrow: await page.textContent('#rk-eyebrow'), besked: await las(page), overflowX: g.overflowX, avstand: g.avstand };
   await bild(page, `${namn}-6-gt-utgangslage`);
-  kontrollera(`${namn}: gt visar varken femårsfrågan eller ROT/RUT-fältet (fem rader: äger, ålder, inkomst, ränta, grön teknik använt)`, !g.femarSynlig && g.antalFragorSynliga === 5, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
+  kontrollera(`${namn}: gt visar ingen femårsfråga (fyra rader: äger, ålder, inkomst, ränta)`, !g.femarSynlig && g.antalFragorSynliga === 4, `${g.antalFragorSynliga} frågor, femår synlig ${g.femarSynlig}`);
   kontrollera(`${namn}: gt-kort <= ${touch ? 1200 : 820}`, g.kortHojd <= (touch ? 1200 : 820), g.kortHojd);
   kontrollera(`${namn}: gt-rubriken exakt, "grön teknik-avdrag" i nowrap-span`, o.gt.h2 === 'Räkna ut ditt grön teknik-avdrag' && o.gt.h2Ihop === 'nowrap', `${o.gt.h2} / ${o.gt.h2Ihop}`);
   kontrollera(`${namn}: gt-etiketten exakt`, o.gt.eyebrow.replace(/\s/g, ' ') === 'Ditt tillgängliga grön teknik-avdrag', o.gt.eyebrow);
@@ -316,29 +316,17 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   await page.click(lab('alder-1', '18-65')); await page.waitForTimeout(350);
   kontrollera(`${namn}: 18 till 65 ger talet tillbaka`, (await las(page)).tal === '50 000', await las(page));
 
-  await page.fill('#rk-anvant-1', '20000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
-  o.anvant20 = await las(page);
-  kontrollera(`${namn}: 20 000 använt utan inkomst ger "upp till 30 000 kr"`, o.anvant20.prefix === 'upp till' && o.anvant20.tal === '30 000', o.anvant20);
-  await page.fill('#rk-inkomst-1', '180000'); await page.fill('#rk-anvant-1', '5000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
-  o.anvant5 = await las(page);
-  kontrollera(`${namn}: 180 000 i lön och 5 000 använt ger "ca 7 000 kr"`, o.anvant5.prefix === 'ca' && o.anvant5.tal === '7 000', o.anvant5);
-  await page.fill('#rk-anvant-1', '50000'); await page.dispatchEvent('#rk-anvant-1', 'blur'); await page.waitForTimeout(200);
-  o.anvantAllt = await las(page);
-  await bild(page, `${namn}-10-allt-anvant`);
-  kontrollera(`${namn}: 50 000 använt ger "0 kr" + raden om årets tak + kvarskattevarning`, o.anvantAllt.tal === '0' && o.anvantAllt.prefix === null && o.anvantAllt.not.startsWith('Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 38 000 kr mer än skatten räcker till.'), o.anvantAllt);
-  await page.click('#rk-anvant-1'); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
-  kontrollera(`${namn}: Enter i använt-fältet laddar inte om`, page.url().endsWith('?m=rot') && (await las(page)).tal === '0', page.url());
-  await page.fill('#rk-anvant-1', ''); await page.fill('#rk-inkomst-1', '600000'); await page.dispatchEvent('#rk-inkomst-1', 'blur'); await page.waitForTimeout(200);
+  await page.fill('#rk-inkomst-1', '600000'); await page.dispatchEvent('#rk-inkomst-1', 'blur'); await page.waitForTimeout(200);
 
   await page.click('#rk-lagg'); await page.waitForTimeout(200);
   const p2 = await page.evaluate(() => {
     const b = document.querySelectorAll('.rk__person');
     const r = (el) => el.getBoundingClientRect();
     const bort = document.querySelector('.rk__tabort');
-    return { antal: b.length, dataAntal: document.querySelector('#rk-personer').dataset.antal, etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), huvudSynligt: r(document.querySelector('.rk__personhuvud')).height > 0, fokus: document.activeElement.id, inkomstEtikett2: b[1].querySelector('legend').textContent, anvantEtikett2: b[1].querySelector('label[for^="rk-anvant-"]').textContent, taBortHojd: Math.round(r(bort).height), eyebrow: document.querySelector('#rk-eyebrow').textContent };
+    return { antal: b.length, dataAntal: document.querySelector('#rk-personer').dataset.antal, etiketter: [...document.querySelectorAll('.rk__personetikett')].map((e) => e.textContent), huvudSynligt: r(document.querySelector('.rk__personhuvud')).height > 0, fokus: document.activeElement.id, inkomstEtikett2: b[1].querySelector('legend').textContent, taBortHojd: Math.round(r(bort).height), eyebrow: document.querySelector('#rk-eyebrow').textContent };
   });
   o.person2 = p2;
-  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.anvantEtikett2 === 'ROT och RUT använt i år' && p2.eyebrow === 'Ert tillgängliga ROT-avdrag', p2);
+  kontrollera(`${namn}: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet`, p2.antal === 2 && p2.dataAntal === '2' && p2.etiketter.join('|') === 'Person 1|Person 2' && p2.huvudSynligt && p2.fokus === 'rk-inkomst-2' && p2.inkomstEtikett2 === 'Inkomst förra året' && p2.eyebrow === 'Ert tillgängliga ROT-avdrag', p2);
   if (touch) kontrollera('mobil: Ta bort har 44 px träffyta', p2.taBortHojd >= 44, p2.taBortHojd);
   await page.click(lab('alder-2', '66+')); await page.click(lab('typ-2', 'pension')); await page.fill('#rk-inkomst-2', '240000'); await page.dispatchEvent('#rk-inkomst-2', 'blur'); await page.waitForTimeout(200);
   o.tvaPersoner = await las(page);
@@ -355,11 +343,6 @@ for (const [namn, w, h, touch] of [['desktop', 1440, 1000, false], ['mobile', 39
   kontrollera(`${namn}: tillbaka till en person: "Ditt", "Per person och år.", inget personhuvud`, o.enIgen.eyebrow === 'Ditt tillgängliga ROT-avdrag' && o.enIgen.per === 'Per person och år.' && !o.enIgen.huvudSynligt && o.enIgen.tal === '50 000', o.enIgen);
 
   await oppna('?m=gt');
-  o.gtAnvant = await page.evaluate(() => [...document.querySelectorAll('label[for^="rk-gtanvant-"]')].filter((e) => e.getClientRects().length).map((e) => e.textContent));
-  await page.click('#rk-lagg'); await page.waitForTimeout(200);
-  o.gtAnvant2 = await page.evaluate(() => [...document.querySelectorAll('label[for^="rk-gtanvant-"]')].filter((e) => e.getClientRects().length).map((e) => e.textContent));
-  kontrollera(`${namn}: gt: grön teknik-fälten "Grön teknik du redan använt i år" / "Grön teknik använt i år" synliga (dolda i rot)`, o.gtAnvant.join('|') === 'Grön teknik du redan använt i år' && o.gtAnvant2.join('|') === 'Grön teknik du redan använt i år|Grön teknik använt i år', o.gtAnvant2);
-
   o.errors = errors;
   kontrollera(`${namn}: inga konsolfel`, errors.length === 0, errors);
   await page.close();

@@ -294,3 +294,12 @@ under 340 px behållare; detaljradens fält i höger kant i två spalter; any-po
 mindre; klonen sparar sajtens CSS lokalt (FlyingPress-hashar 404:ade).
 Ägarbeslut jag tog som expert (elektrikerna hade inga anmärkningar): räntefältet kvar, ingen kommunfråga,
 frågeuppsättningen låst, produktionsplacering = överst i artikelspalten (?p=topp), typsnitt = sajtens befintliga fil.
+
+## 2026-09-21: ägarens finputs efter leveransen
+
+- Detaljraderna (låneräntor, ålder för person 2+) är ett rutnät: kontrollen står alltid i höger kant mitt för etiketten,
+  etiketten bryter balanserat. Förut kunde fältet ramla ner under etiketten i artikelspaltens 378 px (ägarfynd).
+- Sektionen "ROT och RUT du redan använt i år" / "Grön teknik du redan använt i år" (med undertexten "Själva avdraget,
+  inte hela fakturan.") är borttagen på ägarens order. Logiken i rakna.js behåller parametrarna (default 0), UI:t
+  frågar inte. Research/11 §6 säger nu att verktyget inte räknar av redan använt avdrag. Kort: desktop 726 (gt 611),
+  mobil 983 (gt 888). Probe 86/86, paritet 211/211.

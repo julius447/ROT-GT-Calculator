@@ -24,7 +24,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 14,
+            "tabbable": 13,
             "radioGroups": "ager,alder-1,aldre,typ-1"
           },
           "gt": {
@@ -33,7 +33,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 12,
+            "tabbable": 11,
             "radioGroups": "ager,alder-1,aldre,typ-1"
           }
         },
@@ -44,7 +44,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 14,
+            "tabbable": 13,
             "radioGroups": "ak1-ager,ak1-alder-1,ak1-aldre,ak1-typ-1"
           },
           "gt": {
@@ -53,7 +53,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 12,
+            "tabbable": 11,
             "radioGroups": "ak2-ager,ak2-alder-1,ak2-aldre,ak2-typ-1"
           }
         }
@@ -70,7 +70,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 390,
-            "h": 1195.5
+            "h": 1070.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -93,14 +93,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "356.25px",
-            "height": "1108.25px",
+            "height": "983.406px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "354.25px",
-            "gridTemplateRows": "887.078px 219.172px",
+            "gridTemplateRows": "762.234px 219.172px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -131,7 +131,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 356.5,
-            "h": 1108.5
+            "h": 983.5
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -1607,7 +1607,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 390,
-            "h": 1132.5
+            "h": 1008
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -1630,14 +1630,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "356.25px",
-            "height": "1013.25px",
+            "height": "888.406px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "354.25px",
-            "gridTemplateRows": "774.078px 237.172px",
+            "gridTemplateRows": "649.234px 237.172px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -1668,7 +1668,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 356.5,
-            "h": 1013.5
+            "h": 888.5
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -3144,7 +3144,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 356.5,
-            "h": 1162
+            "h": 1037
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -3167,14 +3167,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "356.25px",
-            "height": "1108.25px",
+            "height": "983.406px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "354.25px",
-            "gridTemplateRows": "887.078px 219.172px",
+            "gridTemplateRows": "762.234px 219.172px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -3205,7 +3205,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 356.5,
-            "h": 1108.5
+            "h": 983.5
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -4681,7 +4681,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 356.5,
-            "h": 1099
+            "h": 974
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -4704,14 +4704,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "356.25px",
-            "height": "1013.25px",
+            "height": "888.406px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "354.25px",
-            "gridTemplateRows": "774.078px 237.172px",
+            "gridTemplateRows": "649.234px 237.172px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -4742,7 +4742,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 356.5,
-            "h": 1013.5
+            "h": 888.5
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -6218,7 +6218,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 356.5,
-            "h": 1162
+            "h": 1037
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -6241,14 +6241,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "356.25px",
-            "height": "1108.25px",
+            "height": "983.406px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "354.25px",
-            "gridTemplateRows": "887.078px 219.172px",
+            "gridTemplateRows": "762.234px 219.172px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -6279,7 +6279,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 356.5,
-            "h": 1108.5
+            "h": 983.5
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -7755,7 +7755,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 356.5,
-            "h": 1099
+            "h": 974
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -7778,14 +7778,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "356.25px",
-            "height": "1013.25px",
+            "height": "888.406px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "354.25px",
-            "gridTemplateRows": "774.078px 237.172px",
+            "gridTemplateRows": "649.234px 237.172px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -7816,7 +7816,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 356.5,
-            "h": 1013.5
+            "h": 888.5
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -9416,26 +9416,26 @@
               "notHidden": true
             }
           },
-          "7 lön 300 000 + använt 60 000": {
+          "7 lön 300 000 + ränta 50 000": {
             "ref": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga ROT-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             },
             "cand": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga ROT-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             }
           },
           "8 två personer (180 000 + tom)": {
@@ -9638,26 +9638,26 @@
               "notHidden": true
             }
           },
-          "7 lön 300 000 + använt 60 000": {
+          "7 lön 300 000 + ränta 50 000": {
             "ref": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga grön teknik-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             },
             "cand": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga grön teknik-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             }
           },
           "8 två personer (180 000 + tom)": {
@@ -9753,7 +9753,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 14,
+            "tabbable": 13,
             "radioGroups": "ager,alder-1,aldre,typ-1"
           },
           "gt": {
@@ -9762,7 +9762,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 12,
+            "tabbable": 11,
             "radioGroups": "ager,alder-1,aldre,typ-1"
           }
         },
@@ -9773,7 +9773,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 14,
+            "tabbable": 13,
             "radioGroups": "ak1-ager,ak1-alder-1,ak1-aldre,ak1-typ-1"
           },
           "gt": {
@@ -9782,7 +9782,7 @@
             "legendsOk": true,
             "legends": 4,
             "templates": 1,
-            "tabbable": 12,
+            "tabbable": 11,
             "radioGroups": "ak2-ager,ak2-alder-1,ak2-aldre,ak2-typ-1"
           }
         }
@@ -9799,7 +9799,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 1280,
-            "h": 1018
+            "h": 920.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -9822,14 +9822,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "980px",
-            "height": "823.078px",
+            "height": "725.891px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "537.891px 440.109px",
-            "gridTemplateRows": "821.078px",
+            "gridTemplateRows": "723.891px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -9860,7 +9860,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 980,
-            "h": 823
+            "h": 726
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -10491,7 +10491,7 @@
             "outlineOffset": "0px",
             "minHeight": "auto",
             "width": "440.109px",
-            "height": "821.078px",
+            "height": "723.891px",
             "maxWidth": "none",
             "display": "flex",
             "position": "static",
@@ -10529,7 +10529,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 440,
-            "h": 821
+            "h": 724
           },
           "eyebrow": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -11336,7 +11336,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 1280,
-            "h": 903
+            "h": 805.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -11359,14 +11359,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "980px",
-            "height": "708.094px",
+            "height": "610.906px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "537.891px 440.109px",
-            "gridTemplateRows": "706.094px",
+            "gridTemplateRows": "608.906px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -11397,7 +11397,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 980,
-            "h": 708
+            "h": 611
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -12028,7 +12028,7 @@
             "outlineOffset": "0px",
             "minHeight": "auto",
             "width": "440.109px",
-            "height": "706.094px",
+            "height": "608.906px",
             "maxWidth": "none",
             "display": "flex",
             "position": "static",
@@ -12066,7 +12066,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 440,
-            "h": 706
+            "h": 609
           },
           "eyebrow": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -12873,7 +12873,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 980,
-            "h": 906
+            "h": 808.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -12896,14 +12896,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "980px",
-            "height": "823.078px",
+            "height": "725.891px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "537.891px 440.109px",
-            "gridTemplateRows": "821.078px",
+            "gridTemplateRows": "723.891px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -12934,7 +12934,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 980,
-            "h": 823
+            "h": 726
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -13565,7 +13565,7 @@
             "outlineOffset": "0px",
             "minHeight": "auto",
             "width": "440.109px",
-            "height": "821.078px",
+            "height": "723.891px",
             "maxWidth": "none",
             "display": "flex",
             "position": "static",
@@ -13603,7 +13603,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 440,
-            "h": 821
+            "h": 724
           },
           "eyebrow": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -14410,7 +14410,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 980,
-            "h": 791
+            "h": 693.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -14433,14 +14433,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "980px",
-            "height": "708.094px",
+            "height": "610.906px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "537.891px 440.109px",
-            "gridTemplateRows": "706.094px",
+            "gridTemplateRows": "608.906px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -14471,7 +14471,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 980,
-            "h": 708
+            "h": 611
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -15102,7 +15102,7 @@
             "outlineOffset": "0px",
             "minHeight": "auto",
             "width": "440.109px",
-            "height": "706.094px",
+            "height": "608.906px",
             "maxWidth": "none",
             "display": "flex",
             "position": "static",
@@ -15140,7 +15140,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 440,
-            "h": 706
+            "h": 609
           },
           "eyebrow": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -15947,7 +15947,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 980,
-            "h": 906
+            "h": 808.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -15970,14 +15970,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "980px",
-            "height": "823.078px",
+            "height": "725.891px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "537.891px 440.109px",
-            "gridTemplateRows": "821.078px",
+            "gridTemplateRows": "723.891px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -16008,7 +16008,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 980,
-            "h": 823
+            "h": 726
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -16639,7 +16639,7 @@
             "outlineOffset": "0px",
             "minHeight": "auto",
             "width": "440.109px",
-            "height": "821.078px",
+            "height": "723.891px",
             "maxWidth": "none",
             "display": "flex",
             "position": "static",
@@ -16677,7 +16677,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 440,
-            "h": 821
+            "h": 724
           },
           "eyebrow": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -17484,7 +17484,7 @@
             "webkitFontSmoothing": "antialiased",
             "textRendering": "optimizelegibility",
             "w": 980,
-            "h": 791
+            "h": 693.5
           },
           "kort": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -17507,14 +17507,14 @@
             "outlineOffset": "0px",
             "minHeight": "0px",
             "width": "980px",
-            "height": "708.094px",
+            "height": "610.906px",
             "maxWidth": "none",
             "display": "grid",
             "position": "relative",
             "boxSizing": "border-box",
             "overflow": "visible",
             "gridTemplateColumns": "537.891px 440.109px",
-            "gridTemplateRows": "706.094px",
+            "gridTemplateRows": "608.906px",
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
@@ -17545,7 +17545,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 980,
-            "h": 708
+            "h": 611
           },
           "rubrik": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -18176,7 +18176,7 @@
             "outlineOffset": "0px",
             "minHeight": "auto",
             "width": "440.109px",
-            "height": "706.094px",
+            "height": "608.906px",
             "maxWidth": "none",
             "display": "flex",
             "position": "static",
@@ -18214,7 +18214,7 @@
             "pointerEvents": "auto",
             "appearance": "none",
             "w": 440,
-            "h": 706
+            "h": 609
           },
           "eyebrow": {
             "fontFamily": "Outfit, system-ui, -apple-system, \"Segoe UI\", sans-serif",
@@ -19145,26 +19145,26 @@
               "notHidden": true
             }
           },
-          "7 lön 300 000 + använt 60 000": {
+          "7 lön 300 000 + ränta 50 000": {
             "ref": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga ROT-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             },
             "cand": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA ROT-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga ROT-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             }
           },
           "8 två personer (180 000 + tom)": {
@@ -19367,26 +19367,26 @@
               "notHidden": true
             }
           },
-          "7 lön 300 000 + använt 60 000": {
+          "7 lön 300 000 + ränta 50 000": {
             "ref": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga grön teknik-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             },
             "cand": {
               "status": "belopp",
-              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG 0 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp. Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-              "tal": "0 kr",
+              "text": "DITT TILLGÄNGLIGA GRÖN TEKNIK-AVDRAG ca 16 000 kr Per person och år. Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.",
+              "tal": "ca 16 000 kr",
               "eyebrow": "Ditt tillgängliga grön teknik-avdrag",
               "per": "Per person och år.",
-              "not": "Du har redan använt hela årets grön teknik-avdrag. Du har dessutom använt ca 29 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
+              "not": "",
               "stoppHidden": true,
-              "notHidden": false
+              "notHidden": true
             }
           },
           "8 två personer (180 000 + tom)": {
@@ -19567,8 +19567,8 @@
     {
       "grupp": "1280 DOM",
       "kontroll": "rot: tabbstopp",
-      "ref": "14",
-      "cand": "14",
+      "ref": "13",
+      "cand": "13",
       "ok": true,
       "kommentar": ""
     },
@@ -19599,8 +19599,8 @@
     {
       "grupp": "1280 DOM",
       "kontroll": "gt: tabbstopp",
-      "ref": "12",
-      "cand": "12",
+      "ref": "11",
+      "cand": "11",
       "ok": true,
       "kommentar": ""
     },
@@ -19647,16 +19647,16 @@
     {
       "grupp": "1280 stil rot",
       "kontroll": "kortets bredd × höjd",
-      "ref": "980 × 823",
-      "cand": "980 × 823",
+      "ref": "980 × 726",
+      "cand": "980 × 726",
       "ok": true,
       "kommentar": ""
     },
     {
       "grupp": "1280 stil gt",
       "kontroll": "kortets bredd × höjd",
-      "ref": "980 × 708",
-      "cand": "980 × 708",
+      "ref": "980 × 611",
+      "cand": "980 × 611",
       "ok": true,
       "kommentar": ""
     },
@@ -19687,8 +19687,8 @@
     {
       "grupp": "1280 text rot",
       "kontroll": "kortets innerText lika",
-      "ref": "540 tecken",
-      "cand": "540 tecken",
+      "ref": "467 tecken",
+      "cand": "467 tecken",
       "ok": true,
       "kommentar": ""
     },
@@ -19703,8 +19703,8 @@
     {
       "grupp": "1280 text gt",
       "kontroll": "kortets innerText lika",
-      "ref": "512 tecken",
-      "cand": "512 tecken",
+      "ref": "439 tecken",
+      "cand": "439 tecken",
       "ok": true,
       "kommentar": ""
     },
@@ -19730,7 +19730,7 @@
       "ref": "byte-lika eller <= 0,1 % pixlar",
       "cand": "0.000 %",
       "ok": true,
-      "kommentar": "0 pixlar olika (996×807)"
+      "kommentar": "0 pixlar olika (996×710)"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19838,15 +19838,15 @@
     },
     {
       "grupp": "1280 tillstånd rot",
-      "kontroll": "7 lön 300 000 + använt 60 000",
-      "ref": "belopp: 0 kr",
-      "cand": "belopp: 0 kr",
+      "kontroll": "7 lön 300 000 + ränta 50 000",
+      "ref": "belopp: ca 16 000 kr",
+      "cand": "belopp: ca 16 000 kr",
       "ok": true,
       "kommentar": ""
     },
     {
       "grupp": "1280 tillstånd rot",
-      "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
+      "kontroll": "7 lön 300 000 + ränta 50 000: datorstilar lika",
       "ref": "0 avvikelser",
       "cand": "0 avvikelser",
       "ok": true,
@@ -19864,7 +19864,7 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "Lägg till -> Person 2 med unika, prefixade id:n",
       "ref": "Person 2, 0 dubbletter, alla referenser löser",
-      "cand": "Person 2, 0 dubbletter, refs true, ak1-rk-enhet-anvant-2 ak1-rk-under-anvant-2",
+      "cand": "Person 2, 0 dubbletter, refs true, ak1-rk-enhet-ranta-2",
       "ok": true,
       "kommentar": ""
     },
@@ -20022,15 +20022,15 @@
     },
     {
       "grupp": "1280 tillstånd gt",
-      "kontroll": "7 lön 300 000 + använt 60 000",
-      "ref": "belopp: 0 kr",
-      "cand": "belopp: 0 kr",
+      "kontroll": "7 lön 300 000 + ränta 50 000",
+      "ref": "belopp: ca 16 000 kr",
+      "cand": "belopp: ca 16 000 kr",
       "ok": true,
       "kommentar": ""
     },
     {
       "grupp": "1280 tillstånd gt",
-      "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
+      "kontroll": "7 lön 300 000 + ränta 50 000: datorstilar lika",
       "ref": "0 avvikelser",
       "cand": "0 avvikelser",
       "ok": true,
@@ -20048,7 +20048,7 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "Lägg till -> Person 2 med unika, prefixade id:n",
       "ref": "Person 2, 0 dubbletter, alla referenser löser",
-      "cand": "Person 2, 0 dubbletter, refs true, ak2-rk-enhet-anvant-2 ak2-rk-under-anvant-2",
+      "cand": "Person 2, 0 dubbletter, refs true, ak2-rk-enhet-ranta-2",
       "ok": true,
       "kommentar": ""
     },
@@ -20415,8 +20415,8 @@
     {
       "grupp": "390 DOM",
       "kontroll": "rot: tabbstopp",
-      "ref": "14",
-      "cand": "14",
+      "ref": "13",
+      "cand": "13",
       "ok": true,
       "kommentar": ""
     },
@@ -20447,8 +20447,8 @@
     {
       "grupp": "390 DOM",
       "kontroll": "gt: tabbstopp",
-      "ref": "12",
-      "cand": "12",
+      "ref": "11",
+      "cand": "11",
       "ok": true,
       "kommentar": ""
     },
@@ -20495,16 +20495,16 @@
     {
       "grupp": "390 stil rot",
       "kontroll": "kortets bredd × höjd",
-      "ref": "356.5 × 1108.5",
-      "cand": "356.5 × 1108.5",
+      "ref": "356.5 × 983.5",
+      "cand": "356.5 × 983.5",
       "ok": true,
       "kommentar": ""
     },
     {
       "grupp": "390 stil gt",
       "kontroll": "kortets bredd × höjd",
-      "ref": "356.5 × 1013.5",
-      "cand": "356.5 × 1013.5",
+      "ref": "356.5 × 888.5",
+      "cand": "356.5 × 888.5",
       "ok": true,
       "kommentar": ""
     },
@@ -20535,8 +20535,8 @@
     {
       "grupp": "390 text rot",
       "kontroll": "kortets innerText lika",
-      "ref": "540 tecken",
-      "cand": "540 tecken",
+      "ref": "467 tecken",
+      "cand": "467 tecken",
       "ok": true,
       "kommentar": ""
     },
@@ -20551,8 +20551,8 @@
     {
       "grupp": "390 text gt",
       "kontroll": "kortets innerText lika",
-      "ref": "512 tecken",
-      "cand": "512 tecken",
+      "ref": "439 tecken",
+      "cand": "439 tecken",
       "ok": true,
       "kommentar": ""
     },
@@ -20578,7 +20578,7 @@
       "ref": "byte-lika eller <= 0,1 % pixlar",
       "cand": "0.000 %",
       "ok": true,
-      "kommentar": "8 pixlar olika (746×2232)"
+      "kommentar": "0 pixlar olika (746×1982)"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20686,15 +20686,15 @@
     },
     {
       "grupp": "390 tillstånd rot",
-      "kontroll": "7 lön 300 000 + använt 60 000",
-      "ref": "belopp: 0 kr",
-      "cand": "belopp: 0 kr",
+      "kontroll": "7 lön 300 000 + ränta 50 000",
+      "ref": "belopp: ca 16 000 kr",
+      "cand": "belopp: ca 16 000 kr",
       "ok": true,
       "kommentar": ""
     },
     {
       "grupp": "390 tillstånd rot",
-      "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
+      "kontroll": "7 lön 300 000 + ränta 50 000: datorstilar lika",
       "ref": "0 avvikelser",
       "cand": "0 avvikelser",
       "ok": true,
@@ -20712,7 +20712,7 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "Lägg till -> Person 2 med unika, prefixade id:n",
       "ref": "Person 2, 0 dubbletter, alla referenser löser",
-      "cand": "Person 2, 0 dubbletter, refs true, ak1-rk-enhet-anvant-2 ak1-rk-under-anvant-2",
+      "cand": "Person 2, 0 dubbletter, refs true, ak1-rk-enhet-ranta-2",
       "ok": true,
       "kommentar": ""
     },
@@ -20870,15 +20870,15 @@
     },
     {
       "grupp": "390 tillstånd gt",
-      "kontroll": "7 lön 300 000 + använt 60 000",
-      "ref": "belopp: 0 kr",
-      "cand": "belopp: 0 kr",
+      "kontroll": "7 lön 300 000 + ränta 50 000",
+      "ref": "belopp: ca 16 000 kr",
+      "cand": "belopp: ca 16 000 kr",
       "ok": true,
       "kommentar": ""
     },
     {
       "grupp": "390 tillstånd gt",
-      "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
+      "kontroll": "7 lön 300 000 + ränta 50 000: datorstilar lika",
       "ref": "0 avvikelser",
       "cand": "0 avvikelser",
       "ok": true,
@@ -20896,7 +20896,7 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "Lägg till -> Person 2 med unika, prefixade id:n",
       "ref": "Person 2, 0 dubbletter, alla referenser löser",
-      "cand": "Person 2, 0 dubbletter, refs true, ak2-rk-enhet-anvant-2 ak2-rk-under-anvant-2",
+      "cand": "Person 2, 0 dubbletter, refs true, ak2-rk-enhet-ranta-2",
       "ok": true,
       "kommentar": ""
     },

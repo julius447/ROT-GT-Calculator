@@ -2,12 +2,12 @@
  "desktop": {
   "rot": {
    "status": "tak",
-   "kortHojd": 823.1,
+   "kortHojd": 726,
    "kortBredd": 980,
    "spaltBredd": 980,
    "fragorBredd": 537.9,
    "panelBredd": 440.1,
-   "antalFragorSynliga": 6,
+   "antalFragorSynliga": 5,
    "femarSynlig": true,
    "avstand": {
     "h2_till_kort": 39.6,
@@ -17,7 +17,7 @@
     "kontroll_till_nasta_fraga": 28,
     "fraga2_till_kontroll": 14,
     "sista_fraga_till_kontroll": 14,
-    "sista_kontroll_till_kortkant": 281.9,
+    "sista_kontroll_till_kortkant": 184.7,
     "eyebrow_till_tal": 14,
     "eyebrow_till_stopp": null,
     "tal_till_per": 9.9,
@@ -72,17 +72,17 @@
    },
    "lage": {
     "eyebrow": {
-     "top": 465.7,
+     "top": 417.1,
      "h": 18,
      "w": 242.7
     },
     "huvud": {
-     "top": 465.7,
+     "top": 417.1,
      "h": 169.4,
      "w": 359.9
     },
     "talrad": {
-     "top": 497.7,
+     "top": 449.1,
      "h": 56,
      "w": 291.2
     },
@@ -101,12 +101,12 @@
     },
     "kort": {
      "top": 138.8,
-     "h": 823.1,
+     "h": 726,
      "w": 980
     },
     "panel": {
      "top": 139.8,
-     "h": 821.1,
+     "h": 724,
      "w": 440.1
     },
     "not": null
@@ -132,7 +132,7 @@
     "not": null,
     "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
    },
-   "kortHojd": 823.1,
+   "kortHojd": 726,
    "stoppMinH": 88.3,
    "stoppH": 88.3,
    "stopptextH": 48.6,
@@ -162,8 +162,8 @@
      "dh": 0
     }
    },
-   "talradTopp": 497.7,
-   "stoppTopp": 497.7
+   "talradTopp": 449.1,
+   "stoppTopp": 449.1
   },
   "agerJaIgen": {
    "besked": {
@@ -194,7 +194,7 @@
     "not": "Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad.",
     "stopp": null
    },
-   "kortHojd": 823.1,
+   "kortHojd": 726,
    "kortDh": 0,
    "skiftTal": {
     "dy": 0,
@@ -224,7 +224,7 @@
     "stopp": null
    },
    "falt": "180 000",
-   "kortHojd": 823.1,
+   "kortHojd": 726,
    "live": {
     "mutationerUnderSkrivning": 0,
     "talUnderSkrivning": "50 000",
@@ -245,7 +245,7 @@
     "stopp": null
    },
    "falt": "240 000",
-   "kortHojd": 823.1,
+   "kortHojd": 726,
    "typSparBredd": 280,
    "typSparBreddLon": 280
   },
@@ -268,8 +268,8 @@
    "stopp": null
   },
   "enter": {
-   "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
-   "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+   "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
    "faltVardeEfter": "180 000",
    "aktivtElement": "rk-inkomst-1",
    "besked": {
@@ -293,8 +293,8 @@
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
   },
   "gt": {
-   "kortHojd": 708.1,
-   "antalFragorSynliga": 5,
+   "kortHojd": 611,
+   "antalFragorSynliga": 4,
    "femarSynlig": false,
    "h2": "Räkna ut ditt grön teknik-avdrag",
    "h2Ihop": "nowrap",
@@ -317,7 +317,7 @@
     "kontroll_till_nasta_fraga": 28,
     "fraga2_till_kontroll": 43.4,
     "sista_fraga_till_kontroll": 14,
-    "sista_kontroll_till_kortkant": 281.9,
+    "sista_kontroll_till_kortkant": 184.7,
     "eyebrow_till_tal": 14,
     "eyebrow_till_stopp": null,
     "tal_till_per": 9.9,
@@ -379,33 +379,6 @@
     "dh": 0
    }
   },
-  "anvant20": {
-   "status": "tak",
-   "prefix": "upp till",
-   "tal": "30 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
-  },
-  "anvant5": {
-   "status": "belopp",
-   "prefix": "ca",
-   "tal": "7 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
-  },
-  "anvantAllt": {
-   "status": "belopp",
-   "prefix": null,
-   "tal": "0",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 38 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-   "stopp": null
-  },
   "person2": {
    "antal": 2,
    "dataAntal": "2",
@@ -416,7 +389,6 @@
    "huvudSynligt": true,
    "fokus": "rk-inkomst-2",
    "inkomstEtikett2": "Inkomst förra året",
-   "anvantEtikett2": "ROT och RUT använt i år",
    "taBortHojd": 22,
    "eyebrow": "Ert tillgängliga ROT-avdrag"
   },
@@ -455,24 +427,17 @@
    "huvudSynligt": false,
    "eyebrow": "Ditt tillgängliga ROT-avdrag"
   },
-  "gtAnvant": [
-   "Grön teknik du redan använt i år"
-  ],
-  "gtAnvant2": [
-   "Grön teknik du redan använt i år",
-   "Grön teknik använt i år"
-  ],
   "errors": []
  },
  "mobile": {
   "rot": {
    "status": "tak",
-   "kortHojd": 1108.3,
+   "kortHojd": 983.4,
    "kortBredd": 356.3,
    "spaltBredd": 390,
    "fragorBredd": 354.3,
    "panelBredd": 354.3,
-   "antalFragorSynliga": 6,
+   "antalFragorSynliga": 5,
    "femarSynlig": true,
    "avstand": {
     "h2_till_kort": 21.5,
@@ -482,7 +447,7 @@
     "kontroll_till_nasta_fraga": 28,
     "fraga2_till_kontroll": 12,
     "sista_fraga_till_kontroll": 12,
-    "sista_kontroll_till_kortkant": 537,
+    "sista_kontroll_till_kortkant": 412.2,
     "eyebrow_till_tal": 14,
     "eyebrow_till_stopp": null,
     "tal_till_per": 8.3,
@@ -537,17 +502,17 @@
    },
    "lage": {
     "eyebrow": {
-     "top": 987.5,
+     "top": 862.7,
      "h": 18,
      "w": 242.7
     },
     "huvud": {
-     "top": 987.5,
+     "top": 862.7,
      "h": 162.2,
      "w": 311.3
     },
     "talrad": {
-     "top": 1019.5,
+     "top": 894.7,
      "h": 52,
      "w": 268.6
     },
@@ -566,11 +531,11 @@
     },
     "kort": {
      "top": 70.4,
-     "h": 1108.3,
+     "h": 983.4,
      "w": 356.3
     },
     "panel": {
-     "top": 958.5,
+     "top": 833.7,
      "h": 219.2,
      "w": 354.3
     },
@@ -597,7 +562,7 @@
     "not": null,
     "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
    },
-   "kortHojd": 1108.3,
+   "kortHojd": 983.4,
    "stoppMinH": 82.702,
    "stoppH": 82.7,
    "stopptextH": 72.9,
@@ -627,8 +592,8 @@
      "dh": 0
     }
    },
-   "talradTopp": 1019.5,
-   "stoppTopp": 1019.5
+   "talradTopp": 894.7,
+   "stoppTopp": 894.7
   },
   "agerJaIgen": {
    "besked": {
@@ -659,8 +624,8 @@
     "not": "Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad.",
     "stopp": null
    },
-   "kortHojd": 1180.7,
-   "kortDh": 72.4,
+   "kortHojd": 1055.9,
+   "kortDh": 72.5,
    "skiftTal": {
     "dy": 0,
     "dh": 0
@@ -689,7 +654,7 @@
     "stopp": null
    },
    "falt": "180 000",
-   "kortHojd": 1108.3,
+   "kortHojd": 983.4,
    "live": {
     "mutationerUnderSkrivning": 0,
     "talUnderSkrivning": "50 000",
@@ -710,7 +675,7 @@
     "stopp": null
    },
    "falt": "240 000",
-   "kortHojd": 1108.3,
+   "kortHojd": 983.4,
    "typSparBredd": 311.3,
    "typSparBreddLon": 311.3
   },
@@ -733,8 +698,8 @@
    "stopp": null
   },
   "enter": {
-   "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
-   "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+   "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
    "faltVardeEfter": "180 000",
    "aktivtElement": "rk-inkomst-1",
    "besked": {
@@ -768,8 +733,8 @@
    "stopp": "Eftersom du inte äger din bostad har du inte rätt till ROT-avdrag."
   },
   "gt": {
-   "kortHojd": 1013.3,
-   "antalFragorSynliga": 5,
+   "kortHojd": 888.4,
+   "antalFragorSynliga": 4,
    "femarSynlig": false,
    "h2": "Räkna ut ditt grön teknik-avdrag",
    "h2Ihop": "nowrap",
@@ -792,7 +757,7 @@
     "kontroll_till_nasta_fraga": 28,
     "fraga2_till_kontroll": 41,
     "sista_fraga_till_kontroll": 12,
-    "sista_kontroll_till_kortkant": 555,
+    "sista_kontroll_till_kortkant": 430.2,
     "eyebrow_till_tal": 14,
     "eyebrow_till_stopp": null,
     "tal_till_per": 8.3,
@@ -854,33 +819,6 @@
     "dh": 0
    }
   },
-  "anvant20": {
-   "status": "tak",
-   "prefix": "upp till",
-   "tal": "30 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
-  },
-  "anvant5": {
-   "status": "belopp",
-   "prefix": "ca",
-   "tal": "7 000",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": null,
-   "stopp": null
-  },
-  "anvantAllt": {
-   "status": "belopp",
-   "prefix": null,
-   "tal": "0",
-   "enhet": "kr",
-   "per": "Per person och år.",
-   "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 38 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-   "stopp": null
-  },
   "person2": {
    "antal": 2,
    "dataAntal": "2",
@@ -891,7 +829,6 @@
    "huvudSynligt": true,
    "fokus": "rk-inkomst-2",
    "inkomstEtikett2": "Inkomst förra året",
-   "anvantEtikett2": "ROT och RUT använt i år",
    "taBortHojd": 44,
    "eyebrow": "Ert tillgängliga ROT-avdrag"
   },
@@ -930,13 +867,6 @@
    "huvudSynligt": false,
    "eyebrow": "Ditt tillgängliga ROT-avdrag"
   },
-  "gtAnvant": [
-   "Grön teknik du redan använt i år"
-  ],
-  "gtAnvant2": [
-   "Grön teknik du redan använt i år",
-   "Grön teknik använt i år"
-  ],
   "errors": []
  },
  "krav": [
@@ -948,7 +878,7 @@
   {
    "krav": "desktop: kort <= 860 (rot: sex rader + undertexter + länk + ägarrad)",
    "ok": true,
-   "varde": 823.1
+   "varde": 726
   },
   {
    "krav": "desktop: ingen horisontell scroll",
@@ -1006,7 +936,7 @@
   {
    "krav": "desktop: stoppblocket börjar där talraden börjar",
    "ok": true,
-   "varde": "497.7 / 497.7"
+   "varde": "449.1 / 449.1"
   },
   {
    "krav": "desktop: kortet byter inte höjd i stoppläget",
@@ -1071,7 +1001,7 @@
    "ok": true,
    "varde": [
     {
-     "t": 3453,
+     "t": 3303,
      "text": "ca 12 000 kr"
     }
    ]
@@ -1116,8 +1046,8 @@
    "krav": "desktop: Enter i fältet laddar inte om sidan",
    "ok": true,
    "varde": {
-    "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
-    "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+    "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
     "faltVardeEfter": "180 000",
     "aktivtElement": "rk-inkomst-1",
     "besked": {
@@ -1138,14 +1068,14 @@
    "varde": "stopp"
   },
   {
-   "krav": "desktop: gt visar varken femårsfrågan eller ROT/RUT-fältet (fem rader: äger, ålder, inkomst, ränta, grön teknik använt)",
+   "krav": "desktop: gt visar ingen femårsfråga (fyra rader: äger, ålder, inkomst, ränta)",
    "ok": true,
-   "varde": "5 frågor, femår synlig false"
+   "varde": "4 frågor, femår synlig false"
   },
   {
    "krav": "desktop: gt-kort <= 820",
    "ok": true,
-   "varde": 708.1
+   "varde": 611
   },
   {
    "krav": "desktop: gt-rubriken exakt, \"grön teknik-avdrag\" i nowrap-span",
@@ -1237,50 +1167,6 @@
    }
   },
   {
-   "krav": "desktop: 20 000 använt utan inkomst ger \"upp till 30 000 kr\"",
-   "ok": true,
-   "varde": {
-    "status": "tak",
-    "prefix": "upp till",
-    "tal": "30 000",
-    "enhet": "kr",
-    "per": "Per person och år.",
-    "not": null,
-    "stopp": null
-   }
-  },
-  {
-   "krav": "desktop: 180 000 i lön och 5 000 använt ger \"ca 7 000 kr\"",
-   "ok": true,
-   "varde": {
-    "status": "belopp",
-    "prefix": "ca",
-    "tal": "7 000",
-    "enhet": "kr",
-    "per": "Per person och år.",
-    "not": null,
-    "stopp": null
-   }
-  },
-  {
-   "krav": "desktop: 50 000 använt ger \"0 kr\" + raden om årets tak + kvarskattevarning",
-   "ok": true,
-   "varde": {
-    "status": "belopp",
-    "prefix": null,
-    "tal": "0",
-    "enhet": "kr",
-    "per": "Per person och år.",
-    "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 38 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-    "stopp": null
-   }
-  },
-  {
-   "krav": "desktop: Enter i använt-fältet laddar inte om",
-   "ok": true,
-   "varde": "http://localhost:8320/kalkylator/v1/index.html?m=rot"
-  },
-  {
    "krav": "desktop: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet",
    "ok": true,
    "varde": {
@@ -1293,7 +1179,6 @@
     "huvudSynligt": true,
     "fokus": "rk-inkomst-2",
     "inkomstEtikett2": "Inkomst förra året",
-    "anvantEtikett2": "ROT och RUT använt i år",
     "taBortHojd": 22,
     "eyebrow": "Ert tillgängliga ROT-avdrag"
    }
@@ -1350,14 +1235,6 @@
    }
   },
   {
-   "krav": "desktop: gt: grön teknik-fälten \"Grön teknik du redan använt i år\" / \"Grön teknik använt i år\" synliga (dolda i rot)",
-   "ok": true,
-   "varde": [
-    "Grön teknik du redan använt i år",
-    "Grön teknik använt i år"
-   ]
-  },
-  {
    "krav": "desktop: inga konsolfel",
    "ok": true,
    "varde": []
@@ -1370,7 +1247,7 @@
   {
    "krav": "mobile: kort <= 1200 (rot: sex rader + undertexter + länk + ägarrad)",
    "ok": true,
-   "varde": 1108.3
+   "varde": 983.4
   },
   {
    "krav": "mobile: ingen horisontell scroll",
@@ -1428,7 +1305,7 @@
   {
    "krav": "mobile: stoppblocket börjar där talraden börjar",
    "ok": true,
-   "varde": "1019.5 / 1019.5"
+   "varde": "894.7 / 894.7"
   },
   {
    "krav": "mobile: kortet byter inte höjd i stoppläget",
@@ -1488,7 +1365,7 @@
    "ok": true,
    "varde": [
     {
-     "t": 3467,
+     "t": 3459,
      "text": "ca 12 000 kr"
     }
    ]
@@ -1533,8 +1410,8 @@
    "krav": "mobile: Enter i fältet laddar inte om sidan",
    "ok": true,
    "varde": {
-    "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
-    "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+    "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
     "faltVardeEfter": "180 000",
     "aktivtElement": "rk-inkomst-1",
     "besked": {
@@ -1574,14 +1451,14 @@
    "varde": "stopp"
   },
   {
-   "krav": "mobile: gt visar varken femårsfrågan eller ROT/RUT-fältet (fem rader: äger, ålder, inkomst, ränta, grön teknik använt)",
+   "krav": "mobile: gt visar ingen femårsfråga (fyra rader: äger, ålder, inkomst, ränta)",
    "ok": true,
-   "varde": "5 frågor, femår synlig false"
+   "varde": "4 frågor, femår synlig false"
   },
   {
    "krav": "mobile: gt-kort <= 1200",
    "ok": true,
-   "varde": 1013.3
+   "varde": 888.4
   },
   {
    "krav": "mobile: gt-rubriken exakt, \"grön teknik-avdrag\" i nowrap-span",
@@ -1673,50 +1550,6 @@
    }
   },
   {
-   "krav": "mobile: 20 000 använt utan inkomst ger \"upp till 30 000 kr\"",
-   "ok": true,
-   "varde": {
-    "status": "tak",
-    "prefix": "upp till",
-    "tal": "30 000",
-    "enhet": "kr",
-    "per": "Per person och år.",
-    "not": null,
-    "stopp": null
-   }
-  },
-  {
-   "krav": "mobile: 180 000 i lön och 5 000 använt ger \"ca 7 000 kr\"",
-   "ok": true,
-   "varde": {
-    "status": "belopp",
-    "prefix": "ca",
-    "tal": "7 000",
-    "enhet": "kr",
-    "per": "Per person och år.",
-    "not": null,
-    "stopp": null
-   }
-  },
-  {
-   "krav": "mobile: 50 000 använt ger \"0 kr\" + raden om årets tak + kvarskattevarning",
-   "ok": true,
-   "varde": {
-    "status": "belopp",
-    "prefix": null,
-    "tal": "0",
-    "enhet": "kr",
-    "per": "Per person och år.",
-    "not": "Du har redan använt hela årets ROT-avdrag. Du har dessutom använt ca 38 000 kr mer än skatten räcker till. Den delen kan Skatteverket kräva tillbaka i deklarationen.",
-    "stopp": null
-   }
-  },
-  {
-   "krav": "mobile: Enter i använt-fältet laddar inte om",
-   "ok": true,
-   "varde": "http://localhost:8320/kalkylator/v1/index.html?m=rot"
-  },
-  {
    "krav": "mobile: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet",
    "ok": true,
    "varde": {
@@ -1729,7 +1562,6 @@
     "huvudSynligt": true,
     "fokus": "rk-inkomst-2",
     "inkomstEtikett2": "Inkomst förra året",
-    "anvantEtikett2": "ROT och RUT använt i år",
     "taBortHojd": 44,
     "eyebrow": "Ert tillgängliga ROT-avdrag"
    }
@@ -1789,14 +1621,6 @@
     "huvudSynligt": false,
     "eyebrow": "Ditt tillgängliga ROT-avdrag"
    }
-  },
-  {
-   "krav": "mobile: gt: grön teknik-fälten \"Grön teknik du redan använt i år\" / \"Grön teknik använt i år\" synliga (dolda i rot)",
-   "ok": true,
-   "varde": [
-    "Grön teknik du redan använt i år",
-    "Grön teknik använt i år"
-   ]
   },
   {
    "krav": "mobile: inga konsolfel",

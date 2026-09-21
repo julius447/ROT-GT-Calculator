@@ -145,7 +145,7 @@ const STATES = (mode) => ({
   '4 lön 180 000': async (p, s) => fyll(p, s, 'inkomst', '180000'),
   '5 pension 240 000, över 65': async (p, s) => { await klickLabel(p, s, 'input[name$="typ-1"][value="pension"]'); await klickLabel(p, s, 'input[name$="alder-1"][value="66+"]'); await fyll(p, s, 'inkomst', '240000'); },
   '6 lön 1 200 000': async (p, s) => fyll(p, s, 'inkomst', '1200000'),
-  '7 lön 300 000 + använt 60 000': async (p, s) => { await fyll(p, s, 'inkomst', '300000'); await fyll(p, s, mode === 'gt' ? 'gtanvant' : 'anvant', '60000'); },
+  '7 lön 300 000 + ränta 50 000': async (p, s) => { await fyll(p, s, 'inkomst', '300000'); await fyll(p, s, 'ranta', '50000'); },
   '8 två personer (180 000 + tom)': async (p, s) => { await fyll(p, s, 'inkomst', '180000'); await p.locator(`${s} .rk__lagg .rk__lank`).click(); await p.waitForTimeout(80); },
   '9 fyra personer': async (p, s) => { for (let i = 0; i < 3; i++) { await p.locator(`${s} .rk__lagg .rk__lank`).click(); await p.waitForTimeout(60); } },
   '10 lön 300 000': async (p, s) => fyll(p, s, 'inkomst', '300000'),
@@ -352,7 +352,7 @@ for (const [vp, opts] of VIEWPORTS) {
       if (namn === '10 lön 300 000') rad(`${vp} tillstånd ${m}`, '300 000 -> "ca 31 000 kr"', 'ca 31 000 kr', c.tal, c.tal === 'ca 31 000 kr');
       if (namn === '2 äger=nej') rad(`${vp} tillstånd ${m}`, 'Nej -> stopp', 'stopp', c.status, c.status === 'stopp' && c.stoppHidden === false);
       if (namn === '8 två personer (180 000 + tom)') {
-        const ids = await cand.evaluate((s) => { const uid = s.slice(1, 4); const ids = [...document.querySelectorAll('[id]')].map((e) => e.id); return { p2: !!document.getElementById(uid + '-rk-inkomst-2'), dup: ids.filter((id, i) => ids.indexOf(id) !== i), label: document.querySelector(s + ' .rk__person[data-person="2"] .rk__personetikett').textContent, describedby: document.querySelector(s + ' [data-falt="anvant"][id$="-2"]').getAttribute('aria-describedby'), refsOk: [...document.querySelectorAll(s + ' [aria-describedby],' + s + ' [aria-labelledby],' + s + ' [for]')].every((el) => ['aria-describedby', 'aria-labelledby', 'for'].every((a) => !el.getAttribute(a) || el.getAttribute(a).split(/\s+/).every((id) => document.getElementById(id)))) }; }, cs);
+        const ids = await cand.evaluate((s) => { const uid = s.slice(1, 4); const ids = [...document.querySelectorAll('[id]')].map((e) => e.id); return { p2: !!document.getElementById(uid + '-rk-inkomst-2'), dup: ids.filter((id, i) => ids.indexOf(id) !== i), label: document.querySelector(s + ' .rk__person[data-person="2"] .rk__personetikett').textContent, describedby: document.querySelector(s + ' [data-falt="ranta"][id$="-2"]').getAttribute('aria-describedby'), refsOk: [...document.querySelectorAll(s + ' [aria-describedby],' + s + ' [aria-labelledby],' + s + ' [for]')].every((el) => ['aria-describedby', 'aria-labelledby', 'for'].every((a) => !el.getAttribute(a) || el.getAttribute(a).split(/\s+/).every((id) => document.getElementById(id)))) }; }, cs);
         rad(`${vp} tillstånd ${m}`, 'Lägg till -> Person 2 med unika, prefixade id:n', 'Person 2, 0 dubbletter, alla referenser löser', `${ids.label}, ${ids.dup.length} dubbletter, refs ${ids.refsOk}, ${ids.describedby}`, ids.p2 && ids.dup.length === 0 && ids.label === 'Person 2' && ids.refsOk);
       }
       // datorstilar efter tillståndet (samma element, samma tolerans)

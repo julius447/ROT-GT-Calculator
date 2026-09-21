@@ -132,7 +132,7 @@
   <p class="ingress">Verktyget på ampy.se svarar på en fråga: hur mycket ROT-avdrag eller grön teknik-avdrag kan den här kunden få i år utan att det kommer tillbaka som kvarskatt? Här är hela resonemanget bakom siffran, så att du kan bedöma om det stämmer med hur det ser ut hos kunderna i verkligheten.</p>
   <div class="meta">
     <span><b>Inkomstår</b> 2026</span>
-    <span><b>Version</b> 2026-09-16</span>
+    <span><b>Version</b> 2026-09-21</span>
     <span><b>Verifierat mot</b> Skatteverkets e-tjänst, 75 körningar</span>
   </div>
 
@@ -164,7 +164,7 @@
   <p>Rabatten kan bara dras från skatt kunden faktiskt betalar under året: kommunalskatt, statlig inkomstskatt och fastighetsavgift. Innan ROT får dra något har andra rabatter redan tagit sitt ur samma pott, i en ordning som lagen bestämmer (inkomstskattelagen 67 kap. 2 §): pensionsavgiften, jobbskatteavdraget, en liten reduktion för förvärvsinkomst och ränteavdraget på bolånet. Det som blir kvar är kundens <strong>utrymme</strong>. Grön teknik ligger ännu längre bak i kön, efter ROT och RUT.</p>
   <div class="ruta">
     <p class="rubrik">Verktygets svar</p>
-    <p>Tillgängligt avdrag = det lägsta av taket och utrymmet, minus det kunden redan använt av samma avdrag i år. Har kunden inte fyllt i någon inkomst visar verktyget taket med orden "upp till".</p>
+    <p>Tillgängligt avdrag = det lägsta av taket och utrymmet. Har kunden inte fyllt i någon inkomst visar verktyget taket med orden "upp till". Avdrag kunden redan fått tidigare i år räknas inte av (verktyget frågar inte efter det, se avsnitt 6).</p>
   </div>
 
   <h2 id="potten">2. Så räknas skattepotten</h2>
@@ -216,10 +216,9 @@
   <ul class="fragor">
     <li><span class="q">Äger du din bostad? Villa, radhus eller lägenhet. Helt eller delvis.</span><span class="why">Bara den som äger bostaden, helt eller delvis, och bor där kan få avdraget (67 kap. 13 a §). Nej ger ett stopp med rött kryss. <em>Hyresrätt, uthyrd bostad eller föräldrarnas hus utan delägande ger inget avdrag.</em></span></li>
     <li><span class="q">Är bostaden äldre än fem år?</span><span class="why">Femårsregeln stoppar bara om- och tillbyggnad i nya hus. Reparationer och underhåll ger ROT oavsett ålder, och bostadsrätter har ingen femårsregel alls. Verktyget ändrar därför inte beloppet utan visar raden "Yngre än fem år: ROT gäller bara reparationer." <em>Visas inte i grön teknik-läget, där regeln inte finns.</em></span></li>
-    <li><span class="q">Hur gammal är du? Under 18, 18 till 65, Över 65.</span><span class="why">Under 18 ger stopp (man ska ha fyllt 18 senast vid årets slut). Över 65 betyder fyllt 66 vid årets ingång, alltså född 1959 eller tidigare: då gäller förhöjt grundavdrag och ett annat jobbskatteavdrag, och det ändrar potten kraftigt. <em>Åldern frågas för att den inte kan gissas ur om personen har lön eller pension.</em></span></li>
+    <li><span class="q">Hur gammal är du? Under 18, 18 till 65, Över 65.</span><span class="why">Raden under frågan säger "Fyllde du 66 i år, välj 18 till 65". Under 18 ger stopp (man ska ha fyllt 18 senast vid årets slut). Över 65 betyder fyllt 66 vid årets ingång, alltså född 1959 eller tidigare: då gäller förhöjt grundavdrag och ett annat jobbskatteavdrag, och det ändrar potten kraftigt. <em>Åldern frågas för att den inte kan gissas ur om personen har lön eller pension.</em></span></li>
     <li><span class="q">Din inkomst förra året. Lön, Pension eller Båda.</span><span class="why">Avdraget dras mot skatten för det år arbetet betalas, alltså 2026, men de flesta vet bara förra årets inkomst, så den får stå som uppskattning. Lön och pension beskattas olika (pensionsavgift och jobbskatteavdrag finns bara på lön). Väljer kunden Båda dyker raden "Varav pension" upp.</span></li>
-    <li><span class="q">Bolåneränta förra året</span><span class="why">Ränteavdraget (30 procent av räntan) dras ur samma pott före ROT. Tomt fält räknas som noll. <em>Delar två personer lånet ska var och en skriva sin halva.</em></span></li>
-    <li><span class="q">ROT och RUT du redan använt i år</span><span class="why">Det som redan betalats ut i år tar av både taket och potten. Kunden ser sitt belopp i Skatteverkets tjänst "Mina skattereduktioner för rot, rut och grön teknik". I grön teknik-läget heter fältet i stället "Grön teknik du redan använt i år"; de två posterna hålls isär. <em>Det är avdraget som ska skrivas, inte hela fakturan.</em></span></li>
+    <li><span class="q">Låneräntor förra året</span><span class="why">Ränteavdraget (30 procent av räntan på bolån och andra lån) dras ur samma pott före ROT. Tomt fält räknas som noll. <em>Delar två personer lånet ska var och en skriva sin halva.</em></span></li>
     <li><span class="q">Lägg till en person</span><span class="why">Varje ägare har sitt eget tak och sin egen pott, så hushållets belopp är summan. Den som läggs till antas äga bostaden och bo där, därav raden "Bara för den som också äger bostaden". <em>En sambo som inte står på lagfarten eller i föreningen kan inte få ROT, hur många fakturor som än skrivs.</em></span></li>
   </ul>
 
@@ -239,12 +238,13 @@
   <h2 id="kontrollerar">6. Vad verktyget kontrollerar och inte</h2>
   <h3>Kontrollerar</h3>
   <ul>
-    <li>Ägande (stopp vid nej), ålder under 18 (stopp), femårsregeln (bara en upplysning), taket per person, kundens utrymme utifrån inkomst, ålder, inkomsttyp och bolåneränta, redan använt avdrag i år, och hushållets summa.</li>
+    <li>Ägande (stopp vid nej), ålder under 18 (stopp), femårsregeln (bara en upplysning), taket per person, kundens utrymme utifrån inkomst, ålder, inkomsttyp och låneräntor, och hushållets summa.</li>
   </ul>
   <h3>Kontrollerar inte</h3>
   <ul>
     <li>Om bostaden är uthyrd, ett dödsbo, en förälders bostad utan delägande, eller ligger utanför Sverige. Det får vi fråga om vid bokningen.</li>
     <li>Om arbetet i sig ger ROT eller grön teknik (vilka moment, material mot arbete, schablonen 97 procent vid fast pris för grön teknik). Verktyget svarar bara på hur mycket kunden kan få, inte om jobbet kvalar in.</li>
+    <li>Avdrag kunden redan fått tidigare i år (ROT, RUT eller grön teknik). Verktyget frågar inte efter det, så en kund som redan använt en del av årets tak får räkna av det själv. Beloppet syns på Skatteverkets Mina sidor under "Mina skattereduktioner för rot, rut och grön teknik".</li>
     <li>Våra egna krav för att kunna begära utbetalning: F-skatt, elektronisk betalning, korrekt märkt faktura.</li>
   </ul>
 
@@ -292,7 +292,6 @@
     <li><span class="box"></span><span><b>Kvarskatten</b>Stämmer beskrivningen av vad som händer när kundens skatt inte räcker med det ni ser i praktiken? Har vi haft sådana fall?</span></li>
     <li><span class="box"></span><span><b>Pensionärer</b>Känns det rimligt att en pensionär med 300 000 kr får fullt ROT medan en löntagare med samma inkomst får ungefär 31 000 kr? Har ni sett det slå så?</span></li>
     <li><span class="box"></span><span><b>Över 65 med lön</b>Vet ni kunder som jobbar efter 66 utan att ta ut pension? Blir valet "Båda" begripligt för dem?</span></li>
-    <li><span class="box"></span><span><b>Redan använt</b>Förstår kunderna vad "ROT och RUT du redan använt i år" betyder, och hittar de beloppet hos Skatteverket?</span></li>
     <li><span class="box"></span><span><b>Grön teknik</b>Stämmer 50 procent för laddbox och batteri och 15 procent för solceller med det ni fakturerar i dag? Ska något mer stå om schablonen vid fast pris?</span></li>
     <li><span class="box"></span><span><b>Två ägare</b>Är det rätt att räkna två tak när båda står på lagfarten, och att varna för sambon som inte gör det?</span></li>
     <li><span class="box"></span><span><b>Orden</b>Är något ord fel eller ovant jämfört med hur ni pratar med kunderna?</span></li>

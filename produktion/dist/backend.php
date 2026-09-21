@@ -10,7 +10,7 @@
  *   heading_level  2 (default) or 3 (sidebar placement). Same look either way (.ampy-h2 sets everything).
  * Several instances on one page are fine: every id, for, aria-* and radio name is prefixed per instance (ak1-, ak2-, ...).
  * No data injection (nothing is dynamic), no REST route (nothing is submitted), no webhook, no tracking, no nonce.
- * Auto-built by produktion/_build/paketera.mjs from kalkylator/v1/index.html (section verbatim, sha256 f1b86b898a7c).
+ * Auto-built by produktion/_build/paketera.mjs from kalkylator/v1/index.html (section verbatim, sha256 9405598912d0).
  * Rebuild, never hand-edit.
  * ---------------------------------------------------------------------------------------------------------------------
  */
@@ -91,22 +91,6 @@ if ( ! function_exists( 'ampy_avdragskollen_markup' ) ) {
               <span class="rk__enhet" id="rk-enhet-ranta-1">kr</span>
             </div>
           </div>
-          <div class="rk__fraga rk__rad rk__fraga--anvant">
-            <label class="rk__etikett" for="rk-anvant-1">ROT och RUT du redan använt i år</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-anvant-1" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-anvant-1 rk-under-anvant-1">
-              <span class="rk__enhet" id="rk-enhet-anvant-1">kr</span>
-            </div>
-            <p class="rk__under rk__under--rad" id="rk-under-anvant-1">Själva avdraget, inte hela fakturan.</p>
-          </div>
-          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
-            <label class="rk__etikett" for="rk-gtanvant-1">Grön teknik du redan använt i år</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-gtanvant-1" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-gtanvant-1 rk-under-gtanvant-1">
-              <span class="rk__enhet" id="rk-enhet-gtanvant-1">kr</span>
-            </div>
-            <p class="rk__under rk__under--rad" id="rk-under-gtanvant-1">Själva avdraget, inte hela fakturan.</p>
-          </div>
         </div>
       </div>
 
@@ -160,22 +144,6 @@ if ( ! function_exists( 'ampy_avdragskollen_markup' ) ) {
               <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-N" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-N">
               <span class="rk__enhet" id="rk-enhet-ranta-N">kr</span>
             </div>
-          </div>
-          <div class="rk__fraga rk__rad rk__fraga--anvant">
-            <label class="rk__etikett" for="rk-anvant-N">ROT och RUT använt i år</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-anvant-N" data-falt="anvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-anvant-N rk-under-anvant-N">
-              <span class="rk__enhet" id="rk-enhet-anvant-N">kr</span>
-            </div>
-            <p class="rk__under rk__under--rad" id="rk-under-anvant-N">Själva avdraget, inte hela fakturan.</p>
-          </div>
-          <div class="rk__fraga rk__rad rk__fraga--gtanvant">
-            <label class="rk__etikett" for="rk-gtanvant-N">Grön teknik använt i år</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-gtanvant-N" data-falt="gtanvant" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-gtanvant-N rk-under-gtanvant-N">
-              <span class="rk__enhet" id="rk-enhet-gtanvant-N">kr</span>
-            </div>
-            <p class="rk__under rk__under--rad" id="rk-under-gtanvant-N">Själva avdraget, inte hela fakturan.</p>
           </div>
         </div>
       </template>
