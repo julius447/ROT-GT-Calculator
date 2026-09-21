@@ -1,73 +1,31 @@
-/* Avdragskollen inbäddad i artikelmallen (ampy.se/elcentral-guide-2026/, Bricks). Två placeringar:
-   [data-plats="hoger"]  kalkylatorn i högerspalten, som TOC-kortet (30 %, TOC-kortet under, icke-sticky)
-   [data-plats="topp"]   kalkylatorn överst i artikelspalten (65 %), före Snabbt svar-kortet
-   Kortet självt (kalkylator/v1/style.css) byter till staplat läge under 720 px behållarbredd. */
-
-/* ---------- Högerspalten: ny kolumn = kalkylatorn + TOC-kortet ---------- */
-#ampy-hoger {
-  display: flex; flex-direction: column; row-gap: var(--apspace-m);
-  width: 30%;                                         /* = TOC-kortets bredd i mallen (#brxe-qopmij width: 30 %) */
-  align-self: stretch;                                /* kolumnen är lika hög som artikeln så TOC-kortet kan vara sticky under kalkylatorn */
-  min-width: 0;
-}
-#ampy-hoger > #brxe-qopmij { width: 100%; }           /* TOC-kortet fyller kolumnen; behåller sin sticky (top 8rem) i mallen */
-[data-plats="topp"] #ampy-hoger { display: contents; }   /* i topp-läget är kolumnen bara TOC-kortet: släpp igenom det till flex-raden som förut */
+/* Avdragskollen överst i artikelmallen (ampy.se/elcentral-guide-2026/, Bricks): kalkylatorn ligger först i
+   artikelspalten (#brxe-pfbtud, 65 % av raden), före Snabbt svar-kortet. Enda placeringen (ägarbeslut 2026-09-21).
+   Kortet självt (kalkylator/v1/style.css) byter till staplat läge under 720 px behållarbredd; mallen staplar sina
+   två kolumner vid 780 px, så på telefon ligger kalkylatorn full bredd överst.
+   Reglerna här är förlagan till block 8 i produktion/dist/styles.css (paketera.mjs); pariteten bevisar likheten. */
 
 /* ---------- Kalkylatorns yta i artikeln ---------- */
-.ampy-kalkylator { width: 100%; min-width: 0; }
+.ampy-kalkylator { width: 100%; min-width: 0; margin-bottom: var(--apspace-m); }   /* luften nedåt som mallens egna block (Snabbt svar-kortet har margin-bottom apspace-m; spalten lägger dessutom row-gap apspace-s) */
 .ampy-kalkylator .rk-behallare { display: block; }
 .ampy-kalkylator .rk { width: 100%; }
 
-/* Rubriken: i artikelspalten = artikelmallens H2 (aptext-xl 24-32/700, ls -.025em, lh 1.25) så den ser ut som
-   grannarna och hamnar i innehållsförteckningen; i högerspalten = kortrubrik i TOC-kortets storlek (aptext-ml/700). */
-[data-plats="topp"] .ampy-kalkylator .rk__rubrik {
+/* Rubriken = artikelmallens egna H2 (.brxe-post-content h2: aptext-xl 24-32 px/700, ls -.025em, lh 1.25, midnight;
+   under 768 px aptext-lm 22-28 px) så kalkylatorns rubrik ser ut som artikelns övriga rubriker. Kalkylatorn ligger
+   utanför .brxe-post-content, därför sätts värdena här. */
+.ampy-kalkylator .rk__rubrik {
   font-size: var(--aptext-xl); font-weight: 700; line-height: 1.25; letter-spacing: -0.025em; color: var(--apmidnight-blue);
   margin: 0 0 var(--apspace-s);
 }
-[data-plats="hoger"] .ampy-kalkylator .rk__rubrik {
-  font-size: var(--aptext-ml); font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; color: var(--apmidnight-blue);
-  margin: 0 0 var(--apspace-xs);
-}
-/* Topp-läget: kortet får artikelblockets radavstånd nedåt (Snabbt svar-kortet följer) */
-[data-plats="topp"] .ampy-kalkylator { margin-bottom: var(--apspace-s); }
+@media (max-width: 768px) { .ampy-kalkylator .rk__rubrik { font-size: var(--aptext-lm); } }
 
-/* ---------- Skydd mot värdsidans element-regler (Bricks/tema) ---------- */
+/* ---------- Skydd mot värdsidans element-regler (= block 7 i dist/styles.css, byggt härifrån) ----------
+   Bricks (@layer bricks) sätter label{margin-bottom:5px}, fieldset{padding}, legend{display:table;max-width:100%},
+   button{text-align:inherit;-webkit-appearance:button}; temat sätter text-transform/letter-spacing på knappar.
+   Värdena här = v1:s egna datorvärden (ingen pixel ändras), så egenskaper som kalkylatorn inte själv sätter är låsta. */
 .ampy-kalkylator fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
-.ampy-kalkylator legend { padding: 0; }
+.ampy-kalkylator legend { padding: 0; max-width: none; }
 .ampy-kalkylator label { margin: 0; }
+.ampy-kalkylator button { text-transform: none; letter-spacing: normal; text-align: center; appearance: auto; }
 /* Värdsidans snippet "14-global-css" sätter input:focus{border-color:#5EB1BF!important}: motregel så fokuskanten
    förblir systemets teal-deep (research/14 M1). Ingen box-shadow-nollning: den dödade fokusringen (M2). */
 .ampy-kalkylator .rk__input:focus, .ampy-kalkylator .rk__input:focus-visible { border-color: var(--ampy-action-strong) !important; }
-.ampy-kalkylator button { text-transform: none; letter-spacing: 0; }
-
-/* Högerspalten är för smal för kalkylatorn under 1260 px (mätt 2026-09-20: valen utanför kortet < 1121 px,
-   "upp till 50 000 kr" på två rader < 1261 px, designbredden 384 px först vid 1361 px). Under 1260 staplas
-   kolumnerna som mallen gör vid 780, kalkylatorn först (research/13 B1, P1). */
-@media (max-width: 1259px) {
-  [data-plats="hoger"] #brxe-meojam { flex-direction: column-reverse; }
-  [data-plats="hoger"] #brxe-pfbtud, [data-plats="hoger"] #ampy-hoger { width: 100%; }
-  [data-plats="hoger"] #brxe-qopmij { position: static; }
-}
-
-/* ---------- Mobil (mallens brytpunkt 780: kolumnerna staplas, högerspalten först) ---------- */
-@media (max-width: 780px) {
-  #ampy-hoger { width: 100%; }
-  [data-plats="hoger"] .ampy-kalkylator .rk__rubrik { font-size: var(--aptext-lm); }
-}
-
-/* ---------- Förhandsvisningsraden (bara i klonen, inte en del av designen) ---------- */
-.ampy-forhandsvisning {
-  position: fixed; right: 16px; bottom: 16px; z-index: 9999;
-  display: flex; align-items: center; gap: 4px;
-  padding: 6px 8px; border-radius: 999px;
-  background: rgba(9,11,50,.92); color: #fff; font: 500 13px/1 Outfit, system-ui, sans-serif;
-  box-shadow: 0 8px 24px rgba(9,11,50,.25);
-}
-.ampy-forhandsvisning span { padding: 0 8px; opacity: .6; }
-.ampy-forhandsvisning i { width: 1px; height: 18px; background: rgba(255,255,255,.25); margin: 0 4px; }
-.ampy-forhandsvisning a { color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 999px; }
-.ampy-forhandsvisning a[aria-current="true"] { background: #00a991; color: #090b32; }
-@media (max-width: 780px) {
-  .ampy-forhandsvisning { left: 8px; right: 8px; bottom: 8px; justify-content: center; flex-wrap: wrap; border-radius: 16px; }
-  .ampy-forhandsvisning span { display: none; }
-}

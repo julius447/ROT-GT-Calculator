@@ -1,5 +1,5 @@
 /* =====================================================================================================================
-   AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 1/3, typ "CSS". Kör: Frontend, wp_head. Paket 1.0.0.
+   AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 1/3, typ "CSS". Kör: Frontend, wp_head. Paket 1.1.0.
    FORMAT-ONLY: byggd ur kalkylator/v1/style.css + kalkylator/system av produktion/_build/paketera.mjs. Redigera aldrig
    här: ändra källorna och kör "node produktion/_build/paketera.mjs" + "node produktion/_build/paritet.mjs".
    Allt ligger under .ampy-avdragskollen (tokens på wrappern, inga :root/html/body, 0 rem, @container för layouten).
@@ -424,11 +424,20 @@
    inte sätter, och sajtens egen snippet "14-global-css" sätter input:focus{border-color:#5EB1BF!important} (olagrad,
    !important). Bevis: research/14 §2.1 M1-M2, §3.2 block 7. Värdena = v1:s egna (falt.css:79), ingen pixel ändras. */
 .ampy-avdragskollen fieldset { min-width: 0; border: 0; padding: 0; margin: 0;  }
-.ampy-avdragskollen legend { padding: 0;  max-width: none; }
+.ampy-avdragskollen legend { padding: 0; max-width: none;  }
 .ampy-avdragskollen label { margin: 0;  }
-.ampy-avdragskollen button { text-transform: none; letter-spacing: normal;  text-align: center; appearance: auto; }
+.ampy-avdragskollen button { text-transform: none; letter-spacing: normal; text-align: center; appearance: auto;  }
 .ampy-avdragskollen .rk__input:focus { border-color: var(--ampy-line-strong) !important; }              /* fokus utan tangentbord: samma kant som i vila (som i v1) */
 .ampy-avdragskollen .rk__input:focus-visible { border-color: var(--ampy-action-strong) !important; }     /* tangentbordsfokus: teal-deep (falt.css:79) */
+
+/* ---------- 8. Placeringen överst i artikelspalten (kalkylator/artikel/artikel.css med sajtens tokens i px) ----------
+   Rubriken = artikelmallens egna H2 (.brxe-post-content h2: --aptext-xl 24-32 px/700, ls -0.025em, lh 1.25, midnight;
+   under 768 px --aptext-lm 22-28 px). Kalkylatorn ligger utanför .brxe-post-content, därför sätts värdena här.
+   Kortets luft nedåt = mallens egna block (margin-bottom --apspace-m, som Snabbt svar-kortet; spalten lägger row-gap
+   --apspace-s därtill). Kortets egen layout är behållarstyrd. */
+.ampy-avdragskollen-outer { width: 100%; min-width: 0; margin: 0 0 clamp(16px, 1.25vw + 12px, 28px); }   /* = .ampy-kalkylator i artikel.css: full bredd i Bricks flex-kolumn (behållaren saknar egen bredd) */
+.ampy-avdragskollen .rk__rubrik { font-size: clamp(24px, 0.83vw + 21.3px, 32px); font-weight: 700; line-height: 1.25; letter-spacing: -0.025em; color: rgb(9, 11, 50); margin: 0 0 clamp(12.8px, 0.73vw + 10.5px, 19.8px); }
+@media (max-width: 768px) { .ampy-avdragskollen .rk__rubrik { font-size: clamp(22px, 0.63vw + 20px, 28px); } }
 
 /* ---------- Manifest (skrivet av paketera.mjs) ----------
    Källor (sha256):
@@ -439,8 +448,8 @@
      kalkylator/system/components/ytor.css  54577de06a627db171370d76986cdc929cb24434c6e29be0ed6650cb35c85fbb
      kalkylator/system/components/falt.css  8b8e5c52adb24a85a47653184d415fd7cb515e46774f15bd1ee178f583889c60
      kalkylator/system/components/knappar.css  f1052791af292504a3982b14f278aed8fe31c259f8fe1863a80ffeeeb2c9f73b
-     kalkylator/artikel/bas-inbaddad.css  0e7a22cfd988dcb132074d4aa44c1976f04d3a3176fb92c88dfc2a6353949a46
-     kalkylator/artikel/artikel.css  5109beb3f4c94fb3054bc29e23df7b15d50bcaa9e0c6b76f6133332077f933ad
+     kalkylator/artikel/bas-inbaddad.css  a5e8bc61296751b26600c9bc4ad2b85d969716e9595f31842428feaf00a20cf2
+     kalkylator/artikel/artikel.css  d19a233beea45f7657ba7fd8ccf70a508ce57921b7cdb40d7ae54b3493a1379c
    rem -> px: 34rem -> 340px
    Tokens på wrappern: 59 st
    Systemregler som togs med: 32 st, slängda som inte kan träffa markupen: 427 st (listan skrivs av bygget)

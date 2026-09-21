@@ -268,8 +268,8 @@
    "stopp": null
   },
   "enter": {
-   "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
-   "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+   "urlFore": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
    "faltVardeEfter": "180 000",
    "aktivtElement": "rk-inkomst-1",
    "besked": {
@@ -698,8 +698,8 @@
    "stopp": null
   },
   "enter": {
-   "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
-   "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+   "urlFore": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
    "faltVardeEfter": "180 000",
    "aktivtElement": "rk-inkomst-1",
    "besked": {
@@ -1001,7 +1001,7 @@
    "ok": true,
    "varde": [
     {
-     "t": 3303,
+     "t": 3345,
      "text": "ca 12 000 kr"
     }
    ]
@@ -1046,8 +1046,8 @@
    "krav": "desktop: Enter i fältet laddar inte om sidan",
    "ok": true,
    "varde": {
-    "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
-    "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+    "urlFore": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
     "faltVardeEfter": "180 000",
     "aktivtElement": "rk-inkomst-1",
     "besked": {
@@ -1365,7 +1365,7 @@
    "ok": true,
    "varde": [
     {
-     "t": 3459,
+     "t": 3453,
      "text": "ca 12 000 kr"
     }
    ]
@@ -1410,8 +1410,8 @@
    "krav": "mobile: Enter i fältet laddar inte om sidan",
    "ok": true,
    "varde": {
-    "urlFore": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
-    "urlEfter": "http://localhost:8326/kalkylator/v1/index.html?m=rot",
+    "urlFore": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8223/kalkylator/v1/index.html?m=rot",
     "faltVardeEfter": "180 000",
     "aktivtElement": "rk-inkomst-1",
     "besked": {

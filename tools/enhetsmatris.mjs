@@ -118,10 +118,9 @@ const ENHETER = [
 const SIDOR = [
   { slug: 'fristaende-rot', namn: 'fristående ?m=rot', url: '/kalkylator/v1/index.html?m=rot', m: 'rot', artikel: false },
   { slug: 'fristaende-gt', namn: 'fristående ?m=gt', url: '/kalkylator/v1/index.html?m=gt', m: 'gt', artikel: false },
-  { slug: 'artikel-topp-rot', namn: 'artikel ?p=topp&m=rot', url: '/kalkylator/artikel/index.html?p=topp&m=rot', m: 'rot', artikel: true },
-  { slug: 'artikel-hoger-rot', namn: 'artikel ?p=hoger&m=rot', url: '/kalkylator/artikel/index.html?p=hoger&m=rot', m: 'rot', artikel: true },
-  { slug: 'artikel-topp-gt', namn: 'artikel ?p=topp&m=gt', url: '/kalkylator/artikel/index.html?p=topp&m=gt', m: 'gt', artikel: true },
-  { slug: 'artikel-hoger-gt', namn: 'artikel ?p=hoger&m=gt', url: '/kalkylator/artikel/index.html?p=hoger&m=gt', m: 'gt', artikel: true },
+  /* 2026-09-21: klonen har bara placeringen överst i artikelspalten (?p= är borta); högerspaltraderna togs bort */
+  { slug: 'artikel-topp-rot', namn: 'artikel överst, m=rot', url: '/kalkylator/artikel/index.html?m=rot', m: 'rot', artikel: true },
+  { slug: 'artikel-topp-gt', namn: 'artikel överst, m=gt', url: '/kalkylator/artikel/index.html?m=gt', m: 'gt', artikel: true },
 ].filter((s) => !baraSidor || baraSidor.includes(s.slug));
 
 /* ---------- mätningen i sidan ---------- */

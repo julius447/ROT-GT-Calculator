@@ -32,9 +32,12 @@
    kör 62.5 %; lager 2 (--ampy-*) är px-baserat och oberoende av roten. Allt nedan är scopat till .ampy. */
 .ampy, .ampy *, .ampy *::before, .ampy *::after { box-sizing: border-box; }
 .ampy { margin: 0; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-.ampy img, .ampy video { max-width: 100%; height: auto; display: block; }
-.ampy svg { max-width: 100%; display: inline-block; vertical-align: -0.15em; }
-.ampy button, .ampy input, .ampy select, .ampy textarea { font: inherit; color: inherit; }
+/* Element-reseten med samma specificitet som i base.css, (0,0,1): ".ampy input" vore (0,1,1) och slog komponentklasserna
+   (.ampy-input, .ampy-link = (0,1,0)), så fälten ärvde artikelns 300-vikt och länken artikelns färg/storlek i klonen
+   (paritet.mjs grupp B hittade det 2026-09-21). Sajtens egna element-regler (0,0,1) tar den här filen över på ordning. */
+:where(.ampy) img, :where(.ampy) video { max-width: 100%; height: auto; display: block; }
+:where(.ampy) svg { max-width: 100%; display: inline-block; vertical-align: -0.15em; }
+:where(.ampy) :is(button, input, select, textarea) { font: inherit; color: inherit; }
 :where(.ampy) :is(h1, h2, h3, h4, p, ul, ol, figure) { margin: 0; }   /* (0,0,1) som base.css: komponenternas marginaler vinner (research/13 M1, P2) */
 
 /* ---------- Rubrikroller som klasser (fungerar utan .ampy-skopet) ---------- */

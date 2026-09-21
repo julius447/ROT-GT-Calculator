@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 /*
- * paritet.mjs: bevisar att snippet-paketet (produktion/preview/index.html, som laddar dist/ BY REFERENCE) renderar och
- * beter sig exakt som referensen kalkylator/v1/index.html (?m=rot mot instans 1, ?m=gt mot instans 2), i Chromium vid
- * 1280×900 (fin pekare) och 390×844 (touch, dsf 2). Kör: node produktion/_build/paritet.mjs   (exit 1 vid drift)
+ * paritet.mjs: bevisar att snippet-paketet (dist/, laddat BY REFERENCE) renderar och beter sig exakt som referensen.
+ * Två grupper. A: fixturen _build/prov/tva-instanser.html (två instanser på en tom sida) mot kalkylator/v1/index.html
+ * (?m=rot mot instans 1, ?m=gt mot instans 2), i Chromium vid 1280×900 (fin pekare) och 390×844 (touch, dsf 2).
+ * B (leveransen): produktion/preview/artikel-rot|gt.html (paketet överst i artikelmallen) mot referensklonen
+ * kalkylator/artikel/index.html?m=rot|gt (v1-källan på samma plats) vid 1440, 1024 och 390: samma lägen och mått för
+ * rubrik, kort och nästa block (Snabbt svar), samma datorstilar, pixel-lika skärmdump av rubrik + kort + luften under,
+ * motorn igång (300 000 -> ca 31 000 kr, Nej -> stopp) och fokuskanten teal-deep inuti sajtens riktiga CSS.
+ * Kör: node produktion/_build/paritet.mjs   (exit 1 vid drift)
  *
  *   1. konsol + nät: 0 pageerror, 0 error/warning, 0 anrop utanför localhost (typsnittet mappas till dist/fonts)
  *   2. DOM: 0 dubbla id:n med två instanser, alla for/aria-* löser, legend först, template finns, samma antal tabbstopp
@@ -12,10 +17,11 @@
  *   4. tillståndsvandring: 9 tillstånd, beskedets text + status lika (300 000 -> "ca 31 000 kr", Nej -> stopp, ...)
  *   5. fokus: tangentbordsfokus på inkomstfältet = teal-deep kant + ring; "Lägg till" = 2 px navy outline; segmentpill
  *   6. två instanser oberoende: Nej/180 000 i instans 2 rör inte instans 1 och tvärtom; Person 2 får unika id:n
- *   7. skärmdumpar (rubrik + kort) referens mot kandidat: byte-lika eller <= 0,1 % pixlar (diffbild i _build/out/)
+ *   7. skärmdumpar (kortet, överkanten snäppt till hel px) referens mot kandidat: byte-lika eller <= 0,1 % pixlar (diffbild i _build/out/)
  *   8. reduced motion: animationen nollad i båda
  *   9. textprov: kortets innerText lika
  *   host-sim.html: samma stilprov + fokusprov inuti sajtens riktiga CSS (M1-provet: input:focus !important)
+ *   artikel (grupp B): se ovan
  *
  * Tröskel: exakt lika, eller px-värden inom 0,5 px. Skriver _build/out/paritet.json + skärmdumpar.
  */
@@ -46,8 +52,10 @@ await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const BASE = `http://127.0.0.1:${server.address().port}`;
 const URLS = {
   ref: (mode) => `${BASE}/kalkylator/v1/index.html?m=${mode}`,
-  cand: `${BASE}/produktion/preview/index.html`,
-  host: `${BASE}/produktion/preview/host-sim.html`,
+  cand: `${BASE}/produktion/_build/prov/tva-instanser.html`,
+  host: `${BASE}/produktion/_build/prov/host-sim.html`,
+  artRef: (mode) => `${BASE}/kalkylator/artikel/index.html?m=${mode}`,
+  artCand: (mode) => `${BASE}/produktion/preview/artikel-${mode}.html`,
 };
 const SEC = { ref: '#avdragskollen', cand1: '#ak1-avdragskollen', cand2: '#ak2-avdragskollen' };
 const WRAPPER = { ref: 'body', cand1: '#ak1-avdragskollen', cand2: '#ak2-avdragskollen' };   // kandidatens wrapper = sektionens .ampy-avdragskollen-förälder (löses i sidan)
@@ -77,16 +85,16 @@ const PROPS = ['fontFamily', 'fontWeight', 'fontSize', 'fontStyle', 'fontVariant
   'fill', 'opacity', 'visibility', 'transition', 'transform', 'animation', 'cursor', 'pointerEvents', 'appearance'];   // 'border' = per sida, färg bara där bredden > 0
 const WRAP_PROPS = ['fontFamily', 'fontWeight', 'fontSize', 'lineHeight', 'letterSpacing', 'color', 'webkitFontSmoothing', 'textRendering'];
 const ELEMENT = [
-  ['kort', ''], ['rubrik', '@rubrik'], ['etikett', '.rk__etikett'], ['under', '.rk__under'], ['segment', '.rk__segment'],
+  ['kort', ''], ['etikett', '.rk__etikett'], ['under', '.rk__under'], ['segment', '.rk__segment'],
   ['segLabelOvald', '.rk__segment > label:not(:has(input:checked))'], ['segLabelVald', '.rk__segment > label:has(input:checked)'],
   ['input', '.rk__input'], ['inputPlaceholder', '.rk__input::placeholder'], ['enhet', '.rk__enhet'], ['lagg', '.rk__lagg .rk__lank'],
   ['panel', '.rk__panel'], ['eyebrow', '.rk__eyebrow'], ['talrad', '.rk__talrad'], ['tal', '.rk__tal'], ['prefix', '.rk__prefix'],
   ['talenhet', '.rk__talenhet'], ['per', '.rk__per'], ['fin', '.rk__fin'], ['stopp', '.rk__stopp'], ['stopptext', '.rk__stopptext'],
   ['xCircle', '.rk__x circle'], ['not', '.rk__not'], ['radBelopp', '.rk__fraga--ranta > .rk__belopp'], ['personetikett', '.rk__personetikett'],
 ];
-function styleSpot({ secSel, props, wrapProps, elements }) {
+function styleSpot({ secSel, props, wrapProps, elements, wrapSel }) {
   const sec = document.querySelector(secSel);
-  const wrap = sec.closest('.ampy-avdragskollen') || document.body;
+  const wrap = (wrapSel && sec.closest(wrapSel)) || sec.closest('.ampy-avdragskollen') || document.body;
   const rubrik = wrap.querySelector('.rk__rubrik');
   const out = {};
   const grab = (el, ps, pseudo) => {
@@ -249,6 +257,17 @@ async function fokusProv(page, sec, tag, vp) {
   rad(`${vp} fokus ${tag}`, 'segmentpill (typ): ring på labeln', 'rgba(0, 122, 105, 0.9) 0px 0px 0px 3px', seg, seg === 'rgba(0, 122, 105, 0.9) 0px 0px 0px 3px');
 }
 
+const jamforStilar = (grupp, refS, candS, elementList = ELEMENT) => {
+  let n = 0, drift = 0;
+  for (const p of WRAP_PROPS) { n++; if (!lika(refS.wrapper[p], candS.wrapper[p])) { drift++; rad(grupp, `wrapper.${p}`, refS.wrapper[p], candS.wrapper[p], false); } }
+  for (const [key] of elementList) {
+    const a = refS[key], b = candS[key];
+    if (!a || !b) { rad(grupp, key, a ? 'finns' : 'saknas', b ? 'finns' : 'saknas', false); continue; }
+    for (const p of Object.keys(a)) { n++; if (!lika(a[p], b[p])) { drift++; rad(grupp, `${key}.${p}`, a[p], b[p], false); } }
+  }
+  rad(grupp, `datorstilar lika (${n} värden på ${elementList.length + 1} element)`, n, n - drift, drift === 0, drift ? `${drift} avvikelser ovan` : '');
+};
+
 for (const [vp, opts] of VIEWPORTS) {
   const ctx = await browser.newContext(opts);
   const J = (json.viewports[vp] = {});
@@ -284,16 +303,6 @@ for (const [vp, opts] of VIEWPORTS) {
 
   /* 3. datorstilar (utgångsläget) */
   J.styles = {};
-  const jamforStilar = (grupp, refS, candS, elementList = ELEMENT) => {
-    let n = 0, drift = 0;
-    for (const p of WRAP_PROPS) { n++; if (!lika(refS.wrapper[p], candS.wrapper[p])) { drift++; rad(grupp, `wrapper.${p}`, refS.wrapper[p], candS.wrapper[p], false); } }
-    for (const [key] of elementList) {
-      const a = refS[key], b = candS[key];
-      if (!a || !b) { rad(grupp, key, a ? 'finns' : 'saknas', b ? 'finns' : 'saknas', false); continue; }
-      for (const p of Object.keys(a)) { n++; if (!lika(a[p], b[p])) { drift++; rad(grupp, `${key}.${p}`, a[p], b[p], false); } }
-    }
-    rad(grupp, `datorstilar lika (${n} värden på ${elementList.length + 1} element)`, n, n - drift, drift === 0, drift ? `${drift} avvikelser ovan` : '');
-  };
   const sRefRot = await refRot.evaluate(styleSpot, { secSel: SEC.ref, props: PROPS, wrapProps: WRAP_PROPS, elements: ELEMENT });
   const sRefGt = await refGt.evaluate(styleSpot, { secSel: SEC.ref, props: PROPS, wrapProps: WRAP_PROPS, elements: ELEMENT });
   const sCand1 = await cand.evaluate(styleSpot, { secSel: SEC.cand1, props: PROPS, wrapProps: WRAP_PROPS, elements: ELEMENT });
@@ -322,18 +331,26 @@ for (const [vp, opts] of VIEWPORTS) {
   }
 
   /* 7. skärmdumpar: rubrik + kort */
-  const clipOf = async (page, secSel) => page.evaluate((s) => { const sec = document.querySelector(s); const h = sec.closest('.ampy-avdragskollen') ? sec.closest('.ampy-avdragskollen').querySelector('.rk__rubrik') : document.querySelector('.rk__rubrik'); const a = h.getBoundingClientRect(), b = sec.getBoundingClientRect(); const x = Math.max(0, Math.floor(b.left) - 8), y = Math.max(0, Math.floor(a.top) - 8); return { x, y, width: Math.min(Math.ceil(b.width) + 16, document.documentElement.clientWidth - x), height: Math.ceil(b.bottom) + 8 - y }; }, secSel);   // 8 px marginal: ryms i båda sidorna (referensens spalt har >= 16,9 px padding)
+  /* Klippet är kortet (inte rubriken): paketets rubrik följer artikelmallens H2 (block 8), v1:s följer designsystemet. */
+  /* Kortets överkant snäpps till hel pixel i båda sidorna (padding-top på html = avståndet upp till nästa hela px):
+     rubrikerna är olika höga (43,19 mot 39,89 px vid 1280) så kortet börjar annars på olika bråkdelar av en pixel och
+     texten rastreras olika (0,26 till 1,54 % pixlar utan snäppet, inget verkligt fel). */
+  const snapp = async (page, secSel) => page.evaluate((s) => { const html = document.documentElement; html.style.paddingTop = '0px'; const t = document.querySelector(s).getBoundingClientRect().top; const d = Math.ceil(t) - t; html.style.paddingTop = (d > 0.001 ? d : 0) + 'px'; return document.querySelector(s).getBoundingClientRect().top; }, secSel);
+  const clipOf = async (page, secSel) => page.evaluate((s) => { const sec = document.querySelector(s); const b = sec.getBoundingClientRect(); const x = Math.max(0, Math.floor(b.left) - 8), y = Math.max(0, Math.floor(b.top) - 8); return { x, y, width: Math.min(Math.ceil(b.width) + 16, document.documentElement.clientWidth - x), height: Math.ceil(b.bottom) + 8 - y }; }, secSel);   // 8 px marginal: ryms i båda sidorna (referensens spalt har >= 16,9 px padding)
   for (const [m, rp, cs, dolj] of [['rot', refRot, SEC.cand1, null], ['gt', refGt, SEC.cand2, '.ampy-avdragskollen-outer']]) {
     if (dolj) await cand.evaluate((s) => { document.querySelector(s).style.display = 'none'; }, dolj);   // gt: instans 1 döljs så instans 2 hamnar på samma y som referensen
     await cand.waitForTimeout(100);
+    const tr = await snapp(rp, SEC.ref), tc = await snapp(cand, cs);
+    rad(`${vp} bild ${m}`, 'kortets överkant på hel pixel i båda (snäppt)', Number.isInteger(tr), Number.isInteger(tc), Number.isInteger(tr) && Number.isInteger(tc), `ref ${tr} px, kandidat ${tc} px`);
     const cr = await clipOf(rp, SEC.ref), cc = await clipOf(cand, cs);
     const a = await rp.screenshot({ clip: cr, fullPage: true, animations: 'disabled' }), b = await cand.screenshot({ clip: cc, fullPage: true, animations: 'disabled' });
     await writeFile(join(OUTDIR, `ref-${m}-${vp}.png`), a); await writeFile(join(OUTDIR, `cand-${m}-${vp}.png`), b);
     const same = a.equals(b);
     let pct = 0, info = 'byte-lika PNG';
     if (!same) { const d = pixelDiff(a, b); pct = d.pct; info = `${d.olika} pixlar olika (${d.storlek})`; if (d.diff && d.olika > 0) await writeFile(join(OUTDIR, `diff-${m}-${vp}.png`), d.diff); }
-    rad(`${vp} bild ${m}`, 'skärmdump rubrik+kort, referens mot kandidat', 'byte-lika eller <= 0,1 % pixlar', same ? 'byte-lika' : `${pct.toFixed(3)} %`, same || pct <= 0.1, info);
+    rad(`${vp} bild ${m}`, 'skärmdump kortet, referens mot kandidat', 'byte-lika eller <= 0,1 % pixlar', same ? 'byte-lika' : `${pct.toFixed(3)} %`, same || pct <= 0.1, info);
     if (dolj) await cand.evaluate((s) => { document.querySelector(s).style.display = ''; }, dolj);
+    for (const p of [rp, cand]) await p.evaluate(() => { document.documentElement.style.paddingTop = ''; });
   }
 
   /* 4. tillståndsvandring */
@@ -408,6 +425,90 @@ for (const [vp, opts] of VIEWPORTS) {
     rad('1280 reduced motion', 'talradens animation nollad (rk-in 1e-06s)', a, b, a === b && /1e-06s|0\.001ms/.test(b));
     await rctx.close();
   }
+}
+/* =====================================================================================================================
+   Grupp B: leveransen, paketet överst i artikelmallen (preview/artikel-*.html) mot referensklonen (kalkylator/artikel)
+   ===================================================================================================================== */
+const ART_ELEMENT = [['rubrik', '@rubrik'], ...ELEMENT];
+const ART_VIEWPORTS = [
+  ['1440', { viewport: { width: 1440, height: 900 } }],
+  ['1024', { viewport: { width: 1024, height: 1366 }, hasTouch: true, deviceScaleFactor: 2 }],
+  ['390', { viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 }],
+];
+const NASTA = '#brxe-vjjqxy';   // Snabbt svar-kortet: blocket efter kalkylatorn i artikelspalten
+const lagen = (secSel) => {
+  const r = (el) => { const b = el.getBoundingClientRect(); return [b.left, b.top + scrollY, b.width, b.height].map((v) => Math.round(v * 4) / 4).join(' '); };
+  const sec = document.querySelector(secSel);
+  const wrap = sec.closest('.ampy-avdragskollen') || sec.closest('.ampy-kalkylator');
+  return { rubrik: r(wrap.querySelector('.rk__rubrik')), kort: r(sec), nasta: r(document.querySelector('#brxe-vjjqxy')), spalt: r(document.querySelector('#brxe-pfbtud')), ordning: [...document.querySelector('#brxe-pfbtud').children].map((e) => e.id || e.className.split(' ')[0]).slice(0, 4).join(' > ') };
+};
+json.artikel = {};
+for (const [vp, opts] of ART_VIEWPORTS) {
+  const ctx = await browser.newContext(opts);
+  for (const m of ['rot', 'gt']) {
+    const G = `artikel ${vp} ${m}`;
+    const rp = await open(ctx, URLS.artRef(m), `art-ref-${m}`), cp = await open(ctx, URLS.artCand(m), `art-cand-${m}`);
+    const cs = m === 'gt' ? SEC.cand2 : SEC.cand1;   /* artikel-gt.html renderar shortcoden som instans ak2 */
+    /* konsol + nät: 0 fel; utanför localhost bara ampy.se (artikelns bilder, samma i båda) */
+    for (const p of [rp, cp]) {
+      rad(G, `${p._tag}: fel/varningar i konsolen`, '0', p._bevak.errors.length, p._bevak.errors.length === 0, p._bevak.errors.join(' | ').slice(0, 200));
+      const ext = p._bevak.requests.filter((u) => !u.startsWith(BASE) && !u.startsWith('https://ampy.se/'));
+      rad(G, `${p._tag}: anrop utanför localhost/ampy.se`, '0', ext.length, ext.length === 0, ext.join(' ').slice(0, 200));
+    }
+    /* typsnittet: sajtens tema-CSS deklarerar samma Outfit-fil (i klonen som absolut ampy.se-URL), paketet som /wp-content/...;
+       en och samma fil på sajten. Här: minst en hämtning av Outfit-VariableFont_wght.woff2, ingen från Google/CDN. */
+    const fontReq = cp._bevak.requests.filter((u) => /\.woff2?(\?|$)/.test(u)).map((u) => u.replace(BASE, ''));
+    const outfit = fontReq.filter((u) => /Outfit/i.test(u));
+    const extern = cp._bevak.requests.filter((u) => /googleapis|gstatic|jsdelivr|unpkg|cdnjs/.test(u));
+    rad(G, 'Outfit: bara sajtens fil /wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2, ingen extern källa', '1 fil, 0 externa', `${outfit.map((u) => u.replace(/^https:\/\/ampy\.se/, '')).join(' ')}, ${extern.length} externa`, outfit.length >= 1 && outfit.every((u) => u.endsWith('/wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2')) && extern.length === 0, `övriga woff2 (sajtens egna): ${fontReq.length - outfit.length}`);
+    /* lägen: rubrik, kort, nästa block och spalten på exakt samma plats (x, y, bredd, höjd) */
+    const lr = await rp.evaluate(lagen, SEC.ref), lc = await cp.evaluate(lagen, cs);
+    for (const k of ['rubrik', 'kort', 'nasta', 'spalt']) rad(G, `läge ${k} (x y bredd höjd)`, lr[k], lc[k], lika(lr[k], lc[k]));
+    rad(G, 'ordningen i artikelspalten (Code, kalkylatorn, Snabbt svar)', lr.ordning, lc.ordning, lc.ordning.startsWith('brxe-code > ampy-avdragskollen-outer > brxe-vjjqxy') && lr.ordning.startsWith('brxe-code > ampy-kalkylator > brxe-vjjqxy'));
+    /* datorstilar: rubriken + kortets 24 element, wrapper = .ampy-kalkylator resp. .ampy-avdragskollen */
+    const sr = await rp.evaluate(styleSpot, { secSel: SEC.ref, props: PROPS, wrapProps: WRAP_PROPS, elements: ART_ELEMENT, wrapSel: '.ampy-kalkylator' });
+    const sc = await cp.evaluate(styleSpot, { secSel: cs, props: PROPS, wrapProps: WRAP_PROPS, elements: ART_ELEMENT });
+    jamforStilar(`${G} stil`, sr, sc, ART_ELEMENT);
+    rad(`${G} stil`, 'rubrikens font-size / margin', `${sr.rubrik.fontSize} / ${sr.rubrik.margin}`, `${sc.rubrik.fontSize} / ${sc.rubrik.margin}`, lika(sr.rubrik.fontSize, sc.rubrik.fontSize) && lika(sr.rubrik.margin, sc.rubrik.margin));
+    rad(`${G} stil`, 'kortets bredd × höjd', `${sr.kort.w} × ${sr.kort.h}`, `${sc.kort.w} × ${sc.kort.h}`, lika(`${sr.kort.w} × ${sr.kort.h}`, `${sc.kort.w} × ${sc.kort.h}`));
+    rad(`${G} stil`, 'kortets layout', sr.kort.gridTemplateColumns, sc.kort.gridTemplateColumns, lika(sr.kort.gridTemplateColumns, sc.kort.gridTemplateColumns), Number(vp) >= 1440 ? 'två spalter väntas' : 'staplat väntas');
+    /* skärmdump: rubrikens överkant t.o.m. 40 px in i Snabbt svar-kortet, spaltens bredd + 16 px, överkanten snäppt */
+    const klipp = async (page, secSel) => page.evaluate((s) => {
+      const html = document.documentElement; html.style.paddingTop = '0px';
+      const sec = document.querySelector(s); const wrap = sec.closest('.ampy-avdragskollen') || sec.closest('.ampy-kalkylator');
+      const t0 = wrap.querySelector('.rk__rubrik').getBoundingClientRect().top + scrollY; const d = Math.ceil(t0) - t0; html.style.paddingTop = (d > 0.001 ? d : 0) + 'px';
+      const h = wrap.querySelector('.rk__rubrik').getBoundingClientRect(), sp = document.querySelector('#brxe-pfbtud').getBoundingClientRect(), n = document.querySelector('#brxe-vjjqxy').getBoundingClientRect();
+      const x = Math.max(0, Math.floor(sp.left) - 16), y = Math.floor(h.top + scrollY);
+      return { x, y, width: Math.min(Math.ceil(sp.width) + 32, html.clientWidth - x), height: Math.ceil(n.top + scrollY + 40) - y, top: h.top + scrollY };
+    }, secSel);
+    const kr = await klipp(rp, SEC.ref), kc = await klipp(cp, cs);
+    rad(G, 'klippets överkant på hel pixel i båda', Number.isInteger(kr.top), Number.isInteger(kc.top), Number.isInteger(kr.top) && Number.isInteger(kc.top), `ref ${kr.top}, kandidat ${kc.top}`);
+    const a = await rp.screenshot({ clip: kr, fullPage: true, animations: 'disabled' }), b = await cp.screenshot({ clip: kc, fullPage: true, animations: 'disabled' });
+    await writeFile(join(OUTDIR, `artikel-ref-${m}-${vp}.png`), a); await writeFile(join(OUTDIR, `artikel-cand-${m}-${vp}.png`), b);
+    const same = a.equals(b); let pct = 0, info = 'byte-lika PNG';
+    if (!same) { const d = pixelDiff(a, b); pct = d.pct; info = `${d.olika} pixlar olika (${d.storlek})`; if (d.diff && d.olika > 0) await writeFile(join(OUTDIR, `diff-artikel-${m}-${vp}.png`), d.diff); }
+    rad(G, 'skärmdump rubrik + kort + luften under, referens mot kandidat', 'byte-lika eller <= 0,1 % pixlar', same ? 'byte-lika' : `${pct.toFixed(3)} %`, same || pct <= 0.1, info);
+    for (const p of [rp, cp]) await p.evaluate(() => { document.documentElement.style.paddingTop = ''; });
+    /* motorn igång i artikelsidan */
+    await fyll(cp, cs, 'inkomst', '300000'); await fyll(rp, SEC.ref, 'inkomst', '300000');
+    let r = await cp.evaluate(resultText, cs), r0 = await rp.evaluate(resultText, SEC.ref);
+    rad(G, '300 000 -> "ca 31 000 kr" (kandidat = referens)', r0.tal, r.tal, r.tal === 'ca 31 000 kr' && r0.tal === r.tal);
+    await klickLabel(cp, cs, 'input[name$="ager"][value="nej"]'); await klickLabel(rp, SEC.ref, 'input[name$="ager"][value="nej"]');
+    r = await cp.evaluate(resultText, cs); r0 = await rp.evaluate(resultText, SEC.ref);
+    rad(G, 'Nej -> stopp (kandidat = referens)', `${r0.status}: ${r0.tal}`.slice(0, 80), `${r.status}: ${r.tal}`.slice(0, 80), r.status === 'stopp' && JSON.stringify(r) === JSON.stringify(r0));
+    await klickLabel(cp, cs, 'input[name$="ager"][value="ja"]');
+    /* fokus inuti sajtens riktiga CSS (14-global-css: input:focus{border-color:#5EB1BF!important}) */
+    await cp.locator(`${cs} [data-falt="inkomst"]`).first().click(); await cp.waitForTimeout(300);
+    const f = await cp.evaluate((s) => { const cs2 = getComputedStyle(document.querySelector(s + ' [data-falt="inkomst"]')); return { borderColor: cs2.borderColor, boxShadow: cs2.boxShadow }; }, cs);
+    rad(G, 'musklick i inkomstfältet: kanten teal-deep, inte sajtens #5EB1BF', 'rgb(0, 122, 105)', f.borderColor, f.borderColor === 'rgb(0, 122, 105)');
+    rad(G, 'fokusringen', 'rgba(0, 122, 105, 0.9) 0px 0px 0px 3px', f.boxShadow, f.boxShadow === 'rgba(0, 122, 105, 0.9) 0px 0px 0px 3px');
+    /* kalkylatorn ryms i spalten (sidans egen header-meny ligger utanför viewporten i klonen utan JS: inte vårt) */
+    const ox = await cp.evaluate((s) => { const sec = document.querySelector(s); const o = sec.closest('.ampy-avdragskollen-outer').getBoundingClientRect(), sp = document.querySelector('#brxe-pfbtud').getBoundingClientRect(); return { inom: o.left >= sp.left - 0.5 && o.right <= sp.right + 0.5, overflow: sec.scrollWidth - sec.clientWidth }; }, cs);
+    rad(G, 'kalkylatorn ryms i artikelspalten, inget inre överflöd', 'inom spalten, 0 px', `${ox.inom ? 'inom spalten' : 'utanför'}, ${ox.overflow} px`, ox.inom && ox.overflow <= 0);
+    (json.artikel[vp] ||= {})[m] = { lagen: { ref: lr, cand: lc }, styles: { ref: sr, cand: sc } };
+    await rp.close(); await cp.close();
+  }
+  await ctx.close();
 }
 await browser.close(); server.close();
 

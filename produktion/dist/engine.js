@@ -1,11 +1,11 @@
 /*
- * AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 3/3, typ "JS". Kör: Frontend, wp_footer. Paket 1.0.0.
+ * AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 3/3, typ "JS". Kör: Frontend, wp_footer. Paket 1.1.0.
  * FORMAT-ONLY: byggd av produktion/_build/paketera.mjs ur logik/engine.js (skatteutrymmet), kalkylator/rakna.js (hushållet)
  * och kalkylator/v1/app.js (som init(root), root-scopad, multi-instans). Redigera aldrig här: ändra källorna och bygg om.
  * En IIFE, 'use strict', inga globaler. Startar varje ".ampy-avdragskollen .rk[data-mode]" en gång (data-booted).
  * Syntax: ES2020 (mallsträngar, ??, spridning, replaceChildren). Talens avgränsare (59_200) är utskrivna som vanliga tal.
  * Inget lagras, inget skickas: ingen fetch, ingen REST, ingen webhook, ingen spårning.
- * Källor (sha256): engine.js 46c03df1c981, rakna.js 12dd1cd63726, app.js 10382653d70d
+ * Källor (sha256): engine.js 46c03df1c981, rakna.js 0be3e7ece51f, app.js 10382653d70d
  */
 (function () {
   'use strict';
@@ -240,7 +240,7 @@
   /**
    * beraknaHushall({ mode, ager, aldre, personer: [{ typ, inkomst, alder: 'u18'|'18-65'|'66+', ranta, anvant, gtAnvant }] })
    * -> { status: 'stopp'|'tak'|'belopp', belopp, prefix, text, not, per, antal }
-   *   ager/aldre som i berakna(); person 1:s ålder 'u18' = fyller 18 först nästa år -> stopp (67 kap. 11 §).
+   *   ager = äger bostaden, aldre = äldre än fem år (bara ROT); person 1:s ålder 'u18' = fyller 18 först nästa år -> stopp (67 kap. 11 §).
    *   Per person (67 kap. 19 § tak + 67 kap. 2 § pott): rest = min(50 000, utrymme) − det som redan använts i år av
    *   SAMMA post (ROT och RUT i ROT-läget, grön teknik i grön teknik-läget). Ägarbeslut 2026-09-16: posterna hålls isär
    *   och syns inte i varandra; att ROT/RUT ligger före grön teknik i 67 kap. 2 § är därför en känd förenkling

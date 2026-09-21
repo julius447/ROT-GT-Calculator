@@ -1,10 +1,10 @@
-# Byggrapport paketera.mjs (paket 1.0.0)
+# Byggrapport paketera.mjs (paket 1.1.0)
 
 Skrivs om vid varje bygge. Källor och sha256:
 - kalkylator/v1/index.html: 9405598912d0591414f25e11094ae8fb2813279ef8578f67d41220eaa5c8b2ae
 - kalkylator/v1/style.css: ee9046f6dcc76bbcd478ecc77f48e991b04abaab8db92f199110607f91d0ec47
 - kalkylator/v1/app.js: 10382653d70dca9d2819009d950983d8c0c37d35b4d56f914a9484067a9886fc
-- kalkylator/rakna.js: 12dd1cd63726df7a9ac4ac99273f477e7c86d878b0de22d28eece7cefee988ff
+- kalkylator/rakna.js: 0be3e7ece51f6305e1b307495b888853cda7fd9d1880b965f894655e0a00b081
 - logik/engine.js: 46c03df1c981368160d41e83fd681871aad4e3f10348efd525e8037bdb41fd3f
 - kalkylator/system/tokens.css: 1f5299c26dbe001bb39d14ee0b4b4bafa0ffb9de40154c6347f995f22901691e
 - kalkylator/system/base.css: 54751da13353776c55e3ae895641189142e74f210deced246230149179ea7201
@@ -12,8 +12,8 @@ Skrivs om vid varje bygge. Källor och sha256:
 - kalkylator/system/components/ytor.css: 54577de06a627db171370d76986cdc929cb24434c6e29be0ed6650cb35c85fbb
 - kalkylator/system/components/falt.css: 8b8e5c52adb24a85a47653184d415fd7cb515e46774f15bd1ee178f583889c60
 - kalkylator/system/components/knappar.css: f1052791af292504a3982b14f278aed8fe31c259f8fe1863a80ffeeeb2c9f73b
-- kalkylator/artikel/bas-inbaddad.css: 0e7a22cfd988dcb132074d4aa44c1976f04d3a3176fb92c88dfc2a6353949a46
-- kalkylator/artikel/artikel.css: 5109beb3f4c94fb3054bc29e23df7b15d50bcaa9e0c6b76f6133332077f933ad
+- kalkylator/artikel/bas-inbaddad.css: a5e8bc61296751b26600c9bc4ad2b85d969716e9595f31842428feaf00a20cf2
+- kalkylator/artikel/artikel.css: d19a233beea45f7657ba7fd8ccf70a508ce57921b7cdb40d7ae54b3493a1379c
 - kalkylator/system/fonts/Outfit-VariableFont_wght.woff2: 99bd3f38d4854dbb296b53fb55c0956891e0111ccc86053966b7e99d6f99c162
 
 ## Tokens på wrappern (59)
@@ -632,10 +632,11 @@ Skrivs om vid varje bygge. Källor och sha256:
 - 34rem -> 340px
 
 ## Logg
-- dist/styles.css: 31619 tecken, 59 tokens, 32 systemregler, rem->px: 34rem -> 340px
-- dist/engine.js: 24914 tecken (12 motordelar + 9 rakna-delar + init(root)), 19 numeriska avgränsare -> vanliga tal
-- dist/backend.php: 14399 tecken
+- dist/styles.css: 32696 tecken, 59 tokens, 32 systemregler, rem->px: 34rem -> 340px
+- dist/engine.js: 24944 tecken (12 motordelar + 9 rakna-delar + init(root)), 19 numeriska avgränsare -> vanliga tal
+- dist/backend.php: 14563 tecken
 - dist/fonts/Outfit-VariableFont_wght.woff2: 44696 byte, sha256 99bd3f38d485… (= sajtens fil)
-- preview/index.html + preview/host-sim.html + _build/host-rules-2026-09-20.css skrivna
+- preview/artikel-rot.html + artikel-gt.html skrivna (sajtens CSS: 10 filer i preview/sajt/)
+- _build/prov/tva-instanser.html + host-sim.html + _build/host-rules-2026-09-20.css skrivna
 - php -l: No syntax errors detected in /Users/juliuscallahan/Desktop/Claude Code/rot-gt-calculator/produktion/dist/backend.php
 - php: shortcode-utdata byte-lika med preview-markupen i 4 fall (rot, gt, heading="" + h3, egen rubrik)

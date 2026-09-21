@@ -14,8 +14,10 @@
  *   produktion/dist/engine.js                  JS-snippet   (FluentSnippets: JS, Frontend, wp_footer)
  *   produktion/dist/backend.php                PHP-snippet  (FluentSnippets: Functions/PHP, Frontend & Backend)
  *   produktion/dist/fonts/Outfit-VariableFont_wght.woff2   reserv + preview (sajten har samma bytes)
- *   produktion/preview/index.html              två instanser (rot + gt) mot dist/ BY REFERENCE
- *   produktion/preview/host-sim.html           samma + sajtens riktiga värd-CSS (research/underlag/14-kod/host-*.css)
+ *   produktion/preview/artikel-rot.html        artikelmallen (klonen kalkylator/artikel) med paketet överst i artikelspalten, ROT
+ *   produktion/preview/artikel-gt.html         samma, grön teknik; båda laddar dist/ BY REFERENCE, sajtens CSS i preview/sajt/
+ *   produktion/_build/prov/tva-instanser.html  paritetsfixtur: två instanser (rot + gt) på en tom sida mot dist/
+ *   produktion/_build/prov/host-sim.html       samma + sajtens riktiga värd-CSS (research/underlag/14-kod/host-*.css)
  *   produktion/_build/host-rules-2026-09-20.css   värdreglerna som host-sim länkar
  *
  * Bygget VÄGRAR om resultatet innehåller :root, html{, body{, rem, googleapis, gstatic, jsdelivr eller en oprefixad
@@ -54,7 +56,7 @@ const HOST = {
   klon: 'kalkylator/artikel/index.html',                          // core-framework-inline (--aptext-* m.fl.) hämtad 2026-09-15
 };
 
-const PAKET_VERSION = '1.0.0';
+const PAKET_VERSION = '1.1.0';   // 1.1.0 (2026-09-21): placeringen överst i artikeln (block 8: rubrik som artikelns H2, behållarens bredd, luften nedåt)
 const WRAP = '.ampy-avdragskollen';                                // wrappern som bär tokens + basen
 const OUTER = '.ampy-avdragskollen-outer';                         // container-query-behållaren
 const FONT_SITE = '/wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2';   // K1: sajtens egen fil (samma bytes)
@@ -422,11 +424,12 @@ const fontFaceSrc = src.base.match(/@font-face \{[\s\S]*?\}/)[0];
 const fontFace = fontFaceSrc.replace(/url\("[^"]*"\)/g, `url("${FONT_SITE}")`);
 if (!fontFace.includes('font-weight: 100 900')) fail('@font-face: variabel vikt saknas');
 
-// Block 7: värdskydd (artikel.css:35-37 + 41 utan box-shadow-raden, plus fokus-motreglerna ur research/14 §3.2 block 7)
+// Block 7: värdskydd = artikel.css (fieldset/legend/label/button verbatim), plus fokus-motreglerna ur research/14 §3.2 block 7
 const artikelSkydd = ['fieldset', 'legend', 'label', 'button'].map((el) => {
-  let body = ruleBody(src.artikel, `.ampy-kalkylator ${el}`).replace('letter-spacing: 0', 'letter-spacing: normal');   // normal = v1:s datorvärde (0 ritar likadant)
-  if (el === 'legend') body += ' max-width: none;';        // Bricks: legend{max-width:100%}; v1 = none (ingen pixel, men samma datorvärde)
-  if (el === 'button') body += ' text-align: center; appearance: auto;';   // Bricks: button{text-align:inherit; -webkit-appearance:button}; v1 = UA-standarden (bakgrund/kant är redan 0: ingen pixel)
+  const body = ruleBody(src.artikel, `.ampy-kalkylator ${el}`);
+  for (const must of { fieldset: ['min-width: 0'], legend: ['max-width: none'], label: ['margin: 0'], button: ['letter-spacing: normal', 'text-align: center', 'appearance: auto'] }[el]) {
+    if (!body.includes(must)) fail(`artikel.css: .ampy-kalkylator ${el} saknar "${must}"`);
+  }
   return `${WRAP} ${el} {${body} }`;
 }).join('\n');
 const block7 = `/* ---------- Skydd mot värdsidans element-regler ----------
@@ -436,6 +439,38 @@ const block7 = `/* ---------- Skydd mot värdsidans element-regler ----------
 ${artikelSkydd}
 ${WRAP} .rk__input:focus { border-color: var(--ampy-line-strong) !important; }              /* fokus utan tangentbord: samma kant som i vila (som i v1) */
 ${WRAP} .rk__input:focus-visible { border-color: var(--ampy-action-strong) !important; }     /* tangentbordsfokus: teal-deep (falt.css:79) */`;
+
+/* ---------- 8. Placeringen överst i artikelspalten (ägarbeslut 2026-09-21: enda placeringen) ----------
+   Förlagan är kalkylator/artikel/artikel.css (referensklonen): rubriken som artikelmallens egna H2 och kortets luft
+   nedåt mot Snabbt svar-kortet. Sajtens tokens (--aptext-xl, --aptext-lm, --apspace-s, --apmidnight-blue ur klonens
+   core-framework-inline) löses här till px (1 rem = 10 px). Mallens brytpunkt 768 för rubrikstorleken är typografi
+   som följer värdens rubriker, inte kortets layout (den är behållarstyrd). */
+const klonHtml = await read(HOST.klon);
+const sajtToken = (name) => { const m = klonHtml.match(new RegExp(name + ':\\s*([^;}]+)')); if (!m) fail(`sajt-token ${name} saknas i klonen`); return m[1].trim(); };
+const remClampTillPx = (v) => v.replace(/calc\(([^()]*)\)/g, '$1').replace(/(\d*\.?\d+)rem/g, (m, n) => `${Math.round(Number(n) * 100) / 10}px`).replace(/,\s*/g, ', ');
+const losVar = (decl) => decl.replace(/var\((--[\w-]+)\)/g, (m, name) => remClampTillPx(sajtToken(name)));
+const rubrikBody = losVar(norm(ruleBody(src.artikel, '.ampy-kalkylator .rk__rubrik')));
+const rubrikMobil = src.artikel.match(/@media \(max-width: 768px\) \{ \.ampy-kalkylator \.rk__rubrik \{ ([^}]*) \} \}/);
+if (!rubrikMobil) fail('artikel.css: rubrikens 768-regel saknas');
+const ytaDecl = declarations(ruleBody(src.artikel, '.ampy-kalkylator'));
+const ytaMargin = (ytaDecl.find(([p]) => p === 'margin-bottom') || [])[1];
+if (!ytaMargin) fail('artikel.css: .ampy-kalkylator margin-bottom saknas');
+/* width: 100% + min-width: 0 på behållaren är nödvändiga i artikelspalten: Bricks Block är en flex-kolumn med
+   align-items: flex-start, och en container-type: inline-size-behållare har ingen egen innehållsbredd (size
+   containment) -> 0 px bred utan regeln (paritet.mjs grupp B hittade det 2026-09-21). */
+if (!ytaDecl.some(([p, v]) => p === 'width' && v === '100%') || !ytaDecl.some(([p, v]) => p === 'min-width' && v === '0')) fail('artikel.css: .ampy-kalkylator saknar width: 100% / min-width: 0');
+for (const [what, re] of [['rubrik', /font-size: clamp\(24px, 0\.83vw \+ 21\.3px, 32px\); font-weight: 700; line-height: 1\.25; letter-spacing: -0\.025em; color: rgb\(9, 11, 50\); margin: 0 0 clamp\(12\.8px, 0\.73vw \+ 10\.5px, 19\.8px\)/], ['rubrik mobil', /^font-size: clamp\(22px, 0\.63vw \+ 20px, 28px\);$/], ['yta', /^clamp\(16px, 1\.25vw \+ 12px, 28px\)$/]]) {
+  const v = what === 'rubrik' ? rubrikBody : what === 'rubrik mobil' ? losVar(norm(rubrikMobil[1])) : losVar(ytaMargin);
+  if (!re.test(v)) fail(`block 8 (${what}) löser inte till det väntade (sajtens tokens ändrade?): ${v}`);
+}
+const block8 = `/* ---------- 8. Placeringen överst i artikelspalten (kalkylator/artikel/artikel.css med sajtens tokens i px) ----------
+   Rubriken = artikelmallens egna H2 (.brxe-post-content h2: --aptext-xl 24-32 px/700, ls -0.025em, lh 1.25, midnight;
+   under 768 px --aptext-lm 22-28 px). Kalkylatorn ligger utanför .brxe-post-content, därför sätts värdena här.
+   Kortets luft nedåt = mallens egna block (margin-bottom --apspace-m, som Snabbt svar-kortet; spalten lägger row-gap
+   --apspace-s därtill). Kortets egen layout är behållarstyrd. */
+${OUTER} { width: 100%; min-width: 0; margin: 0 0 ${losVar(ytaMargin)}; }   /* = .ampy-kalkylator i artikel.css: full bredd i Bricks flex-kolumn (behållaren saknar egen bredd) */
+${WRAP} .rk__rubrik { ${rubrikBody} }
+@media (max-width: 768px) { ${WRAP} .rk__rubrik { ${losVar(norm(rubrikMobil[1]))} } }`;
 
 const header = `/* =====================================================================================================================
    AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 1/3, typ "CSS". Kör: Frontend, wp_head. Paket ${PAKET_VERSION}.
@@ -470,6 +505,8 @@ ${knappar.css}
 ${styleCss}
 
 ${block7}
+
+${block8}
 `;
 
 const [stylesPx, remHits] = remToPx(styles);
@@ -635,12 +672,13 @@ const backendPhp = `<?php
 /**
  * AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 2/3, typ "Functions (PHP)". Kör: Frontend & Backend. Paket ${PAKET_VERSION}.
  * ---------------------------------------------------------------------------------------------------------------------
- * Install all THREE snippets in FluentSnippets, then drop the shortcode into a Bricks Shortcode element:
+ * Install all THREE snippets in FluentSnippets, then drop the shortcode into a Bricks Shortcode element placed FIRST in the
+ * article column (above the "Snabbt svar" card): [ampy_avdragskollen mode="rot"] on /rot-avdrag-2026/, mode="gt" on /gron-teknik-2026/.
  *   1. CSS -> dist/styles.css (Frontend, wp_head)   2. PHP -> this file (Frontend & Backend)   3. JS -> dist/engine.js (Frontend, wp_footer)
  * Registers [ampy_avdragskollen mode="rot|gt" heading="..." heading_level="2|3"] and RETURNS the markup (never echo).
  *   mode           rot (default) or gt. One mode per instance; the ROT page uses mode="rot", the grön teknik page mode="gt".
  *   heading        default "Räkna ut ditt ROT-avdrag" / "Räkna ut ditt grön teknik-avdrag"; heading="" omits the heading.
- *   heading_level  2 (default) or 3 (sidebar placement). Same look either way (.ampy-h2 sets everything).
+ *   heading_level  2 (default) or 3. Same look either way (the heading is styled like the article template's H2).
  * Several instances on one page are fine: every id, for, aria-* and radio name is prefixed per instance (ak1-, ak2-, ...).
  * No data injection (nothing is dynamic), no REST route (nothing is submitted), no webhook, no tracking, no nonce.
  * Auto-built by produktion/_build/paketera.mjs from kalkylator/v1/index.html (section verbatim, sha256 ${srcSha[SRC.html].slice(0, 12)}).
@@ -722,9 +760,42 @@ if (sha(src.font) !== FONT_SHA256) fail(`typsnittsfilen har ändrats (sha256 ${s
 await copyFile(join(ROOT, SRC.font), join(OUT, 'dist', 'fonts', 'Outfit-VariableFont_wght.woff2'));
 note(`dist/fonts/Outfit-VariableFont_wght.woff2: ${src.font.length} byte, sha256 ${FONT_SHA256.slice(0, 12)}… (= sajtens fil)`);
 
-/* ---------- 5. preview/index.html + host-sim.html ---------- */
+/* ---------- 5. preview/artikel-rot.html + artikel-gt.html: artikelmallen med paketet överst i artikelspalten ----------
+   Utgår från referensklonen kalkylator/artikel/index.html (v1-källan i mallen) och byter kalkylatorn mot shortcodens
+   returvärde + dist/ by reference. Sajtens stylesheets (klonens css/) kopieras till preview/sajt/ så mappen är
+   självbärande; bilderna hämtas från ampy.se som i klonen. Pariteten (paritet.mjs, gruppen artikel) bevisar att
+   sidan renderar pixel för pixel som referensen. */
 const inst1 = renderShortcode(markup, { mode: 'rot' }, 'ak1');
 const inst2 = renderShortcode(markup, { mode: 'gt' }, 'ak2');
+const FONT_RESERV = `<!-- preview-typsnitt: dist-CSS:ens @font-face pekar på sajtens /wp-content/uploads/fonts/ (404 lokalt utom i paritetsservern som mappar den);
+     samma bytes ur dist/fonts/ deklareras här som reserv så sidan renderar rätt även från fil. Inte en del av leveransen. -->
+<style>@font-face{font-family:"Outfit";src:url("DIST/fonts/Outfit-VariableFont_wght.woff2") format("woff2-variations"),url("DIST/fonts/Outfit-VariableFont_wght.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}</style>`;
+await mkdir(join(OUT, 'preview', 'sajt'), { recursive: true });
+{
+  const klonV1 = /<div class="ampy ampy-kalkylator" id="ampy-kalkylator">[\s\S]*?<\/section>\s*<\/div>\s*<\/div>/;
+  if (!klonV1.test(klonHtml)) fail('klonen saknar v1-kalkylatorn (kör python3 tools/artikel-klon.py)');
+  const klonHead = /<!-- referrer-policyn ligger först i head[^\n]*\n(?:<link rel="stylesheet" href="[^"]+">\n)+/;
+  if (!klonHead.test(klonHtml)) fail('klonen saknar v1-länkarna i head');
+  if (!klonHtml.includes('<script type="module" src="../v1/app.js"></script>')) fail('klonen saknar app.js-länken');
+  const cssFiler = [...klonHtml.matchAll(/href="css\/([^"]+\.css)"/g)].map((m) => m[1]);
+  if (!cssFiler.length) fail('klonen har inga lokala sajt-stylesheets (css/)');
+  for (const f of new Set(cssFiler)) await copyFile(join(ROOT, 'kalkylator/artikel/css', f), join(OUT, 'preview', 'sajt', f));
+  const sida = (mode, inst) => {
+    let h = klonHtml
+      .replace(klonV1, `<!-- = [ampy_avdragskollen mode="${mode}"] : shortcodens returvärde (dist/backend.php), Bricks Shortcode-element först i artikelspalten -->\n${inst}`)
+      .replace(klonHead, `${FONT_RESERV.split('DIST').join('../dist')}\n<link rel="stylesheet" href="../dist/styles.css">\n`)
+      .replace('<script type="module" src="../v1/app.js"></script>', '<script src="../dist/engine.js"></script>')
+      .replace(/href="css\/([^"]+\.css)"/g, 'href="sajt/$1"')
+      .replace(/<title>[^<]*<\/title>/, `<title>Avdragskollen överst i artikelmallen (${mode === 'gt' ? 'grön teknik' : 'ROT'}): förhandsvisning av paketet</title>`);
+    if (/\.\.\/v1\/|\.\.\/system\/|bas-inbaddad|artikel\.css|href="css\//.test(h)) fail('artikel-preview: rester av v1-källan kvar');
+    return h;
+  };
+  await writeFile(join(OUT, 'preview', 'artikel-rot.html'), sida('rot', inst1));
+  await writeFile(join(OUT, 'preview', 'artikel-gt.html'), sida('gt', inst2));
+  note(`preview/artikel-rot.html + artikel-gt.html skrivna (sajtens CSS: ${new Set(cssFiler).size} filer i preview/sajt/)`);
+}
+
+/* ---------- 5b. _build/prov/: paritetsfixturer (två instanser på en tom sida; samma inuti sajtens CSS). Inte leveransen. ---------- */
 const chrome = `/* värdsidans chrome, inte en del av leveransen: samma spalt som kalkylator/v1 (style.css .rk-sida/.rk-spalt) med
    tokens utlösta, så pariteten mäter kortet i exakt samma bredd (980 / 356,25 px). Roten är 16 px: 0 rem i paketet. */
 body { margin: 0; background: #fff; }
@@ -732,7 +803,7 @@ body { margin: 0; background: #fff; }
 @media (max-width: 1040px) { .spalt { padding-inline: clamp(16px, 1.25vw + 12px, 28px); } }
 @media (max-width: 767px) { .spalt { padding: clamp(16px, 1.25vw + 12px, 28px); } }
 .spalt > * + * { margin-top: 56px; }`;
-const previewPage = (extraHead, title) => `<!doctype html>
+const provPage = (extraHead, title) => `<!doctype html>
 <html lang="sv">
 <head>
 <meta charset="utf-8">
@@ -740,10 +811,8 @@ const previewPage = (extraHead, title) => `<!doctype html>
 <title>${title}</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:,">
-<!-- preview-typsnitt: dist-CSS:ens @font-face pekar på sajtens /wp-content/uploads/fonts/ (404 lokalt utom i paritetsservern som mappar den);
-     samma bytes ur dist/fonts/ deklareras här som reserv så sidan renderar rätt även från fil. Inte en del av leveransen. -->
-<style>@font-face{font-family:"Outfit";src:url("../dist/fonts/Outfit-VariableFont_wght.woff2") format("woff2-variations"),url("../dist/fonts/Outfit-VariableFont_wght.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}</style>
-${extraHead}<link rel="stylesheet" href="../dist/styles.css">
+${FONT_RESERV.split('DIST').join('../../dist')}
+${extraHead}<link rel="stylesheet" href="../../dist/styles.css">
 <style>
 ${chrome}
 </style>
@@ -755,12 +824,12 @@ ${inst1}
 <!-- = [ampy_avdragskollen mode="gt"] : instans ak2 -->
 ${inst2}
 </main>
-<script src="../dist/engine.js"></script>
+<script src="../../dist/engine.js"></script>
 </body>
 </html>
 `;
-await mkdir(join(OUT, 'preview'), { recursive: true });
-await writeFile(join(OUT, 'preview', 'index.html'), previewPage('', 'Avdragskollen, förhandsvisning av snippet-paketet (rot + gt)'));
+await mkdir(join(HERE, 'prov'), { recursive: true });
+await writeFile(join(HERE, 'prov', 'tva-instanser.html'), provPage('', 'Avdragskollen, paritetsfixtur: två instanser (rot + gt) mot dist/'));
 
 // host-sim: sajtens riktiga CSS (hämtad 2026-09-20) före dist-länken, i sajtens ordning: tema -> core-framework-inline -> 14-global-css -> Bricks
 let hostRules = null;
@@ -768,9 +837,8 @@ try {
   const theme = await read(HOST.theme);
   const global = (await read(HOST.global)).replace(/^<\?php[\s\S]*?\?>/, '');
   const bricks = await read(HOST.bricks);
-  const klon = await read(HOST.klon);
-  const cf = klon.match(/<style id="core-framework-frontend-inline">([\s\S]*?)<\/style>/);
-  hostRules = `/* Värdregler för produktion/preview/host-sim.html. Skrivet av paketera.mjs ur research/underlag/14-kod/host-*.css
+  const cf = klonHtml.match(/<style id="core-framework-frontend-inline">([\s\S]*?)<\/style>/);
+  hostRules = `/* Värdregler för produktion/_build/prov/host-sim.html. Skrivet av paketera.mjs ur research/underlag/14-kod/host-*.css
    (hämtade från https://ampy.se/elcentral-guide-2026/ 2026-09-20) + core-framework-frontend-inline ur artikelklonen (2026-09-15).
    Inte en del av leveransen: det här är sajten som den ser ut, så paritetsprovet kan visa att ingenting driver. */
 
@@ -787,10 +855,10 @@ ${global}
 ${bricks}
 `;
   await writeFile(join(HERE, 'host-rules-2026-09-20.css'), hostRules);
-  await writeFile(join(OUT, 'preview', 'host-sim.html'), previewPage('<link rel="stylesheet" href="../_build/host-rules-2026-09-20.css">\n', 'Avdragskollen, snippet-paketet inuti sajtens CSS (host-sim)'));
-  note('preview/index.html + preview/host-sim.html + _build/host-rules-2026-09-20.css skrivna');
+  await writeFile(join(HERE, 'prov', 'host-sim.html'), provPage('<link rel="stylesheet" href="../host-rules-2026-09-20.css">\n', 'Avdragskollen, paritetsfixtur: paketet inuti sajtens CSS (host-sim)'));
+  note('_build/prov/tva-instanser.html + host-sim.html + _build/host-rules-2026-09-20.css skrivna');
 } catch (e) {
-  note('host-sim: värdfilerna saknas (' + e.message + '), bara preview/index.html skriven');
+  note('host-sim: värdfilerna saknas (' + e.message + '), bara prov/tva-instanser.html skriven');
 }
 
 /* ---------- 6. PHP-kontroll: php -l + shortcode-utdata byte för byte = preview-markupen ---------- */

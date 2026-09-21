@@ -1,7 +1,8 @@
 """Bygger kalkylator/artikel/index.html: en statisk klon av artikelmallen (ampy.se/elcentral-guide-2026/, renderad DOM)
-med Avdragskollen injicerad. Två placeringar väljs med ?p=hoger (högerspalten, som TOC-kortet) eller ?p=topp
-(överst i artikelspalten); läget med ?m=rot|gt. Klonen: skript borta (utom placeringsskriptet), cookie-rutan borta,
-Bricks' "dold tills animation" borta, lazy-bakgrunder visade, tillgångar från ampy.se (absoluta URL:er).
+med Avdragskollen (källan kalkylator/v1) överst i artikelspalten, före Snabbt svar-kortet: den enda placeringen
+(ägarbeslut 2026-09-21; högerspalten och förhandsvisningsraden togs bort). Läget med ?m=rot|gt. Klonen: skript
+borta, cookie-rutan borta, Bricks' "dold tills animation" borta, lazy-bakgrunder visade, sajtens CSS sparad lokalt,
+bilder från ampy.se (absoluta URL:er). Klonen är REFERENSEN för produktion/preview/artikel-*.html (paritet.mjs).
 
 Kör: python3 tools/artikel-klon.py <renderad.html>   (renderad DOM ur tools/klona-artikel.mjs)"""
 import re, sys
@@ -77,26 +78,16 @@ kalkylator = f'''<div class="ampy ampy-kalkylator" id="ampy-kalkylator">
   </div>
 </div>'''
 
-# 6a. placering "topp": först i vänsterspalten, före Snabbt svar-kortet (direkt efter artikelns stylesheet-element)
+# 6. placeringen: först i artikelspalten (#brxe-pfbtud, Bricks Block), direkt efter artikelns Code-element (CSS:en)
+#    och före Snabbt svar-kortet (#brxe-vjjqxy)
 i = s.find('id="brxe-pfbtud"')
 e = s.find('</style></div>', i)
 assert e > 0, 'hittar inte artikelns stylesheet-element'
 e += len('</style></div>')
-s = s[:e] + '<div id="ampy-plats-topp"></div>' + s[e:]
+assert s.find('id="brxe-vjjqxy"', e) - e < 200, 'Snabbt svar-kortet följer inte direkt på Code-elementet'
+s = s[:e] + kalkylator + s[e:]
 
-# 6b. placering "hoger": högerspalten = ny kolumn med kalkylatorn + TOC-kortet (som blir icke-sticky under den)
-k = s.find('<div id="brxe-qopmij" class="brxe-block ampy-toc-wrapper">')
-assert k > 0, 'hittar inte TOC-kortet'
-# TOC-kortets slut: matcha div-djup
-depth = 0; slut = k
-for m in re.finditer(r'<div\b|</div>', s[k:]):
-    depth += 1 if m.group(0) == '<div' else -1
-    if depth == 0:
-        slut = k + m.end(); break
-toc = s[k:slut]
-s = s[:k] + '<div id="ampy-hoger" class="brxe-block">' + kalkylator + toc + '</div>' + s[slut:]
-
-# 7. head: kalkylatorns CSS + inbäddningsregler; body-slut: placeringsskript + förhandsvisningsrad + app.js
+# 7. head: kalkylatorns CSS + inbäddningsregler; body-slut: app.js
 head_extra = '''
 <!-- referrer-policyn ligger först i head (steg 3b): ampy.se hotlink-skyddar bilder, 403 med främmande Referer, 200 utan -->
 <link rel="stylesheet" href="../system/tokens.css">
@@ -111,26 +102,6 @@ head_extra = '''
 s = s.replace('</head>', head_extra + '</head>', 1)
 
 body_extra = '''
-<script>
-/* Förhandsvisning: ?p=topp flyttar kalkylatorn till artikelspaltens topp (före Snabbt svar). Standard: högerspalten. */
-(function () {
-  var q = new URLSearchParams(location.search), p = q.get('p') === 'topp' ? 'topp' : 'hoger', m = q.get('m') === 'gt' ? 'gt' : 'rot';
-  document.documentElement.dataset.plats = p;
-  if (p === 'topp') {
-    var k = document.getElementById('ampy-kalkylator'), t = document.getElementById('ampy-plats-topp');
-    t.replaceWith(k);
-  }
-  var bar = document.createElement('div');
-  bar.className = 'ampy-forhandsvisning';
-  bar.innerHTML = '<span>Förhandsvisning</span>'
-    + '<a href="?p=hoger&m=' + m + '"' + (p === 'hoger' ? ' aria-current="true"' : '') + '>Högerspalten</a>'
-    + '<a href="?p=topp&m=' + m + '"' + (p === 'topp' ? ' aria-current="true"' : '') + '>Överst i artikeln</a>'
-    + '<i></i>'
-    + '<a href="?p=' + p + '&m=rot"' + (m === 'rot' ? ' aria-current="true"' : '') + '>ROT</a>'
-    + '<a href="?p=' + p + '&m=gt"' + (m === 'gt' ? ' aria-current="true"' : '') + '>Grön teknik</a>';
-  document.body.appendChild(bar);
-})();
-</script>
 <script type="module" src="../v1/app.js"></script>
 '''
 s = s.replace('</body>', body_extra + '</body>', 1)

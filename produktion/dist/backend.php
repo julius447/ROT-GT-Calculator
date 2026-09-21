@@ -1,13 +1,14 @@
 <?php
 /**
- * AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 2/3, typ "Functions (PHP)". Kör: Frontend & Backend. Paket 1.0.0.
+ * AVDRAGSKOLLEN (ROT / grön teknik), FluentSnippets snippet 2/3, typ "Functions (PHP)". Kör: Frontend & Backend. Paket 1.1.0.
  * ---------------------------------------------------------------------------------------------------------------------
- * Install all THREE snippets in FluentSnippets, then drop the shortcode into a Bricks Shortcode element:
+ * Install all THREE snippets in FluentSnippets, then drop the shortcode into a Bricks Shortcode element placed FIRST in the
+ * article column (above the "Snabbt svar" card): [ampy_avdragskollen mode="rot"] on /rot-avdrag-2026/, mode="gt" on /gron-teknik-2026/.
  *   1. CSS -> dist/styles.css (Frontend, wp_head)   2. PHP -> this file (Frontend & Backend)   3. JS -> dist/engine.js (Frontend, wp_footer)
  * Registers [ampy_avdragskollen mode="rot|gt" heading="..." heading_level="2|3"] and RETURNS the markup (never echo).
  *   mode           rot (default) or gt. One mode per instance; the ROT page uses mode="rot", the grön teknik page mode="gt".
  *   heading        default "Räkna ut ditt ROT-avdrag" / "Räkna ut ditt grön teknik-avdrag"; heading="" omits the heading.
- *   heading_level  2 (default) or 3 (sidebar placement). Same look either way (.ampy-h2 sets everything).
+ *   heading_level  2 (default) or 3. Same look either way (the heading is styled like the article template's H2).
  * Several instances on one page are fine: every id, for, aria-* and radio name is prefixed per instance (ak1-, ak2-, ...).
  * No data injection (nothing is dynamic), no REST route (nothing is submitted), no webhook, no tracking, no nonce.
  * Auto-built by produktion/_build/paketera.mjs from kalkylator/v1/index.html (section verbatim, sha256 9405598912d0).

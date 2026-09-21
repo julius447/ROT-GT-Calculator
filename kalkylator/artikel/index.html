@@ -1310,7 +1310,165 @@ html.ampy-cc-locked,html.ampy-cc-locked body{overflow:hidden!important;}
         border-radius: 0 !important;
         box-shadow: none !important;
     }
-}</style></div><div id="ampy-plats-topp"></div><div id="brxe-vjjqxy" class="brxe-div"><div id="brxe-tmxuex" class="brxe-icon-box"><div class="icon"><i class="ion-md-checkmark"></i></div><div class="content"><h3>Snabbt svar</h3>
+}</style></div><div class="ampy ampy-kalkylator" id="ampy-kalkylator">
+  <div class="rk-behallare">
+    <h2 class="ampy-h2 rk__rubrik" id="rk-rubrik">Räkna ut ditt <span class="rk__ihop">ROT-avdrag</span></h2>
+    <section class="ampy-card rk" id="avdragskollen" aria-labelledby="rk-rubrik" data-mode="rot">
+
+    <form class="rk__fragor" id="rk-form" novalidate autocomplete="off">
+      <fieldset class="rk__fraga rk__fraga--ager">
+        <legend class="rk__etikett">Äger du din bostad?</legend>
+        <p class="rk__under" id="rk-under-1">Villa, radhus eller lägenhet. Helt eller delvis.</p>
+        <div class="ampy-segment rk__segment" data-q="ager">
+          <label><input type="radio" name="ager" value="ja" checked aria-describedby="rk-under-1"><span>Ja</span></label>
+          <label><input type="radio" name="ager" value="nej" aria-describedby="rk-under-1"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="rk__fraga rk__fraga--aldre">
+        <legend class="rk__etikett">Är bostaden äldre än fem år?</legend>
+        <div class="ampy-segment rk__segment" data-q="aldre">
+          <label><input type="radio" name="aldre" value="ja" checked><span>Ja</span></label>
+          <label><input type="radio" name="aldre" value="nej"><span>Nej</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Åldern styr både 18-årsgränsen (67 kap. 11 §) och skatten: den som fyllt 66 vid årets ingång har förhöjt
+           grundavdrag och ett annat jobbskatteavdrag (63 kap. 3 a §, 67 kap. 8 §). Frågas därför, gissas inte ur inkomsttypen. -->
+      <fieldset class="rk__fraga rk__fraga--alder">
+        <legend class="rk__etikett">Hur gammal är du?</legend>
+        <p class="rk__under" id="rk-under-alder">Fyllde du 66 i år, välj 18 till 65.</p>
+        <div class="ampy-segment rk__segment rk__segment--tre" data-q="alder">
+          <label><input type="radio" name="alder-1" value="u18" aria-describedby="rk-under-alder"><span>Under 18</span></label>
+          <label><input type="radio" name="alder-1" value="18-65" checked aria-describedby="rk-under-alder"><span>18 till 65</span></label>
+          <label><input type="radio" name="alder-1" value="66+" aria-describedby="rk-under-alder"><span>Över 65</span></label>
+        </div>
+      </fieldset>
+
+      <!-- Personerna i hushållet. Person 1 är den som svarar; fler personer läggs till ur mallen nedan och antas
+           bo i bostaden och uppfylla frågorna ovan (ägarbeslut 2026-09-14). -->
+      <div class="rk__personer" id="rk-personer" data-antal="1">
+        <div class="rk__person" data-person="1">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett" id="rk-person-etikett-1">Person 1</p>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="rk-inkomst-etikett-1">Din inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="typ-1" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="typ-1" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="typ-1" value="bada"><span>Båda</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-1" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett-1" aria-describedby="rk-enhet-1">
+                <span class="rk__enhet" id="rk-enhet-1">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="rk-pension-1">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-pension-1" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-pension-1">
+              <span class="rk__enhet" id="rk-enhet-pension-1">kr</span>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="rk-ranta-1">Låneräntor förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-1" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-1">
+              <span class="rk__enhet" id="rk-enhet-ranta-1">kr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rk__lagg">
+        <button type="button" class="ampy-link rk__lank" id="rk-lagg">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+          Lägg till en person
+        </button>
+        <p class="rk__under rk__under--lagg">Bara för den som också äger bostaden.</p>
+      </div>
+
+      <template id="rk-personmall">
+        <div class="rk__person">
+          <div class="rk__personhuvud">
+            <p class="ampy-eyebrow rk__personetikett" id="rk-person-etikett-N">Person 2</p>
+            <button type="button" class="ampy-link rk__lank rk__tabort">Ta bort</button>
+          </div>
+          <fieldset class="rk__fraga">
+            <legend class="rk__etikett" id="rk-inkomst-etikett-N">Inkomst förra året</legend>
+            <div class="rk__inkomst">
+              <div class="ampy-segment rk__segment" data-q="typ">
+                <label><input type="radio" name="typ-N" value="lon" checked><span>Lön</span></label>
+                <label><input type="radio" name="typ-N" value="pension"><span>Pension</span></label>
+                <label><input type="radio" name="typ-N" value="bada"><span>Båda</span></label>
+              </div>
+              <div class="rk__belopp">
+                <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-N" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-person-etikett-N rk-inkomst-etikett-N" aria-describedby="rk-enhet-N">
+                <span class="rk__enhet" id="rk-enhet-N">kr</span>
+              </div>
+            </div>
+          </fieldset>
+          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
+          <div class="rk__fraga rk__rad rk__fraga--pension">
+            <label class="rk__etikett" for="rk-pension-N">Varav pension</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-pension-N" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-pension-N">
+              <span class="rk__enhet" id="rk-enhet-pension-N">kr</span>
+            </div>
+          </div>
+          <!-- div + radiogroup i stället för fieldset: fieldset kan inte vara flex-rad i Chrome (legend hamnar utanför) -->
+          <div class="rk__fraga rk__rad rk__fraga--alder" role="radiogroup" aria-labelledby="rk-alder-etikett-N">
+            <span class="rk__etikett" id="rk-alder-etikett-N">Ålder</span>
+            <div class="ampy-segment rk__segment" data-q="alder">
+              <label><input type="radio" name="alder-N" value="18-65" checked><span>18 till 65</span></label>
+              <label><input type="radio" name="alder-N" value="66+"><span>Över 65</span></label>
+            </div>
+          </div>
+          <div class="rk__fraga rk__rad rk__fraga--ranta">
+            <label class="rk__etikett" for="rk-ranta-N">Låneräntor förra året</label>
+            <div class="rk__belopp rk__belopp--kort">
+              <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-N" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-N">
+              <span class="rk__enhet" id="rk-enhet-ranta-N">kr</span>
+            </div>
+          </div>
+        </div>
+      </template>
+    </form>
+
+    <div class="rk__panel">
+      <div class="rk__resultat" id="rk-resultat" data-status="tak">
+        <div class="rk__huvud">
+          <p class="ampy-eyebrow rk__eyebrow" id="rk-eyebrow">Ditt tillgängliga <span class="rk__ihop">ROT-avdrag</span></p>
+
+          <div class="rk__talrad" id="rk-talrad" aria-live="polite" aria-atomic="true">
+            <span class="rk__prefix" id="rk-prefix">upp till</span>
+            <span class="rk__talpar"><span class="ampy-number rk__tal" id="rk-tal">50 000</span> <span class="rk__talenhet" id="rk-talenhet">kr</span></span>
+          </div>
+          <p class="rk__per" id="rk-per">Per person och år.</p>
+
+          <div class="rk__stopp" id="rk-stopp" aria-live="polite" aria-atomic="true" hidden>
+            <svg class="rk__x" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" focusable="false">
+              <circle cx="22" cy="22" r="22"/>
+              <g fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" transform="translate(10 10)">
+                <path d="M5 5l14 14M19 5L5 19"/>
+              </g>
+            </svg>
+            <p class="rk__stopptext" id="rk-stopptext"></p>
+          </div>
+          <p class="rk__fin" id="rk-fin">Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.</p>
+        </div>
+
+        <p class="rk__not" id="rk-not" aria-live="polite" aria-atomic="true" hidden></p>
+      </div>
+    </div>
+
+  </section>
+  </div>
+</div><div id="brxe-vjjqxy" class="brxe-div"><div id="brxe-tmxuex" class="brxe-icon-box"><div class="icon"><i class="ion-md-checkmark"></i></div><div class="content"><h3>Snabbt svar</h3>
 </div></div><div id="brxe-lyesoq" class="brxe-div"><div class="brxe-text post-content"><p>En modern elcentral är navet i din elanläggning. Den fördelar inkommande ström via automatsäkringar, jordfelsbrytare och överspänningsskydd. I denna guide förklarar vi vad en elcentral är, vad som ska finnas i en elcentral, skillnaden mellan proppskåp och modern central, samt när det är dags att byta. Du får också en överblick kring kostnadsnivåerna efter att ROT-avdrag, och hur du förbereder elcentralen för laddbox, värmepump och solceller utan att överbelasta huvudsäkringen.</p>
 <div class="key-takeaways">
 <p><strong>Nyckelpunkter:</strong></p>
@@ -1635,166 +1793,8 @@ html.ampy-cc-locked,html.ampy-cc-locked body{overflow:hidden!important;}
 </div><a id="brxe-ijusjo" class="brxe-button bricks-button bricks-background-primary" href="https://www.google.com/maps/place/Ampy/@59.3576299,17.9842061,17z/data=!3m1!4b1!4m6!3m5!1s0x2bec1ce5c4ed9ce9:0xfce1752e84a1bfee!8m2!3d59.3576272!4d17.986781!16s%2Fg%2F11ypjy9rrm?entry=ttu&amp;g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D"><svg class="" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 512 512"> <path fill="#fff" d="M177.43 14.03C115.07 35.39 61.88 82.12 32.35 141.04c-10.32 20.36-17.78 42-22.22 64.37-11.32 55.62-3.44 114.83 22.22 165.57 16.63 33.11 40.57 62.5 69.53 85.44 27.38 21.79 59.2 37.85 93.04 46.88 42.58 11.47 88.02 11.18 131.02 1.43 38.85-8.89 75.55-27.52 104.79-54.47 30.96-28.53 53.04-65.94 64.8-106.22 12.76-44.01 14.48-90.89 6.45-135.9H261v99.92h139.48c-5.45 31.97-24.37 61.07-51.32 79.13-16.92 11.32-36.27 18.78-56.34 22.22-20.21 3.44-41 3.87-61.07-.14-20.5-4.01-40-12.62-57.05-24.66-27.24-19.07-48.02-47.16-58.63-78.56-10.89-31.97-11.04-67.66 0-99.63 7.6-22.51 20.36-43.44 37.13-60.35 20.64-21.22 47.45-36.27 76.41-42.43 24.8-5.3 50.89-4.3 75.12 3.01 20.64 6.31 39.57 17.49 55.19 32.4 15.77-15.63 31.39-31.39 47.16-47.02 8.17-8.46 16.92-16.49 24.94-25.23-23.8-22.08-51.89-39.85-82.43-51.03-54.76-20.52-116.83-20.95-172.16-1.74"></path> <path fill="#e94435" d="M177.43 14.03c55.33-19.21 117.41-18.78 172.45 1.58 30.53 11.18 58.49 28.96 82.43 51.03-8.03 8.6-16.63 16.77-24.94 25.23-15.77 15.63-31.39 31.39-47.16 47.02-15.63-14.91-34.55-26.23-55.19-32.4-24.23-7.31-50.32-8.31-75.12-3.01-28.96 6.16-55.76 21.36-76.41 42.43-16.77 16.92-29.53 37.85-37.13 60.35-27.95-21.65-55.91-43.44-83.86-65.08C61.88 82.12 115.07 35.39 177.43 14.03"></path> <path fill="#f8bb15" d="M10.13 205.41c4.44-22.36 12.04-44.01 22.22-64.37 27.95 21.65 55.91 43.44 83.86 65.08-11.04 31.97-10.89 67.66 0 99.63-27.95 21.65-55.91 43.44-83.86 65.08-25.66-50.45-33.54-109.8-22.22-165.42"></path> <path fill="#547dbe" d="M261.14 207.99h240.98c8.03 45.01 6.31 91.89-6.45 135.9-11.75 40.28-33.83 77.84-64.8 106.22-27.09-21.07-54.33-42.15-81.28-63.22 26.95-17.92 45.87-47.16 51.32-79.13H261.43c-.43-33.11-.29-66.37-.29-99.77"></path> <path fill="#34a751" d="M32.35 370.98c27.95-21.65 55.91-43.44 83.86-65.08 10.61 31.54 31.39 59.49 58.63 78.56 17.06 12.04 36.55 20.5 57.05 24.66 20.07 4.01 41 3.58 61.07.14s39.42-10.89 56.34-22.22c27.09 21.07 54.33 42.15 81.28 63.22-29.24 27.09-65.94 45.59-104.79 54.47-42.86 9.75-88.31 10.03-131.02-1.43-33.83-9.03-65.66-25.09-93.04-46.88-28.81-23.08-52.75-52.47-69.38-85.44"></path> </svg>Lämna ett omdöme om oss på Google</a><div id="brxe-jdgajc" class="brxe-div"><i id="brxe-vooixc" class="ion-md-star brxe-icon"></i><i id="brxe-pmwvhx" class="ion-md-star brxe-icon"></i><i id="brxe-piksvu" class="ion-md-star brxe-icon"></i><i id="brxe-nbsurm" class="ion-md-star brxe-icon"></i><i id="brxe-dwcyct" class="ion-md-star brxe-icon"></i></div><div id="brxe-ecixrt" class="brxe-text"><p>5.0 · 25 omdömen på Google</p>
 </div></div><div id="brxe-fhssbb" class="brxe-divider horizontal"><div class="line"></div></div><div id="brxe-rfxjhj" class="brxe-div"><div id="brxe-xvolzd" class="brxe-div"><div id="brxe-vykevq" class="brxe-text"><p>Dela</p>
 </div><ul id="brxe-acxnyv" class="brxe-social-icons"><li class="repeater-item has-link"><a href="https://www.instagram.com/ampy.se/" target="_blank" aria-describedby="brx-new-tab-link-description"><i class="fab fa-instagram-square icon"></i></a></li><li class="repeater-item has-link"><a href="https://www.linkedin.com/company/ampy-ab/" target="_blank" aria-describedby="brx-new-tab-link-description"><i class="fab fa-linkedin icon"></i></a></li><li class="repeater-item has-link"><a href="https://www.facebook.com/profile.php?id=61586497979358" target="_blank" aria-describedby="brx-new-tab-link-description"><i class="fab fa-facebook-square icon"></i></a></li></ul></div><div id="brxe-avjglv" class="brxe-div"><div id="brxe-ueeaob" class="brxe-text"><p>Skriv ut</p>
-</div><a href="#" class="bricks-link-wrapper"><i id="brxe-nzqydg" class="ion-ios-print brxe-icon ampy-print-btn"></i></a></div></div></div><div id="ampy-hoger" class="brxe-block"><div class="ampy ampy-kalkylator" id="ampy-kalkylator">
-  <div class="rk-behallare">
-    <h2 class="ampy-h2 rk__rubrik" id="rk-rubrik">Räkna ut ditt <span class="rk__ihop">ROT-avdrag</span></h2>
-    <section class="ampy-card rk" id="avdragskollen" aria-labelledby="rk-rubrik" data-mode="rot">
-
-    <form class="rk__fragor" id="rk-form" novalidate autocomplete="off">
-      <fieldset class="rk__fraga rk__fraga--ager">
-        <legend class="rk__etikett">Äger du din bostad?</legend>
-        <p class="rk__under" id="rk-under-1">Villa, radhus eller lägenhet. Helt eller delvis.</p>
-        <div class="ampy-segment rk__segment" data-q="ager">
-          <label><input type="radio" name="ager" value="ja" checked aria-describedby="rk-under-1"><span>Ja</span></label>
-          <label><input type="radio" name="ager" value="nej" aria-describedby="rk-under-1"><span>Nej</span></label>
-        </div>
-      </fieldset>
-
-      <fieldset class="rk__fraga rk__fraga--aldre">
-        <legend class="rk__etikett">Är bostaden äldre än fem år?</legend>
-        <div class="ampy-segment rk__segment" data-q="aldre">
-          <label><input type="radio" name="aldre" value="ja" checked><span>Ja</span></label>
-          <label><input type="radio" name="aldre" value="nej"><span>Nej</span></label>
-        </div>
-      </fieldset>
-
-      <!-- Åldern styr både 18-årsgränsen (67 kap. 11 §) och skatten: den som fyllt 66 vid årets ingång har förhöjt
-           grundavdrag och ett annat jobbskatteavdrag (63 kap. 3 a §, 67 kap. 8 §). Frågas därför, gissas inte ur inkomsttypen. -->
-      <fieldset class="rk__fraga rk__fraga--alder">
-        <legend class="rk__etikett">Hur gammal är du?</legend>
-        <p class="rk__under" id="rk-under-alder">Fyllde du 66 i år, välj 18 till 65.</p>
-        <div class="ampy-segment rk__segment rk__segment--tre" data-q="alder">
-          <label><input type="radio" name="alder-1" value="u18" aria-describedby="rk-under-alder"><span>Under 18</span></label>
-          <label><input type="radio" name="alder-1" value="18-65" checked aria-describedby="rk-under-alder"><span>18 till 65</span></label>
-          <label><input type="radio" name="alder-1" value="66+" aria-describedby="rk-under-alder"><span>Över 65</span></label>
-        </div>
-      </fieldset>
-
-      <!-- Personerna i hushållet. Person 1 är den som svarar; fler personer läggs till ur mallen nedan och antas
-           bo i bostaden och uppfylla frågorna ovan (ägarbeslut 2026-09-14). -->
-      <div class="rk__personer" id="rk-personer" data-antal="1">
-        <div class="rk__person" data-person="1">
-          <div class="rk__personhuvud">
-            <p class="ampy-eyebrow rk__personetikett" id="rk-person-etikett-1">Person 1</p>
-          </div>
-          <fieldset class="rk__fraga">
-            <legend class="rk__etikett" id="rk-inkomst-etikett-1">Din inkomst förra året</legend>
-            <div class="rk__inkomst">
-              <div class="ampy-segment rk__segment" data-q="typ">
-                <label><input type="radio" name="typ-1" value="lon" checked><span>Lön</span></label>
-                <label><input type="radio" name="typ-1" value="pension"><span>Pension</span></label>
-                <label><input type="radio" name="typ-1" value="bada"><span>Båda</span></label>
-              </div>
-              <div class="rk__belopp">
-                <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-1" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-inkomst-etikett-1" aria-describedby="rk-enhet-1">
-                <span class="rk__enhet" id="rk-enhet-1">kr</span>
-              </div>
-            </div>
-          </fieldset>
-          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
-          <div class="rk__fraga rk__rad rk__fraga--pension">
-            <label class="rk__etikett" for="rk-pension-1">Varav pension</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-pension-1" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-pension-1">
-              <span class="rk__enhet" id="rk-enhet-pension-1">kr</span>
-            </div>
-          </div>
-          <div class="rk__fraga rk__rad rk__fraga--ranta">
-            <label class="rk__etikett" for="rk-ranta-1">Låneräntor förra året</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-1" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-1">
-              <span class="rk__enhet" id="rk-enhet-ranta-1">kr</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="rk__lagg">
-        <button type="button" class="ampy-link rk__lank" id="rk-lagg">
-          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
-          Lägg till en person
-        </button>
-        <p class="rk__under rk__under--lagg">Bara för den som också äger bostaden.</p>
-      </div>
-
-      <template id="rk-personmall">
-        <div class="rk__person">
-          <div class="rk__personhuvud">
-            <p class="ampy-eyebrow rk__personetikett" id="rk-person-etikett-N">Person 2</p>
-            <button type="button" class="ampy-link rk__lank rk__tabort">Ta bort</button>
-          </div>
-          <fieldset class="rk__fraga">
-            <legend class="rk__etikett" id="rk-inkomst-etikett-N">Inkomst förra året</legend>
-            <div class="rk__inkomst">
-              <div class="ampy-segment rk__segment" data-q="typ">
-                <label><input type="radio" name="typ-N" value="lon" checked><span>Lön</span></label>
-                <label><input type="radio" name="typ-N" value="pension"><span>Pension</span></label>
-                <label><input type="radio" name="typ-N" value="bada"><span>Båda</span></label>
-              </div>
-              <div class="rk__belopp">
-                <input class="ampy-input ampy-input--tabular rk__input" id="rk-inkomst-N" data-falt="inkomst" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="300 000" aria-labelledby="rk-person-etikett-N rk-inkomst-etikett-N" aria-describedby="rk-enhet-N">
-                <span class="rk__enhet" id="rk-enhet-N">kr</span>
-              </div>
-            </div>
-          </fieldset>
-          <!-- "Båda": lön i fältet ovanför, pensionen här (beskattas olika: pensionsavgift och jobbskatteavdrag bara på lön) -->
-          <div class="rk__fraga rk__rad rk__fraga--pension">
-            <label class="rk__etikett" for="rk-pension-N">Varav pension</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-pension-N" data-falt="pension" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-pension-N">
-              <span class="rk__enhet" id="rk-enhet-pension-N">kr</span>
-            </div>
-          </div>
-          <!-- div + radiogroup i stället för fieldset: fieldset kan inte vara flex-rad i Chrome (legend hamnar utanför) -->
-          <div class="rk__fraga rk__rad rk__fraga--alder" role="radiogroup" aria-labelledby="rk-alder-etikett-N">
-            <span class="rk__etikett" id="rk-alder-etikett-N">Ålder</span>
-            <div class="ampy-segment rk__segment" data-q="alder">
-              <label><input type="radio" name="alder-N" value="18-65" checked><span>18 till 65</span></label>
-              <label><input type="radio" name="alder-N" value="66+"><span>Över 65</span></label>
-            </div>
-          </div>
-          <div class="rk__fraga rk__rad rk__fraga--ranta">
-            <label class="rk__etikett" for="rk-ranta-N">Låneräntor förra året</label>
-            <div class="rk__belopp rk__belopp--kort">
-              <input class="ampy-input ampy-input--tabular rk__input" id="rk-ranta-N" data-falt="ranta" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="0" aria-describedby="rk-enhet-ranta-N">
-              <span class="rk__enhet" id="rk-enhet-ranta-N">kr</span>
-            </div>
-          </div>
-        </div>
-      </template>
-    </form>
-
-    <div class="rk__panel">
-      <div class="rk__resultat" id="rk-resultat" data-status="tak">
-        <div class="rk__huvud">
-          <p class="ampy-eyebrow rk__eyebrow" id="rk-eyebrow">Ditt tillgängliga <span class="rk__ihop">ROT-avdrag</span></p>
-
-          <div class="rk__talrad" id="rk-talrad" aria-live="polite" aria-atomic="true">
-            <span class="rk__prefix" id="rk-prefix">upp till</span>
-            <span class="rk__talpar"><span class="ampy-number rk__tal" id="rk-tal">50 000</span> <span class="rk__talenhet" id="rk-talenhet">kr</span></span>
-          </div>
-          <p class="rk__per" id="rk-per">Per person och år.</p>
-
-          <div class="rk__stopp" id="rk-stopp" aria-live="polite" aria-atomic="true" hidden>
-            <svg class="rk__x" viewBox="0 0 44 44" width="44" height="44" aria-hidden="true" focusable="false">
-              <circle cx="22" cy="22" r="22"/>
-              <g fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" transform="translate(10 10)">
-                <path d="M5 5l14 14M19 5L5 19"/>
-              </g>
-            </svg>
-            <p class="rk__stopptext" id="rk-stopptext"></p>
-          </div>
-          <p class="rk__fin" id="rk-fin">Uppskattning med snittkommunalskatt. Skatteverket kan landa på ett annat belopp.</p>
-        </div>
-
-        <p class="rk__not" id="rk-not" aria-live="polite" aria-atomic="true" hidden></p>
-      </div>
-    </div>
-
-  </section>
-  </div>
-</div><div id="brxe-qopmij" class="brxe-block ampy-toc-wrapper"><div id="brxe-vvcbla" data-script-id="vvcbla" class="brxe-accordion-nested" data-expand-item="0"><div class="brxe-block brx-open listening"><div id="brxe-xdupyz" class="brxe-block accordion-title-wrapper" role="button" aria-expanded="true" tabindex="0" aria-controls="brxe-prmbhz"><div id="brxe-clsqwj" class="brxe-icon-box"><div class="icon"><i class="ion-md-menu"></i></div><div class="content"><h4 id="">Innehållsförteckning</h4>
-</div></div><i id="brxe-xsttrm" class="ion-ios-arrow-forward brxe-icon brx-icon-transform"></i></div><div id="brxe-prmbhz" class="brxe-block accordion-content-wrapper" role="region" aria-labelledby=""><nav id="brxe-kqtsmp" data-script-id="kqtsmp" class="brxe-post-toc ampy-toc" data-heading-selectors="h2,  h3" data-collapse-inactive="true" data-headings-offset="10" aria-label="Innehållsförteckning"><ul class="toc-list "><li class="toc-list-item is-active-li"><a href="#vad-ar-en-elcentral-och-vad-gor-den" class="toc-link node-name--H2  is-active-link">Vad är en elcentral och vad gör den</a><ul class="toc-list  is-collapsible"><li class="toc-list-item"><a href="#bakom-den-dolda-vaggen" class="toc-link node-name--H3 ">Bakom den dolda väggen</a></li></ul></li><li class="toc-list-item"><a href="#nar-ska-du-byta-elcentral" class="toc-link node-name--H2 ">När ska du byta elcentral</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#beslutsmatris-behover-du-byta-elcentral?" class="toc-link node-name--H3 ">Beslutsmatris: Behöver du byta elcentral?</a></li></ul></li><li class="toc-list-item"><a href="#vad-kostar-en-ny-elcentral-2026" class="toc-link node-name--H2 ">Vad kostar en ny elcentral 2026</a></li><li class="toc-list-item"><a href="#process-sa-gar-ett-byte-till" class="toc-link node-name--H2 ">Process: så går ett byte till</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#sa-gar-vi-tillvaga-nar-vi-byter-elcentral" class="toc-link node-name--H3 ">Så går vi tillväga när vi byter elcentral:</a></li><li class="toc-list-item"><a href="#en-vinstaffar-for-bostadsrattsforeningen" class="toc-link node-name--H3 ">En vinstaffär för bostadsrättsföreningen</a></li></ul></li><li class="toc-list-item"><a href="#elcentralens-komponenter-forklarade" class="toc-link node-name--H2 ">Elcentralens komponenter förklarade</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#tabell-elcentral-komponenter-och-deras-funktion-2026" class="toc-link node-name--H3 ">Tabell: Elcentral komponenter och deras funktion 2026</a></li></ul></li><li class="toc-list-item"><a href="#skillnaden-proppskap-sakringsskap-gruppcentral-och-normcentral" class="toc-link node-name--H2 ">Skillnaden proppskåp, säkringsskåp, gruppcentral och normcentral</a></li><li class="toc-list-item"><a href="#regelverket-2026-—-ss-436-40-00-och-elsak-fs-20221" class="toc-link node-name--H2 ">Regelverket 2026 — SS 436 40 00 och ELSÄK-FS 2022:1</a></li><li class="toc-list-item"><a href="#modern-elcentral-och-nya-laster-laddbox-varmepump-solceller" class="toc-link node-name--H2 ">Modern elcentral och nya laster (laddbox, värmepump, solceller)</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#tabell-effektbehov-for-moderna-hushallslaster-2026" class="toc-link node-name--H3 ">Tabell: Effektbehov för moderna hushållslaster 2026</a></li></ul></li><li class="toc-list-item"><a href="#vad-forsakringsbolagen-inte-sager-hogt-om-dolda-elfel-i-elcentralen" class="toc-link node-name--H2 ">Vad försäkringsbolagen inte säger högt om dolda elfel i elcentralen</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#edvins-lista-topp-10-dolda-elfel-i-aldre-elcentraler" class="toc-link node-name--H3 ">Edvins lista: Topp 10 dolda elfel i äldre elcentraler</a></li></ul></li><li class="toc-list-item"><a href="#bottom-line" class="toc-link node-name--H2 ">Bottom line</a></li></ul></nav></div></div></div></div></div></div></section><section id="brxe-wtauft" class="brxe-section"><div id="brxe-zfscpi" class="brxe-container"><div id="brxe-ngmaci" class="brxe-block"><div class="brxe-block"><div id="brxe-glueby" class="brxe-text"><p>Fortsätt läsa</p>
+</div><a href="#" class="bricks-link-wrapper"><i id="brxe-nzqydg" class="ion-ios-print brxe-icon ampy-print-btn"></i></a></div></div></div><div id="brxe-qopmij" class="brxe-block ampy-toc-wrapper"><div id="brxe-vvcbla" data-script-id="vvcbla" class="brxe-accordion-nested" data-expand-item="0"><div class="brxe-block brx-open listening"><div id="brxe-xdupyz" class="brxe-block accordion-title-wrapper" role="button" aria-expanded="true" tabindex="0" aria-controls="brxe-prmbhz"><div id="brxe-clsqwj" class="brxe-icon-box"><div class="icon"><i class="ion-md-menu"></i></div><div class="content"><h4 id="">Innehållsförteckning</h4>
+</div></div><i id="brxe-xsttrm" class="ion-ios-arrow-forward brxe-icon brx-icon-transform"></i></div><div id="brxe-prmbhz" class="brxe-block accordion-content-wrapper" role="region" aria-labelledby=""><nav id="brxe-kqtsmp" data-script-id="kqtsmp" class="brxe-post-toc ampy-toc" data-heading-selectors="h2,  h3" data-collapse-inactive="true" data-headings-offset="10" aria-label="Innehållsförteckning"><ul class="toc-list "><li class="toc-list-item is-active-li"><a href="#vad-ar-en-elcentral-och-vad-gor-den" class="toc-link node-name--H2  is-active-link">Vad är en elcentral och vad gör den</a><ul class="toc-list  is-collapsible"><li class="toc-list-item"><a href="#bakom-den-dolda-vaggen" class="toc-link node-name--H3 ">Bakom den dolda väggen</a></li></ul></li><li class="toc-list-item"><a href="#nar-ska-du-byta-elcentral" class="toc-link node-name--H2 ">När ska du byta elcentral</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#beslutsmatris-behover-du-byta-elcentral?" class="toc-link node-name--H3 ">Beslutsmatris: Behöver du byta elcentral?</a></li></ul></li><li class="toc-list-item"><a href="#vad-kostar-en-ny-elcentral-2026" class="toc-link node-name--H2 ">Vad kostar en ny elcentral 2026</a></li><li class="toc-list-item"><a href="#process-sa-gar-ett-byte-till" class="toc-link node-name--H2 ">Process: så går ett byte till</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#sa-gar-vi-tillvaga-nar-vi-byter-elcentral" class="toc-link node-name--H3 ">Så går vi tillväga när vi byter elcentral:</a></li><li class="toc-list-item"><a href="#en-vinstaffar-for-bostadsrattsforeningen" class="toc-link node-name--H3 ">En vinstaffär för bostadsrättsföreningen</a></li></ul></li><li class="toc-list-item"><a href="#elcentralens-komponenter-forklarade" class="toc-link node-name--H2 ">Elcentralens komponenter förklarade</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#tabell-elcentral-komponenter-och-deras-funktion-2026" class="toc-link node-name--H3 ">Tabell: Elcentral komponenter och deras funktion 2026</a></li></ul></li><li class="toc-list-item"><a href="#skillnaden-proppskap-sakringsskap-gruppcentral-och-normcentral" class="toc-link node-name--H2 ">Skillnaden proppskåp, säkringsskåp, gruppcentral och normcentral</a></li><li class="toc-list-item"><a href="#regelverket-2026-—-ss-436-40-00-och-elsak-fs-20221" class="toc-link node-name--H2 ">Regelverket 2026 — SS 436 40 00 och ELSÄK-FS 2022:1</a></li><li class="toc-list-item"><a href="#modern-elcentral-och-nya-laster-laddbox-varmepump-solceller" class="toc-link node-name--H2 ">Modern elcentral och nya laster (laddbox, värmepump, solceller)</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#tabell-effektbehov-for-moderna-hushallslaster-2026" class="toc-link node-name--H3 ">Tabell: Effektbehov för moderna hushållslaster 2026</a></li></ul></li><li class="toc-list-item"><a href="#vad-forsakringsbolagen-inte-sager-hogt-om-dolda-elfel-i-elcentralen" class="toc-link node-name--H2 ">Vad försäkringsbolagen inte säger högt om dolda elfel i elcentralen</a><ul class="toc-list  is-collapsible is-collapsed"><li class="toc-list-item"><a href="#edvins-lista-topp-10-dolda-elfel-i-aldre-elcentraler" class="toc-link node-name--H3 ">Edvins lista: Topp 10 dolda elfel i äldre elcentraler</a></li></ul></li><li class="toc-list-item"><a href="#bottom-line" class="toc-link node-name--H2 ">Bottom line</a></li></ul></nav></div></div></div></div></div></section><section id="brxe-wtauft" class="brxe-section"><div id="brxe-zfscpi" class="brxe-container"><div id="brxe-ngmaci" class="brxe-block"><div class="brxe-block"><div id="brxe-glueby" class="brxe-text"><p>Fortsätt läsa</p>
 </div><h3 id="brxe-mvlayl" class="brxe-heading">Populära artiklar</h3></div><div id="brxe-algouo" class="brxe-block"><a id="brxe-uldmbs" href="https://ampy.se/nyheter" class="brxe-block see-all-link"><span class="brxe-text-basic see-all-link__text">Se alla guider</span><span class="brxe-block see-all-link__icon"><svg class="brxe-svg" id="brxe-bdxtbc" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span></a></div></div><div id="brxe-mckqtg" class="brxe-block brx-grid"><!--brx-loop-start-bmlxit--><div class="brxe-bmlxit brxe-block"><div class="brxe-dpgvsz brxe-block post-card"><div class="brxe-jtgtpn brxe-div post-card__image-wrap"><img width="1000" height="667" src="https://ampy.se/wp-content/uploads/elcentral-med-jordfelsbrytare-for-solceller-och-laddbox.webp" class="brxe-qaapkl brxe-image post-card__image css-filter size-large" alt="Elcentral och jordfelsbrytare i en modern elinstallation." decoding="async" srcset="https://ampy.se/wp-content/uploads/elcentral-med-jordfelsbrytare-for-solceller-och-laddbox.webp 1000w, https://ampy.se/wp-content/uploads/elcentral-med-jordfelsbrytare-for-solceller-och-laddbox-768x512.webp 768w, https://ampy.se/wp-content/uploads/elcentral-med-jordfelsbrytare-for-solceller-och-laddbox-600x400.webp 600w" sizes="auto" loading="lazy" fetchpriority="low"><a href="https://ampy.se/sakringar-jordfelsbrytare-overspanningsskydd/" class="post-card__link" aria-label="Krav på elcentral 2026: komponenter och skyddsnivåer"></a>
 <div class="post-card__overlay" aria-hidden="true"></div>
 <div class="post-card__icon-wrap" aria-hidden="true">
@@ -2219,25 +2219,5 @@ html.ampy-cc-locked,html.ampy-cc-locked body{overflow:hidden!important;}
 
 
 
-<script>
-/* Förhandsvisning: ?p=topp flyttar kalkylatorn till artikelspaltens topp (före Snabbt svar). Standard: högerspalten. */
-(function () {
-  var q = new URLSearchParams(location.search), p = q.get('p') === 'topp' ? 'topp' : 'hoger', m = q.get('m') === 'gt' ? 'gt' : 'rot';
-  document.documentElement.dataset.plats = p;
-  if (p === 'topp') {
-    var k = document.getElementById('ampy-kalkylator'), t = document.getElementById('ampy-plats-topp');
-    t.replaceWith(k);
-  }
-  var bar = document.createElement('div');
-  bar.className = 'ampy-forhandsvisning';
-  bar.innerHTML = '<span>Förhandsvisning</span>'
-    + '<a href="?p=hoger&m=' + m + '"' + (p === 'hoger' ? ' aria-current="true"' : '') + '>Högerspalten</a>'
-    + '<a href="?p=topp&m=' + m + '"' + (p === 'topp' ? ' aria-current="true"' : '') + '>Överst i artikeln</a>'
-    + '<i></i>'
-    + '<a href="?p=' + p + '&m=rot"' + (m === 'rot' ? ' aria-current="true"' : '') + '>ROT</a>'
-    + '<a href="?p=' + p + '&m=gt"' + (m === 'gt' ? ' aria-current="true"' : '') + '>Grön teknik</a>';
-  document.body.appendChild(bar);
-})();
-</script>
 <script type="module" src="../v1/app.js"></script>
 </body></html>

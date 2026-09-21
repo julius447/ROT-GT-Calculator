@@ -1,5 +1,6 @@
-/* Delad logik för alla versioner av kalkylatorn. Tre svar in, ett besked ut. Skattemodellen är samma som
-   replikerar Skatteverkets e-tjänst (logik/engine.js, validerad ±1 kr). Inget lagras, inget skickas. */
+/* Kalkylatorns logik (kalkylator/v1 och produktion/dist/engine.js bygger på den här filen). Svaren in, ett besked ut.
+   Skattemodellen är logik/engine.js (verifierad mot Skatteverkets e-tjänst, research/09 och 12). Inget lagras, inget
+   skickas. Den gamla berakna() för designrundans v2b/v3 togs bort 2026-09-21 (research/12 Minor 7). */
 import { skatteutrymme, PARAMS_2026 as P } from '../logik/engine.js';
 
 export const TAK = P.ROT_TAK;   // 50 000 kr per person och år, samma för ROT och grön teknik
@@ -19,36 +20,6 @@ export function siffra(str) {
 export function formatFalt(str) {
   const n = siffra(str);
   return n ? new Intl.NumberFormat('sv-SE').format(n).replace(/[\s  ]/g, ' ') : '';
-}
-
-/**
- * berakna({ mode: 'rot'|'gt', ager: true|false, aldre: true|false, typ: 'lon'|'pension', inkomst: number })
- * -> { status: 'stopp'|'tak'|'belopp', belopp: number|null, prefix: ''|'upp till'|'ca', text: string, not: string|null }
- *   status 'stopp'  = äger inte: inget avdrag, texten är beskedet (rött X)
- *   status 'tak'    = inkomst saknas: det lagliga taket ("upp till 50 000 kr")
- *   status 'belopp' = räknat på inkomsten ("ca 31 000 kr" eller "50 000 kr")
- *   not             = kort rad under talet när huset är yngre än fem år (bara ROT), annars null
- */
-export function berakna({ mode = 'rot', ager = true, aldre = true, typ = 'lon', inkomst = 0 } = {}) {
-  const namn = mode === 'gt' ? 'grön teknik-avdrag' : 'ROT-avdrag';
-  if (!ager) {
-    return { status: 'stopp', belopp: null, prefix: '', text: `Eftersom du inte äger din bostad har du inte rätt till ${namn}.`, not: null };
-  }
-  const not = (mode === 'rot' && !aldre) ? 'Yngre än fem år: ROT gäller reparation och underhåll, inte om- och tillbyggnad.' : null;
-  if (!inkomst) {
-    return { status: 'tak', belopp: TAK, prefix: 'upp till', text: kr(TAK), not };
-  }
-  const r = skatteutrymme({
-    lon_ar: typ === 'lon' ? inkomst : 0,
-    pension_ar: typ === 'pension' ? inkomst : 0,
-    ar_66_plus: typ === 'pension',
-    ks: P.KS_SNITT, taxeringsvarde: 0, ranteutgifter: 0,
-  });
-  const utrymme = Math.max(0, r.utrymme_rot_rut_gt);
-  const t = Math.min(TAK, utrymme);
-  if (t >= TAK) return { status: 'belopp', belopp: TAK, prefix: '', text: kr(TAK), not };
-  const avrundat = Math.round(t / 1000) * 1000;
-  return { status: 'belopp', belopp: avrundat, prefix: 'ca', text: kr(avrundat), not };
 }
 
 /* ---------- Hushåll: flera personer, redan använt avdrag, ålder, bolåneränta (ägarbeslut 2026-09-14, research 07-10 2026-09-16) ---------- */
@@ -82,7 +53,7 @@ function utrymmeFor(p, ks) {
 /**
  * beraknaHushall({ mode, ager, aldre, personer: [{ typ, inkomst, alder: 'u18'|'18-65'|'66+', ranta, anvant, gtAnvant }] })
  * -> { status: 'stopp'|'tak'|'belopp', belopp, prefix, text, not, per, antal }
- *   ager/aldre som i berakna(); person 1:s ålder 'u18' = fyller 18 först nästa år -> stopp (67 kap. 11 §).
+ *   ager = äger bostaden, aldre = äldre än fem år (bara ROT); person 1:s ålder 'u18' = fyller 18 först nästa år -> stopp (67 kap. 11 §).
  *   Per person (67 kap. 19 § tak + 67 kap. 2 § pott): rest = min(50 000, utrymme) − det som redan använts i år av
  *   SAMMA post (ROT och RUT i ROT-läget, grön teknik i grön teknik-läget). Ägarbeslut 2026-09-16: posterna hålls isär
  *   och syns inte i varandra; att ROT/RUT ligger före grön teknik i 67 kap. 2 § är därför en känd förenkling

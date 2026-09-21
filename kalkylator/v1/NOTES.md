@@ -303,3 +303,22 @@ frågeuppsättningen låst, produktionsplacering = överst i artikelspalten (?p=
   inte hela fakturan.") är borttagen på ägarens order. Logiken i rakna.js behåller parametrarna (default 0), UI:t
   frågar inte. Research/11 §6 säger nu att verktyget inte räknar av redan använt avdrag. Kort: desktop 726 (gt 611),
   mobil 983 (gt 888). Probe 86/86, paritet 211/211.
+
+## 2026-09-21: enda placeringen = överst i artikeln (paket 1.1.0)
+
+Ägarbeslut: dokumentationen till Chris ska bara handla om kalkylatorn överst i artikeln; högerspalten och den
+fristående kalkylatorn bort ur leveransen. Gjort:
+- Klonen (`tools/artikel-klon.py`, `kalkylator/artikel/`) har bara topp-placeringen: inget `?p=`, ingen
+  förhandsvisningsrad, `artikel.css` utan `#ampy-hoger`/`[data-plats]`. Klonen är referensen för leveransen.
+- Paketet: block 8 härleds ur `artikel.css` + sajtens tokens (rubriken som mallens H2 24-32/22-28 px, behållaren
+  `width: 100%; min-width: 0`, luften nedåt apspace-m som mallens egna block: 47,8 px till Snabbt svar vid 1440, samma
+  som Snabbt svar -> brödtexten). Bygget vägrar om tokens inte löser till de godkända värdena.
+- Två fel som pariteten i artikelmallen hittade och som ingen hade sett: (1) behållaren blev 0 px bred i Bricks-blocket
+  (flex-kolumn med align-items: center + container-type utan egen bredd) -> width: 100 %; (2) `bas-inbaddad.css` hade
+  `.ampy input`/`.ampy button` (0,1,1) som slog `.ampy-input`/`.ampy-link` (0,1,0): i klonen ärvde fälten artikelns
+  300-vikt utan tabellsiffror och "Lägg till en person" artikelns färg/storlek. Nu `:where(.ampy) :is(...)` (0,0,1) som
+  base.css; klonen visar designen som v1 (paketet gjorde redan rätt).
+- `paritet.mjs` grupp B: `preview/artikel-rot|gt.html` mot klonen vid 1440/1024/390: lägen, 1 481 datorvärden,
+  byte-lika skärmdumpar (överkanten snäppt till hel px), motorn, fokus i sajtens CSS. 341/341. Fixturerna (två
+  instanser, host-sim) flyttade till `_build/prov/`. `skarmdumpar.mjs` tar leveransens bilder.
+- Repot: galleriet, v2b, v3, `tools/galleri.py` och gamla `berakna()` borttagna; roten öppnar artikelförhandsvisningen.
