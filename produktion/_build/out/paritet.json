@@ -1505,7 +1505,7 @@
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
-            "flex": "0 0 auto",
+            "flex": "1 1 auto",
             "flexDirection": "row",
             "flexWrap": "nowrap",
             "alignItems": "normal",
@@ -3042,7 +3042,7 @@
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
-            "flex": "0 0 auto",
+            "flex": "1 1 auto",
             "flexDirection": "row",
             "flexWrap": "nowrap",
             "alignItems": "normal",
@@ -11215,7 +11215,7 @@
             "color": "rgb(9, 11, 50)",
             "backgroundColor": "rgba(0, 0, 0, 0)",
             "padding": "0px",
-            "margin": "0px 0px 0px 134.531px",
+            "margin": "0px",
             "border": "0 / 0 / 0 / 0",
             "borderRadius": "0px",
             "boxShadow": "none",
@@ -11234,7 +11234,7 @@
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
-            "flex": "0 0 140px",
+            "flex": "1 1 150px",
             "flexDirection": "row",
             "flexWrap": "nowrap",
             "alignItems": "normal",
@@ -12752,7 +12752,7 @@
             "color": "rgb(9, 11, 50)",
             "backgroundColor": "rgba(0, 0, 0, 0)",
             "padding": "0px",
-            "margin": "0px 0px 0px 134.531px",
+            "margin": "0px",
             "border": "0 / 0 / 0 / 0",
             "borderRadius": "0px",
             "boxShadow": "none",
@@ -12771,7 +12771,7 @@
             "gridAutoColumns": "auto",
             "gridAutoFlow": "row",
             "gap": "normal",
-            "flex": "0 0 140px",
+            "flex": "1 1 150px",
             "flexDirection": "row",
             "flexWrap": "nowrap",
             "alignItems": "normal",
@@ -19614,35 +19614,99 @@
     },
     {
       "grupp": "1280 stil rot",
+      "kontroll": "radBelopp.margin",
+      "ref": "0px",
+      "cand": "0px 0px 0px 134.531px",
+      "ok": false,
+      "kommentar": ""
+    },
+    {
+      "grupp": "1280 stil rot",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 150px",
+      "cand": "0 0 140px",
+      "ok": false,
+      "kommentar": ""
+    },
+    {
+      "grupp": "1280 stil rot",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
+      "cand": "1479",
+      "ok": false,
+      "kommentar": "2 avvikelser ovan"
+    },
+    {
+      "grupp": "1280 stil gt",
+      "kontroll": "radBelopp.margin",
+      "ref": "0px",
+      "cand": "0px 0px 0px 134.531px",
+      "ok": false,
+      "kommentar": ""
+    },
+    {
+      "grupp": "1280 stil gt",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 150px",
+      "cand": "0 0 140px",
+      "ok": false,
       "kommentar": ""
     },
     {
       "grupp": "1280 stil gt",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
+      "cand": "1479",
+      "ok": false,
+      "kommentar": "2 avvikelser ovan"
+    },
+    {
+      "grupp": "1280 stil host rot",
+      "kontroll": "radBelopp.margin",
+      "ref": "0px",
+      "cand": "0px 0px 0px 134.531px",
+      "ok": false,
+      "kommentar": ""
+    },
+    {
+      "grupp": "1280 stil host rot",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 150px",
+      "cand": "0 0 140px",
+      "ok": false,
       "kommentar": ""
     },
     {
       "grupp": "1280 stil host rot",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
+      "cand": "1479",
+      "ok": false,
+      "kommentar": "2 avvikelser ovan"
+    },
+    {
+      "grupp": "1280 stil host gt",
+      "kontroll": "radBelopp.margin",
+      "ref": "0px",
+      "cand": "0px 0px 0px 134.531px",
+      "ok": false,
+      "kommentar": ""
+    },
+    {
+      "grupp": "1280 stil host gt",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 150px",
+      "cand": "0 0 140px",
+      "ok": false,
       "kommentar": ""
     },
     {
       "grupp": "1280 stil host gt",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1479",
+      "ok": false,
+      "kommentar": "2 avvikelser ovan"
     },
     {
       "grupp": "1280 stil rot",
@@ -19744,9 +19808,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "1 start: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19768,9 +19832,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "2 äger=nej: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19784,9 +19848,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "3 under 18: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19800,9 +19864,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "4 lön 180 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19816,9 +19880,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "5 pension 240 000, över 65: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19832,9 +19896,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "6 lön 1 200 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19848,9 +19912,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19872,9 +19936,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "8 två personer (180 000 + tom): datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19888,9 +19952,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "9 fyra personer: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd rot",
@@ -19912,9 +19976,9 @@
       "grupp": "1280 tillstånd rot",
       "kontroll": "10 lön 300 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -19928,9 +19992,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "1 start: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -19952,9 +20016,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "2 äger=nej: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -19968,9 +20032,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "3 under 18: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -19984,9 +20048,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "4 lön 180 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -20000,9 +20064,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "5 pension 240 000, över 65: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -20016,9 +20080,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "6 lön 1 200 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -20032,9 +20096,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -20056,9 +20120,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "8 två personer (180 000 + tom): datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -20072,9 +20136,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "9 fyra personer: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 tillstånd gt",
@@ -20096,9 +20160,9 @@
       "grupp": "1280 tillstånd gt",
       "kontroll": "10 lön 300 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "2 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.margin: 0px / 0px 0px 0px 134.531px | radBelopp.flex: 1 1 150px / 0 0 140px"
     },
     {
       "grupp": "1280 oberoende",
@@ -20462,35 +20526,67 @@
     },
     {
       "grupp": "390 stil rot",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 auto",
+      "cand": "0 0 auto",
+      "ok": false,
+      "kommentar": ""
+    },
+    {
+      "grupp": "390 stil rot",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
+      "cand": "1480",
+      "ok": false,
+      "kommentar": "1 avvikelser ovan"
+    },
+    {
+      "grupp": "390 stil gt",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 auto",
+      "cand": "0 0 auto",
+      "ok": false,
       "kommentar": ""
     },
     {
       "grupp": "390 stil gt",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
+      "cand": "1480",
+      "ok": false,
+      "kommentar": "1 avvikelser ovan"
+    },
+    {
+      "grupp": "390 stil host rot",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 auto",
+      "cand": "0 0 auto",
+      "ok": false,
       "kommentar": ""
     },
     {
       "grupp": "390 stil host rot",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
+      "cand": "1480",
+      "ok": false,
+      "kommentar": "1 avvikelser ovan"
+    },
+    {
+      "grupp": "390 stil host gt",
+      "kontroll": "radBelopp.flex",
+      "ref": "1 1 auto",
+      "cand": "0 0 auto",
+      "ok": false,
       "kommentar": ""
     },
     {
       "grupp": "390 stil host gt",
       "kontroll": "datorstilar lika (1481 värden på 26 element)",
       "ref": "1481",
-      "cand": "1481",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1480",
+      "ok": false,
+      "kommentar": "1 avvikelser ovan"
     },
     {
       "grupp": "390 stil rot",
@@ -20592,9 +20688,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "1 start: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20616,9 +20712,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "2 äger=nej: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20632,9 +20728,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "3 under 18: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20648,9 +20744,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "4 lön 180 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20664,9 +20760,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "5 pension 240 000, över 65: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20680,9 +20776,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "6 lön 1 200 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20696,9 +20792,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20720,9 +20816,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "8 två personer (180 000 + tom): datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20736,9 +20832,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "9 fyra personer: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd rot",
@@ -20760,9 +20856,9 @@
       "grupp": "390 tillstånd rot",
       "kontroll": "10 lön 300 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20776,9 +20872,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "1 start: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20800,9 +20896,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "2 äger=nej: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20816,9 +20912,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "3 under 18: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20832,9 +20928,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "4 lön 180 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20848,9 +20944,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "5 pension 240 000, över 65: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20864,9 +20960,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "6 lön 1 200 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20880,9 +20976,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "7 lön 300 000 + använt 60 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20904,9 +21000,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "8 två personer (180 000 + tom): datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20920,9 +21016,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "9 fyra personer: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 tillstånd gt",
@@ -20944,9 +21040,9 @@
       "grupp": "390 tillstånd gt",
       "kontroll": "10 lön 300 000: datorstilar lika",
       "ref": "0 avvikelser",
-      "cand": "0 avvikelser",
-      "ok": true,
-      "kommentar": ""
+      "cand": "1 avvikelser",
+      "ok": false,
+      "kommentar": "radBelopp.flex: 1 1 auto / 0 0 auto"
     },
     {
       "grupp": "390 oberoende",
@@ -21150,8 +21246,8 @@
     }
   ],
   "summary": {
-    "ok": 211,
-    "total": 211,
-    "fel": 0
+    "ok": 163,
+    "total": 223,
+    "fel": 60
   }
 }

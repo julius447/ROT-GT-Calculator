@@ -268,8 +268,8 @@
    "stopp": null
   },
   "enter": {
-   "urlFore": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
-   "urlEfter": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
+   "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
    "faltVardeEfter": "180 000",
    "aktivtElement": "rk-inkomst-1",
    "besked": {
@@ -733,8 +733,8 @@
    "stopp": null
   },
   "enter": {
-   "urlFore": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
-   "urlEfter": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
+   "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+   "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
    "faltVardeEfter": "180 000",
    "aktivtElement": "rk-inkomst-1",
    "besked": {
@@ -1071,7 +1071,7 @@
    "ok": true,
    "varde": [
     {
-     "t": 3446,
+     "t": 3453,
      "text": "ca 12 000 kr"
     }
    ]
@@ -1116,8 +1116,8 @@
    "krav": "desktop: Enter i fältet laddar inte om sidan",
    "ok": true,
    "varde": {
-    "urlFore": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
-    "urlEfter": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
+    "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
     "faltVardeEfter": "180 000",
     "aktivtElement": "rk-inkomst-1",
     "besked": {
@@ -1278,7 +1278,7 @@
   {
    "krav": "desktop: Enter i använt-fältet laddar inte om",
    "ok": true,
-   "varde": "http://localhost:8273/kalkylator/v1/index.html?m=rot"
+   "varde": "http://localhost:8320/kalkylator/v1/index.html?m=rot"
   },
   {
    "krav": "desktop: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet",
@@ -1488,7 +1488,7 @@
    "ok": true,
    "varde": [
     {
-     "t": 3493,
+     "t": 3467,
      "text": "ca 12 000 kr"
     }
    ]
@@ -1533,8 +1533,8 @@
    "krav": "mobile: Enter i fältet laddar inte om sidan",
    "ok": true,
    "varde": {
-    "urlFore": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
-    "urlEfter": "http://localhost:8273/kalkylator/v1/index.html?m=rot",
+    "urlFore": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
+    "urlEfter": "http://localhost:8320/kalkylator/v1/index.html?m=rot",
     "faltVardeEfter": "180 000",
     "aktivtElement": "rk-inkomst-1",
     "besked": {
@@ -1714,7 +1714,7 @@
   {
    "krav": "mobile: Enter i använt-fältet laddar inte om",
    "ok": true,
-   "varde": "http://localhost:8273/kalkylator/v1/index.html?m=rot"
+   "varde": "http://localhost:8320/kalkylator/v1/index.html?m=rot"
   },
   {
    "krav": "mobile: Lägg till en person ger Person 1/Person 2, fokus i nya inkomstfältet",

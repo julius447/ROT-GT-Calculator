@@ -42,7 +42,6 @@
    Detaljradernas fält i höger kant även när etiketten är lång (research/13 m1, P7). */
 @container rk (min-width: 720px) {
   .rk { --rk-text-tal: clamp(40px, calc((45cqi - 80px) / 5.4), var(--ampy-text-number)); }
-  .rk__rad > .rk__belopp { margin-left: auto; }
 }
 /* Sexsiffriga summor (hushåll, "upp till 200 000 kr") ett steg mindre så raden håller i artikelspalten (research/13 m4) */
 .rk__tal--lang { font-size: calc(var(--rk-text-tal) * .86); }
@@ -86,12 +85,16 @@
    ett kort fält eller ett segment i höger kant, i linje med inkomstfältet (bankblankettens mönster; på mobil etikett
    ovanför fullbreddskontroll). Fältet 140 px rymmer "50 000" med marginal och raden håller i artikelspaltens 377 px
    (etikett 216 + gap 14 + 140; en wrap-behållare krymper inte, den bryter). */
-.rk__rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }
-.rk__rad > .rk__etikett { flex: 0 1 auto; font-size: var(--rk-text-rad); }   /* detaljrader ett steg under frågorna: 18 mot 20 */
+/* Raden är ett rutnät: etiketten i vänsterspalten (får bryta på två rader), fältet eller segmentet i höger kant, mitt för
+   etiketten. Fältet flyttar aldrig ner under etiketten i två spalter (ägarfynd 2026-09-21: i artikelspalten hamnade
+   boxen på egen rad, ur linje med texten). Under 720 px behållare staplas raden (etikett ovanför, fullbreddsfält). */
+.rk__rad { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--ampy-space-xs); row-gap: var(--rk-gap-ctl); align-items: center; }
+.rk__rad > .rk__etikett { font-size: var(--rk-text-rad); text-wrap: balance; }   /* bryter jämnt ("Grön teknik du redan / använt i år") i stället för att lämna "i år" ensamt */   /* detaljrader ett steg under frågorna: 18 mot 20 */
 .rk__person > .rk__rad { margin-top: var(--ampy-space-s); }               /* detaljraderna hänger ihop med inkomsten: 19,8 mellan raderna, 28 mellan frågorna */
-.rk__rad > .rk__belopp { flex: 0 0 140px; margin-top: 0; }
+.rk__rad > .rk__belopp { width: 140px; margin-top: 0; }
 .rk__rad > .rk__segment { margin-top: 0; }
-.rk__under--rad { flex-basis: 100%; margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
+.rk__rad > .rk__under--rad { grid-column: 1 / -1; }
+.rk__under--rad { margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
 .rk[data-mode="rot"] .rk__fraga--gtanvant { display: none; }           /* ett använt-fält per läge: posterna hålls isär (ägarbeslut 2026-09-16) */
 .rk[data-mode="gt"] .rk__fraga--anvant { display: none; }
 .rk__person:not([data-typ="bada"]) .rk__fraga--pension { display: none; }   /* pensionsraden bara när "Båda" är valt */
@@ -211,8 +214,8 @@
   .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
   .rk__inkomst { flex-direction: column; align-items: stretch; }
   .rk__belopp { flex: 1 1 auto; }
-  .rk__rad { flex-direction: column; align-items: stretch; }
-  .rk__rad > .rk__belopp { flex: 0 0 auto; }
+  .rk__rad { grid-template-columns: minmax(0, 1fr); }
+  .rk__rad > .rk__belopp { width: 100%; }
   .rk__panel {
     padding-block: var(--rk-panel-pad-y);
     border-left: 0; border-top: 1px solid var(--ampy-line);
@@ -233,8 +236,8 @@
     .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
     .rk__inkomst { flex-direction: column; align-items: stretch; }
     .rk__belopp { flex: 1 1 auto; }
-    .rk__rad { flex-direction: column; align-items: stretch; }
-    .rk__rad > .rk__belopp { flex: 0 0 auto; }
+    .rk__rad { grid-template-columns: minmax(0, 1fr); }
+    .rk__rad > .rk__belopp { width: 100%; }
     .rk__panel {
       padding-block: var(--rk-panel-pad-y);
       border-left: 0; border-top: 1px solid var(--ampy-line);
