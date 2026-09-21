@@ -206,7 +206,6 @@
    Detaljradernas fält i höger kant även när etiketten är lång (research/13 m1, P7). */
 @container rk (min-width: 720px) {
   .ampy-avdragskollen .rk { --rk-text-tal: clamp(40px, calc((45cqi - 80px) / 5.4), var(--ampy-text-number)); }
-  .ampy-avdragskollen .rk__rad > .rk__belopp { margin-left: auto; }
 }
 /* Sexsiffriga summor (hushåll, "upp till 200 000 kr") ett steg mindre så raden håller i artikelspalten (research/13 m4) */
 .ampy-avdragskollen .rk__tal--lang { font-size: calc(var(--rk-text-tal) * .86); }
@@ -250,12 +249,16 @@
    ett kort fält eller ett segment i höger kant, i linje med inkomstfältet (bankblankettens mönster; på mobil etikett
    ovanför fullbreddskontroll). Fältet 140 px rymmer "50 000" med marginal och raden håller i artikelspaltens 377 px
    (etikett 216 + gap 14 + 140; en wrap-behållare krymper inte, den bryter). */
-.ampy-avdragskollen .rk__rad { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--rk-gap-ctl) var(--ampy-space-xs); }
-.ampy-avdragskollen .rk__rad > .rk__etikett { flex: 0 1 auto; font-size: var(--rk-text-rad); }   /* detaljrader ett steg under frågorna: 18 mot 20 */
+/* Raden är ett rutnät: etiketten i vänsterspalten (får bryta på två rader), fältet eller segmentet i höger kant, mitt för
+   etiketten. Fältet flyttar aldrig ner under etiketten i två spalter (ägarfynd 2026-09-21: i artikelspalten hamnade
+   boxen på egen rad, ur linje med texten). Under 720 px behållare staplas raden (etikett ovanför, fullbreddsfält). */
+.ampy-avdragskollen .rk__rad { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--ampy-space-xs); row-gap: var(--rk-gap-ctl); align-items: center; }
+.ampy-avdragskollen .rk__rad > .rk__etikett { font-size: var(--rk-text-rad); text-wrap: balance; }   /* bryter jämnt ("Grön teknik du redan / använt i år") i stället för att lämna "i år" ensamt */   /* detaljrader ett steg under frågorna: 18 mot 20 */
 .ampy-avdragskollen .rk__person > .rk__rad { margin-top: var(--ampy-space-s); }               /* detaljraderna hänger ihop med inkomsten: 19,8 mellan raderna, 28 mellan frågorna */
-.ampy-avdragskollen .rk__rad > .rk__belopp { flex: 0 0 140px; margin-top: 0; }
+.ampy-avdragskollen .rk__rad > .rk__belopp { width: 140px; margin-top: 0; }
 .ampy-avdragskollen .rk__rad > .rk__segment { margin-top: 0; }
-.ampy-avdragskollen .rk__under--rad { flex-basis: 100%; margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
+.ampy-avdragskollen .rk__rad > .rk__under--rad { grid-column: 1 / -1; }
+.ampy-avdragskollen .rk__under--rad { margin-top: calc(var(--rk-gap-sub) - var(--rk-gap-ctl)); }   /* undertext under hela raden, 7 px under fältet */
 .ampy-avdragskollen .rk[data-mode="rot"] .rk__fraga--gtanvant { display: none; }           /* ett använt-fält per läge: posterna hålls isär (ägarbeslut 2026-09-16) */
 .ampy-avdragskollen .rk[data-mode="gt"] .rk__fraga--anvant { display: none; }
 .ampy-avdragskollen .rk__person:not([data-typ="bada"]) .rk__fraga--pension { display: none; }   /* pensionsraden bara när "Båda" är valt */
@@ -374,8 +377,8 @@
   .ampy-avdragskollen .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
   .ampy-avdragskollen .rk__inkomst { flex-direction: column; align-items: stretch; }
   .ampy-avdragskollen .rk__belopp { flex: 1 1 auto; }
-  .ampy-avdragskollen .rk__rad { flex-direction: column; align-items: stretch; }
-  .ampy-avdragskollen .rk__rad > .rk__belopp { flex: 0 0 auto; }
+  .ampy-avdragskollen .rk__rad { grid-template-columns: minmax(0, 1fr); }
+  .ampy-avdragskollen .rk__rad > .rk__belopp { width: 100%; }
   .ampy-avdragskollen .rk__panel {
     padding-block: var(--rk-panel-pad-y);
     border-left: 0; border-top: 1px solid var(--ampy-line);
@@ -396,8 +399,8 @@
     .ampy-avdragskollen .rk__segment { display: grid; width: 100%; }                          /* fullbreddskontroller */
     .ampy-avdragskollen .rk__inkomst { flex-direction: column; align-items: stretch; }
     .ampy-avdragskollen .rk__belopp { flex: 1 1 auto; }
-    .ampy-avdragskollen .rk__rad { flex-direction: column; align-items: stretch; }
-    .ampy-avdragskollen .rk__rad > .rk__belopp { flex: 0 0 auto; }
+    .ampy-avdragskollen .rk__rad { grid-template-columns: minmax(0, 1fr); }
+    .ampy-avdragskollen .rk__rad > .rk__belopp { width: 100%; }
     .ampy-avdragskollen .rk__panel {
       padding-block: var(--rk-panel-pad-y);
       border-left: 0; border-top: 1px solid var(--ampy-line);
@@ -433,7 +436,7 @@
 
 /* ---------- Manifest (skrivet av paketera.mjs) ----------
    Källor (sha256):
-     kalkylator/v1/style.css  b707a019d438a7cee62cad6439661bcd7d8b35d2ba0df39c7b4d6994dafae505
+     kalkylator/v1/style.css  1f202b77337c1b9c486c63b3378f4c7ddb6b6269473e639111cd67532bcde4b0
      kalkylator/system/tokens.css  1f5299c26dbe001bb39d14ee0b4b4bafa0ffb9de40154c6347f995f22901691e
      kalkylator/system/base.css  54751da13353776c55e3ae895641189142e74f210deced246230149179ea7201
      kalkylator/system/components/text.css  503fd1160db167db5dff383be22ead97e018abdd1d735cb7788ae374eeacffac

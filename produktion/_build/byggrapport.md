@@ -2,7 +2,7 @@
 
 Skrivs om vid varje bygge. Källor och sha256:
 - kalkylator/v1/index.html: f1b86b898a7c10805c9c1953d9d7990c6df7e97c2b8af0c3235150ab96578323
-- kalkylator/v1/style.css: b707a019d438a7cee62cad6439661bcd7d8b35d2ba0df39c7b4d6994dafae505
+- kalkylator/v1/style.css: 1f202b77337c1b9c486c63b3378f4c7ddb6b6269473e639111cd67532bcde4b0
 - kalkylator/v1/app.js: ecd461de1ea6c4cf772a19aa2807ec236ebef19e7eb82e2326541a8951e920df
 - kalkylator/rakna.js: 12dd1cd63726df7a9ac4ac99273f477e7c86d878b0de22d28eece7cefee988ff
 - logik/engine.js: 46c03df1c981368160d41e83fd681871aad4e3f10348efd525e8037bdb41fd3f
@@ -544,7 +544,6 @@ Skrivs om vid varje bygge. Källor och sha256:
 - .rk__rubrik
 - .rk
 - .rk
-- .rk__rad > .rk__belopp
 - .rk__tal--lang
 - .rk__fragor
 - .rk__fraga
@@ -569,6 +568,7 @@ Skrivs om vid varje bygge. Källor och sha256:
 - .rk__person > .rk__rad
 - .rk__rad > .rk__belopp
 - .rk__rad > .rk__segment
+- .rk__rad > .rk__under--rad
 - .rk__under--rad
 - .rk[data-mode="rot"] .rk__fraga--gtanvant
 - .rk[data-mode="gt"] .rk__fraga--anvant
@@ -636,7 +636,7 @@ Skrivs om vid varje bygge. Källor och sha256:
 - 34rem -> 340px
 
 ## Logg
-- dist/styles.css: 31651 tecken, 59 tokens, 32 systemregler, rem->px: 34rem -> 340px
+- dist/styles.css: 32087 tecken, 59 tokens, 32 systemregler, rem->px: 34rem -> 340px
 - dist/engine.js: 24976 tecken (12 motordelar + 9 rakna-delar + init(root)), 19 numeriska avgränsare -> vanliga tal
 - dist/backend.php: 17133 tecken
 - dist/fonts/Outfit-VariableFont_wght.woff2: 44696 byte, sha256 99bd3f38d485… (= sajtens fil)

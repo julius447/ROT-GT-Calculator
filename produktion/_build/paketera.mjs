@@ -404,7 +404,7 @@ if (styleTog.some((s) => /rk-(sida|spalt|behallare)/.test(s))) fail('style.css: 
 styleCss = styleCss.replace(/^\/\* Avdragskollen v1[\s\S]*?\*\/\n\n/, '');            // filhuvudet (talar om demosidan) ersätts av paketets eget
 styleCss = styleCss.replace(/^\/\* ---------- Sidan: artikelspalten[^\n]*\n\s*/m, ''); // rubrikkommentaren till de slängda demoreglerna
 styleCss = styleCss.replace(/\n{3,}/g, '\n\n').trim();
-for (const must of ['.rk [hidden]', '@container rk (max-width: 719px)', '@supports not (container-type: inline-size)', '@keyframes rk-in', 'flex: 0 0 140px']) {
+for (const must of ['.rk [hidden]', '@container rk (max-width: 719px)', '@supports not (container-type: inline-size)', '@keyframes rk-in', 'width: 140px']) {
   if (!styleCss.includes(must)) fail(`style.css-blocket saknar "${must}"`);
 }
 
